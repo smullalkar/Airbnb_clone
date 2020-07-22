@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
   baseURL: "http:localhost "
 });
 
-axiosInstance.interceptors.request.use(request => {
+axiosInstance.interceptors.request.use((request) => {
   if (interceptorEnabled) {
     console.log(`Request: ${request.method} ${request.baseURL}${request.url}`);
   }
@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use(request => {
 });
 
 axiosInstance.interceptors.response.use(
-  response => {
+  (response) => {
     if (interceptorEnabled) {
       console.log("Response Status: ", response.status);
       console.log("Response Summary: ", response.data.summary);
@@ -27,7 +27,7 @@ axiosInstance.interceptors.response.use(
     }
     return response;
   },
-  error => {
+  (error) => {
     console.log("Error", error);
     return error;
   }

@@ -7,7 +7,10 @@ import {
     LOGOUT_USER_FAILURE,
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
-    REGISTER_USER_FAILURE
+    REGISTER_USER_FAILURE,
+    TOKEN_VALIDATE_REQUEST,
+    TOKEN_VALIDATE_SUCCESS,
+    TOKEN_VALIDATE_FAILURE,
 } from "../authentication/actionTypes";
 
 import axios from "../../Utils/axiosInterceptor";
@@ -38,7 +41,7 @@ export const loginUser = payload => {
             .then(res => {
                 dispatch(loginUserSuccess(res.data));
             })
-            .catch(() => dispatch(loginUserFail()));
+            .catch(() => dispatch(loginUserFailure()));
     };
 };
 
@@ -56,7 +59,7 @@ export const registerUserSuccess = payload => ({
     payload
 });
 
-export const registerUserFail = () => ({
+export const registerUserFailure = () => ({
     type: REGISTER_USER_FAILURE
 });
 
@@ -72,7 +75,7 @@ export const registerUser = payload => {
             .then(res => {
                 dispatch(registerUserSuccess(res.data));
             })
-            .catch(() => dispatch(registerUserFail()));
+            .catch(() => dispatch(registerUserFailure()));
     };
 };
 // Register user end
@@ -87,8 +90,44 @@ export const logoutUserSuccess = payload => ({
     payload
 });
 
-export const logoutUserFail = () => ({
+export const logoutUserFailure = () => ({
     type: LOGOUT_USER_FAILURE
 });
 
 //Logout user end
+
+
+//Token validation start
+
+export const tokenValidateRequest = () => ({
+    type: TOKEN_VALIDATE_REQUEST
+});
+
+export const tokenValidateSuccess = payload => ({
+    type: TOKEN_VALIDATE_SUCCESS,
+    payload
+});
+
+export const tokenValidateFailure = () => ({
+    type: TOKEN_VALIDATE_FAILURE
+});
+
+export const tokenValidateUser = payload => {
+    return dispatch => {
+        dispatch(tokenValidateRequest());
+        return axios
+            .get("/validate", {
+                headers: {
+                    Authorization: payload
+                }
+            })
+            .then(res =>
+                res.data.success
+                    ? dispatch(tokenValidateSuccess(res))
+                    : dispatch(tokenValidateFailure())
+            )
+            .catch(() => dispatch(tokenValidateFailure()));
+    };
+};
+
+  //Token validation end

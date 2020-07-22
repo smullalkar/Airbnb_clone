@@ -7,20 +7,23 @@ import {
     LOGOUT_USER_FAILURE,
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
-    REGISTER_USER_FAILURE
+    REGISTER_USER_FAILURE,
+    TOKEN_VALIDATE_REQUEST,
+    TOKEN_VALIDATE_SUCCESS,
+    TOKEN_VALIDATE_FAILURE
 } from "../authentication/actionTypes";
 
 
-function getUserInfo() {
-    let token = localStorage.getItem("token");
-    let email = localStorage.getItem("email");
-    let userType = localStorage.getItem("role");
-    if (!token || !email || !userType) {
-        email = "";
-        token = "";
-        userType = "";
-    }
-    return [token, email, userType];
-}
 
-const [token, email, userType] = getUserInfo();
+const initState = {
+    isAuth: false,
+    isLoading: false,
+    isValidating: false,
+    token,
+    email,
+    isRegistering: false,
+    registerSuccess: false,
+    error: false,
+    errorType: "",
+    errorMessage: "",
+  }
