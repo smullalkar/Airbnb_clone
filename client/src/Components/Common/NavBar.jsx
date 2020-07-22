@@ -1,41 +1,59 @@
 import React, { Component } from "react";
-import Login from "../Auth/Login";
-import { Navbar, Container, NavDropdown, Nav } from "react-bootstrap";
+import Login from "../Auth/Login/Login";
+import { Navbar, DropdownButton, Dropdown, Nav } from "react-bootstrap";
+import Signup from "../Auth/SignUp/Signup";
 
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { showLoginModal: false };
+    this.state = { showLoginModal: false, showSignUpModal: false };
   }
+
+  handleLoginClose = () => this.setState({ showLoginModal: false });
+  handleSignUpClose = () => this.setState({ showSignUpModal: false });
 
   render() {
     // const {} = this.props;
 
     return (
       <div>
-        <Navbar expand="lg" variant="light" bg="light">
-          <Container></Container>
-        </Navbar>
+        <Navbar
+          expand="lg"
+          bg="light"
+          variant="light"
+          className="d-flex justify-content-between"
+        >
+          <Navbar.Brand href="#"></Navbar.Brand>
 
-        <Navbar expand="lg" bg="light" variant="light">
-          <Navbar.Brand href="#">ICON</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse>
-            <NavDropdown title="gloab" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1"></NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2"> </NavDropdown.Item>
-            </NavDropdown>
-
-            <Nav.Link href="#">Host Your Home</Nav.Link>
-            <Nav.Link href="#">Host an Experience</Nav.Link>
-            <Nav.Link href="#">Help</Nav.Link>
-            <Nav.Link onClick={() => this.setState({ showLoginModal: true })}>
-              Login
-            </Nav.Link>
-            <Nav.Link href="">SignUP</Nav.Link>
-          </Navbar.Collapse>
+          <DropdownButton
+            alignRight
+            title="Icon"
+            id="dropdown-menu-align-right"
+          >
+            <Dropdown.Item
+              onClick={() => this.setState({ showLoginModal: true })}
+            >
+              Login{" "}
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => this.setState({ showSignUpModal: true })}
+            >
+              Sign Up
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item>Host Your Home</Dropdown.Item>
+            <Dropdown.Item>Host an Experience</Dropdown.Item>
+            <Dropdown.Item>Help</Dropdown.Item>
+          </DropdownButton>
         </Navbar>
-        <Login show={this.state.showLoginModal} />
+        <Login
+          show={this.state.showLoginModal}
+          handleLoginClose={this.handleLoginClose}
+        />
+        <Signup
+          show={this.state.showSignUpModal}
+          handleSignUpClose={this.handleSignUpClose}
+        />
       </div>
     );
   }

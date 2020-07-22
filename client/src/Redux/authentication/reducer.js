@@ -16,14 +16,13 @@ import {
 
 
 const initState = {
-    isAuth: false,
-    isLoading: false,
-    isValidating: false,
-    token,
-    email,
-    isRegistering: false,
-    registerSuccess: false,
-    error: false,
-    errorType: "",
-    errorMessage: "",
-  }
+    registrationData: {
+        country: "",
+        phone: 0,
+        first_name: "",
+        last_name: "",
+        DOB: "",
+        email: "",
+        password: ""
+    }
+}
