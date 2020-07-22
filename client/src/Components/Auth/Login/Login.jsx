@@ -19,16 +19,22 @@ class Login extends Component {
 
                 <Modal show={show} animation={false} onHide={handleLoginClose} >
                     <Modal.Header closeButton>
-                        <Modal.Title className="text-center" >Login</Modal.Title>
+                        <Modal.Title >Login</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
 
                         <Form.Group >
-                            <Form.Control as="select" size="lg">
-                                <option>Country/Region</option>
+                            <Form.Label>Country/Region</Form.Label>
+                            <Form.Control as="select">
+                                <option>India (+91)</option>
                             </Form.Control>
-                            <Form.Control size="lg" type="number" placeholder="Phone Number" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Control size="lg" type="number" />
+
+                        </Form.Group>
+                        <Form.Group>
                             <Form.Text muted className="my-2">
                                 We’ll call or text you to confirm your number. Standard message and data rates apply.
                             </Form.Text>
@@ -42,6 +48,7 @@ class Login extends Component {
                             <div className="my-2">
 
                                 <Button variant="outline-secondary" size="lg" block>
+
                                     Continue with Email
                             </Button>
 
@@ -80,7 +87,7 @@ class Login extends Component {
 
 
 
-            </div>
+            </div >
         );
     }
 }

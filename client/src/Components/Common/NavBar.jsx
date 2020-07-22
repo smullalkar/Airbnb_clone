@@ -3,11 +3,14 @@ import Login from '../Auth/Login/Login'
 import { Navbar, DropdownButton, Dropdown, Nav } from 'react-bootstrap'
 import Signup from "../Auth/SignUp/Signup";
 
+import logo from '../../assets/logo.svg';
+
+
 
 class NavBar extends Component {
     constructor(props) {
         super(props)
-        this.state = { showLoginModal: false, showSignUpModal: false }
+        this.state = { showLoginModal: true, showSignUpModal: false }
     }
 
     handleLoginClose = () => this.setState({ showLoginModal: false })
@@ -25,7 +28,7 @@ class NavBar extends Component {
 
                 <Navbar expand="lg" bg="light" variant="light" className="d-flex justify-content-between">
                     <Navbar.Brand href="#">
-
+                        <img src={logo} alt="Airbnb" className="App-logo" />
 
                     </Navbar.Brand>
 
