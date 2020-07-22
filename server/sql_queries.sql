@@ -1,0 +1,1 @@
+create DATABASE airbnb_clone;
