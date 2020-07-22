@@ -1,18 +1,39 @@
 import jwt
 from instance.config import SECRET_KEY as key
-import datetime
+import time
+import json
 
 
 def checkAuthToken(token):
 
-    decoded_data = jwt.decode(token, key)
+    decodedData = jwt.decode(token, key)
 
-    if datetime.datetime.strptime(decoded_data["expire_at"],
-                                  "%Y-%m-%d %H:%M:%S.%f") \
-    < datetime.datetime.utcnow():
-        return False, {}
+    current_time = time.time()
+
+    if decodedData["session_expiry"] < current_time:
+        return json.dumps({
+            "error": True,
+            "message": "Invalid Token"
+        })
     else:
-        return True, {
+        return json.dumps({
             "data": decodedData,
             "message": True
-        }
+        }, default=str)
+
+# def checkAuthToken(t):
+#     data= t["token"]
+#     decodedData = jwt.decode(data, key)
+
+#     current_time = time.time()
+
+#     if decodedData["session_expiry"] < current_time:
+#         return json.dumps({
+#             "error": True,
+#             "message": "Invalid Token"
+#         })
+#     else:
+#         return json.dumps({
+#             "data": decodedData,
+#             "message": True
+#         }, default=str)
