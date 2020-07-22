@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const axiosInstance = axios.create({
-  baseURL: "<Base_URL>"
+  baseURL: "http:localhost "
 });
 
 axiosInstance.interceptors.request.use(request => {
