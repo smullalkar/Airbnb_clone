@@ -15,7 +15,6 @@ def register(userDetails):
         email = userDetails["email"]
         password = userDetails["password"]
         createdAt = time.strftime('%Y-%m-%d %H:%M:%S')
-        userType = userDetails["userType"]
     except KeyError as err:
         return json.dumps({'error': True, 'error_found': format(err)})
     except TypeError as err:
@@ -47,7 +46,7 @@ def register(userDetails):
                 dob=dob,
                 email=email,
                 password=password,
-                type=userType,
+                userType=userType,
                 createdAt=createdAt
             )
 
@@ -89,17 +88,13 @@ def login(userDetails):
                 data = {
                     "firstname": results.firstname,
                     "lastname": results.lastname,
-                    "dob": results.dob,
+                    "dob": str(results.dob),
                     "email": results.email,
                     "userType": results.userType,
                 }
                 obj = {
                     "data": data,
-                    "created_at": str(datetime.datetime.utcnow()),
-                    "expire_at": str(
-                        datetime.datetime.utcnow()
-                        + datetime.timedelta(days=1)
-                    )
+                    "session_expiry": time.time() + 86400
                 }
 
                 encode_jwt = jwt.encode(obj, SECRET_KEY)
