@@ -17,6 +17,7 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      phone:""
     };
   }
   responseFacebook = (response) => {
@@ -36,8 +37,8 @@ class Login extends Component {
 
   handleContinue = () => {
     const { loginUser } = this.props;
-    const { email, password } = this.state;
-    var obj = { email: email, passowrd: password };
+    const { email, password, phone } = this.state;
+    var obj = { email: email, passowrd: password , phone : Number(phone)};
     loginUser(obj);
   };
   render() {
@@ -64,6 +65,13 @@ class Login extends Component {
                 size="lg"
                 type="password"
                 placeholder="Enter password"
+                onChange={this.handleChange}
+              />
+              <Form.Control
+                name="number"
+                size="lg"
+                type="number"
+                placeholder="Enter phone number"
                 onChange={this.handleChange}
               />
               <Form.Text muted className="my-2">

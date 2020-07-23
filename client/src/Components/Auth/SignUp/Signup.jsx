@@ -19,50 +19,56 @@ class Signup extends Component {
 
           <Modal.Body>
             <Form.Group>
+              <Form.Label>Country/Region</Form.Label>
               <Form.Control as="select" size="lg">
                 <option>Country/Region</option>
               </Form.Control>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 size="lg"
                 type="number"
                 placeholder="Phone Number"
                 value={""}
               />
-              <Form.Text muted className="my-2">
-                We’ll call or text you to confirm your number. Standard message
-                and data rates apply.
+            </Form.Group>
+
+            <Form.Text muted className="my-2">
+              We’ll call or text you to confirm your number. Standard message
+              and data rates apply.
               </Form.Text>
 
-              <Button className={styles.btn} size="lg" block>
-                Continue
-              </Button>
+            <Button className={styles.btn} size="lg" block>
+              Continue
+           </Button>
 
-              <hr />
+            <hr />
 
-              <div className="my-2">
-                <Button variant="outline-secondary" size="lg" block>
-                  Continue with Email
+            <div className="my-2">
+              <Button variant="outline-secondary" size="lg" block>
+                Continue with Email
+            </Button>
+
+              <Button variant="outline-secondary" size="lg" block>
+                Continue with Facebook
+                </Button>
+              <Button variant="outline-secondary" size="lg" block>
+                <i clasName="fab fa-facebook-f blue-text text-center"></i>{" "}
+                Continue with Google
+                </Button>
+              <Button variant="outline-secondary" size="lg" block>
+                Continue with Apple
                 </Button>
 
-                <Button variant="outline-secondary" size="lg" block>
-                  Continue with Facebook
-                </Button>
-                <Button variant="outline-secondary" size="lg" block>
-                  <i clasName="fab fa-facebook-f blue-text text-center"></i>{" "}
-                  Continue with Google
-                </Button>
-                <Button variant="outline-secondary" size="lg" block>
-                  Continue with Apple
-                </Button>
-
-                <div className="d-flex ">
-                  <Form.Text muted className="mx-2">
-                    Don’t have an account?
+              <div className="d-flex ">
+                <Form.Text muted className="mx-2">
+                  Don’t have an account?
                   </Form.Text>
-                  Login
+                Login
                 </div>
-              </div>
-            </Form.Group>
+            </div>
+
           </Modal.Body>
         </Modal>
       </div>
