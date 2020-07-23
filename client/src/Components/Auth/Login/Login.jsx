@@ -30,7 +30,9 @@ class Login extends Component {
                                 <option>India (+91)</option>
                             </Form.Control>
                         </Form.Group>
+
                         <Form.Group>
+                            <Form.Label>Phone Number</Form.Label>
                             <Form.Control size="lg" type="number" />
 
                         </Form.Group>
