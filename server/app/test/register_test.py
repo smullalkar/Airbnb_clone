@@ -3,7 +3,9 @@ from ..main.services.user import register as user_register
 
 
 class RegisterTest(unittest.TestCase):
-
+    """
+    Testing for registeration of the user
+    """
     def test_register_success(self):
 
         obj = {
