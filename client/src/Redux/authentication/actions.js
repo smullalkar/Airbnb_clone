@@ -35,21 +35,22 @@ export const facebookLoginFailure = () => ({
 })
 
 export const facebookLogin = payload => {
-    console.log(payload)
+
     const [firstname, lastname] = payload.name.split(" ")
+    console.log(firstname,"\n" + lastname, "\n" + payload.email , "\n" + payload.accessToken,"\n" + payload.graphDomain, "\n" +payload.id)
     return dispatch => {
         dispatch(facebookLoginRequest());
         return axios
-            .post("/user/oauthlogin", {
+            .post("user/oauthlogin", {
                 firstname: firstname,
                 lastname: lastname,
                 email: payload.email,
-                accessToken: payload.accessToken,
+                access_token: payload.accessToken,
                 provider: payload.graphDomain,
                 provider_id: payload.id
             })
             .then(res => {
-                dispatch(facebookLoginSuccess(res));
+                dispatch(facebookLoginSuccess(res.data));
             })
             .catch(() => dispatch(facebookLoginFailure()));
     };
@@ -71,19 +72,20 @@ export const googleLoginFailure = () => ({
 export const googleLogin = payload => {
     console.log(payload)
     const [firstname, lastname] = payload.profileObj.name.split(" ")
+    console.log(firstname , "\n" + lastname , "\n" +payload.profileObj.email, "\n"  +payload.accessToken +"\n",payload.wc.idpId, payload.googleId)
     return dispatch => {
         dispatch(googleLoginRequest());
         return axios
-            .post("/user/oauthlogin", {
+            .post("user/oauthlogin", {
                 firstname: firstname,
                 lastname: lastname,
                 email: payload.profileObj.email,
                 access_token: payload.accessToken,
-                provider: payload.wcidpId,
+                provider: payload.wc.idpId,
                 provider_id: payload.googleId
             })
             .then(res => {
-                dispatch(googleLoginSuccess(res));
+                dispatch(googleLoginSuccess(res.data));
             })
             .catch(() => dispatch(googleLoginFailure()));
     };
@@ -108,12 +110,12 @@ export const loginUser = payload => {
         dispatch(loginUserRequest());
         return axios
             .post("/user/login", {
-                email : payload.email,
-                password : payload.password,
+                email: payload.email,
+                password: payload.password,
                 phone: payload.phone
             })
             .then(res => {
-                dispatch(loginUserSuccess(res));
+                dispatch(loginUserSuccess(res.data));
             })
             .catch(() => dispatch(loginUserFailure()));
     };
@@ -137,13 +139,16 @@ export const registerUser = payload => {
     return dispatch => {
         dispatch(registerUserRequest());
         return axios
-            .post("/user/register", {
-                email : payload.email,
-                password : payload.password,
-                phone: payload.phone
+            .post("user/register", {
+                email: payload.email,
+                password: payload.password,
+                phone: payload.phone,
+                firstname: payload.firstname,
+                lastname: payload.lastname,
+                dob: payload.dob
             })
             .then(res => {
-                dispatch(registerUserSuccess(res));
+                dispatch(registerUserSuccess(res.data));
             })
             .catch(() => dispatch(registerUserFailure()));
     };
