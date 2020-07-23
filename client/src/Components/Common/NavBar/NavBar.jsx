@@ -6,6 +6,7 @@ import FinishSignup from "../../Auth/SignUp/FinishSignUp"
 
 
 
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +30,7 @@ class NavBar extends Component {
         >
           <Navbar.Brand href="#">
 
-            <img src=".././assets/logo.svg" alt="Airbnb" />
+            <img src="" alt="Airbnb" />
           </Navbar.Brand>
 
 

@@ -10,6 +10,8 @@ import img2 from '../../../assets/images/2.webp'
 
 import img3 from '../../../assets/images/3.webp'
 
+import SearchBar from "../Search/SearchBar"
+
 
 class Home extends Component {
     constructor(props) {
@@ -24,7 +26,7 @@ class Home extends Component {
 
         return (
             <div className={styles.appContainer}>
-                <Nav variant="tabs" className="mt-5" defaultActiveKey="/home">
+                <Nav variant="tabs" className="mt-5 mb-5" defaultActiveKey="/home">
                     <Nav.Item>
                         <Nav.Link href="/home">Places to stay</Nav.Link>
                     </Nav.Item>
@@ -37,8 +39,10 @@ class Home extends Component {
 
                 </Nav>
 
+                <SearchBar />
 
-                <div className="mt-5 ">
+
+                <div className="mt-5 mb-5">
 
                     <CardDeck>
                         <Card>

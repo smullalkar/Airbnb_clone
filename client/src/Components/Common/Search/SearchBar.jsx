@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 
-import { Nav } from "react-bootstrap"
+import { Form, Button } from "react-bootstrap"
 
-import styles from './Home.module.css'
+import styles from './SearchBar.module.css';
+
 
 class Search extends Component {
     constructor(props) {
@@ -10,38 +11,36 @@ class Search extends Component {
 
     }
 
-
-
     render() {
         // const {} = this.props;
 
         return (
-            <div pill variant="light" className={styles.appContainer}>
-                <Nav variant="tabs" defaultActiveKey="/Search" >
-                    <Nav.Item>
-                        <Nav.Link href="/Search">Location</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-1">Checkin</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-2">Checkou</Nav.Link>
-                    </Nav.Item>
+            <div pill variant="light" >
+                <Form>
+                    <Form.Group >
+                        <Form.Label>LOCATION</Form.Label>
+                        <Form.Control type="password" placeholder="where you are going?" />
+                    </Form.Group>
+                    <Form.Group >
+                        <Form.Label>CHECK IN</Form.Label>
+                        <Form.Control type="password" placeholder="Add Dates" />
+                    </Form.Group>
+                    <Form.Group >
+                        <Form.Label>CHECK OUT</Form.Label>
+                        <Form.Control type="password" placeholder="Add Dates" />
+                    </Form.Group>
 
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-2">Guests</Nav.Link>
-                    </Nav.Item>
+                    <Form.Group >
+                        <Form.Label>GUESTS</Form.Label>
+                        <Form.Control type="password" placeholder="Add guests" />
+                    </Form.Group>
 
-                    <button type="search">Search</button>
-
-                </Nav>
-
-
+                    <Form.Group >
+                        <Button className={styles.btn}>Search</Button>
+                    </Form.Group>
 
 
-                <nav>
-
-                </nav>
+                </Form>
 
             </div>
         );
