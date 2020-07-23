@@ -109,11 +109,42 @@ export const loginUser = payload => {
         return axios
             .post("/user/login", {
                 email : payload.email,
-                password : payload.password
+                password : payload.password,
+                phone: payload.phone
             })
             .then(res => {
                 dispatch(loginUserSuccess(res));
             })
             .catch(() => dispatch(loginUserFailure()));
+    };
+}
+
+export const registerUserRequest = () => ({
+    type: REGISTER_USER_REQUEST
+});
+
+export const registerUserSuccess = payload => ({
+    type: REGISTER_USER_SUCCESS,
+    payload
+});
+
+export const registerUserFailure = () => ({
+    type: REGISTER_USER_FAILURE
+});
+
+export const registerUser = payload => {
+    console.log(payload)
+    return dispatch => {
+        dispatch(registerUserRequest());
+        return axios
+            .post("/user/register", {
+                email : payload.email,
+                password : payload.password,
+                phone: payload.phone
+            })
+            .then(res => {
+                dispatch(registerUserSuccess(res));
+            })
+            .catch(() => dispatch(registerUserFailure()));
     };
 }
