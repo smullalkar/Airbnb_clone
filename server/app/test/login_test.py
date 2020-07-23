@@ -3,7 +3,9 @@ from ..main.services.user import login as user_login
 
 
 class LoginTest(unittest.TestCase):
-
+    """
+    Testing for login of the user
+    """
     def test_login_error(self):
 
         obj = {

@@ -11,7 +11,6 @@ input::-webkit-inner-spin-button {
   margin: 0 !important;
 }
 
-/* Firefox */
 input[type=number] {
   -moz-appearance: textfield !important;
 }

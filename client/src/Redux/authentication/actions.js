@@ -11,12 +11,86 @@ import {
     TOKEN_VALIDATE_REQUEST,
     TOKEN_VALIDATE_SUCCESS,
     TOKEN_VALIDATE_FAILURE,
+    FACEBOOK_LOGIN_REQUEST,
+    FACEBOOK_LOGIN_SUCCESS,
+    FACEBOOK_LOGIN_FAILURE,
+    GOOGLE_LOGIN_REQUEST,
+    GOOGLE_LOGIN_SUCCESS,
+    GOOGLE_LOGIN_FAILURE,
 } from "../authentication/actionTypes";
 
 import axios from "../../Utils/axiosInterceptor";
 
+export const facebookLoginRequest = () => ({
+    type: FACEBOOK_LOGIN_REQUEST
+})
 
-//Login request start
+export const facebookLoginSuccess = payload => ({
+    type: FACEBOOK_LOGIN_FAILURE,
+    payload
+})
+
+export const facebookLoginFailure = () => ({
+    type: FACEBOOK_LOGIN_FAILURE,
+})
+
+export const facebookLogin = payload => {
+
+    const [firstname, lastname] = payload.name.split(" ")
+    console.log(firstname,"\n" + lastname, "\n" + payload.email , "\n" + payload.accessToken,"\n" + payload.graphDomain, "\n" +payload.id)
+    return dispatch => {
+        dispatch(facebookLoginRequest());
+        return axios
+            .post("user/oauthlogin", {
+                firstname: firstname,
+                lastname: lastname,
+                email: payload.email,
+                access_token: payload.accessToken,
+                provider: payload.graphDomain,
+                provider_id: payload.id
+            })
+            .then(res => {
+                dispatch(facebookLoginSuccess(res.data));
+            })
+            .catch(() => dispatch(facebookLoginFailure()));
+    };
+}
+
+export const googleLoginRequest = () => ({
+    type: GOOGLE_LOGIN_REQUEST
+})
+
+export const googleLoginSuccess = payload => ({
+    type: GOOGLE_LOGIN_SUCCESS,
+    payload
+})
+
+export const googleLoginFailure = () => ({
+    type: GOOGLE_LOGIN_FAILURE
+})
+
+export const googleLogin = payload => {
+    console.log(payload)
+    const [firstname, lastname] = payload.profileObj.name.split(" ")
+    console.log(firstname , "\n" + lastname , "\n" +payload.profileObj.email, "\n"  +payload.accessToken +"\n",payload.wc.idpId, payload.googleId)
+    return dispatch => {
+        dispatch(googleLoginRequest());
+        return axios
+            .post("user/oauthlogin", {
+                firstname: firstname,
+                lastname: lastname,
+                email: payload.profileObj.email,
+                access_token: payload.accessToken,
+                provider: payload.wc.idpId,
+                provider_id: payload.googleId
+            })
+            .then(res => {
+                dispatch(googleLoginSuccess(res.data));
+            })
+            .catch(() => dispatch(googleLoginFailure()));
+    };
+}
+
 export const loginUserRequest = () => ({
     type: LOGIN_USER_REQUEST
 });
@@ -31,24 +105,21 @@ export const loginUserFailure = () => ({
 });
 
 export const loginUser = payload => {
+    console.log(payload)
     return dispatch => {
         dispatch(loginUserRequest());
         return axios
-            .post("/login", {
+            .post("/user/login", {
                 email: payload.email,
-                password: payload.password
+                password: payload.password,
+                phone: payload.phone
             })
             .then(res => {
                 dispatch(loginUserSuccess(res.data));
             })
             .catch(() => dispatch(loginUserFailure()));
     };
-};
-
-loginUser({ email: "test", password: "test" });
-//Login request end
-
-// Register user start
+}
 
 export const registerUserRequest = () => ({
     type: REGISTER_USER_REQUEST
@@ -64,70 +135,21 @@ export const registerUserFailure = () => ({
 });
 
 export const registerUser = payload => {
+    console.log(payload)
     return dispatch => {
         dispatch(registerUserRequest());
         return axios
-            .post("/signup", {
+            .post("user/register", {
                 email: payload.email,
-                name: payload.name,
-                password: payload.password
+                password: payload.password,
+                phone: payload.phone,
+                firstname: payload.firstname,
+                lastname: payload.lastname,
+                dob: payload.dob
             })
             .then(res => {
                 dispatch(registerUserSuccess(res.data));
             })
             .catch(() => dispatch(registerUserFailure()));
     };
-};
-// Register user end
-
-//Logout user start
-export const logoutUserRequest = () => ({
-    type: LOGOUT_USER_REQUEST
-});
-
-export const logoutUserSuccess = payload => ({
-    type: LOGOUT_USER_SUCCESS,
-    payload
-});
-
-export const logoutUserFailure = () => ({
-    type: LOGOUT_USER_FAILURE
-});
-
-//Logout user end
-
-
-//Token validation start
-
-export const tokenValidateRequest = () => ({
-    type: TOKEN_VALIDATE_REQUEST
-});
-
-export const tokenValidateSuccess = payload => ({
-    type: TOKEN_VALIDATE_SUCCESS,
-    payload
-});
-
-export const tokenValidateFailure = () => ({
-    type: TOKEN_VALIDATE_FAILURE
-});
-
-export const tokenValidateUser = payload => {
-    return dispatch => {
-        dispatch(tokenValidateRequest());
-        return axios
-            .get("/validate", {
-                headers: {
-                    Authorization: payload
-                }
-            })
-            .then(res =>
-                res.data.success
-                    ? dispatch(tokenValidateSuccess(res))
-                    : dispatch(tokenValidateFailure())
-            )
-            .catch(() => dispatch(tokenValidateFailure()));
-    };
-};
-
-  //Token validation end
+}

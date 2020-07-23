@@ -1,100 +1,165 @@
-
-
 import React, { Component } from "react";
-
-
-import { Modal, Form, Button, Alert } from 'react-bootstrap'
-import styles from './Login.module.css';
+import { Modal, Form, Button } from "react-bootstrap";
+import styles from "./Login.module.css";
+import FacebookLogin from "react-facebook-login";
+import GoogleLogin from "react-google-login";
+import { connect } from "react-redux";
+// import { v4 as uuidv4 } from "uuid";
+import {
+  facebookLogin,
+  googleLogin,
+  loginUser,
+} from "../../../Redux/authentication/actions";
 
 class Login extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
-    render() {
-        const { show, handleLoginClose } = this.props
-        return (
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      phone:""
+    };
+  }
+  responseFacebook = (response) => {
+    const { facebookLogin } = this.props;
+    facebookLogin(response);
+  };
+  responseGoogle = (response) => {
+    const { googleLogin } = this.props;
+    googleLogin(response);
+  };
 
-            <div>
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
 
-                <Modal show={show} animation={false} onHide={handleLoginClose} >
-                    <Modal.Header closeButton>
-                        <Modal.Title >Login</Modal.Title>
-                    </Modal.Header>
+  handleContinue = () => {
+    const { loginUser } = this.props;
+    const { email, password, phone } = this.state;
+    var obj = { email: email, passowrd: password , phone : Number(phone)};
+    loginUser(obj);
+  };
 
-                    <Modal.Body>
+  componentWillReceiveProps(props){
+    console.log(this.props)
+  }
 
-                        <Form.Group >
-                            <Form.Label>Country/Region</Form.Label>
-                            <Form.Control as="select">
-                                <option>India (+91)</option>
-                            </Form.Control>
-                        </Form.Group>
+  render() {
+    const { show, handleLoginClose } = this.props;
 
-                        <Form.Group>
-                            <Form.Label>Phone Number</Form.Label>
-                            <Form.Control size="lg" type="number" />
+    return (
+      <div>
+        <Modal show={show} animation={false} onHide={handleLoginClose}>
+          <Modal.Header closeButton>
+            <Modal.Title className="text-center">Login</Modal.Title>
+          </Modal.Header>
 
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Text muted className="my-2">
-                                We’ll call or text you to confirm your number. Standard message and data rates apply.
-                            </Form.Text>
+          <Modal.Body>
+            <Form.Group>
+              <Form.Control
+                name="email"
+                type="email"
+                size="lg"
+                placeholder="Enter email"
+                onChange={this.handleChange}
+              ></Form.Control>
+              <Form.Control
+                name="password"
+                size="lg"
+                type="password"
+                placeholder="Enter password"
+                onChange={this.handleChange}
+              />
+              <Form.Control
+                name="number"
+                size="lg"
+                type="number"
+                placeholder="Enter phone number"
+                onChange={this.handleChange}
+              />
+              <Form.Text muted className="my-2">
+                We’ll call or text you to confirm your number. Standard message
+                and data rates apply.
+              </Form.Text>
 
-                            <Button className={styles.btn} size="lg" block>
-                                Continue
-                            </Button>
+              <Button
+                className={styles.btn}
+                size="lg"
+                block
+                onClick={this.handleContinue}
+              >
+                Continue
+              </Button>
 
-                            <hr />
+              <hr />
 
-                            <div className="my-2">
-
-                                <Button variant="outline-secondary" size="lg" block>
-
-                                    Continue with Email
-                            </Button>
-
-                                <Button variant="outline-secondary" size="lg" block>
-                                    Continue with Facebook
-                            </Button>
-                                <Button variant="outline-secondary" size="lg" block>
-                                    <i clasName="fab fa-facebook-f blue-text text-center"></i>  Continue with Google
-                            </Button>
-                                <Button variant="outline-secondary" size="lg" block>
-                                    Continue with Apple
-                            </Button>
-
-                                <div className="d-flex ">
-                                    <Form.Text muted className="mx-2">
-                                        Don’t have an account?
-                               </Form.Text >
-
-                                    Sign up
-                            </div>
-
-
-                            </div>
-
-
-
-
-
-
-
-                        </Form.Group>
-                    </Modal.Body>
-
-                </Modal>
-
-
-
-
-            </div >
-        );
-    }
+              <div className="my-2">
+                <FacebookLogin
+                  appId="990031718084542"
+                  fields="name,email,picture"
+                  scope="email, public_profile, user_birthday"
+                  callback={this.responseFacebook}
+                  icon="fa-facebook"
+                  render={(renderProps) => (
+                    <Button
+                      variant="outline-secondary"
+                      size="lg"
+                      block
+                      onClick={renderProps.onClick}
+                    >
+                      {" "}
+                      Continue with Facebook
+                    </Button>
+                  )}
+                />
+                ,
+                <div variant="outline-secondary" size="lg">
+                  <i className="fab fa-facebook-f blue-text text-center"></i>{" "}
+                  <GoogleLogin
+                    clientId="304743879385-hes3s6fpp9ijfvi74odg20d4nu5aoudc.apps.googleusercontent.com"
+                    render={(renderProps) => (
+                      <button className="google"
+                        onClick={renderProps.onClick}
+                        disabled={renderProps.disabled}
+                      >
+                        This is my custom Google button
+                      </button>
+                    )}
+                    buttonText="Login"
+                    onSuccess={this.responseGoogle}
+                    onFailure={this.responseGoogle}
+                    cookiePolicy={"single_host_origin"}
+                  />
+                  ,
+                </div>
+                <div className="d-flex ">
+                  <Form.Text muted className="mx-2">
+                    Don’t have an account?
+                  </Form.Text>
+                  Sign up
+                </div>
+              </div>
+            </Form.Group>
+          </Modal.Body>
+        </Modal>
+      </div>
+    );
+  }
 }
 
+const mapStateToProps = (state) => ({
+  isAuth: state.authReducer.isAuth,
+  isLoading: state.authReducer.isLoading,
+  payload: state.authReducer.payload,
+  error: state.authReducer.error,
+  errorMessage: state.authReducer.errorMessage,
+});
 
-
-
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  facebookLogin: (payload) => dispatch(facebookLogin(payload)),
+  googleLogin: (payload) => dispatch(googleLogin(payload)),
+  loginUser: (payload) => dispatch(loginUser(payload)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
