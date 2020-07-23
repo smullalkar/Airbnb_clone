@@ -41,6 +41,11 @@ class Login extends Component {
     var obj = { email: email, passowrd: password , phone : Number(phone)};
     loginUser(obj);
   };
+
+  componentWillReceiveProps(props){
+    console.log(this.props)
+  }
+
   render() {
     const { show, handleLoginClose } = this.props;
 

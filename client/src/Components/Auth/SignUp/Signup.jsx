@@ -131,7 +131,6 @@ class Signup extends Component {
                     </Button>
                   )}
                 />
-                ,
                 <div variant="outline-secondary" size="lg">
                   <i className="fab fa-facebook-f blue-text text-center"></i>{" "}
                   <GoogleLogin
@@ -150,7 +149,6 @@ class Signup extends Component {
                     onFailure={this.responseGoogle}
                     cookiePolicy={"single_host_origin"}
                   />
-                  ,
                 </div>
                 <div className="d-flex ">
                   <Form.Text muted className="mx-2">
