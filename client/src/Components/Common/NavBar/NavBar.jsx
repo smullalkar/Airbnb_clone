@@ -32,6 +32,8 @@ class NavBar extends Component {
             <img src=".././assets/logo.svg" alt="Airbnb" />
           </Navbar.Brand>
 
+
+
           <DropdownButton
             alignRight
             title="Icon"
