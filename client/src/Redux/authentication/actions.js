@@ -108,7 +108,8 @@ export const loginUser = payload => {
         dispatch(loginUserRequest());
         return axios
             .post("/user/login", {
-                phone : payload
+                email : payload.email,
+                password : payload.password
             })
             .then(res => {
                 dispatch(loginUserSuccess(res));
