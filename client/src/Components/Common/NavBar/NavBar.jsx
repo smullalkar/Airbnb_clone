@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Login from "../Auth/Login/Login";
+import Login from "../../Auth/Login/Login";
 import { Navbar, DropdownButton, Dropdown, Nav } from "react-bootstrap";
-import Signup from "../Auth/SignUp/Signup";
+import Signup from "../../Auth/SignUp/Signup";
 
 class NavBar extends Component {
   constructor(props) {
