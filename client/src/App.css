@@ -9,3 +9,9 @@ body {
 .App-logo {
   width: 120px;
 }
+
+.nav-dropdown-main .btn.btn-primary {
+  background: none;
+  color: black;
+  border-radius: 30px;
+}

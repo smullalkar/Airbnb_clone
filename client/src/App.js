@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './bootstrap-override.css'
 import NavBar from './Components/Common/NavBar/NavBar'
 import Home from './Components/Common/Home/Home'
+import Footer from './Components/Common/Footer/Footer'
 
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
       <NavBar />
 
       <Home />
+
+      <Footer />
     </div>
   );
 }

@@ -126,3 +126,71 @@
   border: none;
   box-shadow: none;
 }
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-tabs .nav-link {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+}
+
+.nav-tabs .nav-link:hover {
+  opacity: 0.5;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+  border: none;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: white;
+  border-bottom: 2px solid white;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  background: transparent;
+}
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+}
+.card-body {
+  text-align: left;
+}
+
+.DateRangePickerInput_arrow.DateRangePickerInput_arrow_1 {
+  display: none;
+}
+.DateRangePickerInput__withBorder {
+  border: none !important;
+}
+.DayPicker__withBorder {
+  border-radius: 41px !important;
+}
+.DateInput_input.DateInput_input_1::placeholder {
+  font-size: 12px;
+}
+.DateRangePicker_picker__directionLeft {
+  border-radius: 30px !important;
+}
+.DayPicker_transitionContainer {
+  border-radius: 30px !important;
+}
+.DayPickerKeyboardShortcuts_buttonReset {
+  display: none;
+}
+.DateInput_fang {
+  display: none;
+}
+.CalendarDay__blocked_out_of_range {
+  border: none !important;
+}
+.CalendarDay__default {
+  border: none !important;
+}
