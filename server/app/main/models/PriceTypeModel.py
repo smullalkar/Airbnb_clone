@@ -1,12 +1,11 @@
 from . import db
 
 
-class CountriesModel(db.Model):
+class PriceTypeModel(db.Model):
     """
-    Country Table
+    PriceType Table
     """
-    __table__name = 'countries'
+    __table__name = 'price_type'
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(60))
-    code = db.Column(db.String(10))
     status = db.Column(db.Boolean)

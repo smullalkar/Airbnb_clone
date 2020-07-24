@@ -1,5 +1,6 @@
 from . import db
-import
+from .UserModel import *
+
 
 class UserOAuthModel(db.Model):
     """
@@ -7,8 +8,6 @@ class UserOAuthModel(db.Model):
     """
     __tablename__ = "user_oauth"
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    userId = db.Column(db.Integer, db.ForeignKey(UserModel.id))
     provider = db.Column(db.String(60))
-    provider_id = db.Column(db.String(100))
-    access_token = db.Column(db.String(100))
-
+    providerId = db.Column(db.String(255))

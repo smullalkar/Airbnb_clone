@@ -26,7 +26,7 @@ def loginUser():
 @user.route("/oauthlogin", methods=["POST"])
 def oauth_loginUser():
     """
-    user login route
+    user oauth login route
     """
     response = oauth_login(request.json)
 

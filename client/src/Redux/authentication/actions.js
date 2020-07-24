@@ -17,10 +17,14 @@ import {
     GOOGLE_LOGIN_REQUEST,
     GOOGLE_LOGIN_SUCCESS,
     GOOGLE_LOGIN_FAILURE,
+    CLOSE_LOGIN_MODAL,
+    CLOSE_REGISTER_MODAL
 } from "../authentication/actionTypes";
 
 import axios from "../../Utils/axiosInterceptor";
 
+
+//Facebook login Request start
 export const facebookLoginRequest = () => ({
     type: FACEBOOK_LOGIN_REQUEST
 })
@@ -35,9 +39,8 @@ export const facebookLoginFailure = () => ({
 })
 
 export const facebookLogin = payload => {
-
     const [firstname, lastname] = payload.name.split(" ")
-    console.log(firstname,"\n" + lastname, "\n" + payload.email , "\n" + payload.accessToken,"\n" + payload.graphDomain, "\n" +payload.id)
+    console.log(firstname, "\n" + lastname, "\n" + payload.email, "\n" + payload.accessToken, "\n" + payload.graphDomain, "\n" + payload.id)
     return dispatch => {
         dispatch(facebookLoginRequest());
         return axios
@@ -55,7 +58,10 @@ export const facebookLogin = payload => {
             .catch(() => dispatch(facebookLoginFailure()));
     };
 }
+//Facebook login Request End
 
+
+//Google login Request start
 export const googleLoginRequest = () => ({
     type: GOOGLE_LOGIN_REQUEST
 })
@@ -66,13 +72,14 @@ export const googleLoginSuccess = payload => ({
 })
 
 export const googleLoginFailure = () => ({
-    type: GOOGLE_LOGIN_FAILURE
+    type: GOOGLE_LOGIN_FAILURE,
+
 })
 
 export const googleLogin = payload => {
     console.log(payload)
     const [firstname, lastname] = payload.profileObj.name.split(" ")
-    console.log(firstname , "\n" + lastname , "\n" +payload.profileObj.email, "\n"  +payload.accessToken +"\n",payload.wc.idpId, payload.googleId)
+    console.log(firstname, "\n" + lastname, "\n" + payload.profileObj.email, "\n" + payload.accessToken + "\n", payload.wc.idpId, payload.googleId)
     return dispatch => {
         dispatch(googleLoginRequest());
         return axios
@@ -90,7 +97,10 @@ export const googleLogin = payload => {
             .catch(() => dispatch(googleLoginFailure()));
     };
 }
+//Google login Request End
 
+
+//Login User Request start
 export const loginUserRequest = () => ({
     type: LOGIN_USER_REQUEST
 });
@@ -112,7 +122,6 @@ export const loginUser = payload => {
             .post("/user/login", {
                 email: payload.email,
                 password: payload.password,
-                phone: payload.phone
             })
             .then(res => {
                 dispatch(loginUserSuccess(res.data));
@@ -120,7 +129,10 @@ export const loginUser = payload => {
             .catch(() => dispatch(loginUserFailure()));
     };
 }
+//Login User Request End
 
+
+//Register user request start
 export const registerUserRequest = () => ({
     type: REGISTER_USER_REQUEST
 });
@@ -153,3 +165,31 @@ export const registerUser = payload => {
             .catch(() => dispatch(registerUserFailure()));
     };
 }
+//Register user request End
+
+
+//Logout user request start
+export const logoutUserRequest = () => ({
+    type: LOGOUT_USER_REQUEST
+});
+
+export const logoutUserSuccess = payload => ({
+    type: LOGOUT_USER_SUCCESS,
+    payload
+});
+
+export const logoutUserFailure = () => ({
+    type: LOGOUT_USER_FAILURE
+});
+//Logout user request end
+
+
+// close the modal
+export const closeLoginModal = () => ({
+    type: CLOSE_LOGIN_MODAL
+})
+
+//close registration modal
+export const closeRegisterModal = () => ({
+    type: CLOSE_REGISTER_MODAL
+})
