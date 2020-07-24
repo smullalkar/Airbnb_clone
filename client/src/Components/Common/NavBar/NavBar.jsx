@@ -1,20 +1,39 @@
 import React, { Component } from "react";
 import Login from "../../Auth/Login/Login";
 import { Navbar, DropdownButton, Dropdown, Nav } from "react-bootstrap";
-import Signup from "../../Auth/SignUp/Signup";
-import FinishSignup from "../../Auth/SignUp/FinishSignUp"
-
-
+import Signup from "../../Auth/SignUp/SignUp";
+import {
+  closeLoginModal,
+  closeRegisterModal,
+} from "../../../Redux/authentication/actions";
+import { connect } from "react-redux";
 
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { showLoginModal: false, showSignUpModal: false, showFinishSignUpModal: false };
+    this.state = {
+      showLoginModal: false,
+      showSignUpModal: false,
+      showFinishSignUpModal: false,
+    };
   }
 
   handleLoginClose = () => this.setState({ showLoginModal: false });
   handleSignUpClose = () => this.setState({ showSignUpModal: false });
-  handleFinishSignUpClose = () => this.setState({ showFinishSignUpModal: false });
+  handleFinishSignUpClose = () =>
+    this.setState({ showFinishSignUpModal: false });
+
+  handleLoginModal = () => {
+    const { closeLoginModal } = this.props;
+    closeLoginModal();
+  };
+  handleRegisterModal = () => {
+    const { closeRegisterModal } = this.props;
+    this.setState({
+      showFinishSignUpModal: true,
+    });
+    closeRegisterModal();
+  };
 
   render() {
     // const {} = this.props;
@@ -28,7 +47,6 @@ class NavBar extends Component {
           className="d-flex justify-content-between"
         >
           <Navbar.Brand href="#">
-
             <img src=".././assets/logo.svg" alt="Airbnb" />
           </Navbar.Brand>
 
@@ -37,24 +55,11 @@ class NavBar extends Component {
             title="Icon"
             id="dropdown-menu-align-right"
           >
-            <Dropdown.Item
-              onClick={() => this.setState({ showLoginModal: true })}
-            >
-              Login
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => this.setState({ showSignUpModal: true })}
-            >
+            <Dropdown.Item onClick={this.handleLoginModal}>Login</Dropdown.Item>
+
+            <Dropdown.Item onClick={this.handleRegisterModal}>
               Sign Up
             </Dropdown.Item>
-
-            <Dropdown.Item
-              onClick={() => this.setState({ showFinishSignUpModal: true })}
-            >
-              Finish  Sign Up
-            </Dropdown.Item>
-
-
 
             <Dropdown.Divider />
             <Dropdown.Item>Host Your Home</Dropdown.Item>
@@ -67,18 +72,16 @@ class NavBar extends Component {
           handleLoginClose={this.handleLoginClose}
         />
         <Signup
-          show={this.state.showSignUpModal}
-          handleSignUpClose={this.handleSignUpClose}
-        />
-        <FinishSignup
           show={this.state.showFinishSignUpModal}
           handleFinishSignUpClose={this.handleFinishSignUpClose}
         />
-
-
       </div>
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  closeLoginModal: () => dispatch(closeLoginModal()),
+  closeRegisterModal : ()=> dispatch(closeRegisterModal())
+});
 
-export default NavBar;
+export default connect(null, mapDispatchToProps)(NavBar);
