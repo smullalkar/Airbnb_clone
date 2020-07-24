@@ -27,6 +27,7 @@ class NavBar extends Component {
     const { closeLoginModal } = this.props;
     closeLoginModal();
   };
+
   handleRegisterModal = () => {
     const { closeRegisterModal } = this.props;
     this.setState({
@@ -48,6 +49,8 @@ class NavBar extends Component {
         >
           <Navbar.Brand href="#">
             <img src=".././assets/logo.svg" alt="Airbnb" />
+
+            {/* <img src={logo} className="App-logo" alt="Airbnb" /> */}
           </Navbar.Brand>
 
 
@@ -59,17 +62,7 @@ class NavBar extends Component {
           >
 
 
-            <Dropdown.Item
-              onClick={() => this.setState({ showLoginModal: true })}
-            >
-              Login
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => this.setState({ showSignUpModal: true })}
-            >
-              Sign Up
-            </Dropdown.Item>
-
+            <Dropdown.Item onClick={this.handleLoginModal}>Login</Dropdown.Item>
             <Dropdown.Item onClick={this.handleRegisterModal}>
               Sign Up
             </Dropdown.Item>
@@ -94,7 +87,7 @@ class NavBar extends Component {
 }
 const mapDispatchToProps = (dispatch) => ({
   closeLoginModal: () => dispatch(closeLoginModal()),
-  closeRegisterModal : ()=> dispatch(closeRegisterModal())
+  closeRegisterModal: () => dispatch(closeRegisterModal())
 });
 
 export default connect(null, mapDispatchToProps)(NavBar);
