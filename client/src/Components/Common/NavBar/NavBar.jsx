@@ -47,29 +47,15 @@ class NavBar extends Component {
           className="d-flex justify-content-between"
         >
           <Navbar.Brand href="#">
-
-            <img src={logo} className="App-logo" alt="Airbnb" />
+            {/* <img src={logo} className="App-logo" alt="Airbnb" /> */}
           </Navbar.Brand>
-
-
 
           <DropdownButton
             alignRight
             id="dropdown-menu-align-right"
             className="nav-dropdown-main"
           >
-
-
-            <Dropdown.Item
-              onClick={() => this.setState({ showLoginModal: true })}
-            >
-              Login
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => this.setState({ showSignUpModal: true })}
-            >
-              Sign Up
-            </Dropdown.Item>
+            <Dropdown.Item onClick={this.handleLoginModal}>Login</Dropdown.Item>
 
             <Dropdown.Item onClick={this.handleRegisterModal}>
               Sign Up
@@ -95,7 +81,7 @@ class NavBar extends Component {
 }
 const mapDispatchToProps = (dispatch) => ({
   closeLoginModal: () => dispatch(closeLoginModal()),
-  closeRegisterModal: () => dispatch(closeRegisterModal())
+  closeRegisterModal: () => dispatch(closeRegisterModal()),
 });
 
 export default connect(null, mapDispatchToProps)(NavBar);
