@@ -15,6 +15,7 @@ import heroImage from '../../../assets/images/hero-image.webp'
 import SearchBar from "../Search/SearchBar"
 
 import NearByGateWay from "../Search/NearByGateWay"
+import AddGuests from "../Search/AddGuests";
 
 
 class Home extends Component {
@@ -47,7 +48,9 @@ class Home extends Component {
                     </Nav>
                     <SearchBar />
 
-                    {/* <NearByGateWay /> */}
+                    {/* <AddGuests />
+
+                    <NearByGateWay /> */}
 
                     <img className={styles.heroImage} src={heroImage} />
                     <div className={styles.heroContent}>
