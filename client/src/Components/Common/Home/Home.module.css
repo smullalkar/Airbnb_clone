@@ -1,7 +1,77 @@
-.appContainer {
-  padding-left: 80px;
-  padding-right: 80px;
+.appContainer {}
+
+.heroContainer {
+  position: relative;
+  min-height: 640px;
 }
+
+.heroImage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
 .herocopy {
   color: #e4205c;
+}
+
+.heroContent {
+  color: white;
+  text-align: left;
+  width: 300px;
+  position: absolute;
+  bottom: 100px;
+  left: 60px;
+}
+
+.title {
+  font-size: 12px;
+}
+
+.mainPara {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.desc {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.cardContainer {
+  padding-left: 60px;
+  padding-right: 60px;
+  justify-content: center;
+}
+
+.card {
+  /* max-width: 350px; */
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cardText {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.destinationList {
+  margin-bottom: 60px;
+  padding-left: 60px;
+  padding-right: 60px;
+  font-weight: 300;
+}
+
+.aTag {
+  color: black;
+  font-weight: bolder;
 }

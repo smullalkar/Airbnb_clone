@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Login from "../../Auth/Login/Login";
-import { Navbar, DropdownButton, Dropdown, Nav } from "react-bootstrap";
+import { Navbar, DropdownButton, Dropdown, Nav, Button } from "react-bootstrap";
 import Signup from "../../Auth/SignUp/Signup";
 import FinishSignup from "../../Auth/SignUp/FinishSignUp"
+import logo from '../../../assets/images/logo.svg';
 
 
 
@@ -30,16 +31,18 @@ class NavBar extends Component {
         >
           <Navbar.Brand href="#">
 
-            <img src="" alt="Airbnb" />
+            <img src={logo} className="App-logo" alt="Airbnb" />
           </Navbar.Brand>
 
 
 
           <DropdownButton
             alignRight
-            title="Icon"
             id="dropdown-menu-align-right"
+            className="nav-dropdown-main"
           >
+
+
             <Dropdown.Item
               onClick={() => this.setState({ showLoginModal: true })}
             >

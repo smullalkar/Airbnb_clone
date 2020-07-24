@@ -1,9 +1,61 @@
 .btn {
-    background-image: radial-gradient(circle, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%);
+  border-radius: 20px;
+  padding: 8px 24px;
+  background-image: radial-gradient( circle, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%);
 }
 
-/* element {
-    background-position: calc((100 - var(--mouse-x, 0)) * 1%) calc((100 - var(--mouse-y, 0)) * 1%);
-    --mouse-x: 47.383331298828125;
-    --mouse-y: 43.75;
-background-image: radial-gradient(circle, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%) !important; */
+.searchContainer {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 30px;
+}
+
+.formLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.dateLabel {
+  z-index: 10;
+}
+
+.checkoutLabel {
+  position: absolute;
+  right: 0;
+  right: -72px;
+}
+
+.formControl::placeholder {
+  font-size: 10px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.formControl {
+  background: transparent;
+  width: 132px;
+}
+
+.locationCard {
+  max-width: 600px;
+  border-radius: 28px;
+  width: 600px;
+  height: 280px;
+}
+
+.locationButton {
+  cursor: pointer;
+  display: block;
+  position: relative;
+  z-index: 2;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+  border-radius: 32px;
+  padding: 14px 32px;
+}
