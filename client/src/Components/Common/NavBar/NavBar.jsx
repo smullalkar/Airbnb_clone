@@ -47,12 +47,7 @@ class NavBar extends Component {
           className="d-flex justify-content-between"
         >
           <Navbar.Brand href="#">
-<<<<<<< HEAD
             <img src=".././assets/logo.svg" alt="Airbnb" />
-=======
-
-            <img src={logo} className="App-logo" alt="Airbnb" />
->>>>>>> Frontend-Design
           </Navbar.Brand>
 
 
@@ -62,9 +57,6 @@ class NavBar extends Component {
             id="dropdown-menu-align-right"
             className="nav-dropdown-main"
           >
-<<<<<<< HEAD
-            <Dropdown.Item onClick={this.handleLoginModal}>Login</Dropdown.Item>
-=======
 
 
             <Dropdown.Item
@@ -77,7 +69,6 @@ class NavBar extends Component {
             >
               Sign Up
             </Dropdown.Item>
->>>>>>> Frontend-Design
 
             <Dropdown.Item onClick={this.handleRegisterModal}>
               Sign Up
