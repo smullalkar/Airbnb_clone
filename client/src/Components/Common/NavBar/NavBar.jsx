@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Login from "../../Auth/Login/Login";
-import { Navbar, DropdownButton, Dropdown, Nav } from "react-bootstrap";
+import { Navbar, DropdownButton, Dropdown } from "react-bootstrap";
 import Signup from "../../Auth/SignUp/SignUp";
 import {
   closeLoginModal,
@@ -20,8 +20,7 @@ class NavBar extends Component {
 
   handleLoginClose = () => this.setState({ showLoginModal: false });
   handleSignUpClose = () => this.setState({ showSignUpModal: false });
-  handleFinishSignUpClose = () =>
-    this.setState({ showFinishSignUpModal: false });
+  handleFinishSignUpClose = () => this.setState({ showFinishSignUpModal: false });
 
   handleLoginModal = () => {
     const { closeLoginModal } = this.props;
@@ -36,8 +35,6 @@ class NavBar extends Component {
   };
 
   render() {
-    // const {} = this.props;
-
     return (
       <div>
         <Navbar
@@ -46,15 +43,17 @@ class NavBar extends Component {
           variant="light"
           className="d-flex justify-content-between"
         >
-          <Navbar.Brand href="#">
-            {/* <img src={logo} className="App-logo" alt="Airbnb" /> */}
+          <Navbar.Brand href="#" className="pl-4">
+            <img src="/main-logo.svg" className="App-logo" alt="Airbnb" />
           </Navbar.Brand>
 
+          <div className="d-flex"><i className="fa fa-bars mt-3 px-2 fa-lg" style={{cursor:"pointer"}} aria-hidden="true"></i>
           <DropdownButton
             alignRight
             id="dropdown-menu-align-right"
             className="nav-dropdown-main"
           >
+
             <Dropdown.Item onClick={this.handleLoginModal}>Login</Dropdown.Item>
 
             <Dropdown.Item onClick={this.handleRegisterModal}>
@@ -66,6 +65,7 @@ class NavBar extends Component {
             <Dropdown.Item>Host an Experience</Dropdown.Item>
             <Dropdown.Item>Help</Dropdown.Item>
           </DropdownButton>
+          </div>
         </Navbar>
         <Login
           show={this.state.showLoginModal}
