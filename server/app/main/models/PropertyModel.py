@@ -6,7 +6,6 @@ from .CityModel import *
 from .StateModel import *
 from .CountriesModel import *
 from .PriceTypeModel import *
-from .CurrencyModel import *
 
 
 class PropertyModel(db.Model):
@@ -15,7 +14,7 @@ class PropertyModel(db.Model):
     """
     __tablename__ = "property"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), nullable=False)
+    propertyName = db.Column(db.String(60), nullable=False)
     description = db.Column(db.String(255))
     userId = db.Column(db.Integer,db.ForeignKey(UserModel.id))
     propertyTypeId = db.Column(db.Integer,db.ForeignKey(PropertyTypeModel.id))
@@ -33,8 +32,9 @@ class PropertyModel(db.Model):
     endDate = db.Column(db.Date)
     price = db.Column(db.Integer)
     priceTypeId = db.Column(db.Integer,db.ForeignKey(PriceTypeModel.id))
-    currencyId = db.Column(db.Integer,db.ForeignKey(CurrencyModel.id))
     refundType = db.Column(db.Boolean)
+    isCancel = db.Column(db.Boolean)
+    istantBook = db.Column(db.Boolean)
     createdAt = db.Column(db.DateTime(timezone=True))
     modifiedAt = db.Column(db.DateTime(timezone=True))
     status = db.Column(db.Boolean)

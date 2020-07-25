@@ -1,0 +1,162 @@
+amenities;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(60) | YES  |     | NULL    |                |
+| status | tinyint(1)  | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+
+
+booking;
++--------------+------------+------+-----+---------+----------------+
+| Field        | Type       | Null | Key | Default | Extra          |
++--------------+------------+------+-----+---------+----------------+
+| id           | int        | NO   | PRI | NULL    | auto_increment |
+| propertyId   | int        | YES  | MUL | NULL    |                |
+| userId       | int        | YES  | MUL | NULL    |                |
+| checkInDate  | datetime   | YES  |     | NULL    |                |
+| checkOutDate | datetime   | YES  |     | NULL    |                |
+| amountPaid   | int        | YES  |     | NULL    |                |
+| createdAt    | datetime   | YES  |     | NULL    |                |
+| modifiedAt   | datetime   | YES  |     | NULL    |                |
+| isRefund     | tinyint(1) | YES  |     | NULL    |                |
+| refundDate   | datetime   | YES  |     | NULL    |                |
+| bookingDate  | datetime   | YES  |     | NULL    |                |
+| status       | tinyint(1) | YES  |     | NULL    |                |
++--------------+------------+------+-----+---------+----------------+
+
+categories;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(60) | YES  |     | NULL    |                |
+| status | tinyint(1)  | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+
+city_model;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int         | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(60) | YES  |     | NULL    |                |
+| status  | tinyint(1)  | YES  |     | NULL    |                |
+| stateId | int         | YES  | MUL | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+
+countries_model;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(60) | YES  |     | NULL    |                |
+| code   | varchar(10) | YES  |     | NULL    |                |
+| status | tinyint(1)  | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+
+minimum_stay_model;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(60) | YES  |     | NULL    |                |
+| status | tinyint(1)  | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+
+price_type_model;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(60) | YES  |     | NULL    |                |
+| status | tinyint(1)  | YES  |     | NULL    |                |
+
+property;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| id               | int          | NO   | PRI | NULL    | auto_increment |
+| name             | varchar(60)  | NO   |     | NULL    |                |
+| description      | varchar(255) | YES  |     | NULL    |                |
+| userId           | int          | YES  | MUL | NULL    |                |
+| propertyTypeId   | int          | YES  | MUL | NULL    |                |
+| categoryId       | int          | YES  | MUL | NULL    |                |
+| cityId           | int          | YES  | MUL | NULL    |                |
+| stateId          | int          | YES  | MUL | NULL    |                |
+| countryId        | int          | YES  | MUL | NULL    |                |
+| address          | varchar(255) | YES  |     | NULL    |                |
+| bedroomCount     | int          | YES  |     | NULL    |                |
+| bedCount         | int          | YES  |     | NULL    |                |
+| bathroomCount    | int          | YES  |     | NULL    |                |
+| accomodatesCount | int          | YES  |     | NULL    |                |
+| isAvailable      | tinyint(1)   | YES  |     | NULL    |                |
+| startDate        | date         | YES  |     | NULL    |                |
+| endDate          | date         | YES  |     | NULL    |                |
+| price            | int          | YES  |     | NULL    |                |
+| priceTypeId      | int          | YES  | MUL | NULL    |                |
+| refundType       | tinyint(1)   | YES  |     | NULL    |                |
+| createdAt        | datetime     | YES  |     | NULL    |                |
+| modifiedAt       | datetime     | YES  |     | NULL    |                |
+| status           | tinyint(1)   | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+
+property_images;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| propertyId | int         | YES  | MUL | NULL    |                |
+| userId     | int         | YES  | MUL | NULL    |                |
+| image      | varchar(60) | YES  |     | NULL    |                |
+| createdAt  | datetime    | YES  |     | NULL    |                |
+| status     | tinyint(1)  | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+
+property_type;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(60) | YES  |     | NULL    |                |
+| status | tinyint(1)  | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+
+state_model ;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int         | NO   | PRI | NULL    | auto_increment |
+| name      | varchar(60) | YES  |     | NULL    |                |
+| code      | varchar(10) | YES  |     | NULL    |                |
+| status    | tinyint(1)  | YES  |     | NULL    |                |
+| countryId | int         | YES  | MUL | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+
+user;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| firstname  | varchar(60) | NO   |     | NULL    |                |
+| lastname   | varchar(60) | YES  |     | NULL    |                |
+| dob        | datetime    | YES  |     | NULL    |                |
+| email      | varchar(60) | YES  | UNI | NULL    |                |
+| password   | varchar(60) | YES  |     | NULL    |                |
+| phone      | varchar(60) | YES  |     | NULL    |                |
+| createdAt  | datetime    | YES  |     | NULL    |                |
+| modifiedAt | datetime    | YES  |     | NULL    |                |
+| userType   | varchar(60) | NO   |     | NULL    |                |
+| status     | tinyint(1)  | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+
+
+user_oauth;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int          | NO   | PRI | NULL    | auto_increment |
+| userId     | int          | YES  | MUL | NULL    |                |
+| provider   | varchar(60)  | YES  |     | NULL    |                |
+| providerId | varchar(255) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+

@@ -7,5 +7,5 @@ class PropertyTypeModel(db.Model):
     """
     __tablename__ = "property_type"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60))
+    propertyType = db.Column(db.String(60))
     status = db.Column(db.Boolean)

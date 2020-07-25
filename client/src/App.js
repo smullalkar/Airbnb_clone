@@ -1,23 +1,20 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./bootstrap-override.css";
-import NavBar from "./Components/Common/NavBar/NavBar";
-import Home from "./Components/Common/Home/Home";
-import Footer from "./Components/Common/Footer/Footer";
-import Listing from "./Components/Common/Listing/Listing";
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './bootstrap-override.css'
+import NavBar from './Components/Common/NavBar/NavBar'
+import Footer from './Components/Common/Footer/Footer'
+import Routes from "./Components/Common/Route/Routes"
+
 
 function App() {
   return (
     <div className="App">
       <NavBar />
-
-      <Home />
-
+      <Routes />
       <Footer />
 
-      <Listing />
     </div>
   );
 }
