@@ -47,24 +47,24 @@ class NavBar extends Component {
             <img src="/main-logo.svg" className="App-logo" alt="Airbnb" />
           </Navbar.Brand>
 
-          <div className="d-flex"><i className="fa fa-bars mt-3 px-2 fa-lg" style={{cursor:"pointer"}} aria-hidden="true"></i>
-          <DropdownButton
-            alignRight
-            id="dropdown-menu-align-right"
-            className="nav-dropdown-main"
-          >
+          <div className="d-flex"><i className="fa fa-bars mt-3 px-2 fa-lg" style={{ cursor: "pointer" }} aria-hidden="true"></i>
+            <DropdownButton
+              alignRight
+              id="dropdown-menu-align-right"
+              className="nav-dropdown-main"
+            >
 
-            <Dropdown.Item onClick={this.handleLoginModal}>Login</Dropdown.Item>
+              <Dropdown.Item onClick={this.handleLoginModal}>Login</Dropdown.Item>
 
-            <Dropdown.Item onClick={this.handleRegisterModal}>
-              Sign Up
+              <Dropdown.Item onClick={this.handleRegisterModal}>
+                Sign Up
             </Dropdown.Item>
 
-            <Dropdown.Divider />
-            <Dropdown.Item>Host Your Home</Dropdown.Item>
-            <Dropdown.Item>Host an Experience</Dropdown.Item>
-            <Dropdown.Item>Help</Dropdown.Item>
-          </DropdownButton>
+              <Dropdown.Divider />
+              <Dropdown.Item>Host Your Home</Dropdown.Item>
+              <Dropdown.Item>Host an Experience</Dropdown.Item>
+              <Dropdown.Item>Help</Dropdown.Item>
+            </DropdownButton>
           </div>
         </Navbar>
         <Login

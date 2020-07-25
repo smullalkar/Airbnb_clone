@@ -142,13 +142,11 @@
   opacity: 0.5;
 }
 
-.nav-tabs .nav-link:focus,
-.nav-tabs .nav-link:hover {
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
   border: none;
 }
 
-.nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
   color: white;
   border-bottom: 2px solid white;
   border-top: none;
@@ -156,10 +154,12 @@
   border-left: none;
   background: transparent;
 }
+
 .nav-tabs {
   display: flex;
   justify-content: center;
 }
+
 .card-body {
   text-align: left;
 }
@@ -167,30 +167,112 @@
 .DateRangePickerInput_arrow.DateRangePickerInput_arrow_1 {
   display: none;
 }
+
 .DateRangePickerInput__withBorder {
   border: none !important;
 }
+
 .DayPicker__withBorder {
   border-radius: 41px !important;
 }
+
 .DateInput_input.DateInput_input_1::placeholder {
   font-size: 12px;
 }
+
 .DateRangePicker_picker__directionLeft {
   border-radius: 30px !important;
 }
+
 .DayPicker_transitionContainer {
   border-radius: 30px !important;
 }
+
 .DayPickerKeyboardShortcuts_buttonReset {
   display: none;
 }
+
 .DateInput_fang {
   display: none;
 }
+
 .CalendarDay__blocked_out_of_range {
   border: none !important;
 }
+
 .CalendarDay__default {
   border: none !important;
+}
+
+/* 
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  padding-right: 5px;
+} */
+
+.page-link {
+  font-size: 13px;
+  border: none;
+  color: #222;
+  font-weight: 700;
+}
+
+.page-item.active .page-link {
+  border-radius: 50%;
+  color: white;
+  background-color: #222;
+  border: none;
+}
+
+.prevPage .page-link, .nextPage .page-link {
+  border-radius: 50%;
+  padding: 4px 12px;
+  color: black;
+  background-color: #fff;
+  border: none;
+  box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent, 0px 2px 4px rgba(0, 0, 0, 0.18) !important;
+  border-top-right-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+}
+
+.nextPage span, .prevPage span {
+  font-size: 22px;
+}
+
+.nextPage .page-link {
+  border-top-right-radius: 50% !important;
+  border-bottom-right-radius: 50% !important;
+}
+
+.prevPage .page-link {
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;
+}
+
+.page-link:hover {
+  color: #222222;
+  background: transparent;
+  text-decoration: underline;
+}
+
+input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  margin-left: -31px;
+}
+
+.form-check-label {
+  margin-top: 7px;
+}
+
+.Listing_Accordion__3alQ_ {
+  cursor: pointer;
+  display: none;
+  position: relative;
+  background-clip: unset;
+  border-radius: 2px;
+  padding: 0px;
 }
