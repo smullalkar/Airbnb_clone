@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import SignUp from "../../Auth/SignUp/SignUp";
-import Dummy from "../dummy";
 import Home from "../Home/Home";
 
 class Routes extends Component {
@@ -13,7 +12,7 @@ class Routes extends Component {
     return (
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/:urlParams" render={(props)=> <Dummy {...props}/> }/>
+        {/* <Route exact path="/:urlParams" render={(props)=> <Dummy {...props}/> }/> */}
       </Switch>
     );
   }
