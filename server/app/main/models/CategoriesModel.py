@@ -7,5 +7,5 @@ class CategoriesModel(db.Model):
     """
     __tablename__ = "categories"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60))
+    categoryName = db.Column(db.String(60))
     status = db.Column(db.Boolean)
