@@ -7,5 +7,5 @@ class AmenitiesModel(db.Model):
     """
     __tablename__ = "amenities"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60))
+    aminityName = db.Column(db.String(60))
     status = db.Column(db.Boolean)
