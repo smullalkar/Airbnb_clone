@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import SignUp from "../../Auth/SignUp/SignUp";
 import Home from "../Home/Home";
+import Listing from "../Listing/Listing";
 
 class Routes extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Routes extends Component {
     return (
       <Switch>
         <Route exact path="/" component={Home} />
-        {/* <Route exact path="/:urlParams" render={(props)=> <Dummy {...props}/> }/> */}
+        <Route exact path="/:urlParams" render={(props)=> <Listing {...props}/> }/>
       </Switch>
     );
   }
