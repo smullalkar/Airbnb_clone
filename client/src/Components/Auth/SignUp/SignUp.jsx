@@ -121,7 +121,7 @@ class SignUp extends Component {
         const { closeLoginModal } = this.props;
         if (error === false) {
           localStorage.setItem("token", token);
-          this.setState({ isSignup: true });
+          this.setState({ isSignup: true })
           closeLoginModal();
         }
       }
