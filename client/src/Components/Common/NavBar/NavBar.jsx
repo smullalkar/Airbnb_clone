@@ -7,6 +7,7 @@ import {
   closeRegisterModal,
 } from "../../../Redux/authentication/actions";
 import { connect } from "react-redux";
+import logo from "../../../assets/images/logo.svg"
 
 class NavBar extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class NavBar extends Component {
           className="d-flex justify-content-between"
         >
           <Navbar.Brand href="#">
-            {/* <img src={logo} className="App-logo" alt="Airbnb" /> */}
+            <img src={logo} className="App-logo" alt="Airbnb" />
           </Navbar.Brand>
 
           <DropdownButton

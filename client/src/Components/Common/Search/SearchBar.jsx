@@ -52,6 +52,7 @@ class Search extends Component {
                             onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired, 
                             startDatePlaceholderText="Add dates"
                             endDatePlaceholderText="Add dates"
+
                         >
                         </DateRangePicker>
 
@@ -77,3 +78,4 @@ class Search extends Component {
 }
 
 export default Search;
+// displayFormat="MMM DD"

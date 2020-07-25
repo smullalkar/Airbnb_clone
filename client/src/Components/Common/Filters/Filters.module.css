@@ -1,0 +1,94 @@
+.cancellationCard {
+  max-width: 500px;
+  border-radius: 28px;
+  height: 200px;
+  min-width: 500px;
+}
+
+.cancellationCardClear {
+  float: left;
+  padding: 10px 30px 10px 30px;
+}
+
+.cancellationCardSave {
+  float: right;
+  background: black;
+  color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 10px 20px 10px 20px;
+  text-align: center;
+}
+
+.cancellationCardCheckBox {
+  background-color: initial;
+  cursor: pointer;
+  box-sizing: none;
+  border: none;
+  margin: 10px;
+}
+
+.placeCard {
+  max-width: 350px;
+  border-radius: 28px;
+  height: 300px;
+  padding-left: 30px;
+  min-width: 350px;
+}
+
+.priceCard {
+  max-width: 600px;
+  border-radius: 28px;
+  height: 200px;
+  padding-left: 30px;
+  min-width: 600px;
+}
+
+.priceInput {
+  border: 2px solid grey;
+  border-radius: 8px;
+  text-align: center;
+  height: 50px;
+  color: dark;
+}
+
+.guestCard {
+  max-width: 400px;
+  border-radius: 28px;
+  height: 350px;
+}
+
+.guestButton {
+  width: 32px;
+  height: 32px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: inline-flex;
+  text-align: center;
+  color: rgb(113, 113, 113);
+  font-family: inherit;
+  touch-action: manipulation;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(176, 176, 176);
+  outline: none;
+  background: rgb(255, 255, 255);
+  border-radius: 50%;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  box-sizing: border-box;
+  flex: 0 1 auto;
+}
+
+/* 
+.moreFilterModal {
+  width: 800px;
+} */
