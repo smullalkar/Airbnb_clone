@@ -12,8 +12,8 @@ import Entity from "./Components/Common/Entity/Entity"
 function App() {
   return (
     <div className="App">
-      {/* <NavBar />
-      <Routes /> */}
+      <NavBar />
+      <Routes />
       <Entity />
 
     </div>

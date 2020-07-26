@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-
+import { DateRangePicker } from "react-dates";
 import { Card, Row, Col } from "react-bootstrap";
 
 import Amenities from "./Amenities/Amenities"
 import HostDetails from "./HostDeatis/HostDetails"
 import MorePlaceToStay from "./MorePlaceToShow/MorePlaceToShow"
 import ExploreMore from "./ExploreMore/ExploreMore"
-import PriceDetails from "./PriceDetails/PriceDetails";
+import PriceDetails from "./PriceDetails/PriceDetails"
+import SleepingArrangement from "./SleepingArrangement/SleepingArrangement"
 
-import styles from './Entity.module.css';
+import styles from './Entity.module.css'
 import pic1 from "../../../assets/images/entity7.png"
 import pic2 from "../../../assets/images/entity2.jpg"
 import pic3 from "../../../assets/images/pic3.webp"
@@ -95,50 +96,50 @@ class Entity extends Component {
 
                         <hr />
 
-                        <div>
+                        <div className="p-4">
                             <div className="d-flex flex-row justify-content-start">
                                 <div>
-                                    <img src={home} alt="" />
+                                    <img src={home} alt="" className="m-2" />
                                 </div>
                                 <div>
-                                    <div><h6 className={styles.detailHeading}>Entire home</h6></div>
-                                    <div><p className={styles.detailDescription}>You’ll have the cabin to yourself.</p></div>
+                                    <h6 className={styles.detailHeading}>Entire home</h6>
+                                    <p className={styles.detailDescription}>You’ll have the cabin to yourself.</p>
                                 </div>
                             </div>
                             <div className="d-flex flex-row justify-content-start">
                                 <div>
-                                    <img src={clean} alt="" />
+                                    <img src={clean} alt="" className="m-2" />
                                 </div>
                                 <div>
-                                    <div><h6 className={styles.detailHeading}>Clean and tidy</h6></div>
-                                    <div><p className={styles.detailDescription}><span>9</span>recent guests said this place was sparkling clean.</p></div>
+                                    <h6 className={styles.detailHeading}>Clean and tidy</h6>
+                                    <p className={styles.detailDescription}><span>9</span>recent guests said this place was sparkling clean.</p>
                                 </div>
                             </div>
                             <div className="d-flex flex-row justify-content-start">
                                 <div>
-                                    <img src={medal} alt="" />
+                                    <img src={medal} alt="" className="m-2" />
                                 </div>
                                 <div>
-                                    <div><h6 className={styles.detailHeading}>Sharan Deep Singh is a Superhost</h6></div>
-                                    <div><p className={styles.detailDescription}>Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.</p></div>
+                                    <h6 className={styles.detailHeading}>Sharan Deep Singh is a Superhost</h6>
+                                    <p className={styles.detailDescription}>Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.</p>
                                 </div>
                             </div>
                             <div className="d-flex flex-row justify-content-start">
 
                                 <div>
-                                    <img src={map} alt="" />
+                                    <img src={map} alt="" className="m-2" />
                                 </div>
 
                                 <div>
-                                    <div><h6 className={styles.detailHeading}>Great location</h6></div>
-                                    <div><p className={styles.detailDescription}> <span>95%</span> of recent guests gave the location a 5-star rating.</p></div>
+                                    <h6 className={styles.detailHeading}>Great location</h6>
+                                    <p className={styles.detailDescription}> <span>95%</span> of recent guests gave the location a 5-star rating.</p>
                                 </div>
                             </div>
 
                         </div>
                         <hr />
 
-                        <div>
+                        <div className="p-4">
                             <div className={styles.entityDetailPara}>
 
                                 We are family looking forward to hosting you at a comfortable and cozy house that is set amidst a carpet of green, overlooked by dense forest and the occasional witness to wildlife such as the Indian Gaur and the Barking Deer.
@@ -149,29 +150,43 @@ class Entity extends Component {
                             <div> <h4 ><a className={styles.alertLink}>Contact Host</a></h4></div>
                         </div>
                         <hr />
-                        <div>
+                        <div className="p-4">
                             <h3 className={styles.entityTitle}>2 nights in Coimbatore</h3>
 
                             <div className={`${styles.listingBasicDetails} d-flex flex-row `}>
                                 <div><span>21</span><span className="mx-1">June 2020</span></div>
                                 <span className="mx-1">&#x2D;</span>
                                 <div><span></span><span className="mx-1">2 Aug 2020</span></div>
-
-
-
                             </div>
+
+                            <DateRangePicker
+                                startDate={this.state.startDate}
+                                startDateId="your_unique_start_date_id"
+                                endDate={this.state.endDate}
+                                endDateId="your_unique_end_date_id"
+                                onDatesChange={({ startDate, endDate }) =>
+                                    this.setState({ startDate, endDate })
+                                }
+                                focusedInput={this.state.focusedInput}
+                                onFocusChange={(focusedInput) => this.setState({ focusedInput })}
+                                startDatePlaceholderText="startDate"
+                                endDatePlaceholderText="endDate"
+                            ></DateRangePicker>
                         </div>
+
+                        <hr />
+                        <SleepingArrangement />
                         <hr />
 
                         <Amenities />
 
                     </div>
+
                     <div className="col-4">
                         <PriceDetails />
                     </div>
 
                 </div>
-                <hr />
 
                 <hr />
                 <HostDetails />
@@ -186,7 +201,7 @@ class Entity extends Component {
 
 
 
-
+                <hr />
 
             </div >
 

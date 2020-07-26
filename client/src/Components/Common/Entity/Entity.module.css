@@ -29,11 +29,6 @@
     font-size: 14px;
 }
 
-/* .cardMainImageContainer {
-      width: 560px;
-      height: 495px;
-  } */
-
 .cardMainImage {
     width: 100%;
 }
@@ -80,7 +75,6 @@
 .detailDescription {
     font-weight: 300;
     font-size: 14px;
-    color: #222;
 }
 
 .entityDetailPara {
@@ -113,6 +107,7 @@
 
 .entityTitle {
     font-size: 18px;
+    font-weight: bold;
 }
 
 .hostAvatarContainer {
@@ -123,4 +118,12 @@
 .hostAvatarImage {
     width: 100%;
     border-radius: 50%;
+}
+
+.alertLink {
+    font-weight: bold;
+    color: #222222;
+    text-decoration: underline !important;
+    font-size: 16px;
+    margin: 10px 0px 10px 0px;
 }

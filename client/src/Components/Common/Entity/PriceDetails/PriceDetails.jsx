@@ -24,7 +24,7 @@ class PriceDetails extends Component {
 
             <div>
 
-                <Card>
+                <Card className={styles.pricedetailsCard}>
                     <Card.Body>
                         <div className="d-flex flex-row justify-content-between">
                             <Card.Text className={styles.priceCont}> <span className={styles.amountSpan}>999 </span>  <span className={styles.amountSpan}>₹855 </span> / night</Card.Text>
@@ -75,6 +75,7 @@ class PriceDetails extends Component {
 
                             </Card.Body>
                         </Card>
+
                         <Button size="lg" block>Reserve </Button>
 
                         <Card.Text>You won't be charged yet </Card.Text>

@@ -1,3 +1,7 @@
+.priceDetailsCard {
+    max-width: 600px;
+}
+
 .ratingStar {
     color: #f5395c;
 }
@@ -44,9 +48,9 @@
 }
 
 .guestCard {
-    max-width: 400px;
+    max-width: 600px;
     border-radius: 28px;
-    height: 350px;
+    height: 550px;
 }
 
 .guestButton {

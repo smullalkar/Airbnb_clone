@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Card } from "react-bootstrap";
 
-import styles from './PriceDetails';
+import styles from './PriceDetails.module.css';
 
 
 

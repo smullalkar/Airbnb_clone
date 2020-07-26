@@ -15,9 +15,9 @@ class ExploreMore extends Component {
     render() {
         return (
 
-            <div>
+            <div className="p-4">
                 <div className={styles.destinationList}>
-                    <h6 className="text-left font-weight-bold"> Explore other options in and around Coimbatore </h6>
+                    <h4 className="text-left font-weight-bold"> Explore other options in and around Coimbatore </h4>
 
                     <div>
                         <h6 className="font-weight-bold">More places to stay in Coimbatore:</h6>
