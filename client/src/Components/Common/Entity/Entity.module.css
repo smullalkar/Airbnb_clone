@@ -1,0 +1,88 @@
+.entityContainer {
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-top: 20px;
+    max-width: 1366px;
+}
+
+.ratingStar {
+    color: #f5395c;
+}
+
+.rating {
+    font-weight: 300;
+    font-size: 12px;
+    margin: 0px 2px;
+}
+
+.numrated {
+    font-weight: 300;
+    color: #222;
+    font-size: 12px;
+    margin: 0px 2px;
+}
+
+.alertLink {
+    font-weight: 500;
+    color: #222222;
+    text-decoration: underline !important;
+    font-size: 20px;
+}
+
+/* .cardMainImageContainer {
+    width: 560px;
+    height: 495px;
+} */
+
+.cardMainImage {
+    width: 100%;
+}
+
+.cardChildImage {
+    width: 100%;
+}
+
+.cardMainImageContainer {
+    object-fit: cover;
+    vertical-align: bottom;
+    padding: 4px 4px;
+}
+
+.cardChildImageContainer {
+    object-fit: cover;
+    vertical-align: bottom;
+    padding: 4px 4px;
+}
+
+.mainImage {
+    border-top-left-radius: 13px;
+    border-bottom-left-radius: 12px;
+}
+
+.entityContentContainer {
+    margin-top: 20px;
+}
+
+.listingName {
+    font-size: 24px;
+}
+
+.listingBasicDetails {
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.detailHeading {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.detailDescription {
+    font-weight: 300;
+    font-size: 14px;
+    color: #222;
+}
+
+.entityDetailPara {
+    font-weight: 300;
+}
