@@ -29,6 +29,7 @@
   position: absolute;
   right: 0;
   right: -72px;
+  text-align: center;
 }
 
 .formControl::placeholder {
