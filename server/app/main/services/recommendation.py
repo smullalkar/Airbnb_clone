@@ -41,7 +41,27 @@ def recommendation(params, payload):
         print('................f',facility)
 
         propertyId = payload["propertyId"]
+        
+        if maxPrice <= 1000:
+            minPrice = 0
+            maxPrice = maxPrice
 
+        elif maxPrice > 1000 and maxPrice <= 3000:
+            minPrice = maxPrice - (maxPrice * 0.30)
+            maxPrice = maxPrice + (maxPrice * 0.30)
+
+        elif maxPrice > 3000 and maxPrice <= 5000:
+            minPrice = maxPrice - (maxPrice * 0.25)
+            maxPrice = maxPrice + (maxPrice * 0.25)
+
+        elif maxPrice > 5000 and maxPrice < 10000:
+            minPrice = maxPrice - (maxPrice * 0.20)
+            maxPrice = maxPrice + (maxPrice * 0.20)
+
+        else:
+            minPrice = maxPrice - (maxPrice * 0.15)
+            maxPrice = maxPrice + (maxPrice * 0.15)
+            
     except KeyError as err:
         return json.dumps({'error': True, 'error_found': format(err)})
     except TypeError as err:
@@ -56,7 +76,7 @@ def recommendation(params, payload):
                 ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
                 p.refundType,p.price,p.accomodatesCount,
                 p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
-                p.cityId,p.userId,
+                p.cityId,p.userId, AVG(r.rating) AS rating,
                 GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
                 GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
                 GROUP_CONCAT(DISTINCT images.image) AS images
@@ -72,7 +92,8 @@ def recommendation(params, payload):
                 JOIN facility_property ON p.id=facility_property.propertyId 
                 JOIN facility ON facility_property.facilityId=facility.id
                 JOIN images ON p.id=images.propertyId
-                JOIN categories AS cct ON p.categoryId=cct.id WHERE '''
+                JOIN categories AS cct ON p.categoryId=cct.id 
+                JOIN review as r ON r.propertyId=p.id WHERE '''
 
     if location is not None:
         query = query + ' c.cityName = "%s" AND '%(location)
@@ -138,3 +159,66 @@ def recommendation(params, payload):
         "message": 'Successful',
         'error': False
     }, default=str)
+
+
+def recommendation_popularity(params, payload):
+    """
+    send recommendation based on popularity
+    """
+    try:
+        location = params.get('location')
+        propertyId = payload["propertyId"]
+            
+    except KeyError as err:
+        return json.dumps({'error': True, 'error_found': format(err)})
+    except TypeError as err:
+        return json.dumps({'error': True, 'error_found': format(err)})
+    except Exception as err:
+        return json.dumps({'error': True, 'error_found': format(err)})
+
+    # SELECT * FROM property AS p JOIN city_model AS c ON p.cityId=c.id JOIN property_type AS pt ON p.propertyTypeId=pt.id JOIN categories AS ct ON p.categoryId=ct.id JOIN state_model as st on c.stateId=st.id JOIN countries_model AS cm ON st.countryId=cm.id WHERE c.cityName='Bengaluru';        
+
+    query = ''' SELECT p.id,p.propertyName,p.description,p.address,
+                p.countryId,cm.countryName,p.stateId,st.stateName,
+                ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
+                p.refundType,p.price,p.accomodatesCount,
+                p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
+                p.cityId,p.userId, AVG(r.rating) AS rating,
+                GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
+                GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
+                GROUP_CONCAT(DISTINCT images.image) AS images
+                FROM property AS p 
+                JOIN city_model AS c ON p.cityId=c.id 
+                JOIN property_type AS pt ON p.propertyTypeId=pt.id 
+                JOIN categories AS ct ON p.categoryId=ct.id 
+                JOIN state_model as st on c.stateId=st.id 
+                JOIN countries_model AS cm ON st.countryId=cm.id 
+                JOIN property_type AS ppt on p.propertyTypeId=ppt.id 
+                JOIN amenities_property ON p.id=amenities_property.propertyId 
+                JOIN amenities ON amenities_property.amenityId=amenities.id
+                JOIN facility_property ON p.id=facility_property.propertyId 
+                JOIN facility ON facility_property.facilityId=facility.id
+                JOIN images ON p.id=images.propertyId
+                JOIN categories AS cct ON p.categoryId=cct.id 
+                JOIN review as r ON r.propertyId=p.id WHERE '''
+
+    if location is not None:
+        query = query + ' c.cityName = "%s" '%(location)
+
+        query = query + ' AND p.id != %d GROUP BY p.id GROUP BY p.id HAVING rating >= 3 ;'%(int(propertyId))
+        results = db.session.execute(query)
+
+        d = sendData(results)
+        print(d)
+        return json.dumps({
+            "data": d,
+            "message": 'Successful',
+            'error': False
+        }, default=str)
+    
+    else:
+        return json.dumps({
+            "message": 'Location not specified!',
+            'error': True
+        }, default=str)
+    

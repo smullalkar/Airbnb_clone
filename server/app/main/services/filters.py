@@ -73,7 +73,7 @@ def sendCategories():
     for result in results:
         temp_dict = {}
         temp_dict["id"] = result.id
-        temp_dict["ty_of_place"] = result.categoryName
+        temp_dict["type_of_place"] = result.categoryName
         temp_dict["status"] = result.status
         data.append(temp_dict)
     print('data...............',data)
