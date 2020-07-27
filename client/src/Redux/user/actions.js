@@ -17,6 +17,15 @@ import {
     GET_PROPERTY_TYPE_REQUEST,
     GET_PROPERTY_TYPE_SUCCESS,
     GET_PROPERTY_TYPE_FAILURE,
+    GET_BOOKED_DATES_REQUEST,
+    GET_BOOKED_DATES_SUCCESS,
+    GET_BOOKED_DATES_FAILURE,
+    GET_RECOMMENDATION_REQUEST,
+    GET_RECOMMENDATION_SUCCESS,
+    GET_RECOMMENDATION_FAILURE,
+    BOOK_DATE_REQUEST,
+    BOOK_DATE_SUCCESS,
+    BOOK_DATE_FAILURE,
     CLOSE_CANCELLATION_FLEXIBILITY
 } from "./actionTypes";
 import axios from "axios";
@@ -139,11 +148,93 @@ export const getPropertyType = payload => {
     return dispatch => {
         dispatch(getPropertyTypeRequest());
         return axios
-            .get("https://run.mocky.io/v3/c4d7e8e0-db36-4197-8780-bf2fe8606eb7")
+            .post("/user/sendbokking", {
+                params: payload
+            })
             .then(res => dispatch(getPropertyTypeSuccess(res.data.data)))
             .catch(() => dispatch(getPropertyTypeFailure()));
     };
 }
+export const getBookedDatesRequest = () => ({
+    type: GET_BOOKED_DATES_REQUEST
+});
+
+export const getBookedDatesSuccess = payload => ({
+    type: GET_BOOKED_DATES_SUCCESS,
+    payload
+});
+
+export const getBookedDatesFailure = () => ({
+    type: GET_BOOKED_DATES_FAILURE
+});
+
+export const getBookedDates = payload => {
+    console.log(payload)
+    return dispatch => {
+        dispatch(getBookedDatesRequest());
+        return axios
+            .post("/user/addbooking", {
+                params: payload
+            })
+            .then(res => dispatch(getBookedDatesSuccess(res.data.data)))
+            .catch(() => dispatch(getBookedDatesFailure()));
+    };
+}
+
+export const bookDateRequest = () => ({
+    type: BOOK_DATE_REQUEST
+});
+
+export const bookDateSuccess = payload => ({
+    type: BOOK_DATE_SUCCESS,
+    payload
+});
+
+export const bookDateFailure = () => ({
+    type: BOOK_DATE_FAILURE
+});
+
+export const bookDate = payload => {
+    console.log(payload)
+    return dispatch => {
+        dispatch(bookDateRequest());
+        return axios
+            .post("/user/sendbooking", {
+                params: payload
+            })
+            .then(res => dispatch(bookDateSuccess(res.data)))
+            .catch(() => dispatch(bookDateFailure()));
+    };
+}
+
+
+export const getRecommendationRequest = payload => ({
+    type: BOOK_DATE_SUCCESS,
+    payload
+});
+
+export const getRecommendationSuccess = payload => ({
+    type: BOOK_DATE_SUCCESS,
+    payload
+});
+
+export const getRecommendationFailure = () => ({
+    type: BOOK_DATE_FAILURE
+});
+
+export const Recommendation = payload => {
+    console.log(payload)
+    return dispatch => {
+        dispatch(getRecommendationRequest());
+        return axios
+            .post("/user/recommendation", {
+                params: payload
+            })
+            .then(res => dispatch(getRecommendationSuccess(res.data)))
+            .catch(() => dispatch(getRecommendationFailure()));
+    };
+}
+
 
 //action to close cancellatiom flexibity popup
 export const closeCancellationFlexibility = () => ({
