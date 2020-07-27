@@ -26,6 +26,7 @@ import {
     GET_RECOMENDDATION_REQUEST,
     GET_RECOMENDDATION_SUCCESS,
     GET_RECOMENDDATION_FAILURE,
+    CLOSE_MORE_OPTIONS_MODAL,
     CLOSE_CANCELLATION_FLEXIBILITY
 } from "./actionTypes";
 import axios from "axios";
@@ -227,8 +228,8 @@ export const getRecommendation = payload => {
     return dispatch => {
         dispatch(getRecommendationRequest());
         return axios
-            .post("https://run.mocky.io/v3/c4d7e8e0-db36-4197-8780-bf2fe8606eb7")
-            .then(res => dispatch(getRecommendationSuccess(res.data.data)))
+            .post("https://run.mocky.io/v3/9d718346-0027-4afa-a824-e6ef7664d8ec")
+            .then(res => dispatch(getRecommendationSuccess(res.data)))
             .catch(() => dispatch(getRecommendationFailure()));
     };
 }
