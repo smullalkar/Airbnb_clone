@@ -1,53 +1,108 @@
 import React, { Component } from "react";
-import { Button, Card, Form } from "react-bootstrap";
-
-import styles from './Filters.module.css';
-
-
+import { Button, Card, Form, Dropdown } from "react-bootstrap";
+import styles from "./Filters.module.css";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class TypeOfPlace extends Component {
-    constructor(props) {
-        super(props);
-        this.state = ""
+  constructor(props) {
+    super(props);
+    this.state = {
+      type_of_place: "",
+      place_array: [],
+      query: "",
+    };
+  }
+
+  handleChange = (e) => {
+    let query = window.location.href.split("&");
+    var queryString = new URLSearchParams("/location?");
+    for (let i = 1; i < query.length; i++) {
+      let str = query[i].split("=");
+      if (str[1] !== "null" && str[1] !== "") {
+        queryString.append(str[0], str[1]);
+      }
     }
+    if (e.target.checked) {
+      this.setState(
+        {
+          place_array: [
+            ...this.state.place_array,
+            e.target.value.split(" ").join("_"),
+          ],
+        },
+        () => {
+          this.state.place_array.map((item) => {
+            queryString.append("type_of_place", item.split(" ").join("_"));
+          });
+          this.setState({ query: queryString }, () => {});
+        }
+      );
+    } else {
+      this.setState(
+        {
+          place_array: this.state.place_array.filter(
+            (val) => val != e.target.value.split(" ").join("_")
+          ),
+        },
+        () => {
+          this.state.place_array.map((item) => {
+            queryString.append("type_of_place", item.split(" ").join("_"));
+          });
+          this.setState({ query: queryString }, () => {});
+        }
+      );
+    }
+  };
 
-
-
-    render() {
-
-
-        return (
+  render() {
+    const { typeOfPlaces } = this.props;
+    const { query } = this.state;
+    console.log("query : ", query.toString());
+    return (
+      <div>
+        <Card className={styles.placeCard}>
+          <Card.Body>
             <div>
-
-                <Card className={styles.placeCard}>
-                    <Card.Body>
-
-                        <div>
-                            <Form.Check className={styles.cancellationCardCheckBox} type="checkbox" label="Entire place" />
-                            <Form.Check className={styles.cancellationCardCheckBox} type="checkbox" label="Private room" />
-                            <Form.Check className={styles.cancellationCardCheckBox} type="checkbox" label="Hotel room" />
-                            <Form.Check className={styles.cancellationCardCheckBox} type="checkbox" label="Shared room" />
-                        </div>
-                    </Card.Body>
-                    <Card.Footer>
-                        <div>
-                            <a className={styles.cancellationCardClear} href="">Clear</a>
-                            <button className={styles.cancellationCardSave} >Save</button>
-                        </div>
-                    </Card.Footer>
-                </Card>
-
-
-            </div >
-
-
-
-
-
-
-
-        );
-    }
+              {typeOfPlaces.data &&
+                typeOfPlaces.data.map((categories) => (
+                  <Form.Check
+                    onChange={this.handleChange}
+                    className={styles.cancellationCardCheckBox}
+                    type="checkbox"
+                    key={categories.id}
+                    value={categories.type_of_place}
+                    label={categories.type_of_place}
+                  />
+                ))}
+            </div>
+          </Card.Body>
+          <Card.Footer>
+            <div>
+              {/* <span className={styles.cancellationCardClear} onClick={() => {}}>
+                Clear
+              </span> */}
+              <Dropdown.Item>
+                <Link
+                  to={query.toString()}
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  <button
+                    className={styles.cancellationCardSave}
+                    onClick={this.handleClick}
+                  >
+                    Save
+                  </button>
+                </Link>
+              </Dropdown.Item>
+            </div>
+          </Card.Footer>
+        </Card>
+      </div>
+    );
+  }
 }
-
-export default TypeOfPlace;
+const mapStateToProps = (state) => ({
+  typeOfPlaces: state.userReducer.typeOfPlaces,
+});
+export default connect(mapStateToProps, null)(TypeOfPlace);

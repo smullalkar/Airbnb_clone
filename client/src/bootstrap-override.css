@@ -204,12 +204,12 @@
   border: none !important;
 }
 
-/* 
+
 .form-check-input {
   width: 20px;
   height: 20px;
   padding-right: 5px;
-} */
+}
 
 .page-link {
   font-size: 13px;
@@ -275,4 +275,12 @@ input[type="checkbox"] {
   background-clip: unset;
   border-radius: 2px;
   padding: 0px;
+}
+
+.top-right-curve {
+  border-top-right-radius: 12px;
+}
+
+.bottom-right-curve {
+  border-bottom-right-radius: 12px;
 }
