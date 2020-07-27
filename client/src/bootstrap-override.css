@@ -276,3 +276,11 @@ input[type="checkbox"] {
   border-radius: 2px;
   padding: 0px;
 }
+
+.top-right-curve {
+  border-top-right-radius: 12px;
+}
+
+.bottom-right-curve {
+  border-bottom-right-radius: 12px;
+}
