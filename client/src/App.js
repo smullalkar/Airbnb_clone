@@ -7,14 +7,16 @@ import NavBar from './Components/Common/NavBar/NavBar'
 import Footer from './Components/Common/Footer/Footer'
 import Routes from "./Components/Common/Route/Routes"
 import Entity from "./Components/Common/Entity/Entity"
+import ListingNavBar from "../src/Components/Common/ListingNavBar/ListingNavBar"
 
 
 function App() {
   return (
     <div className="App">
-      <NavBar />
+      {/* <NavBar />
       <Routes />
-      <Entity />
+      <Entity /> */}
+      <ListingNavBar />
 
     </div>
   );
