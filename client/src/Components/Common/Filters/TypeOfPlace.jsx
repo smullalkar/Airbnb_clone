@@ -57,6 +57,7 @@ class TypeOfPlace extends Component {
 
   render() {
     const { typeOfPlaces } = this.props;
+    console.log(typeOfPlaces)
     const { query } = this.state;
     console.log("query : ", query.toString());
     return (
@@ -71,8 +72,8 @@ class TypeOfPlace extends Component {
                     className={styles.cancellationCardCheckBox}
                     type="checkbox"
                     key={categories.id}
-                    value={categories.type_of_place}
-                    label={categories.type_of_place}
+                    value={categories.ty_of_place}
+                    label={categories.ty_of_place}
                   />
                 ))}
             </div>
@@ -82,7 +83,7 @@ class TypeOfPlace extends Component {
               {/* <span className={styles.cancellationCardClear} onClick={() => {}}>
                 Clear
               </span> */}
-              <Dropdown.Item>
+              {/* <Dropdown.Item> */}
                 <Link
                   to={query.toString()}
                   style={{ textDecoration: "none", color: "white" }}
@@ -94,7 +95,7 @@ class TypeOfPlace extends Component {
                     Save
                   </button>
                 </Link>
-              </Dropdown.Item>
+              {/* </Dropdown.Item> */}
             </div>
           </Card.Footer>
         </Card>
