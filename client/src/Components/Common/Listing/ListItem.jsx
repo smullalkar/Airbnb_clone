@@ -9,6 +9,11 @@ class ListItem extends Component {
   constructor(props) {
     super(props);
   }
+
+  handleClick = () => {
+    window.open("http://localhost:3000/entity/entity_page");
+  };
+
   render() {
     const { item } = this.props;
     return (
@@ -16,7 +21,12 @@ class ListItem extends Component {
         <Row className="text-center">
           {item.data &&
             item.data.map((home) => (
-              <Col key={uuidv4()} lg={2} className="m-3">
+              <Col
+                key={uuidv4()}
+                lg={2}
+                className="m-3"
+                onClick={this.handleClick}
+              >
                 <Card className={styles.card}>
                   <span className={styles.heart}>&#9829;</span>
                   <Card variant="top" className={styles.cardImage}>
@@ -43,7 +53,7 @@ class ListItem extends Component {
                       <span className={styles.numrated}>(72)</span>
                     </div>
                     <Card.Title className={styles.cardTitle}>
-                      {home.propertyType} . { home.cityName}
+                      {home.propertyType} . {home.cityName}
                     </Card.Title>
                     <Card.Text className={styles.cardDesc}>
                       {home.decription}
