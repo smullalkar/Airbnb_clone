@@ -8,6 +8,7 @@
 .cancellationCardClear {
   float: left;
   padding: 10px 30px 10px 30px;
+  cursor: pointer;
 }
 
 .cancellationCardSave {
@@ -88,7 +89,7 @@
   flex: 0 1 auto;
 }
 
-/* 
+/*
 .moreFilterModal {
   width: 800px;
 } */
