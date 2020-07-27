@@ -18,6 +18,7 @@ function App() {
       <Entity /> */}
       <ListingNavBar />
 
+
     </div>
   );
 }

@@ -45,6 +45,7 @@ class PriceFilter extends Component {
   render() {
     let { query, minPrice, maxPrice } = this.state;
     let avg = Math.floor((Number(minPrice) + Number(maxPrice)) / 2);
+    console.log(query.toString)
     return (
       <div>
         <Card className={styles.priceCard}>

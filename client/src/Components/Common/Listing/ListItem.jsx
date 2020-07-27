@@ -8,15 +8,33 @@ import { v4 as uuidv4 } from "uuid";
 class ListItem extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      url: "",
+    };
   }
+  componentDidMount() {
+    let query = window.location.href;
+    this.setState({
+      url: query,
+    });
+  }
+
   render() {
+    const { url } = this.state;
     const { item } = this.props;
     return (
       <div>
         <Row className="text-center">
           {item.data &&
             item.data.map((home) => (
-              <Col key={uuidv4()} lg={2} className="m-3">
+              <Col
+                key={uuidv4()}
+                lg={2}
+                className="m-3"
+                onClick={() => {
+                  window.open(url + "/entity/id_" + home.property_id);
+                }}
+              >
                 <Card className={styles.card}>
                   <span className={styles.heart}>&#9829;</span>
                   <Card variant="top" className={styles.cardImage}>
@@ -43,7 +61,7 @@ class ListItem extends Component {
                       <span className={styles.numrated}>(72)</span>
                     </div>
                     <Card.Title className={styles.cardTitle}>
-                      {home.propertyType} . { home.cityName}
+                      {home.propertyType} . {home.cityName}
                     </Card.Title>
                     <Card.Text className={styles.cardDesc}>
                       {home.decription}

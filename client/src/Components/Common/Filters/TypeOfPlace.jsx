@@ -10,7 +10,7 @@ class TypeOfPlace extends Component {
     this.state = {
       type_of_place: "",
       place_array: [],
-      query: "",
+      query: ""
     };
   }
 
