@@ -18,17 +18,17 @@ class MoreAmeneties extends Component {
     }
 
     render() {
-        const { show, handleMoreAmenetiesClose } = this.props
+        const { show, handleMoreAmenitiesClose } = this.props
         return (
 
             <div>
-                <Modal size="lg" show={show} onHide={handleMoreAmenetiesClose} >
+                <Modal show={show} onHide={handleMoreAmenitiesClose} >
 
                     <Modal.Header closeButton>
                         <Modal.Title>More Amenities</Modal.Title>
                     </Modal.Header>
-                    <ModalDialog scrollable={true}  >
-                        <Modal.Body size="lg">
+                    <ModalDialog scrollable={true} className="m-0"  >
+                        <Modal.Body >
                             <h4>Amenities</h4>
                             <h6 className="font-weight-bold">Basic</h6>
                             <p>Wifi</p>

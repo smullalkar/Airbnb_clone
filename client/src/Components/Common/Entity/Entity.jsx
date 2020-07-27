@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { DateRangePicker } from "react-dates";
-import { Card, Row, Col } from "react-bootstrap";
+//import { DateRangePicker, DayPickerSingleDateController } from "react-dates";
+import { DateRangePicker, DayPickerSingleDateController } from "react-dates";
+//import { Card, Row, Col } from "react-bootstrap";
 
 import Amenities from "./Amenities/Amenities"
 import HostDetails from "./HostDeatis/HostDetails"
@@ -158,7 +159,7 @@ class Entity extends Component {
                                 <span className="mx-1">&#x2D;</span>
                                 <div><span></span><span className="mx-1">2 Aug 2020</span></div>
                             </div>
-
+                            {/* 
                             <DateRangePicker
                                 startDate={this.state.startDate}
                                 startDateId="your_unique_start_date_id"
@@ -171,7 +172,13 @@ class Entity extends Component {
                                 onFocusChange={(focusedInput) => this.setState({ focusedInput })}
                                 startDatePlaceholderText="startDate"
                                 endDatePlaceholderText="endDate"
-                            ></DateRangePicker>
+                            ></DateRangePicker> */}
+                            <DayPickerSingleDateController
+                                date={this.state.startDate}
+                                numberOfMonths={2}
+                                noBorder={true}
+                                daySize={40}
+                            />
                         </div>
 
                         <hr />

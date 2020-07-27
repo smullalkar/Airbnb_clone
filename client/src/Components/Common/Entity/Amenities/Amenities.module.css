@@ -1,18 +1,18 @@
 .entityTitle {
-    font-size: 18px;
-    font-weight: bold;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .amneityItem {
-    font-weight: 300;
-    padding: 10px;
+  font-weight: 300;
+  padding: 10px;
 }
 
 .showAllBtn {
-    background-color: cornsilk;
-    margin: 20px;
+  /* background-color: cornsilk; */
+  margin: 20px;
 }
 
 .amenetiesModal {
-    max-width: 800px;
+  max-width: 800px;
 }

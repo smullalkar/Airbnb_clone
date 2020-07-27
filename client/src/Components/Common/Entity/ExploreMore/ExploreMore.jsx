@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Card } from "react-bootstrap";
+//import { Card } from "react-bootstrap";
 
 import styles from './ExploreMore.module.css';
 

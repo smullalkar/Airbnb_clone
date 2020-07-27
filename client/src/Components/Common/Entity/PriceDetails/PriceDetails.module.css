@@ -1,96 +1,118 @@
 .priceDetailsCard {
-    max-width: 600px;
+  max-width: 600px;
 }
 
 .ratingStar {
-    color: #f5395c;
+  color: #f5395c;
 }
 
 .rating {
-    font-weight: 300;
-    font-size: 12px;
-    margin: 0px 2px;
+  font-weight: 300;
+  font-size: 12px;
+  margin: 0px 2px;
 }
 
 .numrated {
-    font-weight: 300;
-    color: #222;
-    font-size: 12px;
-    margin: 0px 2px;
+  font-weight: 300;
+  color: #222;
+  font-size: 12px;
+  margin: 0px 2px;
 }
 
 .formLabel {
-    font-size: 10px;
-    text-transform: uppercase;
-    font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .dateLabel {
-    z-index: 10;
+  z-index: 10;
 }
 
 .checkoutLabel {
-    position: absolute;
-    right: 0;
-    right: -72px;
+  position: absolute;
+  right: 0;
+  right: -67px;
+  text-align: center;
 }
 
 .addButton {
-    cursor: pointer;
-    display: block;
-    position: relative;
-    background-clip: padding-box;
-    border: 1px solid transparent;
-    border-radius: 32px;
-    padding: 8px 16px;
-    font-weight: 300 !important;
-    height: 42px;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+  border-radius: 32px;
+  padding: 8px 16px;
+  font-weight: 300 !important;
+  height: 42px;
 }
 
 .guestCard {
-    max-width: 600px;
-    border-radius: 28px;
-    height: 550px;
+  max-width: 600px;
+  border-radius: 28px;
+  height: 400px;
 }
 
 .guestButton {
-    width: 32px;
-    height: 32px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    cursor: pointer;
-    display: inline-flex;
-    text-align: center;
-    color: rgb(113, 113, 113);
-    font-family: inherit;
-    touch-action: manipulation;
-    align-items: center;
-    justify-content: center;
-    margin: 0px;
-    padding: 0px;
-    text-decoration: none;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(176, 176, 176);
-    outline: none;
-    background: rgb(255, 255, 255);
-    border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: inline-flex;
+  text-align: center;
+  color: rgb(113, 113, 113);
+  font-family: inherit;
+  touch-action: manipulation;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(176, 176, 176);
+  outline: none;
+  background: rgb(255, 255, 255);
+  border-radius: 50%;
 }
 
 *, *:before, *:after {
-    box-sizing: border-box;
-    box-sizing: border-box;
-    flex: 0 1 auto;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  flex: 0 1 auto;
 }
 
 .close {
-    text-align: right;
+  text-align: right;
 }
 
 .amountSpan {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .priceCont {
-    font-size: 14px;
+  font-size: 14px;
+}
+
+.discountAmount {
+  text-decoration: line-through;
+}
+
+.priceListText {
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.guestDropdown {
+  min-width: 350px;
+  border: none;
+}
+
+.helperText {
+  font-weight: 300;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 4px;
 }

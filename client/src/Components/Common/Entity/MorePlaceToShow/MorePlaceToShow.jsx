@@ -22,12 +22,12 @@ class MorePlaceToShow extends Component {
             <div className="p-4">
                 <div className="d-flex flex-row justify-content-between">
                     <div><h4 className="text-left font-weight-bold my-3">More places to stay </h4></div>
-                    <div>
-                        {/* <p><span>3</span><span>/</span><span>3</span></p> */}
-                        <Pagination>
-                            <Pagination.Prev className="prevPage" />
-                            <Pagination.Item active>{2}</Pagination.Item>
-                            <Pagination.Next className="nextPage" />
+                    <div className="d-flex align-items-center">
+                        <p className={`m-0 mx-2 ${styles.pagerNumber}`}><span>3</span><span>/</span><span>3</span></p>
+                        <Pagination className="m-0">
+                            <Pagination.Prev className="prevPage mx-1" />
+
+                            <Pagination.Next className="nextPage mx-1" />
                         </Pagination>
                     </div>
                 </div>

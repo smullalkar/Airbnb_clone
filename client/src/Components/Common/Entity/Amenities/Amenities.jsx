@@ -24,7 +24,7 @@ class Amenities extends Component {
         };
     }
 
-    handleMoreFiltersClose = () => {
+    handleMoreAmenitiesClose = () => {
         this.setState({ showMoreAmenities: false })
     }
 
@@ -48,7 +48,7 @@ class Amenities extends Component {
                         </Row>
 
 
-                        <Button className={styles.showAllBtn} size="lg" onClick={() => this.setState({ showMoreAmenities: true })}>Show all amenitis</Button>
+                        <Button variant="outline-secondary" className={styles.showAllBtn} size="lg" onClick={() => this.setState({ showMoreAmenities: true })}>Show all amenitis</Button>
                         <MoreAmeneties show={this.state.showMoreAmenities} handleMoreAmenitiesClose={this.handleMoreAmenitiesClose} />
                     </div>
                 </div>

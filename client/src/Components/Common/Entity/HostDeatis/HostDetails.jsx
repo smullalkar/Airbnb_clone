@@ -55,7 +55,7 @@ class HostDetails extends Component {
                     <div className="col-4">
                         <div><span>Response rate </span> <span>	&#58; </span> <span>100%</span></div>
                         <div><span>Response time </span> <span>	&#58; </span> <span>within an hour</span></div>
-                        <Button className={styles.contactHostBtn} size="lg">Contact Host</Button>
+                        <Button variant="outline-secondary" className={styles.contactHostBtn} size="lg">Contact Host</Button>
 
                         <div className="d-flex flex-row justify-content-between">
                             <div><img className={styles.shieldAvatarContainer} src={sheild} alt="" /></div>

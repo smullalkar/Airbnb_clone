@@ -1,72 +1,72 @@
 .ratingStar {
-    color: #f5395c;
-    padding-left: 10px;
+  color: #f5395c;
+  padding-left: 10px;
 }
 
 .rating {
-    font-weight: 300;
-    font-size: 12px;
-    margin: 0px 2px;
+  font-weight: 300;
+  font-size: 12px;
+  margin: 0px 2px;
 }
 
 .numrated {
-    font-weight: 300;
-    color: #222;
-    font-size: 12px;
-    margin: 0px 2px;
+  font-weight: 300;
+  color: #222;
+  font-size: 12px;
+  margin: 0px 2px;
 }
 
 .alertLink {
-    font-weight: 500;
-    color: #222222;
-    text-decoration: underline !important;
-    font-size: 14px;
+  font-weight: 500;
+  color: #222222;
+  text-decoration: underline !important;
+  font-size: 14px;
 }
 
 .hostAvatarContainer {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 .hostAvatarImage {
-    width: 100%;
-    border-radius: 50%;
+  width: 100%;
+  border-radius: 50%;
 }
 
 .hostName {
-    font-weight: 700;
-    margin-bottom: 2px;
+  font-weight: 700;
+  margin-bottom: 2px;
 }
 
 .hostDate {
-    font-weight: 300;
-    font-size: 14px;
+  font-weight: 300;
+  font-size: 14px;
 }
 
 .entityTitle {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .entityDetailPara {
-    font-weight: 300;
-    font-size: 14px;
-    padding: 10px 5px 10px 0px;
+  font-weight: 300;
+  font-size: 14px;
+  padding: 10px 5px 10px 0px;
 }
 
 .contactHostBtn {
-    background-color: cornsilk;
-    margin: 20px;
+  /* background-color: cornsilk; */
+  margin: 20px;
 }
 
 .alertLink {
-    font-weight: bold;
-    color: #222222;
-    text-decoration: underline !important;
-    font-size: 16px;
-    margin: 10px 0px 10px 0px;
+  font-weight: bold;
+  color: #222222;
+  text-decoration: underline !important;
+  font-size: 16px;
+  margin: 10px 0px 10px 0px;
 }
 
 .shieldAvatarContainer {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
