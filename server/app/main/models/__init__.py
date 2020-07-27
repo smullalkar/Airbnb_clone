@@ -16,9 +16,12 @@ from .MinimumStayModel import MinimumStayModel
 from .PriceTypeModel import PriceTypeModel
 from .PropertyTypeModel import PropertyTypeModel
 from .PropertyImagesModel import PropertyImagesModel
+from .ImageModel import ImageModel
 from .StateModel import StateModel
 from .BookingModel import BookingModel
 from .AmenityPropertyRelationModel import AmenityPropertyRelationModel
 from .PropertyRoomModel import PropertyRoomModel
 from .FacilityModel import FacilityModel
-# from .FacilityModel import FacilityModel
+from .FacilityPropertyModel import FacilityPropertyModel
+from .CategoryPropertyModel import CategoryPropertyModel
+from .ReviewModel import ReviewModel
