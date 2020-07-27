@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes />
-      <Entity />
+      {/* <Entity /> */}
 
     </div>
   );
