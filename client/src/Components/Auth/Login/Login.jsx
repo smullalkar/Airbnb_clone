@@ -20,6 +20,7 @@ class Login extends Component {
       email: "",
       password: "",
       isSignup: false,
+      isError: false,
     };
   }
   responseFacebook = (response) => {
@@ -34,29 +35,46 @@ class Login extends Component {
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
+      isError: false,
     });
   };
 
   handleContinue = () => {
     const { loginUser } = this.props;
     const { email, password } = this.state;
+    if (
+      email === undefined ||
+      email === "" ||
+      password === undefined ||
+      password === ""
+    ) {
+      this.setState({ isError: true });
+      return;
+    }
     var obj = { email: email, password: password };
     loginUser(obj);
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevState.isSignup === this.state.isSignup){
+    const { closeLoginModal } = this.props
+    console.log(prevState);
+    if (prevState.isSignup === this.state.isSignup) {
       if (this.props.payload) {
-        const { error, token } = this.props.payload;
-        const { closeLoginModal } = this.props;
-        if ( error === false) {
-          localStorage.setItem("token", token);
-          this.setState({isSignup : true})
+        const { error } = this.props.payload;
+        // let error = this.props.payload.error
+        // console.log(error)
+        const { isSignup } = this.state;
+        console.log(isSignup, error);
+        // error === false &&
+        if (isSignup === false) {
+          console.log("isSignup : ", isSignup)
+          this.setState({ isSignup: true });
           closeLoginModal();
         }
       }
     }
   }
+
 
   handleClose = () => {
     const { closeLoginModal } = this.props;
@@ -70,7 +88,9 @@ class Login extends Component {
   };
   render() {
     const { handleLoginClose, isShowLoginModal } = this.props;
+    const { isError } = this.state;
     console.log(isShowLoginModal);
+
     return (
       <>
         <div>
@@ -104,8 +124,30 @@ class Login extends Component {
                   />
                 </div>
                 <Form.Text muted className="my-2" style={{ fontSize: 12 }}>
-                  We’ll call or text you to confirm your number. Standard
-                  message and data rates apply.
+                  {isError ? (
+                    <span style={{ color: "red", fontSize: 15 }}>
+                      <svg
+                        style={{ width: 20 }}
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>{" "}
+                      <span className="mr-2">
+                        Please Enter required fields !!
+                      </span>
+                    </span>
+                  ) : (
+                    <span>
+                      {" "}
+                      We’ll call or text you to confirm your number. Standard
+                      message and data rates apply.
+                    </span>
+                  )}
                 </Form.Text>
 
                 <Button
@@ -117,7 +159,12 @@ class Login extends Component {
                   Continue
                 </Button>
 
-                <hr />
+                <div className="d-flex">
+                  {" "}
+                  <hr style={{ width: "47%" }} />{" "}
+                  <span className="pt-1">or</span>
+                  <hr style={{ width: "47%" }} />{" "}
+                </div>
 
                 <div className="my-2">
                   <FacebookLogin
@@ -143,7 +190,7 @@ class Login extends Component {
 
                   <div variant="outline-secondary" size="lg">
                     <GoogleLogin
-                      clientId="304743879385-hes3s6fpp9ijfvi74odg20d4nu5aoudc.apps.googleusercontent.com"
+                      clientId="491118482543-i2uipslim2cgt2e0ivpn94qom9tkppop.apps.googleusercontent.com"
                       render={(renderProps) => (
                         <button
                           className="google btn bg-light btn-lg"

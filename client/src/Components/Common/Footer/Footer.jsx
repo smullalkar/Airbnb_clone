@@ -76,13 +76,13 @@ class Footer extends Component {
                     </Col>
                     <Col lg={2}>₹INR</Col>
                     <Col lg={1}>
-                      <i class="fa fa-facebook fa-lg" aria-hidden="true"></i>
+                      <i className="fa fa-facebook fa-lg" aria-hidden="true"></i>
                     </Col>
                     <Col lg={1}>
-                      <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
+                      <i className="fa fa-twitter fa-lg" aria-hidden="true"></i>
                     </Col>
                     <Col lg={1}>
-                      <i class="fa fa-instagram fa-lg" aria-hidden="true"></i>
+                      <i className="fa fa-instagram fa-lg" aria-hidden="true"></i>
                     </Col>
                   </Col>
                 </Col>

@@ -14,4 +14,6 @@ class UserModel(db.Model):
     password = db.Column(db.String(60))
     phone = db.Column(db.String(60))
     createdAt = db.Column(db.DateTime(timezone=True))
-    userType = db.Column(db.String(60))
+    modifiedAt = db.Column(db.DateTime(timezone=True))
+    userType = db.Column(db.String(60), nullable=False)
+    status = db.Column(db.Boolean)

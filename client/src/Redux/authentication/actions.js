@@ -8,9 +8,6 @@ import {
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAILURE,
-    TOKEN_VALIDATE_REQUEST,
-    TOKEN_VALIDATE_SUCCESS,
-    TOKEN_VALIDATE_FAILURE,
     FACEBOOK_LOGIN_REQUEST,
     FACEBOOK_LOGIN_SUCCESS,
     FACEBOOK_LOGIN_FAILURE,
@@ -30,7 +27,7 @@ export const facebookLoginRequest = () => ({
 })
 
 export const facebookLoginSuccess = payload => ({
-    type: FACEBOOK_LOGIN_FAILURE,
+    type: FACEBOOK_LOGIN_SUCCESS,
     payload
 })
 
@@ -188,6 +185,7 @@ export const logoutUserFailure = () => ({
 export const closeLoginModal = () => ({
     type: CLOSE_LOGIN_MODAL
 })
+
 
 //close registration modal
 export const closeRegisterModal = () => ({

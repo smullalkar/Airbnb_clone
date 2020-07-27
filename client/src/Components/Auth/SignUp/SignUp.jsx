@@ -9,6 +9,7 @@ import {
   googleLogin,
   registerUser,
   closeRegisterModal,
+  closeLoginModal,
 } from "../../../Redux/authentication/actions";
 
 class SignUp extends Component {
@@ -25,7 +26,13 @@ class SignUp extends Component {
       isWarning: false,
       isChecked: false,
       show: true,
-      isSignup:false
+      isSignup: false,
+      isErrorName: false,
+      isErrorDOB: false,
+      isErrorEmail: false,
+      isErrorPassword: false,
+      isErrorPhone: false,
+      isAgreeTerms: false,
     };
   }
   responseFacebook = (response) => {
@@ -40,6 +47,12 @@ class SignUp extends Component {
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
+      isErrorName: false,
+      isErrorDOB: false,
+      isErrorEmail: false,
+      isErrorPassword: false,
+      isErrorPhone: false,
+      isAgreeTerms: false,
     });
   };
 
@@ -62,7 +75,34 @@ class SignUp extends Component {
       lastname: lastname,
       dob: dob,
     };
-    console.log(obj);
+    if (firstname === "") {
+      this.setState({ isErrorName: true });
+      return;
+    }
+    if (dob === "") {
+      this.setState({ isErrorDOB: true });
+      return;
+    }
+    if (!this.validateEmail(email)) {
+      this.setState({ isErrorEmail: true });
+      return;
+    }
+    if (password === "") {
+      this.setState({ isErrorPassword: true });
+      return;
+    }
+    if (phone === "" || phone.length < 10) {
+      this.setState({ isErrorPhone: true });
+      return;
+    }
+    if (isChecked === false) {
+      this.setState({ isAgreeTerms: true });
+      return;
+    }
+    if (isChecked === true) {
+      this.setState({ isAgreeTerms: false });
+      return;
+    }
     if (this.validateEmail(email) && isChecked) {
       registerUser(obj);
     }
@@ -76,27 +116,36 @@ class SignUp extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevState.isSignup === this.state.isSignup){
+    if (prevState.isSignup === this.state.isSignup) {
+      console.log(prevState.isSignup, this.state.isSignup);
       if (this.props.payload) {
+        console.log(this.props.payload);
         const { error, token } = this.props.payload;
-        const { closeLoginModal } = this.props;
-        if ( error === false) {
-          localStorage.setItem("token", token);
-          this.setState({isSignup : true})
-          closeLoginModal();
+        const { closeLoginModal, closeRegisterModal } = this.props;
+        if (error === false && this.state.isSignup === false) {
+          this.setState({ isSignup: true });
+          closeRegisterModal()
         }
       }
     }
   }
 
-
   handleClose = () => {
     const { closeRegisterModal } = this.props;
     closeRegisterModal();
   };
-  render() {
-    const { show, handleFinishSignUpClose, isShowRegisterModal } = this.props;
 
+  render() {
+    const { handleFinishSignUpClose, isShowRegisterModal } = this.props;
+    console.log(isShowRegisterModal);
+    const {
+      isErrorName,
+      isErrorEmail,
+      isErrorDOB,
+      isErrorPassword,
+      isErrorPhone,
+      isAgreeTerms,
+    } = this.state;
     return (
       <div>
         <Modal
@@ -135,7 +184,26 @@ class SignUp extends Component {
               </Form.Group>
             </Form.Group>
             <Form.Text muted className="my-3">
-              Make sure it matches the name on your government ID.
+              {isErrorName ? (
+                <span style={{ color: "red", fontSize: 15 }}>
+                  <svg
+                    style={{ width: 20 }}
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>{" "}
+                  <span className="mr-2">Name Can't be Empty !!</span>
+                </span>
+              ) : (
+                <span>
+                  Make sure it matches the name on your government ID.
+                </span>
+              )}
             </Form.Text>
             <Form.Group>
               <div className="border mt-1" style={{ borderRadius: 5 }}>
@@ -149,8 +217,28 @@ class SignUp extends Component {
               </div>
             </Form.Group>
             <Form.Text muted className="my-3">
-              To sign up, you need to be at least 18. Your birthday won’t be
-              shared with other people who use Airbnb.
+              {isErrorDOB ? (
+                <span style={{ color: "red", fontSize: 15 }}>
+                  <svg
+                    style={{ width: 20 }}
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>{" "}
+                  <span className="mr-2">Date of birth Can't be Empty !!</span>
+                </span>
+              ) : (
+                <span>
+                  Fill your date of birth here. To sign up, you need to be at
+                  least 18. Your birthday won't be shared with other people who
+                  use Airbnb.
+                </span>
+              )}
             </Form.Text>
 
             <hr />
@@ -167,7 +255,24 @@ class SignUp extends Component {
               </div>
             </Form.Group>
             <Form.Text muted className="my-3">
-              We'll email you trip confirmations and receipts.
+              {isErrorEmail ? (
+                <span style={{ color: "red", fontSize: 15 }}>
+                  <svg
+                    style={{ width: 20 }}
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>{" "}
+                  <span className="mr-2">Email Can't be Empty !!</span>
+                </span>
+              ) : (
+                <span>We'll email you trip confirmations and receipts.</span>
+              )}
             </Form.Text>
             <Form.Group>
               <div className="border mt-1" style={{ borderRadius: 5 }}>
@@ -179,6 +284,22 @@ class SignUp extends Component {
                   onChange={this.handleChange}
                 />
               </div>
+              {isErrorPassword ? (
+                <span style={{ color: "red", fontSize: 15 }}>
+                  <svg
+                    style={{ width: 20 }}
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>{" "}
+                  <span className="mr-2">Password Can't be Empty !!</span>
+                </span>
+              ) : null}
             </Form.Group>
             <Form.Group>
               <div className="border mt-1" style={{ borderRadius: 5 }}>
@@ -192,8 +313,27 @@ class SignUp extends Component {
               </div>
             </Form.Group>
             <Form.Text muted className="my-3">
-              We’ll send you marketing promotions, special offers, inspiration
-              and policy updates via email.
+              {isErrorPhone ? (
+                <span style={{ color: "red", fontSize: 15 }}>
+                  <svg
+                    style={{ width: 20 }}
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>{" "}
+                  <span className="mr-2">Enter valid phone number !!</span>
+                </span>
+              ) : (
+                <span>
+                  We’ll send you marketing promotions, special offers,
+                  inspiration and policy updates via email.
+                </span>
+              )}
             </Form.Text>
 
             <Form.Check
@@ -224,6 +364,24 @@ class SignUp extends Component {
                 Nondiscrimination Policy.
               </span>
             </Form.Text>
+            {isAgreeTerms ? (
+              <span style={{ color: "red", fontSize: 15 }}>
+                <svg
+                  style={{ width: 20 }}
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>{" "}
+                <span className="mr-2 mb-2">
+                  Please Agree to our Terms and Conditions !!
+                </span>
+              </span>
+            ) : null}
 
             <Button
               className={styles.btn}
@@ -233,7 +391,11 @@ class SignUp extends Component {
             >
               Agree and Continue
             </Button>
-
+            <div className="d-flex">
+              {" "}
+              <hr style={{ width: "47%" }} /> <span className="pt-1">or</span>
+              <hr style={{ width: "47%" }} />{" "}
+            </div>
             <div className="my-2">
               <FacebookLogin
                 appId="990031718084542"
@@ -258,7 +420,7 @@ class SignUp extends Component {
             </div>
             <div variant="outline-secondary" size="lg">
               <GoogleLogin
-                clientId="304743879385-hes3s6fpp9ijfvi74odg20d4nu5aoudc.apps.googleusercontent.com"
+                clientId="491118482543-i2uipslim2cgt2e0ivpn94qom9tkppop.apps.googleusercontent.com"
                 render={(renderProps) => (
                   <button
                     className="google btn bg-light btn-lg"
@@ -307,6 +469,7 @@ const mapStateToProps = (state) => ({
   error: state.authReducer.error,
   errorMessage: state.authReducer.errorMessage,
   isShowRegisterModal: state.authReducer.isShowRegisterModal,
+  isShowLoginModal: state.authReducer.isShowLoginModal,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -314,5 +477,6 @@ const mapDispatchToProps = (dispatch) => ({
   googleLogin: (payload) => dispatch(googleLogin(payload)),
   registerUser: (payload) => dispatch(registerUser(payload)),
   closeRegisterModal: () => dispatch(closeRegisterModal()),
+  closeLoginModal: () => dispatch(closeLoginModal()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
