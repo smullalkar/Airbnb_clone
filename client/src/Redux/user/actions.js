@@ -50,7 +50,7 @@ export const getData = payload => {
     return dispatch => {
         dispatch(getDataRequest());
         return axios
-            .get("https://run.mocky.io/v3/90ce1a86-0ca8-45b1-b559-ce06fdfa102a", {
+            .get("http://a9fd62c19762.ngrok.io/user/searchresults", {
                 params: payload
             })
             .then(res => dispatch(getDataSuccess(res.data)))
@@ -76,7 +76,7 @@ export const getTypeOfPlace = payload => {
     return dispatch => {
         dispatch(getTypeOfPlaceRequest());
         return axios
-            .get("https://run.mocky.io/v3/1732bf62-b3ab-4849-a7e1-741e2a0cfffd")
+            .get("http://a9fd62c19762.ngrok.io/user/categories")
             .then(res => dispatch(getTypeOfPlaceSuccess(res.data)))
             .catch(() => dispatch(getTypeOfPlaceFailure()));
     };
@@ -100,7 +100,7 @@ export const getAmenities = payload => {
     return dispatch => {
         dispatch(getAmenitiesRequest());
         return axios
-            .get("https://run.mocky.io/v3/4ed4d050-8bdc-4a5d-b0b2-5a29832a810f")
+            .get("http://a9fd62c19762.ngrok.io/user/amenities")
             .then(res => dispatch(getAmenitiesSuccess(res.data.data)))
             .catch(() => dispatch(getAmenitiesFailure()));
     };
@@ -124,7 +124,7 @@ export const getFacilities = payload => {
     return dispatch => {
         dispatch(getFacilitiesRequest());
         return axios
-            .get("https://run.mocky.io/v3/c4d7e8e0-db36-4197-8780-bf2fe8606eb7")
+            .get("http://a9fd62c19762.ngrok.io/user/facilities")
             .then(res => dispatch(getFacilitiesSuccess(res.data.data)))
             .catch(() => dispatch(getFacilitiesFailure()));
     };
@@ -148,7 +148,7 @@ export const getPropertyType = payload => {
     return dispatch => {
         dispatch(getPropertyTypeRequest());
         return axios
-            .post("/user/sendbokking", {
+            .get("http://a9fd62c19762.ngrok.io/user/propertytype", {
                 params: payload
             })
             .then(res => dispatch(getPropertyTypeSuccess(res.data.data)))
