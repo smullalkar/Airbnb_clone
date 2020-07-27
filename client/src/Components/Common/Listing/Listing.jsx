@@ -99,9 +99,9 @@ class Lisiting extends Component {
     }
     getData(obj);
   }
-  //   handleClick =()=>{
-  //       window.open(window.location.href)
-  //   }
+    // handleClick =()=>{
+    //     window.open("http://localhost:3000/entity/entity_page")
+    // }
 
   handleMoreFiltersClose = () => {
     this.setState({ showMoreFilters: false });
