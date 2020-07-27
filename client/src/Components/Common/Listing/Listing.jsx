@@ -71,7 +71,7 @@ class Lisiting extends Component {
     console.log(" data coming from receive ", this.props.data);
     console.log(" state data ", this.state.data);
     if (this.state.data.length === 0) {
-      this.setState({ data: this.props.data }, () => {});
+      this.setState({ data: this.props.data }, () => { });
     }
   }
 
@@ -99,9 +99,9 @@ class Lisiting extends Component {
     }
     getData(obj);
   }
-    // handleClick =()=>{
-    //     window.open("http://localhost:3000/entity/entity_page")
-    // }
+  // handleClick =()=>{
+  //     window.open("http://localhost:3000/entity/entity_page")
+  // }
 
   handleMoreFiltersClose = () => {
     this.setState({ showMoreFilters: false });
@@ -123,7 +123,7 @@ class Lisiting extends Component {
                   {" "}
                   Cancellation flexibility
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="border-0">
                   <CancellationFlexibility />
                 </Dropdown.Menu>
               </Dropdown>
@@ -135,8 +135,8 @@ class Lisiting extends Component {
                   {" "}
                   Type of Place
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    <TypeOfPlace />
+                <Dropdown.Menu className="border-0">
+                  <TypeOfPlace />
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown as={ButtonGroup} className="m-2">
@@ -147,7 +147,7 @@ class Lisiting extends Component {
                   {" "}
                   Price
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="border-0">
                   <PriceFilter />
                 </Dropdown.Menu>
               </Dropdown>
@@ -159,7 +159,7 @@ class Lisiting extends Component {
                   {" "}
                   Instant Book
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="border-0">
                   <InstantBook />
                 </Dropdown.Menu>
               </Dropdown>
@@ -212,25 +212,25 @@ class Lisiting extends Component {
             </div>
           </>
         ) : (
-          <>
-            <Modal
-              size="lg"
-              aria-labelledby="contained-modal-title-vcenter"
-              centered={true}
-              show={true}
-            >
-              <Modal.Body>
-                <Row className="text-center">
-                  <Col>
-                    <Spinner animation="border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </Spinner>
-                  </Col>
-                </Row>
-              </Modal.Body>
-            </Modal>
-          </>
-        )}
+            <>
+              <Modal
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered={true}
+                show={true}
+              >
+                <Modal.Body>
+                  <Row className="text-center">
+                    <Col>
+                      <Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </Spinner>
+                    </Col>
+                  </Row>
+                </Modal.Body>
+              </Modal>
+            </>
+          )}
       </div>
     );
   }

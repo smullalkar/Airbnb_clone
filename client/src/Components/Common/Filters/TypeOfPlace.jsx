@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Card, Form, Dropdown } from "react-bootstrap";
+import { Card, Form, Dropdown } from "react-bootstrap";
 import styles from "./Filters.module.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -35,7 +35,7 @@ class TypeOfPlace extends Component {
           this.state.place_array.map((item) => {
             queryString.append("type_of_place", item.split(" ").join("_"));
           });
-          this.setState({ query: queryString }, () => {});
+          this.setState({ query: queryString }, () => { });
         }
       );
     } else {
@@ -49,7 +49,7 @@ class TypeOfPlace extends Component {
           this.state.place_array.map((item) => {
             queryString.append("type_of_place", item.split(" ").join("_"));
           });
-          this.setState({ query: queryString }, () => {});
+          this.setState({ query: queryString }, () => { });
         }
       );
     }

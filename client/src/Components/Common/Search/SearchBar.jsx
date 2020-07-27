@@ -122,7 +122,7 @@ class Search extends Component {
               />
             </div> */}
           </Form.Group>
-          <Form.Group className={styles.formGroup}>
+          <Form.Group className={`${styles.formGroup} d-none d-md-block`}>
             <div>
               <Form.Label className={`${styles.formLabel} ${styles.dateLabel}`}>
                 CHECK IN
@@ -149,7 +149,7 @@ class Search extends Component {
             ></DateRangePicker>
           </Form.Group>
 
-          <Form.Group className={styles.formGroup}>
+          <Form.Group className={`${styles.formGroup} d-none d-md-block`}>
             <Form.Label className={styles.formLabel}>GUESTS</Form.Label>
             <Form.Control
               className={styles.formControl}

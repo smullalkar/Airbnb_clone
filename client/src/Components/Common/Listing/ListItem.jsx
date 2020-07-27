@@ -40,7 +40,7 @@ class ListItem extends Component {
                   <Card variant="top" className={styles.cardImage}>
                     <Carousel interval={20000}>
                       {home.images.split(",").map((img) => (
-                        <CarouselItem>
+                        <CarouselItem key={uuidv4()}>
                           <img
                             src={img.split(" ").join("")}
                             alt=""

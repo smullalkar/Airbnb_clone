@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Card, Modal, Form, ModalDialog } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 import styles from "./Filters.module.css";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
@@ -84,7 +84,7 @@ class MoreFilter extends Component {
         queryString.append("beds", this.state.beds);
         queryString.append("bedrooms", this.state.bedrooms);
         queryString.append("bathrooms", this.state.bathrooms);
-        this.setState({query : queryString},()=>{})
+        this.setState({ query: queryString }, () => { })
       });
     } else {
       this.setState({ [e.target.value]: !this.state[e.target.value] }, () => {
@@ -120,7 +120,7 @@ class MoreFilter extends Component {
         queryString.append("beds", this.state.beds);
         queryString.append("bedrooms", this.state.bedrooms);
         queryString.append("bathrooms", this.state.bathrooms);
-        this.setState({query : queryString},()=>{})
+        this.setState({ query: queryString }, () => { })
       });
     }
   };
@@ -138,7 +138,8 @@ class MoreFilter extends Component {
     return (
       <div>
         <Modal
-          size="lg"
+          size=""
+          scrollable={true}
           show={show}
           className={styles.moreFilterModal}
           onHide={handleMoreFiltersClose}
@@ -146,304 +147,306 @@ class MoreFilter extends Component {
           <Modal.Header closeButton>
             <Modal.Title>More Filters</Modal.Title>
           </Modal.Header>
-          <ModalDialog scrollable={true} size="lg">
-            <Modal.Body>
-              <div>
-                <div className="row">
-                  <div className=" col-8 mt-3">
-                    <h6 className="font-weight-bold">Beds</h6>
-                  </div>
-                  <div className=" col-4 mt-3">
-                    <div className="d-flex flex-row bd-highlight ">
-                      <div className=" mx-1 bd-highlight">
-                        {" "}
-                        <button
-                          onClick={() => {
-                            this.setState({ beds: Number(beds - 1) || 0 });
-                          }}
-                          className={styles.guestButton}
-                        >
-                          -
-                        </button>
-                      </div>
-                      <div className="  mx-1 bd-highlight">
-                        {" "}
-                        <p> {beds} </p>
-                      </div>
-                      <div className="  mx-1 bd-highlight">
-                        <button
-                          onClick={() => {
-                            this.setState({ beds: Number(beds + 1) || 0 });
-                          }}
-                          className={styles.guestButton}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className=" col-8 mt-3">
-                    <h6 className="font-weight-bold">Bedrooms</h6>
-                  </div>
-                  <div className=" col-4 mt-3">
-                    <div className="d-flex flex-row bd-highlight ">
-                      <div className=" mx-1 bd-highlight">
-                        {" "}
-                        <button
-                          onClick={() => {
-                            this.setState({
-                              bedrooms: Number(bedrooms - 1) || 0,
-                            });
-                          }}
-                          className={styles.guestButton}
-                        >
-                          -
-                        </button>
-                      </div>
-                      <div className="  mx-1 bd-highlight">
-                        <p> {bedrooms}</p>
-                      </div>
-                      <div className="  mx-1 bd-highlight">
-                        <button
-                          onClick={() => {
-                            this.setState({
-                              bedrooms: Number(bedrooms + 1) || 0,
-                            });
-                          }}
-                          className={styles.guestButton}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className=" col-8 mt-3">
-                    <h6 className="font-weight-bold">Bathrooms</h6>
-                  </div>
-                  <div className=" col-4 mt-3">
-                    <div className="d-flex flex-row bd-highlight ">
-                      <div className=" mx-1 bd-highlight">
-                        {" "}
-                        <button
-                          onClick={() => {
-                            this.setState({
-                              bathrooms: Number(bathrooms - 1) || 1,
-                            });
-                          }}
-                          className={styles.guestButton}
-                        >
-                          -
-                        </button>
-                      </div>
-                      <div className="  mx-1 bd-highlight">
-                        <p>{bathrooms}</p>
-                      </div>
-                      <div className="  mx-1 bd-highlight">
-                        <button
-                          onClick={() => {
-                            this.setState({
-                              bathrooms: Number(bathrooms + 1) || 1,
-                            });
-                          }}
-                          className={styles.guestButton}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <div>
-                <h3 className="font-weight-bold text-left">Amenities</h3>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex flex-column col-6 justify-content-start">
-                    {amenities &&
-                      amenities.map((item, index) =>
-                        index < 10 ? (
-                          <Form.Check
-                            onChange={this.handleChange}
-                            key={uuidv4()}
-                            name="amenities"
-                            className={styles.cancellationCardCheckBox}
-                            type="checkbox"
-                            checked={
-                              this.state[
-                                item.amenityName
-                                  .split(" ")
-                                  .join("_")
-                                  .split("-")
-                                  .join("")
-                              ]
-                            }
-                            value={item.amenityName
-                              .split(" ")
-                              .join("_")
-                              .split("-")
-                              .join("_")}
-                            label={item.amenityName
-                              .split(" ")
-                              .join("_")
-                              .split("-")
-                              .join("_")}
-                          />
-                        ) : (
-                          ""
-                        )
-                      )}
-                  </div>
-                  <div className="d-flex flex-column col-6 ">
-                    {amenities &&
-                      amenities.map((item, index) =>
-                        index >= 10 ? (
-                          <Form.Check
-                            name="amenities"
-                            onChange={this.handleChange}
-                            key={uuidv4()}
-                            id={item.id}
-                            className={styles.cancellationCardCheckBox}
-                            type="checkbox"
-                            checked={
-                              this.state[
-                                item.amenityName
-                                  .split(" ")
-                                  .join("_")
-                                  .split("-")
-                                  .join("")
-                              ]
-                            }
-                            value={item.amenityName
-                              .split(" ")
-                              .join("_")
-                              .split("-")
-                              .join("_")}
-                            label={item.amenityName
-                              .split(" ")
-                              .join("_")
-                              .split("-")
-                              .join("_")}
-                          />
-                        ) : (
-                          ""
-                        )
-                      )}
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <div>
-                <h3 className="font-weight-bold">Facilities</h3>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex flex-column col-6 justify-content-start">
-                    {facilities &&
-                      facilities.map((item, index) =>
-                        index < 2 ? (
-                          <Form.Check
-                            onChange={this.handleChange}
-                            className={styles.cancellationCardCheckBox}
-                            type="checkbox"
-                            name="facilities"
-                            id={item.id}
-                            checked={
-                              this.state[
-                                item.facilityName
-                                  .split(" ")
-                                  .join("_")
-                                  .split("-")
-                                  .join("")
-                              ]
-                            }
-                            label={item.facilityName}
-                            value={item.facilityName}
-                          />
-                        ) : (
-                          ""
-                        )
-                      )}
-                  </div>
-                  <div className="d-flex flex-column col-6 ">
-                    {facilities &&
-                      facilities.map((item, index) =>
-                        index > 1 ? (
-                          <Form.Check
-                            onChange={this.handleChange}
-                            className={styles.cancellationCardCheckBox}
-                            type="checkbox"
-                            name="facilities"
-                            id={item.id}
-                            checked={
-                              this.state[
-                                item.facilityName
-                                  .split(" ")
-                                  .join("_")
-                                  .split("-")
-                                  .join("")
-                              ]
-                            }
-                            label={item.facilityName}
-                            value={item.facilityName}
-                          />
-                        ) : (
-                          ""
-                        )
-                      )}
-                  </div>
-                </div>
-              </div>
 
-              <hr />
-              <div>
-                <h3 className="font-weight-bold">Property type</h3>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex flex-column col-6 justify-content-start">
-                    {/* {propertyTypes &&
-                      propertyTypes.map((item, index) =>
-                        index > 2 ? (
-                          <Form.Check
-                            onChange={this.handleChange}
-                            className={styles.cancellationCardCheckBox}
-                            type="checkbox"
-                            name="propertyType"
-                            checked={this.state[item.propertyName.split(" ").join("_").split("-").join("")]}
-                            label={item.propertyName}
-                            value={item.propertyName}
-                            id={item.id}
-                          />
-                        ) : (
-                          ""
-                        )
-                      )} */}
-                  </div>
-                  <div className="d-flex flex-column col-6 ">
-                    {/* {propertyTypes &&
-                      propertyTypes.map((item, index) =>
-                        index > 2 ? (
-                          <Form.Check
-                            onChange={this.handleChange}
-                            className={styles.cancellationCardCheckBox}
-                            type="checkbox"
-                            name="propertyType"
-                            id={item.id}
-                            checked={this.state[item.propertyName.split(" ").join("_").split("-").join("")]}
-                            label={item.propertyName}
-                            value={item.propertyName}
-                          />
-                        ) : (
-                          ""
-                        )
-                      )} */}
+          <Modal.Body>
+            <div>
+              <div className="row">
+                <div className=" col-8 mt-3">
+                  <h6 className="font-weight-bold">Beds</h6>
+                </div>
+                <div className=" col-4 mt-3">
+                  <div className="d-flex flex-row bd-highlight align-items-center ">
+                    <div className=" mx-1 bd-highlight">
+                      {" "}
+                      <button
+                        onClick={() => {
+                          this.setState({ beds: Number(beds - 1) || 0 });
+                        }}
+                        className={styles.guestButton}
+                      >
+                        -
+                        </button>
+                    </div>
+                    <div className="  mx-1 bd-highlight">
+                      {" "}
+                      {beds}
+                    </div>
+                    <div className="  mx-1 bd-highlight">
+                      <button
+                        onClick={() => {
+                          this.setState({ beds: Number(beds + 1) || 0 });
+                        }}
+                        className={styles.guestButton}
+                      >
+                        +
+                        </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </Modal.Body>
-          </ModalDialog>
+              <hr />
+              <div className="row">
+                <div className=" col-8 mt-3">
+                  <h6 className="font-weight-bold">Bedrooms</h6>
+                </div>
+                <div className=" col-4 mt-3">
+                  <div className="d-flex flex-row bd-highlight align-items-center ">
+                    <div className=" mx-1 bd-highlight">
+                      {" "}
+                      <button
+                        onClick={() => {
+                          this.setState({
+                            bedrooms: Number(bedrooms - 1) || 0,
+                          });
+                        }}
+                        className={styles.guestButton}
+                      >
+                        -
+                        </button>
+                    </div>
+                    <div className="  mx-1 bd-highlight">
+                      {bedrooms}
+                    </div>
+                    <div className="  mx-1 bd-highlight">
+                      <button
+                        onClick={() => {
+                          this.setState({
+                            bedrooms: Number(bedrooms + 1) || 0,
+                          });
+                        }}
+                        className={styles.guestButton}
+                      >
+                        +
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className=" col-8 mt-3">
+                  <h6 className="font-weight-bold">Bathrooms</h6>
+                </div>
+                <div className=" col-4 mt-3">
+                  <div className="d-flex flex-row bd-highlight d-flex flex-row bd-highlight ">
+                    <div className=" mx-1 bd-highlight ">
+                      {" "}
+                      <button
+                        onClick={() => {
+                          this.setState({
+                            bathrooms: Number(bathrooms - 1) || 1,
+                          });
+                        }}
+                        className={styles.guestButton}
+                      >
+                        -
+                        </button>
+                    </div>
+                    <div className="  mx-1 bd-highlight">
+                      {bathrooms}
+                    </div>
+                    <div className="  mx-1 bd-highlight">
+                      <button
+                        onClick={() => {
+                          this.setState({
+                            bathrooms: Number(bathrooms + 1) || 1,
+                          });
+                        }}
+                        className={styles.guestButton}
+                      >
+                        +
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div>
+              <h3 className="font-weight-bold text-left">Amenities</h3>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex flex-column col-6 justify-content-start">
+                  {amenities &&
+                    amenities.map((item, index) =>
+                      index < 10 ? (
+                        <Form.Check
+                          onChange={this.handleChange}
+                          key={uuidv4()}
+                          name="amenities"
+                          className={styles.cancellationCardCheckBox}
+                          type="checkbox"
+                          checked={
+                            this.state[
+                            item.amenityName
+                              .split(" ")
+                              .join("_")
+                              .split("-")
+                              .join("")
+                            ]
+                          }
+                          value={item.amenityName
+                            .split(" ")
+                            .join("_")
+                            .split("-")
+                            .join("_")}
+                          label={item.amenityName
+                            .split(" ")
+                            .join("_")
+                            .split("-")
+                            .join("_")}
+                        />
+                      ) : (
+                          ""
+                        )
+                    )}
+                </div>
+                <div className="d-flex flex-column col-6 ">
+                  {amenities &&
+                    amenities.map((item, index) =>
+                      index >= 10 ? (
+                        <Form.Check
+                          name="amenities"
+                          onChange={this.handleChange}
+                          key={uuidv4()}
+                          id={item.id}
+                          className={styles.cancellationCardCheckBox}
+                          type="checkbox"
+                          checked={
+                            this.state[
+                            item.amenityName
+                              .split(" ")
+                              .join("_")
+                              .split("-")
+                              .join("")
+                            ]
+                          }
+                          value={item.amenityName
+                            .split(" ")
+                            .join("_")
+                            .split("-")
+                            .join("_")}
+                          label={item.amenityName
+                            .split(" ")
+                            .join("_")
+                            .split("-")
+                            .join("_")}
+                        />
+                      ) : (
+                          ""
+                        )
+                    )}
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div>
+              <h3 className="font-weight-bold">Facilities</h3>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex flex-column col-6 justify-content-start">
+                  {facilities &&
+                    facilities.map((item, index) =>
+                      index < 2 ? (
+                        <Form.Check
+                          onChange={this.handleChange}
+                          className={styles.cancellationCardCheckBox}
+                          type="checkbox"
+                          key={uuidv4()}
+                          name="facilities"
+                          id={item.id}
+                          checked={
+                            this.state[
+                            item.facilityName
+                              .split(" ")
+                              .join("_")
+                              .split("-")
+                              .join("")
+                            ]
+                          }
+                          label={item.facilityName}
+                          value={item.facilityName}
+                        />
+                      ) : (
+                          ""
+                        )
+                    )}
+                </div>
+                <div className="d-flex flex-column col-6 ">
+                  {facilities &&
+                    facilities.map((item, index) =>
+                      index > 1 ? (
+                        <Form.Check
+                          onChange={this.handleChange}
+                          className={styles.cancellationCardCheckBox}
+                          type="checkbox"
+                          key={uuidv4()}
+                          name="facilities"
+                          id={item.id}
+                          checked={
+                            this.state[
+                            item.facilityName
+                              .split(" ")
+                              .join("_")
+                              .split("-")
+                              .join("")
+                            ]
+                          }
+                          label={item.facilityName}
+                          value={item.facilityName}
+                        />
+                      ) : (
+                          ""
+                        )
+                    )}
+                </div>
+              </div>
+            </div>
+
+            <hr />
+            <div>
+              <h3 className="font-weight-bold">Property type</h3>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex flex-column col-6 justify-content-start">
+                  {/* {propertyTypes &&
+                      propertyTypes.map((item, index) =>
+                        index > 2 ? (
+                          <Form.Check
+                            onChange={this.handleChange}
+                            className={styles.cancellationCardCheckBox}
+                            type="checkbox"
+                            name="propertyType"
+                            checked={this.state[item.propertyName.split(" ").join("_").split("-").join("")]}
+                            label={item.propertyName}
+                            value={item.propertyName}
+                            id={item.id}
+                          />
+                        ) : (
+                          ""
+                        )
+                      )} */}
+                </div>
+                <div className="d-flex flex-column col-6 ">
+                  {/* {propertyTypes &&
+                      propertyTypes.map((item, index) =>
+                        index > 2 ? (
+                          <Form.Check
+                            onChange={this.handleChange}
+                            className={styles.cancellationCardCheckBox}
+                            type="checkbox"
+                            name="propertyType"
+                            id={item.id}
+                            checked={this.state[item.propertyName.split(" ").join("_").split("-").join("")]}
+                            label={item.propertyName}
+                            value={item.propertyName}
+                          />
+                        ) : (
+                          ""
+                        )
+                      )} */}
+                </div>
+              </div>
+            </div>
+          </Modal.Body>
+
           <Modal.Footer>
             {/* <a className={styles.cancellationCardClear} href="">
               Clear
@@ -456,7 +459,7 @@ class MoreFilter extends Component {
                 to={query.toString()}
                 style={{ color: "white", textDecoration: "none" }}
               >
-              Show Stay
+                Show Stay
               </Link>
             </Button>
           </Modal.Footer>
