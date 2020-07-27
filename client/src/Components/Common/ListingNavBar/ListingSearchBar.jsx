@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import { Form, Button, Modal, Nav } from "react-bootstrap";
+import { Form, Button, Modal, Nav, ButtonGroup } from "react-bootstrap";
 import { DateRangePicker } from "react-dates";
 import search from "../../../assets/images/search.png"
 import SearchBar from "../Search/SearchBar"
+
+
+
 class ListingSearchBar extends Component {
     constructor(props) {
         super(props)
@@ -19,17 +22,26 @@ class ListingSearchBar extends Component {
 
                 <Modal size="lg" show={show} onHide={handleSearchModalClose} >
                     <Modal.Header closeButton >
-                        <div variant="tabs" className="d-flex flex-row mx-2">
-                            <div>
-                                <div>Places to stay</div>
-                            </div>
-                            <div>
-                                <div>Experiences</div>
-                            </div>
 
-                        </div>
+                        <Nav variant="tabs" defaultActiveKey="/home">
+                            <Nav.Item>
+                                <Nav.Link href="/home">Places to stay </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="link-1">Experiences</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+
+                            </Nav.Item>
+                        </Nav>
+
+
                     </Modal.Header>
+
+
+
                     <Modal.Body >
+
                         < SearchBar />
                     </Modal.Body>
 

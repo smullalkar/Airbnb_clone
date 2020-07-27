@@ -13,8 +13,8 @@ import ListingNavBar from "../src/Components/Common/ListingNavBar/ListingNavBar"
 function App() {
   return (
     <div className="App">
-      {/* <NavBar />
-      <Routes />
+      <NavBar />
+      {/* <Routes />
       <Entity /> */}
       <ListingNavBar />
 

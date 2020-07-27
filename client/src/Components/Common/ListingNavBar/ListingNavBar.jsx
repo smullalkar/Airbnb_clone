@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button, Modal, ButtonGroup } from "react-bootstrap";
 import { DateRangePicker } from "react-dates";
 import search from "../../../assets/images/search.png"
 import ListingSearchBar from "../ListingNavBar/ListingSearchBar"
@@ -11,6 +11,14 @@ class ListingNavBar extends Component {
         this.state = { showSearchModal: false }
     }
 
+    componentDidMount() {
+        let searchParams = localStorage.getItem('searchParams');
+        if (searchParams) {
+            searchParams = JSON.parse(searchParams);
+            this.setState({ ...searchParams })
+        }
+    }
+
     handleSearchModalClose = () => {
         this.setState({ showSearchModal: false })
     }
@@ -20,11 +28,12 @@ class ListingNavBar extends Component {
             <div>
 
                 <div className="d-flex justify-content-center">
-                    <div> <Button variant="outline-secondary" size="lg" className="d-flex justify-content-center" onClick={() => this.setState({ showSearchModal: true })}><img className={styles.searchImg} src={search} alt="" />Location</Button> </div>
+                    <ButtonGroup className={styles.buttonGroup} size="lg" className="mb-2" onClick={() => this.setState({ showSearchModal: true })}>
+                        <Button variant='outline-secondary' >{this.state.location}</Button>
+                        <Button variant='outline-secondary'>{this.state.startDate}</Button>
+                        <Button variant='outline-secondary'>Add guests</Button>
+                    </ButtonGroup>
                     <ListingSearchBar show={this.state.showSearchModal} handleSearchModalClose={this.handleSearchModalClose} />
-
-                    <div>  <Button variant="outline-secondary" size="lg" >Date</Button></div>
-                    <div>  <Button variant="outline-secondary" size="lg" >Guest</Button></div>
                 </div>
 
 

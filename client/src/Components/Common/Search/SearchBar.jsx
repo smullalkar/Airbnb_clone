@@ -29,6 +29,7 @@ class Search extends Component {
     this.setState({ [e.target.name]: e.target.value }, () => {
       this.handleQuery();
     });
+
   };
   componentDidMount() {
     let query = window.location.href.split("&");
@@ -91,11 +92,12 @@ class Search extends Component {
     if (page_no > 1) {
       string.append("page_no", page_no);
     }
-    this.setState({ query: string.toString() }, () => {});
+    this.setState({ query: string.toString() }, () => { });
   };
 
   handleSearch = () => {
     const { getData } = this.props;
+    localStorage.setItem('searchParams', JSON.stringify(this.state))
   };
 
   render() {

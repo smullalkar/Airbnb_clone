@@ -204,7 +204,6 @@
   border: none !important;
 }
 
-
 .form-check-input {
   width: 20px;
   height: 20px;
@@ -283,4 +282,9 @@ input[type="checkbox"] {
 
 .bottom-right-curve {
   border-bottom-right-radius: 12px;
+}
+
+.btn-group-lg>.btn, .btn-lg {
+  border-radius: 22px;
+  padding: 20px 30px 20px 30px;
 }
