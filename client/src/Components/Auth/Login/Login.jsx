@@ -42,7 +42,12 @@ class Login extends Component {
   handleContinue = () => {
     const { loginUser } = this.props;
     const { email, password } = this.state;
-    if ((email === undefined || email === "") || (password === undefined || password === "")) {
+    if (
+      email === undefined ||
+      email === "" ||
+      password === undefined ||
+      password === ""
+    ) {
       this.setState({ isError: true });
       return;
     }
@@ -51,21 +56,25 @@ class Login extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
+    const { closeLoginModal } = this.props
+    console.log(prevState);
     if (prevState.isSignup === this.state.isSignup) {
       if (this.props.payload) {
-        const { error, token } = this.props.payload;
-        const { closeLoginModal } = this.props;
-        if (error === false) {
-          localStorage.setItem("token", token);
+        const { error } = this.props.payload;
+        // let error = this.props.payload.error
+        // console.log(error)
+        const { isSignup } = this.state;
+        console.log(isSignup, error);
+        // error === false &&
+        if (isSignup === false) {
+          console.log("isSignup : ", isSignup)
           this.setState({ isSignup: true });
           closeLoginModal();
-        }
-        if (error === true) {
-          this.setState({ isError: true });
         }
       }
     }
   }
+
 
   handleClose = () => {
     const { closeLoginModal } = this.props;
@@ -116,8 +125,9 @@ class Login extends Component {
                 </div>
                 <Form.Text muted className="my-2" style={{ fontSize: 12 }}>
                   {isError ? (
-                    <span style={{color:"red", fontSize:15}}>
-                      <svg style={{width : 20}}
+                    <span style={{ color: "red", fontSize: 15 }}>
+                      <svg
+                        style={{ width: 20 }}
                         fill="none"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -126,7 +136,10 @@ class Login extends Component {
                         stroke="currentColor"
                       >
                         <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                      </svg> <span className="mr-2">Please Enter required fields !!</span>
+                      </svg>{" "}
+                      <span className="mr-2">
+                        Please Enter required fields !!
+                      </span>
                     </span>
                   ) : (
                     <span>
@@ -146,7 +159,12 @@ class Login extends Component {
                   Continue
                 </Button>
 
-                <div className="d-flex"> <hr style={{width:"47%"}}/> <span className="pt-1">or</span><hr style={{width:"47%"}}/> </div>
+                <div className="d-flex">
+                  {" "}
+                  <hr style={{ width: "47%" }} />{" "}
+                  <span className="pt-1">or</span>
+                  <hr style={{ width: "47%" }} />{" "}
+                </div>
 
                 <div className="my-2">
                   <FacebookLogin

@@ -7,6 +7,7 @@ import {
   closeRegisterModal,
 } from "../../../Redux/authentication/actions";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class NavBar extends Component {
   constructor(props) {
@@ -20,12 +21,14 @@ class NavBar extends Component {
 
   handleLoginClose = () => this.setState({ showLoginModal: false });
   handleSignUpClose = () => this.setState({ showSignUpModal: false });
-  handleFinishSignUpClose = () => this.setState({ showFinishSignUpModal: false });
+  handleFinishSignUpClose = () =>
+    this.setState({ showFinishSignUpModal: false });
 
   handleLoginModal = () => {
     const { closeLoginModal } = this.props;
     closeLoginModal();
   };
+
   handleRegisterModal = () => {
     const { closeRegisterModal } = this.props;
     this.setState({
@@ -43,22 +46,32 @@ class NavBar extends Component {
           variant="light"
           className="d-flex justify-content-between"
         >
-          <Navbar.Brand href="#" className="pl-4">
-            <img src="/main-logo.svg" className="App-logo" alt="Airbnb" />
-          </Navbar.Brand>
+           <Link to="/">
+          <Navbar.Brand className="pl-4">
 
-          <div className="d-flex"><i className="fa fa-bars mt-3 px-2 fa-lg" style={{ cursor: "pointer" }} aria-hidden="true"></i>
+              <img src="/main-logo.svg" className="App-logo" alt="Airbnb" />
+          </Navbar.Brand>
+            </Link>
+
+          <div className="d-flex">
+            <i
+              className="fa fa-bars mt-3 px-2 fa-lg"
+              style={{ cursor: "pointer" }}
+              aria-hidden="true"
+            ></i>
             <DropdownButton
               alignRight
+              title=""
               id="dropdown-menu-align-right"
               className="nav-dropdown-main"
             >
-
-              <Dropdown.Item onClick={this.handleLoginModal}>Login</Dropdown.Item>
+              <Dropdown.Item onClick={this.handleLoginModal}>
+                Login
+              </Dropdown.Item>
 
               <Dropdown.Item onClick={this.handleRegisterModal}>
                 Sign Up
-            </Dropdown.Item>
+              </Dropdown.Item>
 
               <Dropdown.Divider />
               <Dropdown.Item>Host Your Home</Dropdown.Item>

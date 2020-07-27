@@ -11,8 +11,6 @@ class BookingModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     propertyId = db.Column(db.Integer, db.ForeignKey(PropertyModel.id))
     userId = db.Column(db.Integer, db.ForeignKey(UserModel.id))
-    checkInDate = db.Column(db.DateTime(timezone=True))
-    checkOutDate = db.Column(db.DateTime(timezone=True))
     amountPaid = db.Column(db.Integer)
     createdAt = db.Column(db.DateTime(timezone=True))
     modifiedAt = db.Column(db.DateTime(timezone=True))

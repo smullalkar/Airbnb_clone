@@ -9,6 +9,7 @@ import {
   googleLogin,
   registerUser,
   closeRegisterModal,
+  closeLoginModal,
 } from "../../../Redux/authentication/actions";
 
 class SignUp extends Component {
@@ -116,26 +117,27 @@ class SignUp extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isSignup === this.state.isSignup) {
+      console.log(prevState.isSignup, this.state.isSignup);
       if (this.props.payload) {
+        console.log(this.props.payload);
         const { error, token } = this.props.payload;
-        const { closeLoginModal } = this.props;
-        if (error === false) {
-          localStorage.setItem("token", token);
+        const { closeLoginModal, closeRegisterModal } = this.props;
+        if (error === false && this.state.isSignup === false) {
           this.setState({ isSignup: true });
-          closeLoginModal();
+          closeRegisterModal()
         }
       }
     }
   }
 
   handleClose = () => {
-    const { closeRegisterModal, closeLoginModal } = this.props;
+    const { closeRegisterModal } = this.props;
     closeRegisterModal();
-    closeLoginModal();
   };
 
   render() {
     const { handleFinishSignUpClose, isShowRegisterModal } = this.props;
+    console.log(isShowRegisterModal);
     const {
       isErrorName,
       isErrorEmail,
@@ -475,5 +477,6 @@ const mapDispatchToProps = (dispatch) => ({
   googleLogin: (payload) => dispatch(googleLogin(payload)),
   registerUser: (payload) => dispatch(registerUser(payload)),
   closeRegisterModal: () => dispatch(closeRegisterModal()),
+  closeLoginModal: () => dispatch(closeLoginModal()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

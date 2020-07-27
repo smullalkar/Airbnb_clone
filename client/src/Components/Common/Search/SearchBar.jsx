@@ -18,86 +18,88 @@ class Search extends Component {
       endDate: null,
       focusedInput: "",
       location: "",
-      windowSLocation: "",
       children: "",
       adults: "",
       infants: "",
       page_no: 1,
+      query: "",
     };
   }
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value }, () => {
+      this.handleQuery();
+    });
   };
-
-  handleSearch = () => {
-    const { getData } = this.props;
+  componentDidMount() {
+    let query = window.location.href.split("&");
+    var queryString = new URLSearchParams("/location?");
+    for (let i = 1; i < query.length; i++) {
+      let str = query[i].split("=");
+      if (str[1] !== "null" && str[1] !== "") {
+        queryString.append(str[0], str[1]);
+      }
+    }
+    this.setState({ query: queryString }, () => {
+      console.log(queryString.toString());
+    });
+  }
+  handleQuery = () => {
+    let string = new URLSearchParams("/location/?");
     const {
       startDate,
       endDate,
       location,
       children,
-      infants,
       adults,
+      infants,
       page_no,
     } = this.state;
-
-    if (startDate && endDate) {
-      var object = {
-        location: location,
-        checkin: startDate._d
-          .toLocaleDateString()
-          .split("/")
-          .join("-")
-          .split("-")
-          .reverse()
-          .join("-"),
-        checkout: endDate._d
-          .toLocaleDateString()
-          .split("/")
-          .join("-")
-          .split("-")
-          .reverse()
-          .join("-"),
-        children: children || 0,
-        adults: adults || 0,
-        infants: infants || 0,
-        page_no: page_no || 1,
-      };
-      getData(object);
+    if (location !== "") {
+      string.append("location", location);
     }
+    if (startDate !== null) {
+      string.append(
+        "checkin",
+        startDate._d
+          .toLocaleDateString()
+          .split("/")
+          .join("-")
+          .split("-")
+          .reverse()
+          .join("-")
+      );
+      string.append(
+        "checkout",
+        endDate._d
+          .toLocaleDateString()
+          .split("/")
+          .join("-")
+          .split("-")
+          .reverse()
+          .join("-")
+      );
+    }
+    if (children !== "") {
+      string.append("children", children);
+    }
+    if (adults !== "") {
+      string.append("adults", adults);
+    }
+    if (infants !== "") {
+      string.append("infants", infants);
+    }
+    if (page_no > 1) {
+      string.append("page_no", page_no);
+    }
+    this.setState({ query: string.toString() }, () => {});
   };
-  componentDidMount() {
-    this.setState({ windowSLocation: window.location.href });
-  }
+
+  handleSearch = () => {
+    const { getData } = this.props;
+  };
 
   render() {
-    const { match } = this.props;
-    let {
-      startDate,
-      endDate,
-      location,
-      children,
-      adults,
-      infants,
-      page_no,
-      windowSLocation,
-    } = this.state;
-    if (startDate && endDate) {
-      startDate = startDate._d
-        .toLocaleDateString()
-        .split("/")
-        .join("-")
-        .split("-")
-        .reverse()
-        .join("-");
-      endDate = endDate._d
-        .toLocaleDateString()
-        .split("/")
-        .join("-")
-        .split("-")
-        .reverse()
-        .join("-");
-    }
+    let { query } = this.state;
     return (
       <div className="d-flex justify-content-center">
         <Form className={styles.searchContainer}>
@@ -113,7 +115,9 @@ class Search extends Component {
             />
 
             {/* <div>
-              <GooglePlacesAutocomplete onSelect={console.log} />
+              <GooglePlacesAutocomplete
+                onSelect={(suggestions) => console.log(suggestions)}
+              />
             </div> */}
           </Form.Group>
           <Form.Group className={styles.formGroup}>
@@ -158,7 +162,7 @@ class Search extends Component {
           <Form.Group className={styles.formGroup}>
             <Button className={styles.btn} onClick={this.handleSearch}>
               <Link
-                to={`/location?&query=${location}&checkin=${startDate}&checkout=${endDate}&children=${children}&adults=${adults}&infants=${infants}&per_page=${20}&page_no=${page_no}`}
+                to={query.toString()}
                 style={{ color: "white", textDecoration: "none" }}
               >
                 Search{" "}
