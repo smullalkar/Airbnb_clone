@@ -5,6 +5,7 @@ from ..services.searchs import user_search_results, search
 from ..services.review import sendReviews
 from ..services.booking import add_booking, send_booking
 from ..services.recommendation import recommendation, recommendation_popularity
+from ..services.entity import entityPageDetails
 import datetime
 # from ..util.auth_token import checkAuthToken
 
@@ -105,6 +106,15 @@ def recom_pop():
     params = request.args
     print('params....',params)
     response = recommendation_popularity(params,request.json)
+    return response
+
+
+@user.route("/entitypage", methods=["POST"])
+def entity():
+    """
+    sending basic details or a particular property on entity page
+    """
+    response = entityPageDetails(request.json)
     return response
 
 
