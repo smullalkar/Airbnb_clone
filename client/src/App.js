@@ -5,8 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './bootstrap-override.css'
 import NavBar from './Components/Common/NavBar/NavBar'
 import Routes from "./Components/Common/Route/Routes"
-// import Entity from "./Components/Common/Entity/Entity"
-// import ListingNavBar from "../src/Components/Common/ListingNavBar/ListingNavBar"
+import ReviewHouseRules from './Components/Common/Billing/ReviewHouseRules';
+
 
 
 function App() {
@@ -14,10 +14,6 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes />
-      {/* <Entity />
-       <ListingNavBar /> */}
-
-
     </div>
   );
 }
