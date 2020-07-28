@@ -10,9 +10,9 @@ class Footer extends Component {
   render() {
     return (
       <Container className={styles.box} fluid>
-        <Container className="text-left py-5">
+        <Container className="text-left py-5" fluid>
           <Row >
-            <Col xs={12} className="py">
+            <Col xs={12} md={3} className="py">
               <Col className="py-2 font-weight-bold">ABOUT</Col>
               <Col className="py-2">How Airbnb works</Col>
               <Col className="py-2"> Diversity & Belonging </Col>
@@ -22,7 +22,7 @@ class Footer extends Component {
               <Col className="py-2"> Olympics </Col>
               <Col className="py-2">Newsroom</Col>
             </Col>
-            <Col xs={12}>
+            <Col xs={12} md={3}>
 
               <Col className="py-2 font-weight-bold">COMMUNITY</Col>
               <Col className="py-2">Airbnb Magazine</Col>
@@ -32,7 +32,7 @@ class Footer extends Component {
               <Col className="py-2">Careers</Col>
             </Col>
 
-            <Col xs={12}>
+            <Col xs={12} md={3}>
 
               <Col className="py-2 font-weight-bold">HOST</Col>
               <Col className="py-2">Host your home</Col>
@@ -44,7 +44,7 @@ class Footer extends Component {
               <Col className="py-2">Community Centre</Col>
 
             </Col>
-            <Col xs={12}>
+            <Col xs={12} md={3}>
 
               <Col className="py-2 font-weight-bold">SUPPORT</Col>
               <Col className="py-2">Updates for COVID-19</Col>
@@ -56,15 +56,15 @@ class Footer extends Component {
           </Row>
           <Row>
             <Col>
-              <Row className="py-3 mt-5 border-top">
-                <Col xs={12} className="d-flex flex-col">
-                  <Col lg={6}>© 2020 Airbnb, Inc. All rights reserved</Col>
-                  <Col lg={2}>· Privacy </Col>
-                  <Col lg={2}>· Terms </Col>
-                  <Col lg={2}>· Sitemap</Col>
+              <Row className="py-3 mt-5 border-top flex-column-reverse flex-md-row">
+                <Col xs={12} md={5} className="d-flex flex-col flex-wrap mt-5 mt-md-0">
+                  <Col xs={12} lg={6}>© 2020 Airbnb, Inc. All rights reserved</Col>
+                  <Col xs={4} lg={2}>· Privacy </Col>
+                  <Col xs={4} lg={2}>· Terms </Col>
+                  <Col xs={12} lg={2}>· Sitemap</Col>
                 </Col>
-                <Col xs={12} className="font-weight-bold">
-                  <Col className="d-flex flex-right">
+                <Col xs={12} md={6} className="font-weight-bold ">
+                  <Col className="d-flex flex-right justify-content-end">
                     <Col xs={6} lg={3}>
                       <img
                         src="/globe-grid.svg"
@@ -72,16 +72,16 @@ class Footer extends Component {
                         alt=""
                         className="pr-2"
                       />
-                      English(IN)
+
                     </Col>
                     <Col xs={3} lg={2}>₹INR</Col>
-                    <Col lg={1}>
+                    <Col lg={1} className="hidden md-block">
                       <i className="fa fa-facebook fa-lg" aria-hidden="true"></i>
                     </Col>
-                    <Col lg={1}>
+                    <Col lg={1} className="hidden md-block">
                       <i className="fa fa-twitter fa-lg" aria-hidden="true"></i>
                     </Col>
-                    <Col lg={1}>
+                    <Col lg={1} className="hidden md-block">
                       <i className="fa fa-instagram fa-lg" aria-hidden="true"></i>
                     </Col>
                   </Col>

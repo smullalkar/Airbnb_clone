@@ -114,7 +114,7 @@ class Lisiting extends Component {
       <div>
         {isLoading ? (
           <>
-            <div className="d-flex flex-row mx-2">
+            <div className="flex-row mx-2 d-none d-md-flex">
               <Dropdown as={ButtonGroup} className="m-2">
                 <Dropdown.Toggle
                   className={styles.filterButton}
@@ -178,7 +178,7 @@ class Lisiting extends Component {
               />
             </div>
 
-            <div className="d-flex flex-row   pl-5 align-items-center">
+            <div className="d-flex flex-column flex-md-row   pl-5 align-items-center">
               <h6 className={styles.alertHeading}>
                 Check travel restrictions before booking.
               </h6>
