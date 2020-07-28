@@ -40,27 +40,27 @@ def recommendation(params, payload):
         print('................',amenities)
         print('................f',facility)
 
-        propertyId = payload["propertyId"]
+        propertyId = payload["property_id"]
         
         if maxPrice <= 1000:
             minPrice = 0
             maxPrice = maxPrice
 
         elif maxPrice > 1000 and maxPrice <= 3000:
+            minPrice = maxPrice - (maxPrice * 0.50)
+            maxPrice = maxPrice + (maxPrice * 0.50)
+
+        elif maxPrice > 3000 and maxPrice <= 5000:
+            minPrice = maxPrice - (maxPrice * 0.40)
+            maxPrice = maxPrice + (maxPrice * 0.40)
+
+        elif maxPrice > 5000 and maxPrice < 10000:
             minPrice = maxPrice - (maxPrice * 0.30)
             maxPrice = maxPrice + (maxPrice * 0.30)
 
-        elif maxPrice > 3000 and maxPrice <= 5000:
-            minPrice = maxPrice - (maxPrice * 0.25)
-            maxPrice = maxPrice + (maxPrice * 0.25)
-
-        elif maxPrice > 5000 and maxPrice < 10000:
+        else:
             minPrice = maxPrice - (maxPrice * 0.20)
             maxPrice = maxPrice + (maxPrice * 0.20)
-
-        else:
-            minPrice = maxPrice - (maxPrice * 0.15)
-            maxPrice = maxPrice + (maxPrice * 0.15)
             
     except KeyError as err:
         return json.dumps({'error': True, 'error_found': format(err)})
@@ -76,7 +76,7 @@ def recommendation(params, payload):
                 ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
                 p.refundType,p.price,p.accomodatesCount,
                 p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
-                p.cityId,p.userId, AVG(r.rating) AS rating,
+                p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                 GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
                 GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
                 GROUP_CONCAT(DISTINCT images.image) AS images
@@ -167,7 +167,7 @@ def recommendation_popularity(params, payload):
     """
     try:
         location = params.get('location')
-        propertyId = payload["propertyId"]
+        propertyId = payload["property_id"]
             
     except KeyError as err:
         return json.dumps({'error': True, 'error_found': format(err)})
@@ -183,7 +183,7 @@ def recommendation_popularity(params, payload):
                 ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
                 p.refundType,p.price,p.accomodatesCount,
                 p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
-                p.cityId,p.userId, AVG(r.rating) AS rating,
+                p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                 GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
                 GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
                 GROUP_CONCAT(DISTINCT images.image) AS images
