@@ -28,7 +28,6 @@ const initState = {
 }
 
 const userReducer = (state = initState, { type, payload }) => {
-    console.log(payload)
     switch (type) {
         case GET_DATA_REQUEST:
             return {
@@ -94,7 +93,7 @@ const userReducer = (state = initState, { type, payload }) => {
                 ...state,
                 propertyTypes: payload
             }
-        case GET_PROPERTY_TYPE_SUCCESS:
+        case GET_PROPERTY_TYPE_FAILURE:
             return {
                 ...state
             }
