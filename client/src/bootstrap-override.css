@@ -298,3 +298,25 @@ input[type="checkbox"] {
 button:focus {
   outline: none;
 }
+
+.breadcrumb {
+  background: none;
+}
+
+.breadcrumb-item {
+  font-weight: 300;
+  font-size: 13px;
+}
+.breadcrumb-item a {
+  color: #222;
+}
+
+.breadcrumb-item.active {
+  font-weight: 700;
+  color: #222;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: " \203A";
+  font-size: 14px;
+  font-weight: 500;
+}
