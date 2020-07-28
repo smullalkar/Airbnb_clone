@@ -38,7 +38,6 @@ class Lisiting extends Component {
   }
 
   componentDidMount() {
-    console.log("COMPONENT MOUNTED");
     const {
       getData,
       data,
@@ -67,19 +66,12 @@ class Lisiting extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log("COMPONENT RECEIVED PROPS");
-    console.log(" data coming from receive ", this.props.data);
-    console.log(" state data ", this.state.data);
     if (this.state.data.length === 0) {
       this.setState({ data: this.props.data }, () => {});
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("COMPONENT DID UPDATE");
-    console.log(" data coming from receive ", this.props.data);
-    console.log(" state data ", this.state.data);
-
     if (this.state.data.length === 0 && this.props.data.length !== 0) {
       this.setState({ data: this.props.data });
     }
@@ -99,9 +91,6 @@ class Lisiting extends Component {
     }
     getData(obj);
   }
-    // handleClick =()=>{
-    //     window.open("http://localhost:3000/entity/entity_page")
-    // }
 
   handleMoreFiltersClose = () => {
     this.setState({ showMoreFilters: false });
@@ -136,7 +125,7 @@ class Lisiting extends Component {
                   Type of Place
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <TypeOfPlace />
+                  <TypeOfPlace />
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown as={ButtonGroup} className="m-2">
