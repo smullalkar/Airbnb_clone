@@ -37,7 +37,6 @@ export const facebookLoginFailure = () => ({
 
 export const facebookLogin = payload => {
     const [firstname, lastname] = payload.name.split(" ")
-    console.log(firstname, "\n" + lastname, "\n" + payload.email, "\n" + payload.accessToken, "\n" + payload.graphDomain, "\n" + payload.id)
     return dispatch => {
         dispatch(facebookLoginRequest());
         return axios
