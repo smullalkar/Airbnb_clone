@@ -346,6 +346,7 @@ class MoreFilter extends Component {
                       facilities.map((item, index) =>
                         index < 2 ? (
                           <Form.Check
+                          key={uuidv4()}
                             onChange={this.handleChange}
                             className={styles.cancellationCardCheckBox}
                             type="checkbox"
