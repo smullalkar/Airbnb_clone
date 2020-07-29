@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Card, Row, Col, Carousel, CarouselItem } from "react-bootstrap";
 import styles from "./Listing.module.css";
-import heart from "../../../assets/images/heart.svg";
 import star from "../../../assets/images/star.svg";
 import { v4 as uuidv4 } from "uuid";
 
@@ -31,24 +30,24 @@ class ListItem extends Component {
             item.data.map((home) => (
               <Col
                 key={uuidv4()}
-                lg={2}
-                className="m-3"
+                xs={12}
+                md={6}
+                lg={3}
+
                 onClick={() => {
                   window.open(url + "/entity/id_" + home.property_id);
                 }}
               >
-                <Card className={styles.card}>
-                  <span className={styles.heart}>&#9829;</span>
+                <Card className={`${styles.card} m-3`}>
                   <Card variant="top" className={styles.cardImage}>
                     <Carousel interval={20000}>
                       {home.images.split(",").map((img) => (
-                        <CarouselItem>
+                        <CarouselItem key={uuidv4()}>
                           <img
                             src={img.split(" ").join("")}
                             alt=""
                             key={uuidv4()}
-                            width="280px"
-                            height="150px"
+                            className={styles.caroselImage}
                           />
                         </CarouselItem>
                       ))}

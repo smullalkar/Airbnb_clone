@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Dropdown, ButtonGroup } from "react-bootstrap";
 import styles from "./SearchBar.module.css";
 import { DateRangePicker } from "react-dates";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import "react-dates/lib/css/_datepicker.css";
 import "react-dates/initialize";
 import "react-google-places-autocomplete/dist/index.min.css";
+import AddGuests from "./AddGuests"
 
 class Search extends Component {
   constructor(props) {
@@ -23,12 +24,15 @@ class Search extends Component {
       infants: "",
       page_no: 1,
       query: "",
+      showGuests: false,
+      guestCount: 0
     };
   }
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value }, () => {
       this.handleQuery();
     });
+
   };
   componentDidMount() {
     let query = window.location.href.split("&");
@@ -79,24 +83,53 @@ class Search extends Component {
           .join("-")
       );
     }
-    if (children !== "") {
+    if (children !== 0) {
       string.append("children", children);
     }
-    if (adults !== "") {
+    if (adults !== 0) {
       string.append("adults", adults);
     }
-    if (infants !== "") {
+    if (infants !== 0) {
       string.append("infants", infants);
     }
     if (page_no > 1) {
       string.append("page_no", page_no);
     }
-    this.setState({ query: string.toString() }, () => {});
+    this.setState({ query: string.toString() }, () => { });
   };
 
   handleSearch = () => {
     const { getData } = this.props;
+    localStorage.setItem('searchParams', JSON.stringify(this.state))
   };
+
+  onFormGroupClick = (e) => {
+    e.preventDefault();
+    this.setState({
+      showGuests: !this.state.showGuests
+    })
+  }
+
+  updateGuestCount = (key) => {
+    let obj = {};
+    obj[key] = Number(this.state[key]) + 1
+    obj.guestCount = this.state.guestCount + 1;
+    this.setState(obj)
+  }
+
+  removeGuest = (key) => {
+    let obj = {};
+    obj[key] = Number(this.state[key]) - 1
+    obj.guestCount = this.state.guestCount - 1;
+    if (obj.guestCount < 0) {
+      obj.guestCount = 0
+    }
+    this.setState(obj)
+
+
+  }
+
+
 
   render() {
     let { query } = this.state;
@@ -120,7 +153,7 @@ class Search extends Component {
               />
             </div> */}
           </Form.Group>
-          <Form.Group className={styles.formGroup}>
+          <Form.Group className={`${styles.formGroup} d-none d-md-block`}>
             <div>
               <Form.Label className={`${styles.formLabel} ${styles.dateLabel}`}>
                 CHECK IN
@@ -147,17 +180,23 @@ class Search extends Component {
             ></DateRangePicker>
           </Form.Group>
 
-          <Form.Group className={styles.formGroup}>
+          <Form.Group className={`${styles.formGroup} d-none d-md-block`} onClick={this.onFormGroupClick} >
             <Form.Label className={styles.formLabel}>GUESTS</Form.Label>
+
             <Form.Control
               className={styles.formControl}
               type="text"
               name="adults"
-              value={this.state.adults}
+
               onChange={this.handleChange}
-              placeholder="Add guests"
+              placeholder={this.state.guestCount === 0 ? 'add guest' : this.state.guestCount}
             />
+
+            <AddGuests adults={this.state.adults} children={this.state.children} infants={this.state.infants} showGuests={this.state.showGuests} addGuest={this.updateGuestCount} removeGuest={this.removeGuest} />
           </Form.Group>
+
+
+
 
           <Form.Group className={styles.formGroup}>
             <Button className={styles.btn} onClick={this.handleSearch}>

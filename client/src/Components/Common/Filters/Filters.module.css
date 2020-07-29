@@ -33,7 +33,7 @@
   max-width: 350px;
   border-radius: 28px;
   height: 300px;
-  padding-left: 30px;
+
   min-width: 350px;
 }
 
@@ -41,7 +41,7 @@
   max-width: 600px;
   border-radius: 28px;
   height: 200px;
-  padding-left: 30px;
+
   min-width: 600px;
 }
 
@@ -83,7 +83,9 @@
   border-radius: 50%;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
   box-sizing: border-box;
   flex: 0 1 auto;

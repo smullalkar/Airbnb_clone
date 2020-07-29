@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Card, Form, Dropdown } from "react-bootstrap";
+import { Card, Form, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from "./Filters.module.css";
 
@@ -28,9 +28,9 @@ class InstantBook extends Component {
     }
     if (this.state.checked) {
       queryString.append("instantBook", this.state.checked);
-      this.setState({ query: queryString }, () => {});
+      this.setState({ query: queryString }, () => { });
     }
-    this.setState({ query: queryString }, () => {});
+    this.setState({ query: queryString }, () => { });
   };
 
   render() {
@@ -63,12 +63,12 @@ class InstantBook extends Component {
               </span>
               <button className={styles.cancellationCardSave}>
                 <Dropdown.Item>
-                  <Link
+                  <span
                     to={query.toString()}
                     style={{ textDecoration: "none", color: "white" }}
                   >
                     Save
-                  </Link>
+                  </span>
                 </Dropdown.Item>
               </button>
             </div>
