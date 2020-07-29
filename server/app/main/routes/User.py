@@ -1,6 +1,6 @@
 from . import user
 from flask import request
-from ..services.user import register, login, oauth_login, insert_data
+from ..services.user import register, login, oauth_login, insert_data, sendUserDetails
 import datetime
 # from ..util.auth_token import checkAuthToken
 
@@ -39,6 +39,13 @@ def i_data():
     response = insert_data()
     return response
 
+@user.route("/userdetails", methods=["POST"])
+def user_details():
+    """
+    sending user details after logging in
+    """
+    response = sendUserDetails(request.json)
+    return response
 
 
 # @user.route("/token_validate", methods=["POST"])
