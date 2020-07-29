@@ -35,6 +35,7 @@ def sendData(results):
         temp_dict["amenity"] = result.amenities
         temp_dict["facility"] = result.facilities
         temp_dict["rating"] = result.rating
+        temp_dict["ratingcount"] = result.ratingcount
         temp_dict["images"] = result.images
         data.append(temp_dict)
     return data
@@ -74,7 +75,7 @@ def search(params):
                                         ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
                                         p.refundType,p.price,p.accomodatesCount,
                                         p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
-                                        p.cityId,p.userId, AVG(r.rating) AS rating,
+                                        p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                                         GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
                                         GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
                                         GROUP_CONCAT(DISTINCT images.image) AS images
@@ -108,7 +109,7 @@ def search(params):
                                         ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
                                         p.refundType,p.price,p.accomodatesCount,
                                         p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
-                                        p.cityId,p.userId, AVG(r.rating) AS rating,
+                                        p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                                         GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
                                         GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
                                         GROUP_CONCAT(DISTINCT images.image) AS images
@@ -149,7 +150,7 @@ def user_search_results(params):
         checkout = params.get('checkout',datetime.date.today() + datetime.timedelta(days=2))
         children = params.get('children', default=0)
         infants = params.get('infants', default=0)
-        adults = params.get('adults', default=1)
+        adults = params.get('adults', default=0)
         perPage = params.get('per_page', default=20)
         totalguests = int(adults)+int(children)
         print('................',location)
@@ -183,7 +184,7 @@ def user_search_results(params):
                 ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
                 p.refundType,p.price,p.accomodatesCount,
                 p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
-                p.cityId,p.userId, AVG(r.rating) AS rating,
+                p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                 GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
                 GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
                 GROUP_CONCAT(DISTINCT images.image) AS images
@@ -206,7 +207,7 @@ def user_search_results(params):
         query = query + ' c.cityName = "%s" AND '%(location)
 
     if totalguests != 0:
-        query = query + ' p.accomodatesCount >= %d AND '%(totalguests)
+        query = query + ' p.accomodatesCount = %d AND '%(totalguests)
 
     if category is not None and len(category) != 0:
         if len(category) > 1:
@@ -260,7 +261,7 @@ def user_search_results(params):
     results = db.session.execute(query)
 
     d = sendData(results)
-    print(d)
+    print('dddddddddddddddd',d)
     return json.dumps({
         "data": d,
         "message": 'Successful',
