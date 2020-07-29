@@ -1,0 +1,41 @@
+.title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.dayWrapper {
+  padding: 12px;
+  display: flex;
+  background: #f2f2f2;
+  border-radius: 6px;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+.dateText {
+  padding-left: 20px;
+  font-weight: 300;
+  font-size: 14px;
+}
+.keepInMindText {
+  padding-left: 20px;
+  font-size: 16px;
+  font-weight: 300;
+}
+.icon {
+  border: 1px solid #f2f2f2;
+  padding: 12px;
+}
+
+.cancelationPolicy {
+  background-color: #fffcf5;
+  padding: 30px 0;
+  border-top: 1px solid #f9b402;
+  border-bottom: 1px solid #f9b402;
+  font-weight: 300;
+  font-size: 14px;
+  margin-top: 20px;
+}

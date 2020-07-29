@@ -61,14 +61,16 @@
 }
 
 .guestCard {
-  max-width: 400px;
+  width: 350px;
   border-radius: 28px;
   height: 350px;
+  position: absolute;
+  margin-top: 30px;
 }
 
 .guestButton {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   flex-grow: 0;
   flex-shrink: 0;
   cursor: pointer;
