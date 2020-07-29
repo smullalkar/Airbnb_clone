@@ -15,16 +15,19 @@ import {
     GOOGLE_LOGIN_SUCCESS,
     GOOGLE_LOGIN_FAILURE,
     CLOSE_LOGIN_MODAL,
-    CLOSE_REGISTER_MODAL
+    CLOSE_REGISTER_MODAL,
+    TOKEN_VALIDATE_REQUEST,
+    TOKEN_VALIDATE_SUCCESS,
+    TOKEN_VALIDATE_FAILURE
 } from "./actionTypes";
 
 
 function getUserInfo() {
     let token = localStorage.getItem("token");
-    if (!token ) {
+    if (!token) {
         token = "";
     }
-    return [token ];
+    return [token];
 }
 
 const [token] = getUserInfo();
@@ -40,6 +43,7 @@ const initState = {
     isLoading: true,
     isAuth: false,
     payload: "",
+    user: [],
     isShowLoginModal: false,
     isShowRegisterModal: false
 }
@@ -55,6 +59,7 @@ const reducer = (state = initState, { type, payload }) => {
             }
 
         case FACEBOOK_LOGIN_SUCCESS:
+            localStorage.setItem("token", payload.token);
             return {
                 ...state,
                 isAuth: true,
@@ -80,6 +85,7 @@ const reducer = (state = initState, { type, payload }) => {
             }
 
         case GOOGLE_LOGIN_SUCCESS:
+            localStorage.setItem("token", payload.token);
             return {
                 ...state,
                 isAuth: true,
@@ -104,6 +110,7 @@ const reducer = (state = initState, { type, payload }) => {
                 isLoading: true
             }
         case LOGIN_USER_SUCCESS:
+            localStorage.setItem("token", payload.token);
             return {
                 ...state,
                 isAuth: true,
@@ -171,11 +178,25 @@ const reducer = (state = initState, { type, payload }) => {
                 ...state,
                 isShowLoginModal: !state.isShowLoginModal
             }
-            case CLOSE_REGISTER_MODAL :
-                return{
-                    ...state,
-                    isShowRegisterModal : !state.isShowRegisterModal
-                }
+        case TOKEN_VALIDATE_REQUEST:
+            return {
+                ...state
+            }
+        case TOKEN_VALIDATE_SUCCESS:
+            console.log(payload.data.data[0])
+            return {
+                ...state,
+                user: payload.data.data[0]
+            }
+        case TOKEN_VALIDATE_FAILURE:
+            return {
+                ...state
+            }
+        case CLOSE_REGISTER_MODAL:
+            return {
+                ...state,
+                isShowRegisterModal: !state.isShowRegisterModal
+            }
         default:
             return state
     }

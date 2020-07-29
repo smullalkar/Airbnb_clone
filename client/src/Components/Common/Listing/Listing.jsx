@@ -38,7 +38,6 @@ class Lisiting extends Component {
   }
 
   componentDidMount() {
-    console.log("COMPONENT MOUNTED");
     const {
       getData,
       data,
@@ -47,6 +46,7 @@ class Lisiting extends Component {
       getFacilities,
       getPropertyType,
     } = this.props;
+    console.log(data)
     var query = new URLSearchParams(window.location.href);
     let param = decodeURIComponent(query)
       .split("&")
@@ -67,19 +67,13 @@ class Lisiting extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log("COMPONENT RECEIVED PROPS");
-    console.log(" data coming from receive ", this.props.data);
-    console.log(" state data ", this.state.data);
     if (this.state.data.length === 0) {
       this.setState({ data: this.props.data }, () => {});
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("COMPONENT DID UPDATE");
-    console.log(" data coming from receive ", this.props.data);
-    console.log(" state data ", this.state.data);
-
+    console.log(" listing ",this.props.data)
     if (this.state.data.length === 0 && this.props.data.length !== 0) {
       this.setState({ data: this.props.data });
     }
@@ -99,9 +93,6 @@ class Lisiting extends Component {
     }
     getData(obj);
   }
-  //   handleClick =()=>{
-  //       window.open(window.location.href)
-  //   }
 
   handleMoreFiltersClose = () => {
     this.setState({ showMoreFilters: false });
@@ -110,6 +101,7 @@ class Lisiting extends Component {
   render() {
     const { isLoading, showCancellationFlexibility, data } = this.props;
     const { showCancellation } = this.props;
+    console.log(data)
     return (
       <div>
         {isLoading ? (
@@ -136,7 +128,7 @@ class Lisiting extends Component {
                   Type of Place
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <TypeOfPlace />
+                  <TypeOfPlace />
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown as={ButtonGroup} className="m-2">
@@ -238,7 +230,7 @@ class Lisiting extends Component {
 
 const mapStateToProps = (state) => ({
   data: state.userReducer.data,
-  isLoading: state.userReducer.isLodaing,
+  isLoading: state.userReducer.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

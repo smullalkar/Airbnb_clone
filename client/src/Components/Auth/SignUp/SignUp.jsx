@@ -124,7 +124,7 @@ class SignUp extends Component {
         const { closeLoginModal, closeRegisterModal } = this.props;
         if (error === false && this.state.isSignup === false) {
           this.setState({ isSignup: true });
-          closeRegisterModal()
+          // closeRegisterModal()
         }
       }
     }
@@ -132,7 +132,7 @@ class SignUp extends Component {
 
   handleClose = () => {
     const { closeRegisterModal } = this.props;
-    closeRegisterModal();
+    // closeRegisterModal();
   };
 
   render() {

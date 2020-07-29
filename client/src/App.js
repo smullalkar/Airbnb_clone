@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './bootstrap-override.css'
 import NavBar from './Components/Common/NavBar/NavBar'
-import Footer from './Components/Common/Footer/Footer'
+// import Footer from './Components/Common/Footer/Footer'
 import Routes from "./Components/Common/Route/Routes"
 import Entity from "./Components/Common/Entity/Entity"
 
@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes />
-      <Entity />
+      {/* <Entity /> */}
 
     </div>
   );

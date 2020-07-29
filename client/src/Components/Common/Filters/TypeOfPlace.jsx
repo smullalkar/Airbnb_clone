@@ -10,7 +10,7 @@ class TypeOfPlace extends Component {
     this.state = {
       type_of_place: "",
       place_array: [],
-      query: "",
+      query: ""
     };
   }
 
@@ -57,6 +57,7 @@ class TypeOfPlace extends Component {
 
   render() {
     const { typeOfPlaces } = this.props;
+    console.log(typeOfPlaces)
     const { query } = this.state;
     console.log("query : ", query.toString());
     return (
@@ -82,7 +83,7 @@ class TypeOfPlace extends Component {
               {/* <span className={styles.cancellationCardClear} onClick={() => {}}>
                 Clear
               </span> */}
-              <Dropdown.Item>
+              {/* <Dropdown.Item> */}
                 <Link
                   to={query.toString()}
                   style={{ textDecoration: "none", color: "white" }}
@@ -94,7 +95,7 @@ class TypeOfPlace extends Component {
                     Save
                   </button>
                 </Link>
-              </Dropdown.Item>
+              {/* </Dropdown.Item> */}
             </div>
           </Card.Footer>
         </Card>
