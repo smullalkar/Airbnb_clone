@@ -93,7 +93,7 @@ def login(userDetails):
     if results is not None:
         if results.password == password:
             if results.email == email:
-                data = {
+                data = [{
                     "firstname": results.firstname,
                     "lastname": results.lastname,
                     "dob": str(results.dob),
@@ -102,7 +102,7 @@ def login(userDetails):
                     "userType": results.userType,
                     "created_at": str(results.createdAt),
                     "user_id": results.id
-                }
+                }]
                 obj = {
                     "data": data,
                     "session_expiry": time.time() + 86400
@@ -150,14 +150,14 @@ def oauth_login(userDetails):
             """
             checking if user already exists or not
             """
-            data = {
+            data = [{
                 "firstname": results.firstname,
                 "lastname": results.lastname,
                 "email": results.email,
                 "userType": results.userType,
                 "created_at": str(results.createdAt),
                 "user_id": results.id
-            }
+            }]
             d = {
                 "data": data,
                 "session_expiry": time.time() + 86400
@@ -198,14 +198,14 @@ def oauth_login(userDetails):
                 db.session.add(u)
                 db.session.commit()
 
-            data_ = {
+            data_ = [{
                 "firstname": res.firstname,
                 "lastname": res.lastname,
                 "email": res.email,
                 "userType": res.userType,
                 "created_at": str(res.createdAt),
                 "user_id": res.id
-            }
+            }]
             obj = {
                 "data": data_,
                 "session_expiry": time.time() + 86400
@@ -219,6 +219,25 @@ def oauth_login(userDetails):
         except Exception as err:
             return {'error': True, 'error_found': format(err)}        
     return json.dumps({"error": True, "message": "Unknown error!"})    
+
+
+def sendUserDetails(payload):
+    data= payload["token"]
+    decodedData = jwt.decode(data, SECRET_KEY)
+
+    current_time = time.time()
+
+    if decodedData["session_expiry"] < current_time:
+        return json.dumps({
+            "error": True,
+            "message": "Invalid Token"
+        })
+    else:
+        return json.dumps({
+            "data": decodedData,
+            "message": True
+        }, default=str)
+
 
 def insert_data():
     # data = [
