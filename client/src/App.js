@@ -4,6 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './bootstrap-override.css'
 import NavBar from './Components/Common/NavBar/NavBar'
+// import Footer from './Components/Common/Footer/Footer'
 import Routes from "./Components/Common/Route/Routes"
 
 
@@ -14,6 +15,8 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes />
+      {/* <Entity /> */}
+
     </div>
   );
 }

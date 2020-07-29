@@ -12,6 +12,11 @@ class Routes extends Component {
         <Route exact path="/:url/entity/:param" render={()=><Entity/>} />
         <Route
           exact
+          path="/entity/entity_page"
+          render={(props) => <Entity {...props} />}
+        />
+        <Route
+          exact
           path="/:urlParams"
           render={(props) => <Listing {...props} />}
         />

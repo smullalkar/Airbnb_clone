@@ -337,76 +337,75 @@ class MoreFilter extends Component {
                     )}
                 </div>
               </div>
-            </div>
-            <hr />
-            <div>
-              <h3 className="font-weight-bold">Facilities</h3>
-              <div className="d-flex justify-content-between">
-                <div className="d-flex flex-column col-6 justify-content-start">
-                  {facilities &&
-                    facilities.map((item, index) =>
-                      index < 2 ? (
-                        <Form.Check
-                          onChange={this.handleChange}
-                          className={styles.cancellationCardCheckBox}
-                          type="checkbox"
-                          key={uuidv4()}
-                          name="facilities"
-                          id={item.id}
-                          checked={
-                            this.state[
-                            item.facilityName
-                              .split(" ")
-                              .join("_")
-                              .split("-")
-                              .join("")
-                            ]
-                          }
-                          label={item.facilityName}
-                          value={item.facilityName}
-                        />
-                      ) : (
-                          ""
-                        )
-                    )}
-                </div>
-                <div className="d-flex flex-column col-6 ">
-                  {facilities &&
-                    facilities.map((item, index) =>
-                      index > 1 ? (
-                        <Form.Check
-                          onChange={this.handleChange}
-                          className={styles.cancellationCardCheckBox}
-                          type="checkbox"
-                          key={uuidv4()}
-                          name="facilities"
-                          id={item.id}
-                          checked={
-                            this.state[
-                            item.facilityName
-                              .split(" ")
-                              .join("_")
-                              .split("-")
-                              .join("")
-                            ]
-                          }
-                          label={item.facilityName}
-                          value={item.facilityName}
-                        />
-                      ) : (
-                          ""
-                        )
-                    )}
+              <hr />
+              <div>
+                <h3 className="font-weight-bold">Facilities</h3>
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex flex-column col-6 justify-content-start">
+                    {facilities &&
+                      facilities.map((item, index) =>
+                        index < 2 ? (
+                          <Form.Check
+                            key={uuidv4()}
+                            onChange={this.handleChange}
+                            className={styles.cancellationCardCheckBox}
+                            type="checkbox"
+                            name="facilities"
+                            id={item.id}
+                            checked={
+                              this.state[
+                              item.facilityName
+                                .split(" ")
+                                .join("_")
+                                .split("-")
+                                .join("")
+                              ]
+                            }
+                            label={item.facilityName}
+                            value={item.facilityName}
+                          />
+                        ) : (
+                            ""
+                          )
+                      )}
+                  </div>
+                  <div className="d-flex flex-column col-6 ">
+                    {facilities &&
+                      facilities.map((item, index) =>
+                        index > 1 ? (
+                          <Form.Check
+                            onChange={this.handleChange}
+                            className={styles.cancellationCardCheckBox}
+                            type="checkbox"
+                            key={uuidv4()}
+                            name="facilities"
+                            id={item.id}
+                            checked={
+                              this.state[
+                              item.facilityName
+                                .split(" ")
+                                .join("_")
+                                .split("-")
+                                .join("")
+                              ]
+                            }
+                            label={item.facilityName}
+                            value={item.facilityName}
+                          />
+                        ) : (
+                            ""
+                          )
+                      )}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <hr />
-            <div>
-              <h3 className="font-weight-bold">Property type</h3>
-              <div className="d-flex justify-content-between">
-                <div className="d-flex flex-column col-6 justify-content-start">
-                  {/* {propertyTypes &&
+              <hr />
+              <div>
+                <h3 className="font-weight-bold">Property type</h3>
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex flex-column col-6 justify-content-start">
+                    {/* {propertyTypes &&
                       propertyTypes.map((item, index) =>
                         index > 2 ? (
                           <Form.Check
@@ -423,9 +422,9 @@ class MoreFilter extends Component {
                           ""
                         )
                       )} */}
-                </div>
-                <div className="d-flex flex-column col-6 ">
-                  {/* {propertyTypes &&
+                  </div>
+                  <div className="d-flex flex-column col-6 ">
+                    {/* {propertyTypes &&
                       propertyTypes.map((item, index) =>
                         index > 2 ? (
                           <Form.Check
@@ -442,37 +441,37 @@ class MoreFilter extends Component {
                           ""
                         )
                       )} */}
+                  </div>
                 </div>
               </div>
-            </div>
           </Modal.Body>
 
-          <Modal.Footer>
-            {/* <a className={styles.cancellationCardClear} href="">
+            <Modal.Footer>
+              {/* <a className={styles.cancellationCardClear} href="">
               Clear
             </a> */}
-            <Button
-              className={styles.cancellationCardSave}
-              onClick={this.handleClick}
-            >
-              <Link
-                to={query.toString()}
-                style={{ color: "white", textDecoration: "none" }}
+              <Button
+                className={styles.cancellationCardSave}
+                onClick={this.handleClick}
               >
-                Show Stay
+                <Link
+                  to={query.toString()}
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Show Stay
               </Link>
-            </Button>
-          </Modal.Footer>
+              </Button>
+            </Modal.Footer>
         </Modal>
       </div>
-    );
-  }
-}
-
+        );
+      }
+    }
+    
 const mapStateToProps = (state) => ({
-  amenities: state.userReducer.amenities,
-  facilities: state.userReducer.facilities,
-  propertyTypes: state.userReducer.propertyTypes,
-});
-export default connect(mapStateToProps, null)(MoreFilter);
-// export default MoreFilter;
+          amenities: state.userReducer.amenities,
+        facilities: state.userReducer.facilities,
+        propertyTypes: state.userReducer.propertyTypes,
+      });
+      export default connect(mapStateToProps, null)(MoreFilter);
+      // export default MoreFilter;

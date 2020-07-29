@@ -2,9 +2,6 @@ import {
     GET_DATA_REQUEST,
     GET_DATA_SUCCESS,
     GET_DATA_FAILURE,
-    GET_DATA_PAGEWISE_REQUEST,
-    GET_DATA_PAGEWISE_SUCCESS,
-    GET_DATA_PAGEWISE_FAILURE,
     GET_TYPE_OF_PLACE_REQUEST,
     GET_TYPE_OF_PLACE_SUCCESS,
     GET_TYPE_OF_PLACE_FAILURE,
@@ -17,16 +14,15 @@ import {
     GET_PROPERTY_TYPE_REQUEST,
     GET_PROPERTY_TYPE_SUCCESS,
     GET_PROPERTY_TYPE_FAILURE,
-    SEND_BOOKING_REQUEST,
-    SEND_BOOKING_SUCECSS,
-    SEND_BOOKING_FAILURE,
     GET_BOOKED_DATES_REQUEST,
     GET_BOOKED_DATES_SUCCESS,
     GET_BOOKED_DATES_FAILURE,
     GET_RECOMENDDATION_REQUEST,
     GET_RECOMENDDATION_SUCCESS,
     GET_RECOMENDDATION_FAILURE,
-    CLOSE_MORE_OPTIONS_MODAL,
+    BOOK_DATE_REQUEST,
+    BOOK_DATE_SUCCESS,
+    BOOK_DATE_FAILURE,
     CLOSE_CANCELLATION_FLEXIBILITY
 } from "./actionTypes";
 import axios from "axios";
@@ -47,11 +43,10 @@ export const getDataFailure = () => ({
 });
 
 export const getData = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getDataRequest());
-        return axios
-            .get("https://run.mocky.io/v3/90ce1a86-0ca8-45b1-b559-ce06fdfa102a", {
+        return axios ///user/searchresults
+            .get("https://run.mocky.io/v3/7d9d6dd3-7a68-4ae8-801d-6efaa49cfdb6", {
                 params: payload
             })
             .then(res => dispatch(getDataSuccess(res.data)))
@@ -73,11 +68,10 @@ export const getTypeOfPlaceFailure = () => ({
 });
 
 export const getTypeOfPlace = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getTypeOfPlaceRequest());
         return axios
-            .get("https://run.mocky.io/v3/1732bf62-b3ab-4849-a7e1-741e2a0cfffd")
+            .get("http://1a227c043c3e.ngrok.io/user/categories")
             .then(res => dispatch(getTypeOfPlaceSuccess(res.data)))
             .catch(() => dispatch(getTypeOfPlaceFailure()));
     };
@@ -97,11 +91,10 @@ export const getAmenitiesFailure = () => ({
 });
 
 export const getAmenities = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getAmenitiesRequest());
         return axios
-            .get("https://run.mocky.io/v3/4ed4d050-8bdc-4a5d-b0b2-5a29832a810f")
+            .get("http://1a227c043c3e.ngrok.io/user/amenities")
             .then(res => dispatch(getAmenitiesSuccess(res.data.data)))
             .catch(() => dispatch(getAmenitiesFailure()));
     };
@@ -121,11 +114,10 @@ export const getFacilitiesFailure = () => ({
 });
 
 export const getFacilities = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getFacilitiesRequest());
         return axios
-            .get("https://run.mocky.io/v3/c4d7e8e0-db36-4197-8780-bf2fe8606eb7")
+            .get("http://1a227c043c3e.ngrok.io/user/facilities")
             .then(res => dispatch(getFacilitiesSuccess(res.data.data)))
             .catch(() => dispatch(getFacilitiesFailure()));
     };
@@ -145,42 +137,14 @@ export const getPropertyTypeFailure = () => ({
 });
 
 export const getPropertyType = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getPropertyTypeRequest());
         return axios
-            .get("https://run.mocky.io/v3/c4d7e8e0-db36-4197-8780-bf2fe8606eb7")
+            .get("http://1a227c043c3e.ngrok.io/user/propertytype")
             .then(res => dispatch(getPropertyTypeSuccess(res.data.data)))
             .catch(() => dispatch(getPropertyTypeFailure()));
     };
 }
-
-
-export const sendBookingRequest = () => ({
-    type: SEND_BOOKING_REQUEST
-});
-
-export const sendBookingSuccess = payload => ({
-    type: SEND_BOOKING_SUCECSS,
-    payload
-});
-
-export const sendBookingFailure = () => ({
-    type: SEND_BOOKING_FAILURE
-});
-
-export const sendBooking = payload => {
-    console.log(payload)
-    return dispatch => {
-        dispatch(sendBookingRequest());
-        return axios
-            .post("https://run.mocky.io/v3/c4d7e8e0-db36-4197-8780-bf2fe8606eb7")
-            .then(res => dispatch(sendBookingSuccess(res.data.data)))
-            .catch(() => dispatch(sendBookingFailure()));
-    };
-}
-
-
 
 
 export const getBookedDatesRequest = () => ({
@@ -201,17 +165,44 @@ export const getBookedDates = payload => {
     return dispatch => {
         dispatch(getBookedDatesRequest());
         return axios
-            .post("https://run.mocky.io/v3/c4d7e8e0-db36-4197-8780-bf2fe8606eb7")
+            .post("/user/addbooking", {
+                params: payload
+            })
             .then(res => dispatch(getBookedDatesSuccess(res.data.data)))
             .catch(() => dispatch(getBookedDatesFailure()));
     };
 }
 
+export const bookDateRequest = () => ({
+    type: BOOK_DATE_REQUEST
+});
+
+export const bookDateSuccess = payload => ({
+    type: BOOK_DATE_SUCCESS,
+    payload
+});
+
+export const bookDateFailure = () => ({
+    type: BOOK_DATE_FAILURE
+});
+
+export const bookDate = payload => {
+    console.log(payload)
+    return dispatch => {
+        dispatch(bookDateRequest());
+        return axios
+            .post("/user/sendbooking", {
+                params: payload
+            })
+            .then(res => dispatch(bookDateSuccess(res.data)))
+            .catch(() => dispatch(bookDateFailure()));
+    };
+}
 
 
-
-export const getRecommendationRequest = () => ({
-    type: GET_RECOMENDDATION_REQUEST
+export const getRecommendationRequest = payload => ({
+    type: GET_RECOMENDDATION_REQUEST,
+    payload
 });
 
 export const getRecommendationSuccess = payload => ({
@@ -223,16 +214,20 @@ export const getRecommendationFailure = () => ({
     type: GET_RECOMENDDATION_FAILURE
 });
 
-export const getRecommendation = payload => {
+export const Recommendation = payload => {
     console.log(payload)
     return dispatch => {
         dispatch(getRecommendationRequest());
         return axios
-            .post("https://run.mocky.io/v3/9d718346-0027-4afa-a824-e6ef7664d8ec")
+            .post("/user/recommendation", {
+                params: payload
+            })
             .then(res => dispatch(getRecommendationSuccess(res.data)))
             .catch(() => dispatch(getRecommendationFailure()));
     };
 }
+
+
 //action to close cancellatiom flexibity popup
 export const closeCancellationFlexibility = () => ({
     type: CLOSE_CANCELLATION_FLEXIBILITY

@@ -21,6 +21,8 @@ class ListItem extends Component {
   render() {
     const { url } = this.state;
     const { item } = this.props;
+    console.log(item)
+    console.log("Hello")
     return (
       <div>
         <Row className="text-center">
@@ -55,7 +57,7 @@ class ListItem extends Component {
                     <div className="d-flex align-items-center">
                       <span className={styles.ratingStar}>&#9733;</span>
                       <span className={styles.rating}>
-                        {home.rating || "4"}{" "}
+                        {home.rating }{" "}
                       </span>
                       <span className={styles.numrated}>(72)</span>
                     </div>
