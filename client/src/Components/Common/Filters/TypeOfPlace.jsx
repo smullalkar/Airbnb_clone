@@ -10,7 +10,7 @@ class TypeOfPlace extends Component {
     this.state = {
       type_of_place: "",
       place_array: [],
-      query: "",
+      query: ""
     };
   }
 
@@ -72,8 +72,8 @@ class TypeOfPlace extends Component {
                     className={styles.cancellationCardCheckBox}
                     type="checkbox"
                     key={categories.id}
-                    value={categories.ty_of_place}
-                    label={categories.ty_of_place}
+                    value={categories.type_of_place}
+                    label={categories.type_of_place}
                   />
                 ))}
             </div>

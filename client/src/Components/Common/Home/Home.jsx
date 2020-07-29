@@ -9,10 +9,18 @@ import SearchBar from "../Search/SearchBar";
 import NearByGateWay from "../Search/NearByGateWay";
 import AddGuests from "../Search/AddGuests";
 import Footer from "../Footer/Footer";
+import { connect } from "react-redux";
+import { tokenValidateUser } from "../../../Redux/authentication/actions";
 
 class Home extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    const { tokenValidateUser } = this.props
+    let token = localStorage.getItem("token");
+    tokenValidateUser(token)
   }
 
   render() {
@@ -195,4 +203,10 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapDispatchToProps=dispatch=>({
+  tokenValidateUser : payload=>dispatch(tokenValidateUser(payload))
+})
+
+export default connect(null, mapDispatchToProps)(Home)
+
+// export default Home;

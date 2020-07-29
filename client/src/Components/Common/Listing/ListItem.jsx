@@ -8,14 +8,22 @@ import { v4 as uuidv4 } from "uuid";
 class ListItem extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      url: "",
+    };
+  }
+  componentDidMount() {
+    let query = window.location.href;
+    this.setState({
+      url: query,
+    });
   }
 
-  handleClick = () => {
-    window.open("http://localhost:3000/entity/entity_page");
-  };
-
   render() {
+    const { url } = this.state;
     const { item } = this.props;
+    console.log(item)
+    console.log("Hello")
     return (
       <div>
         <Row className="text-center">
@@ -25,7 +33,9 @@ class ListItem extends Component {
                 key={uuidv4()}
                 lg={2}
                 className="m-3"
-                onClick={this.handleClick}
+                onClick={() => {
+                  window.open(url + "/entity/id_" + home.property_id);
+                }}
               >
                 <Card className={styles.card}>
                   <span className={styles.heart}>&#9829;</span>
@@ -48,7 +58,7 @@ class ListItem extends Component {
                     <div className="d-flex align-items-center">
                       <span className={styles.ratingStar}>&#9733;</span>
                       <span className={styles.rating}>
-                        {home.rating || "4"}{" "}
+                        {home.rating }{" "}
                       </span>
                       <span className={styles.numrated}>(72)</span>
                     </div>

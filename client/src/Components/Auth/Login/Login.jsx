@@ -84,7 +84,7 @@ class Login extends Component {
   handleSignup = () => {
     const { closeLoginModal, closeRegisterModal } = this.props;
     closeLoginModal();
-    closeRegisterModal();
+    // closeRegisterModal();
   };
   render() {
     const { handleLoginClose, isShowLoginModal } = this.props;

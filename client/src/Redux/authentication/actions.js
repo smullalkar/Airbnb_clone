@@ -15,7 +15,10 @@ import {
     GOOGLE_LOGIN_SUCCESS,
     GOOGLE_LOGIN_FAILURE,
     CLOSE_LOGIN_MODAL,
-    CLOSE_REGISTER_MODAL
+    CLOSE_REGISTER_MODAL,
+    TOKEN_VALIDATE_REQUEST,
+    TOKEN_VALIDATE_SUCCESS,
+    TOKEN_VALIDATE_FAILURE
 } from "../authentication/actionTypes";
 
 import axios from "../../Utils/axiosInterceptor";
@@ -37,7 +40,6 @@ export const facebookLoginFailure = () => ({
 
 export const facebookLogin = payload => {
     const [firstname, lastname] = payload.name.split(" ")
-    console.log(firstname, "\n" + lastname, "\n" + payload.email, "\n" + payload.accessToken, "\n" + payload.graphDomain, "\n" + payload.id)
     return dispatch => {
         dispatch(facebookLoginRequest());
         return axios
@@ -191,3 +193,28 @@ export const closeLoginModal = () => ({
 export const closeRegisterModal = () => ({
     type: CLOSE_REGISTER_MODAL
 })
+
+export const tokenValidateRequest = () => ({
+    type: TOKEN_VALIDATE_REQUEST
+});
+
+export const tokenValidateSuccess = payload => ({
+    type: TOKEN_VALIDATE_SUCCESS,
+    payload
+});
+
+export const tokenValidateFail = () => ({
+    type: TOKEN_VALIDATE_FAILURE
+});
+
+export const tokenValidateUser = payload => {
+    console.log({token : payload})
+    return dispatch => {
+        dispatch(tokenValidateRequest());
+        return axios
+            .post("user/userdetails",{ token : payload})
+            .then(res =>dispatch(tokenValidateSuccess(res.data))
+            )
+            .catch(() => dispatch(tokenValidateFail()));
+    };
+};

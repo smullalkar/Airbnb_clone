@@ -2,9 +2,6 @@ import {
     GET_DATA_REQUEST,
     GET_DATA_SUCCESS,
     GET_DATA_FAILURE,
-    GET_DATA_PAGEWISE_REQUEST,
-    GET_DATA_PAGEWISE_SUCCESS,
-    GET_DATA_PAGEWISE_FAILURE,
     GET_TYPE_OF_PLACE_REQUEST,
     GET_TYPE_OF_PLACE_SUCCESS,
     GET_TYPE_OF_PLACE_FAILURE,
@@ -20,9 +17,9 @@ import {
     GET_BOOKED_DATES_REQUEST,
     GET_BOOKED_DATES_SUCCESS,
     GET_BOOKED_DATES_FAILURE,
-    GET_RECOMMENDATION_REQUEST,
-    GET_RECOMMENDATION_SUCCESS,
-    GET_RECOMMENDATION_FAILURE,
+    GET_RECOMENDDATION_REQUEST,
+    GET_RECOMENDDATION_SUCCESS,
+    GET_RECOMENDDATION_FAILURE,
     BOOK_DATE_REQUEST,
     BOOK_DATE_SUCCESS,
     BOOK_DATE_FAILURE,
@@ -46,11 +43,10 @@ export const getDataFailure = () => ({
 });
 
 export const getData = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getDataRequest());
-        return axios
-            .get("http://a9fd62c19762.ngrok.io/user/searchresults", {
+        return axios ///user/searchresults
+            .get("https://run.mocky.io/v3/7d9d6dd3-7a68-4ae8-801d-6efaa49cfdb6", {
                 params: payload
             })
             .then(res => dispatch(getDataSuccess(res.data)))
@@ -72,11 +68,10 @@ export const getTypeOfPlaceFailure = () => ({
 });
 
 export const getTypeOfPlace = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getTypeOfPlaceRequest());
         return axios
-            .get("http://a9fd62c19762.ngrok.io/user/categories")
+            .get("http://1a227c043c3e.ngrok.io/user/categories")
             .then(res => dispatch(getTypeOfPlaceSuccess(res.data)))
             .catch(() => dispatch(getTypeOfPlaceFailure()));
     };
@@ -96,11 +91,10 @@ export const getAmenitiesFailure = () => ({
 });
 
 export const getAmenities = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getAmenitiesRequest());
         return axios
-            .get("http://a9fd62c19762.ngrok.io/user/amenities")
+            .get("http://1a227c043c3e.ngrok.io/user/amenities")
             .then(res => dispatch(getAmenitiesSuccess(res.data.data)))
             .catch(() => dispatch(getAmenitiesFailure()));
     };
@@ -120,11 +114,10 @@ export const getFacilitiesFailure = () => ({
 });
 
 export const getFacilities = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getFacilitiesRequest());
         return axios
-            .get("http://a9fd62c19762.ngrok.io/user/facilities")
+            .get("http://1a227c043c3e.ngrok.io/user/facilities")
             .then(res => dispatch(getFacilitiesSuccess(res.data.data)))
             .catch(() => dispatch(getFacilitiesFailure()));
     };
@@ -144,17 +137,16 @@ export const getPropertyTypeFailure = () => ({
 });
 
 export const getPropertyType = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getPropertyTypeRequest());
         return axios
-            .get("http://a9fd62c19762.ngrok.io/user/propertytype", {
-                params: payload
-            })
+            .get("http://1a227c043c3e.ngrok.io/user/propertytype")
             .then(res => dispatch(getPropertyTypeSuccess(res.data.data)))
             .catch(() => dispatch(getPropertyTypeFailure()));
     };
 }
+
+
 export const getBookedDatesRequest = () => ({
     type: GET_BOOKED_DATES_REQUEST
 });
@@ -209,17 +201,17 @@ export const bookDate = payload => {
 
 
 export const getRecommendationRequest = payload => ({
-    type: BOOK_DATE_SUCCESS,
+    type: GET_RECOMENDDATION_REQUEST,
     payload
 });
 
 export const getRecommendationSuccess = payload => ({
-    type: BOOK_DATE_SUCCESS,
+    type: GET_RECOMENDDATION_SUCCESS,
     payload
 });
 
 export const getRecommendationFailure = () => ({
-    type: BOOK_DATE_FAILURE
+    type: GET_RECOMENDDATION_FAILURE
 });
 
 export const Recommendation = payload => {

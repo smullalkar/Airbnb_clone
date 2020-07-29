@@ -14,12 +14,15 @@ import {
     GET_FACILITIES_FAILURE,
     GET_PROPERTY_TYPE_REQUEST,
     GET_PROPERTY_TYPE_SUCCESS,
-    GET_PROPERTY_TYPE_FAILURE
+    GET_PROPERTY_TYPE_FAILURE,
+    GET_RECOMENDDATION_REQUEST,
+    GET_RECOMENDDATION_SUCCESS,
+    GET_RECOMENDDATION_FAILURE,
 } from "./actionTypes";
 
 const initState = {
     data: [],
-    isLodaing: true,
+    isLoading: true,
     showCancellationFlexibility: false,
     typeOfPlaces: [],
     amenities: [],
@@ -28,7 +31,6 @@ const initState = {
 }
 
 const userReducer = (state = initState, { type, payload }) => {
-    console.log(payload)
     switch (type) {
         case GET_DATA_REQUEST:
             return {
@@ -36,12 +38,14 @@ const userReducer = (state = initState, { type, payload }) => {
                 isLodaing: false
             }
         case GET_DATA_SUCCESS:
+            console.log("payload " , payload.data)
             return {
                 ...state,
                 data: [...state.data, payload],
-                isLodaing: true
+                isLoading: true
             }
         case GET_DATA_FAILURE:
+            console.log( "failure ",  payload)
             return {
                 ...state,
                 isLodaing: true
@@ -94,7 +98,7 @@ const userReducer = (state = initState, { type, payload }) => {
                 ...state,
                 propertyTypes: payload
             }
-        case GET_PROPERTY_TYPE_SUCCESS:
+        case GET_PROPERTY_TYPE_FAILURE:
             return {
                 ...state
             }

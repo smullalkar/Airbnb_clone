@@ -3,6 +3,7 @@ import { Button, Card, Modal, Form, ModalDialog } from "react-bootstrap";
 import styles from "./Filters.module.css";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { Link } from "react-router-dom";
 
 class MoreFilter extends Component {
   constructor(props) {
@@ -12,14 +13,35 @@ class MoreFilter extends Component {
       beds: 0,
       bedrooms: 0,
       bathrooms: 0,
-      amenityArr: [],
-      facilityArr: [],
-      propertYarr: [],
+      Air_conditioning: false,
+      Washer: false,
+      Dryer: false,
+      Wifi: false,
+      Breakfast: false,
+      Indoor_fireplace: false,
+      Hangers: false,
+      Iron: false,
+      Hair_dryer: false,
+      Laptop_friendly_workspace: false,
+      TV: false,
+      Crib: false,
+      High_chair: false,
+      Self_check_in: false,
+      Smoke_alarm: false,
+      Carbon_monoxide_alarm: false,
+      Private_bathroom: false,
+      Pets_allowed: false,
+      Smoking_allowed: false,
+      Free_parking_on_premises: false,
+      Gym: false,
+      Hot_tub: false,
+      Pool: false,
+      query: "",
     };
   }
+
   handleChange = (e) => {
-    const { amenities, propertyTypes, facilities } = this.props;
-    const { amenityArr, facilityArr, propertYarr } = this.state;
+    let { amenities, facilities, propertyTypes } = this.props;
     let query = window.location.href.split("&");
     var queryString = new URLSearchParams("/location?");
     for (let i = 1; i < query.length; i++) {
@@ -29,44 +51,90 @@ class MoreFilter extends Component {
       }
     }
     if (e.target.checked) {
-      var aValue = amenities.find(
-        (item) => item.amenityName === e.target.value
-      );
-      if (aValue !== undefined) {
-        this.setState({
-          amenityArr: [...amenityArr, aValue.amenityName],
-        });
-      }
-      let fValue = facilities.find(
-        (item) => item.facilityName === e.target.value
-      );
-      if (fValue !== undefined) {
-        this.setState(
-          { facilityArr: [...this.state.facilityArr, fValue.facilityName] },
-          () => {}
-        );
-      }
-      let pValue = propertyTypes.find(
-        (item) => item.propertName === e.target.value
-      );
-      if (pValue !== undefined) {
-        this.setState(
-          { propertYarr: [...this.state.propertYarr, pValue.propertName] },
-          () => {}
-        );
-      }
+      this.setState({ [e.target.value]: !this.state[e.target.value] }, () => {
+        var key;
+        for (key in this.state) {
+          if (this.state[key] === true) {
+            amenities.map((item) => {
+              if (
+                item.amenityName.split(" ").join("_").split("-").join("") ===
+                key
+              ) {
+                queryString.append("amenities", key);
+              }
+            });
+            facilities.map((item) => {
+              if (
+                item.facilityName.split(" ").join("_").split("-").join("") ===
+                key
+              ) {
+                queryString.append("facilities", key);
+              }
+            });
+            // propertyTypes.map((item) => {
+            //   if (
+            //     item.propertyName.split(" ").join("_").split("-").join("") ===
+            //     key
+            //   ) {
+            //     queryString.append("propertyType", key);
+            //   }
+            // });
+          }
+        }
+        queryString.append("beds", this.state.beds);
+        queryString.append("bedrooms", this.state.bedrooms);
+        queryString.append("bathrooms", this.state.bathrooms);
+        this.setState({query : queryString},()=>{})
+      });
+    } else {
+      this.setState({ [e.target.value]: !this.state[e.target.value] }, () => {
+        var key;
+        for (key in this.state) {
+          if (this.state[key] === true) {
+            amenities.map((item) => {
+              if (
+                item.amenityName.split(" ").join("_").split("-").join("") ===
+                key
+              ) {
+                queryString.append("amenities", key);
+              }
+            });
+            facilities.map((item) => {
+              if (
+                item.facilityName.split(" ").join("_").split("-").join("") ===
+                key
+              ) {
+                queryString.append("facilities", key);
+              }
+            });
+            // propertyTypes.map((item) => {
+            //   if (
+            //     item.propertyName.split(" ").join("_").split("-").join("") ===
+            //     key
+            //   ) {
+            //     queryString.append("propertyType", key);
+            //   }
+            // });
+          }
+        }
+        queryString.append("beds", this.state.beds);
+        queryString.append("bedrooms", this.state.bedrooms);
+        queryString.append("bathrooms", this.state.bathrooms);
+        this.setState({query : queryString},()=>{})
+      });
     }
   };
-  handleClick = () => {};
+
   render() {
-    const {
+    let {
       show,
       handleMoreFiltersClose,
       amenities,
       facilities,
       propertyTypes,
     } = this.props;
-    const { beds, bedrooms, bathrooms } = this.state;
+    const { beds, bedrooms, bathrooms, filterArray, query } = this.state;
+
     return (
       <div>
         <Modal
@@ -203,10 +271,28 @@ class MoreFilter extends Component {
                           <Form.Check
                             onChange={this.handleChange}
                             key={uuidv4()}
+                            name="amenities"
                             className={styles.cancellationCardCheckBox}
                             type="checkbox"
-                            value={item.amenityName}
-                            label={item.amenityName}
+                            checked={
+                              this.state[
+                                item.amenityName
+                                  .split(" ")
+                                  .join("_")
+                                  .split("-")
+                                  .join("")
+                              ]
+                            }
+                            value={item.amenityName
+                              .split(" ")
+                              .join("_")
+                              .split("-")
+                              .join("_")}
+                            label={item.amenityName
+                              .split(" ")
+                              .join("_")
+                              .split("-")
+                              .join("_")}
                           />
                         ) : (
                           ""
@@ -218,12 +304,31 @@ class MoreFilter extends Component {
                       amenities.map((item, index) =>
                         index >= 10 ? (
                           <Form.Check
+                            name="amenities"
                             onChange={this.handleChange}
                             key={uuidv4()}
+                            id={item.id}
                             className={styles.cancellationCardCheckBox}
                             type="checkbox"
-                            value={item.amenityName}
-                            label={item.amenityName}
+                            checked={
+                              this.state[
+                                item.amenityName
+                                  .split(" ")
+                                  .join("_")
+                                  .split("-")
+                                  .join("")
+                              ]
+                            }
+                            value={item.amenityName
+                              .split(" ")
+                              .join("_")
+                              .split("-")
+                              .join("_")}
+                            label={item.amenityName
+                              .split(" ")
+                              .join("_")
+                              .split("-")
+                              .join("_")}
                           />
                         ) : (
                           ""
@@ -241,9 +346,21 @@ class MoreFilter extends Component {
                       facilities.map((item, index) =>
                         index < 2 ? (
                           <Form.Check
+                          key={uuidv4()}
                             onChange={this.handleChange}
                             className={styles.cancellationCardCheckBox}
                             type="checkbox"
+                            name="facilities"
+                            id={item.id}
+                            checked={
+                              this.state[
+                                item.facilityName
+                                  .split(" ")
+                                  .join("_")
+                                  .split("-")
+                                  .join("")
+                              ]
+                            }
                             label={item.facilityName}
                             value={item.facilityName}
                           />
@@ -255,11 +372,22 @@ class MoreFilter extends Component {
                   <div className="d-flex flex-column col-6 ">
                     {facilities &&
                       facilities.map((item, index) =>
-                        index > 2 ? (
+                        index > 1 ? (
                           <Form.Check
                             onChange={this.handleChange}
                             className={styles.cancellationCardCheckBox}
                             type="checkbox"
+                            name="facilities"
+                            id={item.id}
+                            checked={
+                              this.state[
+                                item.facilityName
+                                  .split(" ")
+                                  .join("_")
+                                  .split("-")
+                                  .join("")
+                              ]
+                            }
                             label={item.facilityName}
                             value={item.facilityName}
                           />
@@ -276,18 +404,42 @@ class MoreFilter extends Component {
                 <h3 className="font-weight-bold">Property type</h3>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex flex-column col-6 justify-content-start">
-                    <Form.Check
-                      className={styles.cancellationCardCheckBox}
-                      type="checkbox"
-                      label="House"
-                    />
+                    {/* {propertyTypes &&
+                      propertyTypes.map((item, index) =>
+                        index > 2 ? (
+                          <Form.Check
+                            onChange={this.handleChange}
+                            className={styles.cancellationCardCheckBox}
+                            type="checkbox"
+                            name="propertyType"
+                            checked={this.state[item.propertyName.split(" ").join("_").split("-").join("")]}
+                            label={item.propertyName}
+                            value={item.propertyName}
+                            id={item.id}
+                          />
+                        ) : (
+                          ""
+                        )
+                      )} */}
                   </div>
                   <div className="d-flex flex-column col-6 ">
-                    <Form.Check
-                      className={styles.cancellationCardCheckBox}
-                      type="checkbox"
-                      label="Guest suite"
-                    />
+                    {/* {propertyTypes &&
+                      propertyTypes.map((item, index) =>
+                        index > 2 ? (
+                          <Form.Check
+                            onChange={this.handleChange}
+                            className={styles.cancellationCardCheckBox}
+                            type="checkbox"
+                            name="propertyType"
+                            id={item.id}
+                            checked={this.state[item.propertyName.split(" ").join("_").split("-").join("")]}
+                            label={item.propertyName}
+                            value={item.propertyName}
+                          />
+                        ) : (
+                          ""
+                        )
+                      )} */}
                   </div>
                 </div>
               </div>
@@ -297,7 +449,17 @@ class MoreFilter extends Component {
             {/* <a className={styles.cancellationCardClear} href="">
               Clear
             </a> */}
-            <Button className={styles.cancellationCardSave}>Show Stay</Button>
+            <Button
+              className={styles.cancellationCardSave}
+              onClick={this.handleClick}
+            >
+              <Link
+                to={query.toString()}
+                style={{ color: "white", textDecoration: "none" }}
+              >
+              Show Stay
+              </Link>
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>
