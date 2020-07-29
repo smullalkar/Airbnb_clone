@@ -168,6 +168,7 @@ def recommendation_popularity(params, payload):
     try:
         location = params.get('location')
         propertyId = payload["property_id"]
+        print('body ............',propertyId, location)
             
     except KeyError as err:
         return json.dumps({'error': True, 'error_found': format(err)})
@@ -205,7 +206,7 @@ def recommendation_popularity(params, payload):
     if location is not None:
         query = query + ' c.cityName = "%s" '%(location)
 
-        query = query + ' AND p.id != %d GROUP BY p.id GROUP BY p.id HAVING rating >= 3 ;'%(int(propertyId))
+        query = query + ' AND p.id != %d GROUP BY p.id HAVING rating >= 3 ;'%(int(propertyId))
         results = db.session.execute(query)
 
         d = sendData(results)
@@ -221,4 +222,3 @@ def recommendation_popularity(params, payload):
             "message": 'Location not specified!',
             'error': True
         }, default=str)
-    
