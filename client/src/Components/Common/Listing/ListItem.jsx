@@ -45,7 +45,6 @@ class ListItem extends Component {
                             src={img.split(" ").join("")}
                             alt=""
                             key={uuidv4()}
-                            height="180px"
                             className={styles.caroselImage}
                           />
                         </CarouselItem>

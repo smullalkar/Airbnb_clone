@@ -11,8 +11,8 @@
 }
 
 .card {
-  max-width: 280px;
-  max-height: 345px;
+  max-width: 500px;
+  max-height: 455px;
   box-sizing: border-box;
   cursor: pointer;
   border: none;
@@ -25,11 +25,13 @@
 
 .cardImage {
   border-radius: 8px;
-  max-height: 180px;
+  background-size: cover;
+  width: 100%;
 }
 
 .caroselImage {
   width: 100%;
+  height: 220px;
   border-radius: 8px;
 }
 
