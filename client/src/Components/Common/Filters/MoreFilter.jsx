@@ -423,8 +423,8 @@ class MoreFilter extends Component {
                         )
                       )} */}
                   </div>
-                  <div className="d-flex flex-column col-6 ">
-                    {/* {propertyTypes &&
+                  {/* <div className="d-flex flex-column col-6 "> */}
+                  {/* {propertyTypes &&
                       propertyTypes.map((item, index) =>
                         index > 2 ? (
                           <Form.Check
@@ -441,37 +441,37 @@ class MoreFilter extends Component {
                           ""
                         )
                       )} */}
-                  </div>
                 </div>
               </div>
+            </div>
           </Modal.Body>
 
-            <Modal.Footer>
-              {/* <a className={styles.cancellationCardClear} href="">
+          <Modal.Footer>
+            {/* <a className={styles.cancellationCardClear} href="">
               Clear
             </a> */}
-              <Button
-                className={styles.cancellationCardSave}
-                onClick={this.handleClick}
+            <Button
+              className={styles.cancellationCardSave}
+              onClick={this.handleClick}
+            >
+              <Link
+                to={query.toString()}
+                style={{ color: "white", textDecoration: "none" }}
               >
-                <Link
-                  to={query.toString()}
-                  style={{ color: "white", textDecoration: "none" }}
-                >
-                  Show Stay
+                Show Stay
               </Link>
-              </Button>
-            </Modal.Footer>
+            </Button>
+          </Modal.Footer>
         </Modal>
-      </div>
-        );
-      }
-    }
-    
+      </div >
+    );
+  }
+}
+
 const mapStateToProps = (state) => ({
-          amenities: state.userReducer.amenities,
-        facilities: state.userReducer.facilities,
-        propertyTypes: state.userReducer.propertyTypes,
-      });
-      export default connect(mapStateToProps, null)(MoreFilter);
-      // export default MoreFilter;
+  amenities: state.userReducer.amenities,
+  facilities: state.userReducer.facilities,
+  propertyTypes: state.userReducer.propertyTypes,
+});
+export default connect(mapStateToProps, null)(MoreFilter);
+// export default MoreFilter;
