@@ -145,7 +145,7 @@ class Amenities extends Component {
             <Button
               variant="outline-secondary"
               className={styles.showAllBtn}
-              size="lg"
+              size="md"
               onClick={() => this.setState({ showMoreAmenities: true })}
             >
               Show all amenitis

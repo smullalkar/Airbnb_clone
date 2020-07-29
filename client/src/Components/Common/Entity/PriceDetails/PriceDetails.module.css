@@ -1,5 +1,7 @@
 .priceDetailsCard {
   max-width: 600px;
+  border-radius: 22px;
+  margin-top: 80px;
 }
 
 .ratingStar {
@@ -32,7 +34,7 @@
 .checkoutLabel {
   position: absolute;
   right: 0;
-  right: -67px;
+  right: -37px;
   text-align: center;
 }
 
@@ -42,8 +44,8 @@
   position: relative;
   background-clip: padding-box;
   border: 1px solid transparent;
-  border-radius: 32px;
-  padding: 8px 16px;
+  border-radius: 22px;
+  padding: 8px 8px;
   font-weight: 300 !important;
   height: 42px;
 }
@@ -115,4 +117,8 @@
   text-align: center;
   font-size: 14px;
   margin-top: 4px;
+}
+
+.addDateCard {
+  border-radius: 12px;
 }

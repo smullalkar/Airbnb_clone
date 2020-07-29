@@ -25,25 +25,25 @@ class ExploreMore extends Component {
                     </div>
                     <div className="row">
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                San Francisco
+                            <a className={styles.aTag} href="www.google.com">
+                                Chennai
       </a>
                         </div>
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                New York
+                            <a className={styles.aTag} href="www.google.com">
+                                Mumbai
       </a>
                         </div>
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Seattle
+                            <a className={styles.aTag} href="www.google.com">
+                                Kolkata
       </a>
                         </div>
                         <div className="col-3 text-left">
                             {" "}
-                            <a className={styles.aTag} href="#">
+                            <a className={styles.aTag} href="www.google.com">
                                 {" "}
-                                Los Angeles
+                                New Delhi
       </a>
                         </div>
                     </div>
@@ -65,23 +65,23 @@ class ExploreMore extends Component {
                     </div>
                     <div className="row">
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Denver
+                            <a className={styles.aTag} href="www.google.com">
+                                Kochi
       </a>
                         </div>
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Washington Dc
+                            <a className={styles.aTag} href="www.google.com">
+                                Lucknow
       </a>
                         </div>
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Phoenix
+                            <a className={styles.aTag} href="www.google.com">
+                                Jaipur
       </a>
                         </div>
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Austin
+                            <a className={styles.aTag} href="www.google.com">
+                                Goa
       </a>
                         </div>
                     </div>
@@ -103,23 +103,23 @@ class ExploreMore extends Component {
                     </div>
                     <div className="row">
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Houston
+                            <a className={styles.aTag} href="www.google.com">
+                                Amritsar
       </a>
                         </div>
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                New orieans
+                            <a className={styles.aTag} href="www.google.com">
+                                Hyderabad
       </a>
                         </div>
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Boston
+                            <a className={styles.aTag} href="www.google.com">
+                                Andamans
       </a>
                         </div>
                         <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Miami
+                            <a className={styles.aTag} href="www.google.com">
+                                Assam
       </a>
                         </div>
                     </div>

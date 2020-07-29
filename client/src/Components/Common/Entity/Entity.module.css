@@ -39,6 +39,7 @@
 .cardChildImage {
   max-width: 240px;
   max-height: 160px;
+  width: 100%;
 }
 
 .entityContentContainer {

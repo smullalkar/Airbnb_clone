@@ -14,7 +14,7 @@ class AddGuests extends Component {
 
 
     render() {
-        const { removeGuest, addGuest, adults, children, infants } = this.props
+        const { removeGuest, addGuest, adults, children, infants, saveGuests } = this.props
         if (!this.props.showGuests) {
             return null;
         }
@@ -31,9 +31,9 @@ class AddGuests extends Component {
                             </div>
                             <div className=" col-4 mt-3">
                                 <div className="d-flex flex-row bd-highlight ">
-                                    <div class=" mx-1 bd-highlight"> <button className={styles.guestButton} onClick={() => removeGuest('adults')} >-</button></div>
-                                    <div class="  mx-1 bd-highlight"> <p>{adults} </p></div>
-                                    <div class="  mx-1 bd-highlight"><button className={styles.guestButton} onClick={() => addGuest('adults')}>+</button></div>
+                                    <div className=" mx-1 bd-highlight"> <button className={styles.guestButton} onClick={() => removeGuest('adults')} >-</button></div>
+                                    <div className="  mx-1 bd-highlight"> <p>{adults} </p></div>
+                                    <div className="  mx-1 bd-highlight"><button className={styles.guestButton} onClick={() => addGuest('adults')}>+</button></div>
                                 </div>
 
                             </div>
@@ -48,9 +48,9 @@ class AddGuests extends Component {
                             </div>
                             <div className=" col-4 mt-3">
                                 <div className="d-flex flex-row bd-highlight ">
-                                    <div class=" mx-1 bd-highlight"> <button className={styles.guestButton} onClick={() => removeGuest('children')}>-</button></div>
-                                    <div class="  mx-1 bd-highlight"><p>{children} </p></div>
-                                    <div class="  mx-1 bd-highlight"><button className={styles.guestButton} onClick={() => addGuest('children')}>+</button></div>
+                                    <div className=" mx-1 bd-highlight"> <button className={styles.guestButton} onClick={() => removeGuest('children')}>-</button></div>
+                                    <div className="  mx-1 bd-highlight"><p>{children} </p></div>
+                                    <div className="  mx-1 bd-highlight"><button className={styles.guestButton} onClick={() => addGuest('children')}>+</button></div>
                                 </div>
 
                             </div>
@@ -65,19 +65,21 @@ class AddGuests extends Component {
                             </div>
                             <div className=" col-4 mt-3">
                                 <div className="d-flex flex-row bd-highlight ">
-                                    <div class=" mx-1 bd-highlight"> <button className={styles.guestButton} onClick={() => removeGuest('infants')}>-</button></div>
-                                    <div class="  mx-1 bd-highlight"><p>{infants}</p></div>
-                                    <div class="  mx-1 bd-highlight"><button className={styles.guestButton} onClick={() => addGuest('infants')}>+</button></div>
+                                    <div className=" mx-1 bd-highlight"> <button className={styles.guestButton} onClick={() => removeGuest('infants')}>-</button></div>
+                                    <div className="  mx-1 bd-highlight"><p>{infants}</p></div>
+                                    <div className="  mx-1 bd-highlight"><button className={styles.guestButton} onClick={() => addGuest('infants')}>+</button></div>
                                 </div>
+                            </div>
+                        </div>
 
+                        <hr />
+
+                        <div className="row">
+                            <div className="w-100 text-right mx-4">
+                                <Button onClick={saveGuests}>Done</Button>
                             </div>
 
                         </div>
-
-
-
-
-
                     </Card.Body>
                 </Card>
 

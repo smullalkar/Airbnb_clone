@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-//import { DateRangePicker, DayPickerSingleDateController } from "react-dates";
-// import { DateRangePicker, DayPickerSingleDateController } from "react-dates";
-//import { Card, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import {
   getData,
@@ -19,7 +16,7 @@ import ExploreMore from "./ExploreMore/ExploreMore";
 import PriceDetails from "./PriceDetails/PriceDetails";
 import SleepingArrangement from "./SleepingArrangement/SleepingArrangement";
 
-import DayPicker from "react-day-picker";
+// import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import styles from "./Entity.module.css";
 import { Col, Row } from "react-bootstrap";
@@ -27,7 +24,7 @@ import { Col, Row } from "react-bootstrap";
 import clean from "../../../assets/images/clean.png";
 import map from "../../../assets/images/map.svg";
 import medal from "../../../assets/images/superhost.png";
-import home from "../../../assets/images/home.png";
+import homeImage from "../../../assets/images/home.png";
 import Review from "./Review/Review";
 
 
@@ -146,7 +143,7 @@ class Entity extends Component {
           </div>
         </div>
 
-        <Row>
+        <Row className="my-5">
           <Col >
             <img
               className={styles.cardMainImage}
@@ -157,14 +154,14 @@ class Entity extends Component {
           </Col>
           <Col>
             <Row>
-              <Col>
+              <Col className="pb-1">
                 <img
                   className={styles.cardChildImage}
                   src={images[1]}
                   alt="image"
                 />
               </Col>
-              <Col>
+              <Col className="pb-1">
 
                 <img
                   className={`${styles.cardChildImage} top-right-curve`}
@@ -174,7 +171,7 @@ class Entity extends Component {
               </Col>
             </Row>
             <Row>
-              <Col>
+              <Col className="pt-1">
 
                 <img
                   className={styles.cardChildImage}
@@ -182,7 +179,7 @@ class Entity extends Component {
                   alt="image"
                 />
               </Col>
-              <Col>
+              <Col className="pt-1">
                 <img
                   className={`${styles.cardChildImage} bottom-right-curve`}
                   src={images[4]}
@@ -194,33 +191,7 @@ class Entity extends Component {
           </Col>
         </Row>
 
-
-
-
-        {/* 
-        <div className="row ">
-          <div className={`col-6 ${styles.cardMainImageContainer}`}>
-
-          </div>
-          <div className="col-6 p-0">
-            <div className="col-12 d-flex flex-wrap p-0">
-              <div className={`col-6 ${styles.cardChildImageContainer}`}>
-
-              </div>
-              <div className={`col-6 ${styles.cardChildImageContainer}`}>
-
-              </div>
-              <div className={`col-6 ${styles.cardChildImageContainer}`}>
-
-              </div>
-              <div className={`col-6 ${styles.cardChildImageContainer}`}>
-
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-
+        <hr />
         <Row>
           <div className={`${styles.entityContentContainer} col-8 `}>
             <div className="d-flex flex-row justify-content-between">
@@ -271,7 +242,7 @@ class Entity extends Component {
             <div className="p-4">
               <div className="d-flex flex-row justify-content-start">
                 <div>
-                  <img src={home} alt="" className="m-2" />
+                  <img src={homeImage} alt="" className="m-2" />
                 </div>
                 <div>
                   <h6 className={styles.detailHeading}>Entire home</h6>
@@ -327,16 +298,7 @@ class Entity extends Component {
               </div>
             </div>
             <hr />
-            <div className="p-4">
-              <div className={styles.entityDetailPara}>{home.description}</div>
-              <div>
-                {" "}
-                <h4>
-                  <a className={styles.alertLink}>Contact Host</a>
-                </h4>
-              </div>
-            </div>
-            <hr />
+
             <div className="p-4">
               <h3 className={styles.entityTitle}>2 nights in Coimbatore</h3>
               <div className={`${styles.listingBasicDetails} d-flex flex-row `}>
@@ -432,7 +394,3 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entity);
 
-// export default Entity;
-
-// get recommendation price, location,
-// property id  , post method, location param //simmilar one

@@ -166,3 +166,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, null)(MorePlaceToShow);
 
 // export default MorePlaceToShow;
+
+
