@@ -13,6 +13,7 @@ def entityPageDetails(payload):
     """
     try:
         propertyId = payload["property_id"]
+        print(propertyId)
     except KeyError as err:
         return json.dumps({'error': True, 'error_found': format(err)})
     except TypeError as err:
@@ -39,7 +40,7 @@ def entityPageDetails(payload):
                 JOIN amenities_property ON p.id=amenities_property.propertyId 
                 JOIN amenities ON amenities_property.amenityId=amenities.id
                 JOIN facility_property ON p.id=facility_property.propertyId 
-                JOIN facility ON facility_property.facilityId=facility.idc
+                JOIN facility ON facility_property.facilityId=facility.id
                 JOIN images ON p.id=images.propertyId
                 JOIN categories AS cct ON p.categoryId=cct.id 
                 JOIN review as r ON r.propertyId=p.id WHERE '''
