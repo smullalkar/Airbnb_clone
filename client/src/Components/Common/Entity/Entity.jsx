@@ -18,25 +18,18 @@ import MorePlaceToStay from "./MorePlaceToShow/MorePlaceToShow";
 import ExploreMore from "./ExploreMore/ExploreMore";
 import PriceDetails from "./PriceDetails/PriceDetails";
 import SleepingArrangement from "./SleepingArrangement/SleepingArrangement";
-// import Review from "./Review/Review";
+
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
-
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
 import styles from "./Entity.module.css";
-// import pic1 from "../../../assets/images/entity7.png";
-// import pic2 from "../../../assets/images/entity2.jpg";
-// import pic3 from "../../../assets/images/pic3.webp";
-// import pic4 from "../../../assets/images/entity4.webp";
-// import pic5 from "../../../assets/images/entity5.webp";
+import { Col, Row } from "react-bootstrap";
 
 import clean from "../../../assets/images/clean.png";
 import map from "../../../assets/images/map.svg";
 import medal from "../../../assets/images/superhost.png";
+import home from "../../../assets/images/home.png";
 import Review from "./Review/Review";
-// import home from "../../../assets/images/home.svg";
+
 
 class Entity extends Component {
   constructor(props) {
@@ -85,7 +78,7 @@ class Entity extends Component {
       similarity = {};
     console.log(this.props.data);
     if (prevState.home.length === 0) {
-      data.map((item) => this.setState({ home: item.data.data[0] }, () => {}));
+      data.map((item) => this.setState({ home: item.data.data[0] }, () => { }));
       if (home.images) {
         let img = home.images.split(",");
         img = img.map((item) => item.split(" ").join(""));
@@ -152,48 +145,83 @@ class Entity extends Component {
             </h6>
           </div>
         </div>
-        <div className="row ">
-          <div className={`col-6 ${styles.cardMainImageContainer}`}>
+
+        <Row>
+          <Col >
             <img
-              className={`${styles.cardMainImage} ${styles.mainImage}`}
+              className={styles.cardMainImage}
               src={images[0]}
               alt="image"
             />
-          </div>
-          <div className="col-6 p-0">
-            <div className="col-12 d-flex flex-wrap p-0">
-              <div className={`col-6 ${styles.cardChildImageContainer}`}>
+
+          </Col>
+          <Col>
+            <Row>
+              <Col>
                 <img
                   className={styles.cardChildImage}
                   src={images[1]}
                   alt="image"
                 />
-              </div>
-              <div className={`col-6 ${styles.cardChildImageContainer}`}>
+              </Col>
+              <Col>
+
                 <img
                   className={`${styles.cardChildImage} top-right-curve`}
                   src={images[2]}
                   alt="image"
                 />
-              </div>
-              <div className={`col-6 ${styles.cardChildImageContainer}`}>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+
                 <img
                   className={styles.cardChildImage}
                   src={images[3]}
                   alt="image"
                 />
-              </div>
-              <div className={`col-6 ${styles.cardChildImageContainer}`}>
+              </Col>
+              <Col>
                 <img
                   className={`${styles.cardChildImage} bottom-right-curve`}
                   src={images[4]}
-                  alt="imgage"
+                  alt="image"
                 />
+              </Col>
+            </Row>
+
+          </Col>
+        </Row>
+
+
+
+
+        {/* 
+        <div className="row ">
+          <div className={`col-6 ${styles.cardMainImageContainer}`}>
+
+          </div>
+          <div className="col-6 p-0">
+            <div className="col-12 d-flex flex-wrap p-0">
+              <div className={`col-6 ${styles.cardChildImageContainer}`}>
+
+              </div>
+              <div className={`col-6 ${styles.cardChildImageContainer}`}>
+
+              </div>
+              <div className={`col-6 ${styles.cardChildImageContainer}`}>
+
+              </div>
+              <div className={`col-6 ${styles.cardChildImageContainer}`}>
+
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
+        </div> */}
+
+
+        <Row>
           <div className={`${styles.entityContentContainer} col-8 `}>
             <div className="d-flex flex-row justify-content-between">
               <div>
@@ -367,10 +395,10 @@ class Entity extends Component {
           <div className="col-4">
             <PriceDetails />
           </div>
-        </div>
+        </Row>
         <hr />
         <div>
-          <Review rates ={home.rating} rateCount={home.ratingcount}/>
+          <Review rates={home.rating} rateCount={home.ratingcount} />
         </div>
         <hr />
         <HostDetails />

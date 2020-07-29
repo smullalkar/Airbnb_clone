@@ -30,28 +30,15 @@
 }
 
 .cardMainImage {
-  width: 100%;
+  max-height: 490px;
+  max-width: 490px;
+  border-top-left-radius: 13px;
+  border-bottom-left-radius: 12px;
 }
 
 .cardChildImage {
-  width: 100%;
-}
-
-.cardMainImageContainer {
-  object-fit: cover;
-  vertical-align: bottom;
-  padding: 4px 4px;
-}
-
-.cardChildImageContainer {
-  object-fit: cover;
-  vertical-align: bottom;
-  padding: 4px 4px;
-}
-
-.mainImage {
-  border-top-left-radius: 13px;
-  border-bottom-left-radius: 12px;
+  max-width: 240px;
+  max-height: 160px;
 }
 
 .entityContentContainer {
