@@ -20,21 +20,21 @@ def ownerDetails(payload):
     except Exception as err:
         return json.dumps({'error': True, 'error_found': format(err)})
 
-    if userDetails is None:
+    if payload is None:
         return json.dumps({'error': True, 'error_found': 'data is empty'})
 
     owner = UserModel.query.filter(UserModel.id == ownerId).first()
 
     if owner is not None:
         try:
-            data = {
-                "firstname": results.firstname,
-                "lastname": results.lastname,
-                "dob": str(results.dob),
-                "email": results.email,
-                "phone": results.phone,
-                "owner_id": results.id
-            }
+            data = [{
+                "firstname": owner.firstname,
+                "lastname": owner.lastname,
+                "dob": str(owner.dob),
+                "email": owner.email,
+                "phone": owner.phone,
+                "owner_id": owner.id
+            }]
 
             return json.dumps({
                 "error": False,
