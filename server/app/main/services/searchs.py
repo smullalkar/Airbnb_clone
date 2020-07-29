@@ -150,7 +150,7 @@ def user_search_results(params):
         checkout = params.get('checkout',datetime.date.today() + datetime.timedelta(days=2))
         children = params.get('children', default=0)
         infants = params.get('infants', default=0)
-        adults = params.get('adults', default=1)
+        adults = params.get('adults', default=0)
         perPage = params.get('per_page', default=20)
         totalguests = int(adults)+int(children)
         print('................',location)
@@ -261,7 +261,7 @@ def user_search_results(params):
     results = db.session.execute(query)
 
     d = sendData(results)
-    print(d)
+    print('dddddddddddddddd',d)
     return json.dumps({
         "data": d,
         "message": 'Successful',
