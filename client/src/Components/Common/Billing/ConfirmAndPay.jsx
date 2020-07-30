@@ -69,7 +69,6 @@ class ConfirmAndPay extends Component {
 					);
 					if (final_res["data"]["status"] == "success") {
 						alert(final_res["data"]["message"]);
-						history.push("/");
 					} else {
 						alert(final_res["data"]["message"]);
 					}
