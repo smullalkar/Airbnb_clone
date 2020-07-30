@@ -21,24 +21,29 @@
 .heroContent {
   color: white;
   text-align: left;
-  width: 300px;
+  width: 500px;
   position: absolute;
-  bottom: 100px;
-  left: 60px;
+  bottom: 110px;
+  left: 20px;
 }
 
 .title {
-  font-size: 12px;
+  font-size: 30px;
+  font-weight: bold;
+  font-style: inherit;
+  font-family: sans-serif;
 }
 
 .mainPara {
-  font-size: 30px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: lighter;
+  font-family: sans-serif;
 }
 
 .desc {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: lighter;
+  font-family: sans-serif;
 }
 
 .cardContainer {
@@ -73,5 +78,23 @@
 
 .aTag {
   color: black;
-  font-weight: bolder;
+  position: absolute;
+  margin-left: 16px;
+  margin-top: 40px;
+  font-size: 18px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+.placeImage {
+  height: 72px;
+  width: 72px;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+@media (min-width: 576px) {
+  .heroImage {
+    object-fit: cover;
+  }
 }

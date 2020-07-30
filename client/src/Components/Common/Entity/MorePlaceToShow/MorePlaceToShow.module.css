@@ -1,11 +1,14 @@
 .card {
   max-width: 260px;
   max-height: 250px;
+  min-width: 260px;
   box-sizing: border-box;
   cursor: pointer;
   border: none;
   position: relative;
   margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .cardBody {

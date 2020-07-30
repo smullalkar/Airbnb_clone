@@ -14,7 +14,7 @@ class HostDetails extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { data } = this.props;
     if (prevState.data.length === 0) {
-      data.map((item) => this.setState({ data: item.data.data[0] }, () => {}));
+      data.map((item) => this.setState({ data: item.data.data[0] }, () => { }));
     }
   }
   render() {
@@ -23,7 +23,7 @@ class HostDetails extends Component {
     return (
       <div className="p-4">
         <div className="row">
-          <div className="col-8">
+          <div className="col-12 col-md-8">
             <div className="d-flex flex-row justify-content-start align-items-center">
               <div className={styles.hostAvatarContainer}>
                 <img
@@ -90,7 +90,7 @@ class HostDetails extends Component {
             </div>
           </div>
 
-          <div className="col-4">
+          <div className="col-12 col-md-4">
             <div>
               <span>Response rate </span> <span> &#58; </span> <span>100%</span>
             </div>

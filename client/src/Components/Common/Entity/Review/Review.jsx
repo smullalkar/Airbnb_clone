@@ -128,7 +128,7 @@ class Review extends Component {
               </Row>
             </Col>
           </Row>
-          <Row xs={2} className="my-3">
+          <Row xs={1} md={2} className="my-3">
 
             {reviews &&
               reviews.data &&

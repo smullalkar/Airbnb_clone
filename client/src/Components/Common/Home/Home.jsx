@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import { Nav, Card, CardDeck } from "react-bootstrap";
+import { Nav, Card, CardDeck, Image } from "react-bootstrap";
 import styles from "./Home.module.css";
 import img1 from "../../../assets/images/1.webp";
 import img2 from "../../../assets/images/2.webp";
 import img3 from "../../../assets/images/3.webp";
 import heroImage from "../../../assets/images/hero-image.webp";
+import sm1 from "../../../assets/images/sm1.webp"
+import sm2 from "../../../assets/images/sm2.jpg"
+import sm3 from "../../../assets/images/sm3.webp"
+import sm4 from "../../../assets/images/sm4.webp"
 import SearchBar from "../Search/SearchBar";
-import NearByGateWay from "../Search/NearByGateWay";
-import AddGuests from "../Search/AddGuests";
 import Footer from "../Footer/Footer";
 import { connect } from "react-redux";
 import { tokenValidateUser } from "../../../Redux/authentication/actions";
@@ -39,15 +41,14 @@ class Home extends Component {
             </Nav.Item>
           </Nav>
           <SearchBar />
-          <img className={styles.heroImage} src={heroImage} />
-          <div className={styles.heroContent}>
-            <h6 className={styles.title}>INTRODUCING</h6>
+          <Image className={styles.heroImage} src={heroImage} />
+          <div className={styles.heroContent} sm={12} md={6} lg={6}>
+            <h4 className={styles.title}>Near is the New Far</h4>
             <h6 className={styles.mainPara}>
-              Olympian & Paralympian Online Experiences
+              There’s a lot to discover.
             </h6>
             <h6 className={styles.desc}>
-              Join medallist Allyson Felix, and a team of world-className
-              athletes
+              From home. Or a short drive away.
             </h6>
           </div>
         </div>
@@ -66,7 +67,7 @@ class Home extends Component {
                 </Card.Text>
               </Card.Body>
             </Card>
-            <Card className={styles.card}>
+            <Card className={`${styles.card} overlay-auto`} >
               <Card.Img variant="top" src={img2} />
               <Card.Body>
                 <Card.Title className={styles.cardTitle}>
@@ -93,127 +94,29 @@ class Home extends Component {
         </div>
 
         <div className={styles.destinationList}>
-          <h4 className="text-left font-weight-bold my-5">
-            Destinations for future trips
+          <h4 className="font-weight-bold my-5">
+            Your next escape
           </h4>
           <div className="row">
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                San Francisco
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
+            <div className="col-12 col-lg-3 col-md-6 col-sm-12">
+              <span> <Image src={sm1} alt="" className={styles.placeImage} /></span>
+              <span> <a className={styles.aTag} href="#">Bengaluru</a></span>
             </div>
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                New York
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
+            <div className="col-12 col-lg-3 col-md-6 col-sm-12">
+              <span><Image src={sm2} alt="" className={styles.placeImage} /></span>
+              <span> <a className={styles.aTag} href="#">Mumbai</a></span>
             </div>
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                Seattle
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
+            <div className="col-12 col-lg-3 col-md-6 col-sm-12">
+              <span><Image src={sm3} alt="" className={styles.placeImage} /></span>
+              <span>  <a className={styles.aTag} href="#">Pune</a></span>
             </div>
-            <div className="col-12 col-md-3 text-left">
-              {" "}
-              <a className={styles.aTag} href="#">
-                {" "}
-                Los Angeles
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
+            <div className="col-12 col-lg-3 col-md-6 col-sm-12">
+              <span> <Image src={sm4} alt="" className={styles.placeImage} /></span>
+              <span> <a className={styles.aTag} href="#">Panaji</a></span>
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                Denver
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
-            </div>
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                Washington Dc
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
-            </div>
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                Phoenix
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
-            </div>
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                Austin
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
-            </div>
-          </div>
 
-          <div className="row">
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                Houston
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
-            </div>
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                New orieans
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
-            </div>
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                Boston
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
-            </div>
-            <div className="col-12 col-md-3 text-left">
-              <a className={styles.aTag} href="#">
-                Miami
-              </a>
-              <div >
-                {" "}
-                <hr />{" "}
-              </div>
-            </div>
-          </div>
         </div>
         <Footer />
       </div>
@@ -221,8 +124,8 @@ class Home extends Component {
   }
 }
 
-const mapDispatchToProps=dispatch=>({
-  tokenValidateUser : payload=>dispatch(tokenValidateUser(payload))
+const mapDispatchToProps = dispatch => ({
+  tokenValidateUser: payload => dispatch(tokenValidateUser(payload))
 })
 
 export default connect(null, mapDispatchToProps)(Home)

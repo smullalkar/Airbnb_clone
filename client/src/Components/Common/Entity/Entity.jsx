@@ -19,7 +19,7 @@ import SleepingArrangement from "./SleepingArrangement/SleepingArrangement";
 // import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import styles from "./Entity.module.css";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Container } from "react-bootstrap";
 
 import clean from "../../../assets/images/clean.png";
 import map from "../../../assets/images/map.svg";
@@ -122,7 +122,7 @@ class Entity extends Component {
     var month = tempDate.getMonth();
     console.log(this.props.data);
     return (
-      <div className={styles.entityContainer}>
+      <Container className={styles.entityContainer}>
         <h2>{home.propertyName}</h2>
         <div className="d-flex flex-row ">
           <div>
@@ -135,7 +135,7 @@ class Entity extends Component {
             <span className={styles.rating}>Superhost.</span>
           </div>
           <div>
-            <h6 className="mx-2">
+            <h6 className="mx-2 d-none d-md-block">
               <a className={styles.alertLink}>
                 {home.cityName}, {home.stateName}, {home.countryName}
               </a>
@@ -144,24 +144,24 @@ class Entity extends Component {
         </div>
 
         <Row className="my-5">
-          <Col >
+          <div className="col-12 col-md-6 pb-0">
             <img
               className={styles.cardMainImage}
               src={images[0]}
               alt="image"
             />
 
-          </Col>
-          <Col>
+          </div>
+          <Col className="col-6 d-none d-lg-block">
             <Row>
-              <Col className="pb-1">
+              <Col className="col-6 pb-1 px-1 ">
                 <img
                   className={styles.cardChildImage}
                   src={images[1]}
                   alt="image"
                 />
               </Col>
-              <Col className="pb-1">
+              <Col className="col-6 pb-1 px-1">
 
                 <img
                   className={`${styles.cardChildImage} top-right-curve`}
@@ -171,7 +171,7 @@ class Entity extends Component {
               </Col>
             </Row>
             <Row>
-              <Col className="pt-1">
+              <Col className="col-6 pt-1 px-1">
 
                 <img
                   className={styles.cardChildImage}
@@ -179,7 +179,7 @@ class Entity extends Component {
                   alt="image"
                 />
               </Col>
-              <Col className="pt-1">
+              <Col className="col-6 pt-1 px-1">
                 <img
                   className={`${styles.cardChildImage} bottom-right-curve`}
                   src={images[4]}
@@ -193,7 +193,7 @@ class Entity extends Component {
 
         <hr />
         <Row>
-          <div className={`${styles.entityContentContainer} col-8 `}>
+          <div className={`${styles.entityContentContainer} col-12 col-md-8 `}>
             <div className="d-flex flex-row justify-content-between">
               <div>
                 <h3 className={styles.listingName}>
@@ -228,7 +228,7 @@ class Entity extends Component {
                   </div>
                 </div>
               </div>
-              <div>
+              <div className="d-none d-md-block">
                 <div className={styles.hostAvatarContainer}>
                   <img
                     className={styles.hostAvatarImage}
@@ -354,7 +354,7 @@ class Entity extends Component {
             <hr />
             <Amenities />
           </div>
-          <div className="col-4">
+          <div className="col-12 col-md-4">
             <PriceDetails />
           </div>
         </Row>
@@ -369,7 +369,7 @@ class Entity extends Component {
         <hr />
         <ExploreMore />
         <hr />
-      </div>
+      </Container>
     );
   }
 }
@@ -393,4 +393,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entity);
-

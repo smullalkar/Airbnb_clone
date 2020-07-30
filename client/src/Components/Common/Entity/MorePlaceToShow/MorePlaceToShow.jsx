@@ -43,7 +43,7 @@ class MorePlaceToShow extends Component {
               </Pagination>
             </div>
           </div>
-          <div className="d-flex flex-row justify-content-between">
+          <div className="d-flex flex-row justify-content-between overflow-auto">
             {recommendation &&
               recommendation.data &&
               recommendation.data.map((item) => (
@@ -92,7 +92,7 @@ class MorePlaceToShow extends Component {
           <div className="d-flex flex-row justify-content-between">
             <div>
               <h4 className="text-left font-weight-bold my-3">
-                Similar Peroeprties{" "}
+                Similar Properties{" "}
               </h4>
             </div>
             <div className="d-flex align-items-center">
@@ -108,7 +108,7 @@ class MorePlaceToShow extends Component {
               </Pagination>
             </div>
           </div>
-          <div className="d-flex flex-row justify-content-between">
+          <div className="d-flex flex-row justify-content-between overflow-auto">
             {similarProperty &&
               similarProperty.data &&
               similarProperty.data.map((item) => (
