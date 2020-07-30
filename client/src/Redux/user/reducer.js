@@ -41,7 +41,7 @@ const userReducer = (state = initState, { type, payload }) => {
             console.log("payload " , payload.data)
             return {
                 ...state,
-                data: [...state.data, payload],
+                data: payload.data,
                 isLoading: true
             }
         case GET_DATA_FAILURE:
