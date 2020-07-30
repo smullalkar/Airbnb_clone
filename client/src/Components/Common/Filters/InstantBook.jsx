@@ -14,7 +14,6 @@ class InstantBook extends Component {
   handleChange = (e) => {
     this.setState({ checked: e.target.checked }, () => {
       this.handleQuery();
-      console.log("hello");
     });
   };
   handleQuery = () => {
@@ -30,7 +29,10 @@ class InstantBook extends Component {
       queryString.append("instantBook", this.state.checked);
       this.setState({ query: queryString }, () => { });
     }
-    this.setState({ query: queryString }, () => { });
+    if(!this.state.checked){
+      queryString.delete("instantBook");
+      this.setState({ query: queryString }, () => {});
+    }
   };
 
   render() {

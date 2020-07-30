@@ -21,24 +21,14 @@ class ListItem extends Component {
   render() {
     const { url } = this.state;
     const { item } = this.props;
-    console.log(item)
-    console.log("Hello")
     return (
       <div>
         <Row className="text-center">
-          {item.data &&
-            item.data.map((home) => (
-              <Col
-                key={uuidv4()}
-                xs={12}
-                md={6}
-                lg={3}
-
-                onClick={() => {
-                  window.open(url + "/entity/id_" + home.property_id);
-                }}
-              >
-                <Card className={`${styles.card} m-3`}>
+          {item &&
+            item.map((home) => (
+              <Col key={uuidv4()} lg={2} className="m-3">
+                <Card className={styles.card}>
+                  <span className={styles.heart}>&#9829;</span>
                   <Card variant="top" className={styles.cardImage}>
                     <Carousel interval={20000}>
                       {home.images.split(",").map((img) => (
@@ -53,12 +43,15 @@ class ListItem extends Component {
                       ))}
                     </Carousel>
                   </Card>
-                  <Card.Body className={styles.cardBody}>
+                  <Card.Body
+                    onClick={() => {
+                      window.open(url + "/entity/id_" + home.property_id);
+                    }}
+                    className={styles.cardBody}
+                  >
                     <div className="d-flex align-items-center">
                       <span className={styles.ratingStar}>&#9733;</span>
-                      <span className={styles.rating}>
-                        {home.rating }{" "}
-                      </span>
+                      <span className={styles.rating}>{home.rating} </span>
                       <span className={styles.numrated}>(72)</span>
                     </div>
                     <Card.Title className={styles.cardTitle}>

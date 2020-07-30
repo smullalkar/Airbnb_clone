@@ -48,7 +48,7 @@ class NavBar extends Component {
         >
            <Link to="/">
           <Navbar.Brand className="pl-4">
-
+              
               <img src="/main-logo.svg" className="App-logo" alt="Airbnb" />
           </Navbar.Brand>
             </Link>

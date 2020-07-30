@@ -46,16 +46,19 @@ class Lisiting extends Component {
       getFacilities,
       getPropertyType,
     } = this.props;
-    console.log(data)
+    console.log(data);
     var query = new URLSearchParams(window.location.href);
     let param = decodeURIComponent(query)
       .split("&")
       .filter((item, index) => index > 0);
     var obj = {};
+
     param.forEach((item) => {
       let parameter = item.split("=");
-      if (!obj[parameter[0]]) {
-        obj[parameter[0]] = parameter[1];
+      if (parameter[1] !== "") {
+        if (!obj[parameter[0]]) {
+          obj[parameter[0]] = parameter[1];
+        }
       }
     });
     getData(obj);
@@ -66,19 +69,12 @@ class Lisiting extends Component {
     this.setState({ data: data });
   }
 
-  componentWillReceiveProps() {
-    if (this.state.data.length === 0) {
-      this.setState({ data: this.props.data }, () => { });
-    }
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    console.log(" listing ", this.props.data)
-    if (this.state.data.length === 0 && this.props.data.length !== 0) {
-      this.setState({ data: this.props.data });
-    }
-
-    if (this.state.data !== this.props.data && this.props.data.length !== 0) {
+    // console.log(" listing ", this.props.data);
+    // if (this.state.data.length === 0 && this.props.data.length !== 0) {
+    //   this.setState({ data: this.props.data });
+    // }
+    if (this.props.data && this.props.data.length !== 0) {
       var query = new URLSearchParams(window.location.href);
       let param = decodeURIComponent(query)
         .split("&")
@@ -86,8 +82,10 @@ class Lisiting extends Component {
       var obj = {};
       param.forEach((item) => {
         let parameter = item.split("=");
-        if (!obj[parameter[0]]) {
-          obj[parameter[0]] = parameter[1];
+          if (parameter[1] !== "") {
+          if (!obj[parameter[0]]) {
+            obj[parameter[0]] = parameter[1];
+          }
         }
       });
     }
@@ -99,12 +97,16 @@ class Lisiting extends Component {
   };
 
   render() {
-    const { isLoading, showCancellationFlexibility, data } = this.props;
-    const { showCancellation } = this.props;
-    console.log(data)
+    const {
+      isLoading,
+      showCancellationFlexibility,
+      data,
+      showCancellation,
+    } = this.props;
+    console.log(isLoading);
     return (
       <div>
-        {isLoading ? (
+        {!isLoading ? (
           <>
             <div className="flex-row mx-2 d-none d-md-flex">
               <Dropdown as={ButtonGroup} className="m-2">
@@ -183,12 +185,9 @@ class Lisiting extends Component {
             </div>
 
             <div className="mx-5 d-flex justify-content-around">
-              {data &&
-                data.map((item) => (
-                  <Col key={uuidv4()} className="m-1">
-                    <ListItem item={item} />
-                  </Col>
-                ))}
+              <Col key={uuidv4()} className="m-1">
+                <ListItem item={this.props.data} />
+              </Col>
             </div>
 
             <div className="mt-3 d-flex justify-content-center">
@@ -204,25 +203,25 @@ class Lisiting extends Component {
             </div>
           </>
         ) : (
-            <>
-              <Modal
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered={true}
-                show={true}
-              >
-                <Modal.Body>
-                  <Row className="text-center">
-                    <Col>
-                      <Spinner animation="border" role="status">
-                        <span className="sr-only">Loading...</span>
-                      </Spinner>
-                    </Col>
-                  </Row>
-                </Modal.Body>
-              </Modal>
-            </>
-          )}
+          <>
+            <Modal
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered={true}
+              show={true}
+            >
+              <Modal.Body>
+                <Row className="text-center">
+                  <Col>
+                    <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                  </Col>
+                </Row>
+              </Modal.Body>
+            </Modal>
+          </>
+        )}
       </div>
     );
   }

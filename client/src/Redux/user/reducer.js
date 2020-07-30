@@ -35,20 +35,20 @@ const userReducer = (state = initState, { type, payload }) => {
         case GET_DATA_REQUEST:
             return {
                 ...state,
-                isLodaing: false
+                isLodaing: true
             }
         case GET_DATA_SUCCESS:
             console.log("payload " , payload.data)
             return {
                 ...state,
-                data: [...state.data, payload],
-                isLoading: true
+                data: payload.data,
+                isLoading: false
             }
         case GET_DATA_FAILURE:
             console.log( "failure ",  payload)
             return {
                 ...state,
-                isLodaing: true
+                isLodaing: false
             }
         case GET_TYPE_OF_PLACE_REQUEST:
             return {

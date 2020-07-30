@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import styles from "./Review.module.css";
 import { connect } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 class Review extends Component {
   constructor(props) {
@@ -133,7 +134,7 @@ class Review extends Component {
                 reviews.data &&
                 reviews.data.map((item) => (
                   <>
-                    <div className="d-flex flex-row justify-content-start align-items-center">
+                    <div kye={uuidv4()} className="d-flex flex-row justify-content-start align-items-center">
                       <div className={styles.reviewerAvatarContainer}>
                         <img
                           className={styles.reviewerAvatarImage}

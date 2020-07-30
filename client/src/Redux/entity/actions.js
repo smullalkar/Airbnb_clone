@@ -25,7 +25,7 @@ import {
     GET_REVEIW_SUCCESS,
     GET_REVEIW_FAILURE
 } from "./actionTypes";
-import axios from "axios";
+import axios from "../../Utils/axiosInterceptor";
 
 
 // Actions to get Data from home page search start
@@ -47,7 +47,7 @@ export const getData = payload => {
     return dispatch => {
         dispatch(getDataRequest());
         return axios ///user/entitypage post method
-            .get("https://run.mocky.io/v3/42092674-f6de-4bcb-bda6-c2c0bcd0293d", payload) // post /user/entitypage
+            .post("user/entitypage", payload) // post /user/entitypage
             .then(res => dispatch(getDataSuccess(res)))
             .catch(() => dispatch(getDataFailure()));
     };
@@ -128,7 +128,7 @@ export const getHostInfo = payload => {
     return dispatch => {
         dispatch(getHostInfoRequest());
         return axios
-            .post("http://1a227c043c3e.ngrok.io/owner/ownerdetails", payload)
+            .post("owner/ownerdetails", payload)
             .then(res => dispatch(getHostInfoSuccess(res.data)))
             .catch(() => dispatch(getHostInfoFailure()));
     };

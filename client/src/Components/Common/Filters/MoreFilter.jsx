@@ -441,6 +441,7 @@ class MoreFilter extends Component {
                           ""
                         )
                       )} */}
+                      </div>
                   </div>
                 </div>
               </div>
@@ -467,7 +468,7 @@ class MoreFilter extends Component {
         );
       }
     }
-    
+
 const mapStateToProps = (state) => ({
           amenities: state.userReducer.amenities,
         facilities: state.userReducer.facilities,
