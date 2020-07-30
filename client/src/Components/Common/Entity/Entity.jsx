@@ -18,25 +18,16 @@ import MorePlaceToStay from "./MorePlaceToShow/MorePlaceToShow";
 import ExploreMore from "./ExploreMore/ExploreMore";
 import PriceDetails from "./PriceDetails/PriceDetails";
 import SleepingArrangement from "./SleepingArrangement/SleepingArrangement";
-// import Review from "./Review/Review";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
 import styles from "./Entity.module.css";
-// import pic1 from "../../../assets/images/entity7.png";
-// import pic2 from "../../../assets/images/entity2.jpg";
-// import pic3 from "../../../assets/images/pic3.webp";
-// import pic4 from "../../../assets/images/entity4.webp";
-// import pic5 from "../../../assets/images/entity5.webp";
 
 import clean from "../../../assets/images/clean.png";
 import map from "../../../assets/images/map.svg";
 import medal from "../../../assets/images/superhost.png";
 import Review from "./Review/Review";
-// import home from "../../../assets/images/home.svg";
+import { closeCancellationFlexibility } from "../../../Redux/user/actions";
 
 class Entity extends Component {
   constructor(props) {
@@ -56,7 +47,6 @@ class Entity extends Component {
   componentDidMount() {
     const { getData, getBookedDates, getHostInfo, getReview } = this.props;
     let query = window.location.href.split("&");
-    console.log(query);
     let newQuery = query[query.length - 1].split("/entity/");
     newQuery = newQuery[newQuery.length - 1].split("_")[1];
     this.setState({ id: newQuery });
@@ -83,13 +73,14 @@ class Entity extends Component {
     const { home, images, id } = this.state;
     var obj = {},
       similarity = {};
-    console.log(this.props.data);
     if (prevState.home.length === 0) {
-      data.map((item) => this.setState({ home: item.data.data[0] }, () => {}));
-      if (home.images) {
-        let img = home.images.split(",");
-        img = img.map((item) => item.split(" ").join(""));
-        this.setState({ images: img });
+      if (data.length !== 0) {
+        this.setState({ home: data.data[0] }, () => {});
+        if (home.images) {
+          let img = home.images.split(",");
+          img = img.map((item) => item.split(" ").join(""));
+          this.setState({ images: img });
+        }
       }
       let query = window.location.href.split("&");
       query = query[query.length - 1].split("/entity");
@@ -100,7 +91,6 @@ class Entity extends Component {
           similarity.location = param[1];
         }
       });
-      // obj.price = home.price;
       obj.property_id = Number(id);
       getRecommendation(obj);
       similarity.peroperty_id = Number(id);
@@ -123,14 +113,9 @@ class Entity extends Component {
   }
 
   render() {
-    const { home, images, bookedDateRange, disbaleDates } = this.state;
-    console.log(bookedDateRange);
-    const { hostInfo } = this.props;
-    console.log(hostInfo.data);
-    var tempDate = new Date();
-    var date = tempDate.getFullYear();
-    var month = tempDate.getMonth();
-    console.log(this.props.data);
+    const { home, images, bookedDateRange } = this.state;
+    const { hostInfo, bookingDetails } = this.props;
+
     return (
       <div className={styles.entityContainer}>
         <h2>{home.propertyName}</h2>
@@ -342,22 +327,30 @@ class Entity extends Component {
                 noBorder={true}
                 daySize={40}
               /> */}
-              {/* <DayPicker
-                numberOfMonths={2}
-                initialMonth={new Date(date, month)}
-                // disabledDays={[
-                //   new Date(2020, 7, 29),
-                //   new Date(2017, 3, 2),
-                //   {
-                //     after: new Date(2017, 3, 20),
-                //     before: new Date(2017, 3, 25),
-                //   },
-                // ]}
-                // initialMonth={new Date(2020, 6)}
-                disabledDays={
-                 bookedDateRange.map(item=> new Date(Number(item[0]), Number(item[1]),Number(item[2])))
-                }
-              /> */}
+              {bookingDetails && bookingDetails.checkin && (
+                <DayPicker
+                  numberOfMonths={2}
+                  initialMonth={new Date()}
+                  disabledDays={[
+                    {
+                      after: new Date(
+                        bookingDetails.checkin.split("/").map(Number)[0],
+                        bookingDetails.checkin.split("/").map(Number)[1],
+                        bookingDetails.checkin.split("/").map(Number)[2]
+                      ),
+                      before: new Date(
+                        bookingDetails.checkout.split("/").map(Number)[0],
+                        bookingDetails.checkout.split("/").map(Number)[1],
+                        bookingDetails.checkout.split("/").map(Number)[2]
+                      ),
+                    },
+                  ]}
+                  // initialMonth={new Date(2020, 6)}
+                  // disabledDays={
+                  //  bookedDateRange.map(item=> new Date(Number(item[0]), Number(item[1]),Number(item[2])))
+                  // }
+                />
+              )}
             </div>
             <hr />
             <SleepingArrangement />
@@ -370,7 +363,7 @@ class Entity extends Component {
         </div>
         <hr />
         <div>
-          <Review rates ={home.rating} rateCount={home.ratingcount}/>
+          <Review rates={home.rating} rateCount={home.ratingcount} />
         </div>
         <hr />
         <HostDetails />
@@ -391,6 +384,7 @@ const mapStateToProps = (state) => ({
   facilities: state.userReducer.facilities,
   bookedDates: state.entityReducer.bookedDates,
   hostInfo: state.entityReducer.hostInfo,
+  bookingDetails: state.paymentReducer.bookingDetails,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -403,8 +397,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entity);
-
-// export default Entity;
-
-// get recommendation price, location,
-// property id  , post method, location param //simmilar one

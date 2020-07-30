@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Card, Row, Col, Carousel, CarouselItem } from "react-bootstrap";
 import styles from "./Listing.module.css";
-import heart from "../../../assets/images/heart.svg";
 import star from "../../../assets/images/star.svg";
 import { v4 as uuidv4 } from "uuid";
 
@@ -38,8 +37,7 @@ class ListItem extends Component {
                             src={img.split(" ").join("")}
                             alt=""
                             key={uuidv4()}
-                            width="280px"
-                            height="150px"
+                            className={styles.caroselImage}
                           />
                         </CarouselItem>
                       ))}

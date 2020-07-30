@@ -39,7 +39,7 @@ class PriceFilter extends Component {
 
     queryString.append("minPrice", this.state.minPrice);
     queryString.append("maxPrice", this.state.maxPrice);
-    this.setState({ query: queryString }, () => {});
+    this.setState({ query: queryString }, () => { });
   };
 
   render() {
@@ -81,18 +81,18 @@ class PriceFilter extends Component {
           <Card.Footer>
             <div>
               <button
-                onClick={() => {}}
+                onClick={() => { }}
                 className={styles.cancellationCardSave}
               >
                 {" "}
                 <Dropdown.Item>
-                  <Link
+                  <div
                     to={query.toString()}
                     style={{ color: "white", textDecoration: "none" }}
                   >
                     {" "}
                     Save
-                  </Link>{" "}
+                  </div>{" "}
                 </Dropdown.Item>
               </button>
             </div>

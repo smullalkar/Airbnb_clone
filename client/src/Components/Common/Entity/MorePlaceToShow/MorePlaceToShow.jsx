@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card, Pagination } from "react-bootstrap";
 import styles from "./MorePlaceToShow.module.css";
 import { connect } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 class MorePlaceToShow extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class MorePlaceToShow extends Component {
               recommendation.data &&
               recommendation.data.map((item) => (
                 <>
-                  <Card className={styles.card}>
+                  <Card key={uuidv4()} className={styles.card}>
                     <span className={styles.heart}>&#9829;</span>
                     <Card.Img
                       variant="top"
@@ -113,7 +114,7 @@ class MorePlaceToShow extends Component {
               similarProperty.data &&
               similarProperty.data.map((item) => (
                 <>
-                  <Card className={styles.card}>
+                  <Card key={uuidv4()} className={styles.card}>
                     <span className={styles.heart}>&#9829;</span>
                     <Card.Img
                       variant="top"

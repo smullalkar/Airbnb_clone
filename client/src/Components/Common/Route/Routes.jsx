@@ -20,6 +20,8 @@ class Routes extends Component {
           path="/:urlParams"
           render={(props) => <Listing {...props} />}
         />
+
+        <Route exact path="/entity/entity_page/billing"></Route>
       </Switch>
     );
   }

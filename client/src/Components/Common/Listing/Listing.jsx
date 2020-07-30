@@ -52,10 +52,13 @@ class Lisiting extends Component {
       .split("&")
       .filter((item, index) => index > 0);
     var obj = {};
+
     param.forEach((item) => {
       let parameter = item.split("=");
-      if (!obj[parameter[0]]) {
-        obj[parameter[0]] = parameter[1];
+      if (parameter[1] !== "") {
+        if (!obj[parameter[0]]) {
+          obj[parameter[0]] = parameter[1];
+        }
       }
     });
     getData(obj);
@@ -66,19 +69,12 @@ class Lisiting extends Component {
     this.setState({ data: data });
   }
 
-  // componentWillReceiveProps() {
-  //   if (this.state.data.length === 0) {
-  //     this.setState({ data: this.props.data }, () => {});
-  //   }
-  // }
-
   componentDidUpdate(prevProps, prevState) {
     // console.log(" listing ", this.props.data);
     // if (this.state.data.length === 0 && this.props.data.length !== 0) {
     //   this.setState({ data: this.props.data });
     // }
-
-    if (this.state.data !== this.props.data && this.props.data.length !== 0) {
+    if (this.props.data && this.props.data.length !== 0) {
       var query = new URLSearchParams(window.location.href);
       let param = decodeURIComponent(query)
         .split("&")
@@ -86,8 +82,10 @@ class Lisiting extends Component {
       var obj = {};
       param.forEach((item) => {
         let parameter = item.split("=");
-        if (!obj[parameter[0]]) {
-          obj[parameter[0]] = parameter[1];
+          if (parameter[1] !== "") {
+          if (!obj[parameter[0]]) {
+            obj[parameter[0]] = parameter[1];
+          }
         }
       });
     }
@@ -99,14 +97,18 @@ class Lisiting extends Component {
   };
 
   render() {
-    const { isLoading, showCancellationFlexibility, data } = this.props;
-    const { showCancellation } = this.props;
-    console.log(this.props.data);
+    const {
+      isLoading,
+      showCancellationFlexibility,
+      data,
+      showCancellation,
+    } = this.props;
+    console.log(isLoading);
     return (
       <div>
-        {isLoading ? (
+        {!isLoading ? (
           <>
-            <div className="d-flex flex-row mx-2">
+            <div className="flex-row mx-2 d-none d-md-flex">
               <Dropdown as={ButtonGroup} className="m-2">
                 <Dropdown.Toggle
                   className={styles.filterButton}
@@ -115,7 +117,7 @@ class Lisiting extends Component {
                   {" "}
                   Cancellation flexibility
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="border-0">
                   <CancellationFlexibility />
                 </Dropdown.Menu>
               </Dropdown>
@@ -127,7 +129,7 @@ class Lisiting extends Component {
                   {" "}
                   Type of Place
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="border-0">
                   <TypeOfPlace />
                 </Dropdown.Menu>
               </Dropdown>
@@ -139,7 +141,7 @@ class Lisiting extends Component {
                   {" "}
                   Price
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="border-0">
                   <PriceFilter />
                 </Dropdown.Menu>
               </Dropdown>
@@ -151,7 +153,7 @@ class Lisiting extends Component {
                   {" "}
                   Instant Book
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="border-0">
                   <InstantBook />
                 </Dropdown.Menu>
               </Dropdown>
@@ -170,7 +172,7 @@ class Lisiting extends Component {
               />
             </div>
 
-            <div className="d-flex flex-row   pl-5 align-items-center">
+            <div className="d-flex flex-column flex-md-row   pl-5 align-items-center">
               <h6 className={styles.alertHeading}>
                 Check travel restrictions before booking.
               </h6>

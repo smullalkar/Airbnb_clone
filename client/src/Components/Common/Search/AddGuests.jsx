@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 
 import styles from './SearchBar.module.css';
 
@@ -14,8 +14,10 @@ class AddGuests extends Component {
 
 
     render() {
-
-
+        const { removeGuest, addGuest, adults, children, infants } = this.props
+        if (!this.props.showGuests) {
+            return null;
+        }
         return (
             <div>
 
@@ -29,9 +31,9 @@ class AddGuests extends Component {
                             </div>
                             <div className=" col-4 mt-3">
                                 <div className="d-flex flex-row bd-highlight ">
-                                    <div class=" mx-1 bd-highlight"> <button className={styles.guestButton}>-</button></div>
-                                    <div class="  mx-1 bd-highlight"> <p>0 </p></div>
-                                    <div class="  mx-1 bd-highlight"><button className={styles.guestButton}>+</button></div>
+                                    <div class=" mx-1 bd-highlight"> <button className={styles.guestButton} onClick={() => removeGuest('adults')} >-</button></div>
+                                    <div class="  mx-1 bd-highlight"> <p>{adults} </p></div>
+                                    <div class="  mx-1 bd-highlight"><button className={styles.guestButton} onClick={() => addGuest('adults')}>+</button></div>
                                 </div>
 
                             </div>
@@ -46,9 +48,9 @@ class AddGuests extends Component {
                             </div>
                             <div className=" col-4 mt-3">
                                 <div className="d-flex flex-row bd-highlight ">
-                                    <div class=" mx-1 bd-highlight"> <button className={styles.guestButton}>-</button></div>
-                                    <div class="  mx-1 bd-highlight"><p>0 </p></div>
-                                    <div class="  mx-1 bd-highlight"><button className={styles.guestButton}>+</button></div>
+                                    <div class=" mx-1 bd-highlight"> <button className={styles.guestButton} onClick={() => removeGuest('children')}>-</button></div>
+                                    <div class="  mx-1 bd-highlight"><p>{children} </p></div>
+                                    <div class="  mx-1 bd-highlight"><button className={styles.guestButton} onClick={() => addGuest('children')}>+</button></div>
                                 </div>
 
                             </div>
@@ -63,15 +65,14 @@ class AddGuests extends Component {
                             </div>
                             <div className=" col-4 mt-3">
                                 <div className="d-flex flex-row bd-highlight ">
-                                    <div class=" mx-1 bd-highlight"> <button className={styles.guestButton}>-</button></div>
-                                    <div class="  mx-1 bd-highlight"><p>0</p></div>
-                                    <div class="  mx-1 bd-highlight"><button className={styles.guestButton}>+</button></div>
+                                    <div class=" mx-1 bd-highlight"> <button className={styles.guestButton} onClick={() => removeGuest('infants')}>-</button></div>
+                                    <div class="  mx-1 bd-highlight"><p>{infants}</p></div>
+                                    <div class="  mx-1 bd-highlight"><button className={styles.guestButton} onClick={() => addGuest('infants')}>+</button></div>
                                 </div>
 
                             </div>
 
                         </div>
-
 
 
 

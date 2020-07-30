@@ -16,7 +16,8 @@ import "react-dates/lib/css/_datepicker.css";
 
 import { calculateTotalPrice } from "../../../../Redux/entity/actions";
 import { getDetailsOfBooking } from "../../../../Redux/payment/actions";
-import {tokenValidateUser} from "../../../../Redux/authentication/actions"
+import { tokenValidateUser } from "../../../../Redux/authentication/actions";
+import { Link } from "react-router-dom";
 
 class PriceDetails extends Component {
   constructor(props) {
@@ -33,24 +34,78 @@ class PriceDetails extends Component {
   }
 
   componentDidMount() {
-    const { tokenValidateUser} = this.props
-    let token = localStorage.getItem("token")
-    tokenValidateUser(token)
+    const { tokenValidateUser } = this.props;
+    let token = localStorage.getItem("token");
+    tokenValidateUser(token);
     const { data } = this.props;
     console.log(data);
     this.setState({ showWarning: false });
   }
 
   handleReserve = () => {
-    const { showWarning, startDate, endDate } = this.state;
+    // const { showWarning, startDate, endDate } = this.state;
+    // const { bookedDates, getDetailsOfBooking, user } = this.props;
+    // const { data } = this.props;
+    // if (startDate && endDate) {
+    //   if (
+    //     bookedDates[0].data[0].bookingDate.split(" ")[0] <=
+    //       startDate._d.toLocaleDateString().split("/").join("-") &&
+    //     bookedDates[0].data[0].bookingDate.split(" ")[0] >=
+    //       endDate._d.toLocaleDateString().split("/").join("-")
+    //   ) {
+    //     let start = new Date(startDate._d);
+    //     let end = new Date(endDate._d);
+    //     let diffTime = Math.abs(end - start);
+    //     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    //     this.setState({ showWarning: true, noOfDays: diffDays }, () => {});
+    //   } else {
+    //     let start = new Date(startDate._d);
+    //     let end = new Date(endDate._d);
+    //     let diffTime = Math.abs(end - start);
+    //     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    //     this.setState({ showWarning: false, noOfDays: diffDays || 1 }, () => {
+    //       var total =
+    //         Math.floor(
+    //           (this.state.home.price * 18) / 100 + this.state.home.price
+    //         ) * this.state.noOfDays;
+    //       this.setState(
+    //         {
+    //           total_bill: total,
+    //           total_per_day:
+    //             (this.state.home.price * 18) / 100 + this.state.home.price,
+    //           user_id: user.user_id,
+    //           gst: 18,
+    //           checkin: startDate._d.toLocaleDateString(),
+    //           checkout: endDate._d.toLocaleDateString(),
+    //         },
+    //         () => {
+    //           console.log(this.state);
+    //           this.props.getDetailsOfBooking({
+    //             total_bill: this.state.total_bill || 1,
+    //             total_per_day: this.state.total_per_day,
+    //             user_id: user.user_id,
+    //             gst: 18,
+    //             checkin: startDate._d.toLocaleDateString(),
+    //             checkout: endDate._d.toLocaleDateString(),
+    //             property_id: data[0].data.data[0].property_id,
+    //           });
+    //         }
+    //       );
+    //     });
+    //   }
+    // }
+  };
+
+  handleChange = ({ startDate, endDate }) => {
+    // ({ startDate, endDate }) =>
+    this.setState({
+      startDate,
+      endDate,
+      showWarning: false,
+    });
+    // const { showWarning, startDate, endDate } = this.state;
     const { bookedDates, getDetailsOfBooking, user } = this.props;
     const { data } = this.props;
-    console.log("user ", user)
-    const date1 = new Date("7/13/2010");
-    const date2 = new Date("12/15/2010");
-    const diffTime = Math.abs(date2 - date1);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
     if (startDate && endDate) {
       if (
         bookedDates[0].data[0].bookingDate.split(" ")[0] <=
@@ -155,13 +210,7 @@ class PriceDetails extends Component {
                       startDateId="your_unique_start_date_id"
                       endDate={this.state.endDate}
                       endDateId="your_unique_end_date_id"
-                      onDatesChange={({ startDate, endDate }) =>
-                        this.setState({
-                          startDate,
-                          endDate,
-                          showWarning: false,
-                        })
-                      }
+                      onDatesChange={this.handleChange}
                       focusedInput={this.state.focusedInput}
                       onFocusChange={(focusedInput) =>
                         this.setState({ focusedInput })
@@ -198,7 +247,11 @@ class PriceDetails extends Component {
               block
               onClick={this.handleReserve}
             >
-              Reserve{" "}
+              {!showWarning ? (
+                <Link to="/entity/entity_page/billing" style={{textDecoration:"none", color:"white"}}>Reserve</Link>
+              ) : (
+                <span>Reserve</span>
+              )}
             </Button>
             <Card.Text className={styles.helperText}>
               You won't be charged yet{" "}
@@ -249,7 +302,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   calculateTotalPrice: (payload) => dispatch(calculateTotalPrice(payload)),
   getDetailsOfBooking: (payload) => dispatch(getDetailsOfBooking(payload)),
-  tokenValidateUser : payload=> dispatch(tokenValidateUser(payload))
+  tokenValidateUser: (payload) => dispatch(tokenValidateUser(payload)),
 });
 // export default PriceDetails;
 export default connect(mapStateToProps, mapDispatchToProps)(PriceDetails);
