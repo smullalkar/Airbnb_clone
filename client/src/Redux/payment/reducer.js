@@ -5,12 +5,12 @@ const initState = {
 }
 
 const paymentReducer = (state = initState, { type, payload }) => {
-    console.log(payload)
     switch (type) {
         case GET_DETAILS_OF_BOOKING:
+            console.log(payload)
             return {
                 ...state,
-                bookingDetails : [...state.bookingDetails, payload]
+                bookingDetails : payload
             }
         default:
             return {

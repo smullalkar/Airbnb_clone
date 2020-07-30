@@ -25,8 +25,7 @@ import {
     BOOK_DATE_FAILURE,
     CLOSE_CANCELLATION_FLEXIBILITY
 } from "./actionTypes";
-import axios from "axios";
-
+import axios from "../../Utils/axiosInterceptor"
 
 // Actions to get Data from home page search start
 export const getDataRequest = () => ({
@@ -43,10 +42,11 @@ export const getDataFailure = () => ({
 });
 
 export const getData = payload => {
+    console.log(payload)
     return dispatch => {
         dispatch(getDataRequest());
-        return axios ///user/searchresults
-            .get("https://run.mocky.io/v3/7d9d6dd3-7a68-4ae8-801d-6efaa49cfdb6", {
+        return axios //user/searchresults GET
+            .get("http://f6770beacf21.ngrok.io/user/searchresults", {
                 params: payload
             })
             .then(res => dispatch(getDataSuccess(res.data)))
@@ -70,8 +70,8 @@ export const getTypeOfPlaceFailure = () => ({
 export const getTypeOfPlace = payload => {
     return dispatch => {
         dispatch(getTypeOfPlaceRequest());
-        return axios
-            .get("http://1a227c043c3e.ngrok.io/user/categories")
+        return axios ///user/categories GET
+            .get("/user/categories")
             .then(res => dispatch(getTypeOfPlaceSuccess(res.data)))
             .catch(() => dispatch(getTypeOfPlaceFailure()));
     };
@@ -93,8 +93,8 @@ export const getAmenitiesFailure = () => ({
 export const getAmenities = payload => {
     return dispatch => {
         dispatch(getAmenitiesRequest());
-        return axios
-            .get("http://1a227c043c3e.ngrok.io/user/amenities")
+        return axios  ///user/amenities GET
+            .get("user/amenities")
             .then(res => dispatch(getAmenitiesSuccess(res.data.data)))
             .catch(() => dispatch(getAmenitiesFailure()));
     };
@@ -116,8 +116,8 @@ export const getFacilitiesFailure = () => ({
 export const getFacilities = payload => {
     return dispatch => {
         dispatch(getFacilitiesRequest());
-        return axios
-            .get("http://1a227c043c3e.ngrok.io/user/facilities")
+        return axios ///user/facilities GET
+            .get("user/facilities")
             .then(res => dispatch(getFacilitiesSuccess(res.data.data)))
             .catch(() => dispatch(getFacilitiesFailure()));
     };
@@ -139,8 +139,8 @@ export const getPropertyTypeFailure = () => ({
 export const getPropertyType = payload => {
     return dispatch => {
         dispatch(getPropertyTypeRequest());
-        return axios
-            .get("http://1a227c043c3e.ngrok.io/user/propertytype")
+        return axios ///user/propertytype GET
+            .get("user/propertytype")
             .then(res => dispatch(getPropertyTypeSuccess(res.data.data)))
             .catch(() => dispatch(getPropertyTypeFailure()));
     };
@@ -164,8 +164,8 @@ export const getBookedDates = payload => {
     console.log(payload)
     return dispatch => {
         dispatch(getBookedDatesRequest());
-        return axios
-            .post("/user/addbooking", {
+        return axios ///user/addbooking POST
+            .post("user/addbooking", {
                 params: payload
             })
             .then(res => dispatch(getBookedDatesSuccess(res.data.data)))
@@ -190,8 +190,8 @@ export const bookDate = payload => {
     console.log(payload)
     return dispatch => {
         dispatch(bookDateRequest());
-        return axios
-            .post("/user/sendbooking", {
+        return axios ///user/sendbooking POST
+            .post("user/sendbooking", {
                 params: payload
             })
             .then(res => dispatch(bookDateSuccess(res.data)))
@@ -219,7 +219,7 @@ export const Recommendation = payload => {
     return dispatch => {
         dispatch(getRecommendationRequest());
         return axios
-            .post("/user/recommendation", {
+            .post("user/recommendation", {
                 params: payload
             })
             .then(res => dispatch(getRecommendationSuccess(res.data)))
