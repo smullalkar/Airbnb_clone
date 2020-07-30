@@ -46,7 +46,7 @@ export const getData = payload => {
     return dispatch => {
         dispatch(getDataRequest());
         return axios //user/searchresults GET
-            .get("http://f6770beacf21.ngrok.io/user/searchresults", {
+            .get("user/searchresults", {
                 params: payload
             })
             .then(res => dispatch(getDataSuccess(res.data)))
