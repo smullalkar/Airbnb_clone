@@ -46,7 +46,7 @@ class Lisiting extends Component {
       getFacilities,
       getPropertyType,
     } = this.props;
-    console.log(data)
+    console.log(data);
     var query = new URLSearchParams(window.location.href);
     let param = decodeURIComponent(query)
       .split("&")
@@ -66,17 +66,17 @@ class Lisiting extends Component {
     this.setState({ data: data });
   }
 
-  componentWillReceiveProps() {
-    if (this.state.data.length === 0) {
-      this.setState({ data: this.props.data }, () => {});
-    }
-  }
+  // componentWillReceiveProps() {
+  //   if (this.state.data.length === 0) {
+  //     this.setState({ data: this.props.data }, () => {});
+  //   }
+  // }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(" listing ",this.props.data)
-    if (this.state.data.length === 0 && this.props.data.length !== 0) {
-      this.setState({ data: this.props.data });
-    }
+    // console.log(" listing ", this.props.data);
+    // if (this.state.data.length === 0 && this.props.data.length !== 0) {
+    //   this.setState({ data: this.props.data });
+    // }
 
     if (this.state.data !== this.props.data && this.props.data.length !== 0) {
       var query = new URLSearchParams(window.location.href);
@@ -101,7 +101,7 @@ class Lisiting extends Component {
   render() {
     const { isLoading, showCancellationFlexibility, data } = this.props;
     const { showCancellation } = this.props;
-    console.log(data)
+    console.log(this.props.data);
     return (
       <div>
         {isLoading ? (
@@ -183,12 +183,9 @@ class Lisiting extends Component {
             </div>
 
             <div className="mx-5 d-flex justify-content-around">
-              {data &&
-                data.map((item) => (
-                  <Col key={uuidv4()} className="m-1">
-                    <ListItem item={item} />
-                  </Col>
-                ))}
+              <Col key={uuidv4()} className="m-1">
+                <ListItem item={this.props.data} />
+              </Col>
             </div>
 
             <div className="mt-3 d-flex justify-content-center">

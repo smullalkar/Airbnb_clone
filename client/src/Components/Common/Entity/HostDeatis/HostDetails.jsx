@@ -82,7 +82,16 @@ class HostDetails extends Component {
             </div>
 
             <div>
-              <h6 className="font-weight-bold">Suresh is a Superhost</h6>
+              <h6 className="font-weight-bold">
+                {hostInfo &&
+                  hostInfo.data &&
+                  hostInfo.data.map((item) => (
+                    <>
+                      <span>{item.firstname + " " + item.lastname}</span>
+                    </>
+                  ))}{" "}
+                is a Superhost
+              </h6>
               <p className="text-muted">
                 Superhosts are experienced, highly rated hosts who are committed
                 to providing great stays for guests.
