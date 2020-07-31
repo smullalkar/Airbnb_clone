@@ -4,7 +4,7 @@ import styles from "./Home.module.css";
 import img1 from "../../../assets/images/1.webp";
 import img2 from "../../../assets/images/2.webp";
 import img3 from "../../../assets/images/3.webp";
-import heroImage from "../../../assets/images/hero-image.webp";
+import heroImage from "../../../assets/images/newHeroImage.webp";
 import sm1 from "../../../assets/images/sm1.webp"
 import sm2 from "../../../assets/images/sm2.jpg"
 import sm3 from "../../../assets/images/sm3.webp"
@@ -28,7 +28,7 @@ class Home extends Component {
   render() {
     return (
       <div className={styles.appContainer}>
-        <div className={styles.heroContainer}>
+        <div className={`${styles.heroContainer} heroContainer`} >
           <Nav variant="tabs" className=" mb-5" defaultActiveKey="/home">
             <Nav.Item>
               <Nav.Link href="/home">Places to stay</Nav.Link>
@@ -41,14 +41,14 @@ class Home extends Component {
             </Nav.Item>
           </Nav>
           <SearchBar />
-          <Image className={styles.heroImage} src={heroImage} />
-          <div className={styles.heroContent} sm={12} md={6} lg={6}>
-            <h4 className={styles.title}>Near is the New Far</h4>
-            <h6 className={styles.mainPara}>
-              There’s a lot to discover.
+          <Image className={`${styles.heroImage} heroImage`} src={heroImage} />
+          <div className={`${styles.heroContent} heroContent`} sm={12} md={6} lg={6}>
+            <h3 className={`${styles.title} heroTitle`}>Get out and stretch your imagination</h3>
+            <h6 className={`${styles.mainPara} heroPara`}>
+              You don’t have to go far to find a world of wonder.
             </h6>
-            <h6 className={styles.desc}>
-              From home. Or a short drive away.
+            <h6 className={`${styles.desc} heroDesc`}>
+              Near is the New Far
             </h6>
           </div>
         </div>

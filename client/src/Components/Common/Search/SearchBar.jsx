@@ -121,6 +121,7 @@ class Search extends Component {
     obj[key] = Number(this.state[key]) + 1
     obj.guestCount = this.state.guestCount + 1;
     this.setState(obj)
+    this.handleQuery();
   }
 
   removeGuest = (key) => {
@@ -131,7 +132,7 @@ class Search extends Component {
       obj.guestCount = 0
     }
     this.setState(obj)
-
+    this.handleQuery();
 
   }
 
