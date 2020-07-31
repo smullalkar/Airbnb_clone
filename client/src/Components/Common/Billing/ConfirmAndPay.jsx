@@ -24,10 +24,10 @@ class ConfirmAndPay extends Component {
 
 	componentDidMount = () => {
 	}
-	
+
 	razorpay = async () => {
 		const { history, details } = this.props;
-		console.log(details);
+		console.log('booking details', details);
 		try {
 			let order_res = await axios.post(
 				"http://127.0.0.1:5000/payment/getOrderId",
@@ -39,6 +39,7 @@ class ConfirmAndPay extends Component {
 					payment_capture: "1",
 				}
 			);
+			console.log(order_res)
 			var options = {
 				key: "rzp_test_3S2Ud4WlsY59BD", // Enter the Key ID generated from the Dashboard
 				amount: Number(details["total_bill"]) * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -49,8 +50,8 @@ class ConfirmAndPay extends Component {
 					"https://static.dezeen.com/uploads/2014/07/Airbnb-rebrand-by-DesignStudio_dezeen_468_8.jpg",
 				order_id: order_res["data"]["id"], //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
 				prefill: {
-					name: "Username",
-					email: "User email address",
+					name: details['firstname'],
+					email: details['email'],
 					contact: "9999999999",
 				},
 				notes: {
@@ -60,29 +61,30 @@ class ConfirmAndPay extends Component {
 					color: "#F37254",
 				},
 				handler: async (response) => {
-					console.log(response);
-					let final_res = await axios.post(
-						"http://127.0.0.1:5000/payment/getValidation",
+					console.log(response)
+					let final_res = await axios.post(`http://127.0.0.1:5000/payment/getValidation`,
 						{
-							...response,
+							res: response,
+							bookingDetails: details
 						}
-					);
-					if (final_res["data"]["status"] == "success") {
-						alert(final_res["data"]["message"]);
-					} else {
-						alert(final_res["data"]["message"]);
+					)
+					if (final_res['data']['status'] == 'success') {
+						alert(final_res['data']['message'])
+					}
+					else {
+						alert(final_res['data']['message'])
 					}
 				},
 			};
 			const rzp_trial = window.Razorpay(options);
 			rzp_trial.open();
 		} catch (error) {
-			console.log(error);
+			console.log(error)
 		}
-	};
+	}
 
 	render() {
-		const {} = this.props;
+		const { } = this.props;
 		return (
 			<div>
 				<Card>
