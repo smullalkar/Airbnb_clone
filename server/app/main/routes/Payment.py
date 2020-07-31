@@ -18,6 +18,7 @@ def getvalidation():
     """
     validate order id
     """
+    # params = request.args
     response = getPaymentValidation(request.json)
     return response
 
