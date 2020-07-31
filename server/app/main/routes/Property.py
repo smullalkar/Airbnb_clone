@@ -87,25 +87,25 @@ def sendbook():
     return response
 
 
-@user.route("/recommendation", methods=["POST"])
+@user.route("/recommendation")
 def recom():
     """
     sending recommendation based on property viewed by user
     """
     params = request.args
     print('params....',params)
-    response = recommendation(params,request.json)
+    response = recommendation(params)
     return response
 
 
-@user.route("/recommendation_popularity", methods=["POST"])
+@user.route("/recommendation_popularity")
 def recom_pop():
     """
     sending recommendation based on popularity in the area of the property viewed by the user
     """
     params = request.args
     print('params....',params)
-    response = recommendation_popularity(params,request.json)
+    response = recommendation_popularity(params)
     return response
 
 
