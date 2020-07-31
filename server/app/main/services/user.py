@@ -150,14 +150,28 @@ def oauth_login(userDetails):
             """
             checking if user already exists or not
             """
-            data = [{
-                "firstname": results.firstname,
-                "lastname": results.lastname,
-                "email": results.email,
-                "userType": results.userType,
-                "created_at": str(results.createdAt),
-                "user_id": results.id
-            }]
+            if results.phone is not None:
+                data = [{
+                    "firstname": results.firstname,
+                    "lastname": results.lastname,
+                    "dob": str(results.dob),
+                    "email": results.email,
+                    "phone": results.phone,
+                    "userType": results.userType,
+                    "created_at": str(results.createdAt),
+                    "user_id": results.id
+                }]
+            else:
+                data = [{
+                    "firstname": results.firstname,
+                    "lastname": results.lastname,
+                    "email": results.email,
+                    "userType": results.userType,
+                    "created_at": str(results.createdAt),
+                    "user_id": results.id,
+                    "phone": '',
+                    "dob": '',
+                }]
             d = {
                 "data": data,
                 "session_expiry": time.time() + 86400
