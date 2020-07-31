@@ -26,7 +26,7 @@ import {
   getFacilities,
   getPropertyType,
 } from "../../../Redux/user/actions";
-import MapContainer from "../GoogleMap/MapContainer"
+import MapContainer from "../GoogleMap/MapContainer";
 
 class Lisiting extends Component {
   constructor(props) {
@@ -47,7 +47,6 @@ class Lisiting extends Component {
       getFacilities,
       getPropertyType,
     } = this.props;
-    console.log(data);
     var query = new URLSearchParams(window.location.href);
     let param = decodeURIComponent(query)
       .split("&")
@@ -67,35 +66,47 @@ class Lisiting extends Component {
     getAmenities();
     getFacilities();
     getPropertyType();
-    this.setState({ data: data });
+    this.setState({ data: data },()=>{});
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.data && this.props.data.length !== 0) {
-      var query = new URLSearchParams(window.location.href);
-      let param = decodeURIComponent(query)
-        .split("&")
-        .filter((item, index) => index > 0);
-      var obj = {};
-      param.forEach((item) => {
-        let parameter = item.split("=");
-        if (parameter[1] !== "") {
-          if (!obj[parameter[0]]) {
-            obj[parameter[0]] = parameter[1];
-          }
-        }
-      });
-    }
-    getData(obj);
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { getData, data } = this.props
+  //   if( this.state.data !== data){
+  //     if (this.props.data && this.props.data.length !== 0) {
+  //       if(this.state.data.length === 0 || this.state.data === undefined){
+  //         this.setState({data : this.props.data},()=>{})
+  //       }
+  //       var query = new URLSearchParams(window.location.href);
+  //       let param = decodeURIComponent(query)
+  //         .split("&")
+  //         .filter((item, index) => index > 0);
+  //       var obj = {};
+  //       param.forEach((item) => {
+  //         let parameter = item.split("=");
+  //         if (parameter[1] !== "") {
+  //           if (!obj[parameter[0]]) {
+  //             obj[parameter[0]] = parameter[1];
+  //           }
+  //         }
+  //       });
+  //       console.log("hello   ",obj)
+  //       getData(obj);
+  //     }
+  //   }
+  // }
 
   handleMoreFiltersClose = () => {
     this.setState({ showMoreFilters: false });
   };
 
   render() {
+    var co_ordinates = [];
     const { isLoading, data } = this.props;
-    console.log(data)
+    if (data && data.length != 0) {
+      data.map((item) =>
+        co_ordinates.push({ lat: Number(item.lat), lng: Number(item.lng) })
+      );
+    }
     return (
       <div>
         {!isLoading ? (
@@ -181,7 +192,9 @@ class Lisiting extends Component {
                 <ListItem item={this.props.data} />
               </Col>
             </div>
-
+            <div style={{ width: 200, height: 200 }}>
+              <MapContainer location={co_ordinates} />
+            </div>
             <div className="mt-3 d-flex justify-content-center">
               {/* <Pagination>
                 <Pagination.Prev className="prevPage" />
@@ -214,9 +227,6 @@ class Lisiting extends Component {
             </Modal>
           </>
         )}
-        <div style={{width:200, height:200}}>
-        {/* <MapContainer/> */}
-        </div>
       </div>
     );
   }

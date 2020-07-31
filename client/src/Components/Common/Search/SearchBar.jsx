@@ -26,6 +26,7 @@ class Search extends Component {
       query: "",
       showGuests: false,
       guestCount: 0,
+      obj:{}
     };
   }
   handleChange = (e) => {
@@ -112,20 +113,25 @@ class Search extends Component {
   };
 
   updateGuestCount = (key) => {
-    let obj = {};
+    const { obj } = this.state
     obj[key] = Number(this.state[key]) + 1;
     obj.guestCount = this.state.guestCount + 1;
-    this.setState({obj : obj});
+    this.setState({ obj: obj }, () => {
+      console.log(this.state)
+      this.handleQuery();
+    });
   };
 
   removeGuest = (key) => {
-    let obj = {};
+    const { obj } = this.state
     obj[key] = Number(this.state[key]) - 1;
     obj.guestCount = this.state.guestCount - 1;
     if (obj.guestCount < 0) {
       obj.guestCount = 0;
     }
-    this.setState({obj : obj});
+    this.setState({ obj: obj }, () => {
+      this.handleQuery();
+    });
   };
 
   render() {
@@ -142,7 +148,12 @@ class Search extends Component {
               placeholder="where are you going?"
               style={{ width: "90%", height: "47px", fontSize: 12 }}
               onPlaceSelected={(place) => {
-                this.setState({ location: place.formatted_address.split(",")[0] },()=>{this.handleQuery()});
+                this.setState(
+                  { location: place.formatted_address.split(",")[0] },
+                  () => {
+                    this.handleQuery();
+                  }
+                );
               }}
               types={["(regions)"]}
               componentRestrictions={{ country: "in" }}

@@ -3,7 +3,7 @@ import { Card, Dropdown } from "react-bootstrap";
 import Switch from "react-switch";
 import styles from "./Filters.module.css";
 import { connect } from "react-redux";
-import { closeCancellationFlexibility } from "../../../Redux/user/actions";
+import { closeCancellationFlexibility, getData } from "../../../Redux/user/actions";
 import { Link } from "react-router-dom";
 
 class CancellationFlexibility extends Component {

@@ -59,14 +59,24 @@ class MorePlaceToShow extends Component {
             </div>
             <div className="d-flex align-items-center">
               <p className={`m-0 mx-2 ${styles.pagerNumber}`}>
-                <span onClick={this.handleDecreaseSimilar}>{similarCount}</span>
+                <span>{similarCount}</span>
                 <span>/</span>
-                <span onClick={this.handleIncreaseSimilar}>{doneSimilar}</span>
+                <span>{doneSimilar}</span>
               </p>
               <Pagination className="m-0">
-                <Pagination.Prev className="prevPage mx-1" />
+                <Pagination.Prev
+                  onClick={this.handleDecreaseSimilar}
+                  className="prevPage mx-1"
+                />
 
-                <Pagination.Next className="nextPage mx-1" />
+                {similarCount >= doneSimilar ? (
+                  <Pagination.Next className="nextPage mx-1" />
+                ) : (
+                  <Pagination.Next
+                    onClick={this.handleIncreaseSimilar}
+                    className="nextPage mx-1"
+                  />
+                )}
               </Pagination>
             </div>
           </div>
@@ -125,16 +135,23 @@ class MorePlaceToShow extends Component {
             </div>
             <div className="d-flex align-items-center">
               <p className={`m-0 mx-2 ${styles.pagerNumber}`}>
-                <span onClick={this.handleDecreaseRec}>
-                  {recommendationCount}
-                </span>
+                <span>{recommendationCount}</span>
                 <span>/</span>
-                <span onClick={this.handleIncreaseRec}>{doneRec}</span>
+                <span>{doneRec}</span>
               </p>
               <Pagination className="m-0">
-                <Pagination.Prev className="prevPage mx-1" />
-
-                <Pagination.Next className="nextPage mx-1" />
+                <Pagination.Prev
+                  onClick={this.handleDecreaseRec}
+                  className="prevPage mx-1"
+                />
+                {recommendationCount >= doneRec ? (
+                  <Pagination.Next className="nextPage mx-1" />
+                ) : (
+                  <Pagination.Next
+                    onClick={this.handleIncreaseRec}
+                    className="nextPage mx-1"
+                  />
+                )}
               </Pagination>
             </div>
           </div>
@@ -160,7 +177,9 @@ class MorePlaceToShow extends Component {
                         <div>
                           {" "}
                           <span className={styles.ratingStar}>&#9733;</span>
-                          <span className={styles.rating}>{Number(item.rating).toFixed(2)}</span>
+                          <span className={styles.rating}>
+                            {Number(item.rating).toFixed(2)}
+                          </span>
                           <span className={styles.numrated}>
                             ({item.ratingcount})
                           </span>{" "}

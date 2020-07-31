@@ -99,6 +99,9 @@ class Entity extends Component {
   render() {
     const { home, images } = this.state;
     const { hostInfo} = this.props;
+    console.log(home)
+    var staticMap = `https://maps.googleapis.com/maps/api/staticmap?center=${home.cityName}+${home.countryName}&zoom=13&size=600x300&maptype=roadmap
+    &markers=color:blue%7Clabel:S%7C${home.lat},${home.lng}&key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M`
     return (
       <div className={styles.entityContainer}>
         <h2>{home.propertyName}</h2>
@@ -285,6 +288,12 @@ class Entity extends Component {
           <Review rates={home.rating} rateCount={home.ratingcount} />
         </div>
         <hr />
+        <hr/>
+        <div>
+          {/* <iframe >
+
+          </iframe> */}
+        </div>
         <HostDetails />
         <hr />
         <MorePlaceToStay />

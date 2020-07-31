@@ -42,6 +42,7 @@ export const getDataFailure = () => ({
 });
 
 export const getData = payload => {
+    console.log(payload)
     return dispatch => {
         dispatch(getDataRequest());
         return axios //user/searchresults GET

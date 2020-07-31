@@ -37,9 +37,13 @@ class PriceDetails extends Component {
     const { tokenValidateUser } = this.props;
     let token = localStorage.getItem("token");
     tokenValidateUser(token);
-
+    const { data } = this.props;
+    console.log(data);
     this.setState({ showWarning: false });
   }
+
+  handleReserve = () => {
+  };
 
   handleChange = ({ startDate, endDate }) => {
     this.setState({
@@ -50,7 +54,7 @@ class PriceDetails extends Component {
     const { bookedDates, getDetailsOfBooking, user } = this.props;
     const { data } = this.props;
     if (startDate && endDate) {
-      if (bookedDates.length !== 0) {
+      if (bookedDates.length !== 0 && bookedDates[0].data[0] !== undefined) {
         if (
           bookedDates[0].data[0].bookingDate.split(" ")[0] <=
             startDate._d.toLocaleDateString().split("/").join("-") &&
@@ -80,8 +84,16 @@ class PriceDetails extends Component {
                   (this.state.home.price * 18) / 100 + this.state.home.price,
                 user_id: user.user_id,
                 gst: 18,
-                checkin: startDate._d.toLocaleDateString(),
-                checkout: endDate._d.toLocaleDateString(),
+                checkin: startDate._d
+                  .toLocaleDateString()
+                  .split("/")
+                  .reverse()
+                  .join("-"),
+                checkout: endDate._d
+                  .toLocaleDateString()
+                  .split("/")
+                  .reverse()
+                  .join("-"),
               },
               () => {
                 console.log(this.state);
@@ -89,9 +101,21 @@ class PriceDetails extends Component {
                   total_bill: this.state.total_bill || 1,
                   total_per_day: this.state.total_per_day,
                   user_id: user.user_id,
+                  firstname: user.firstname,
+                  lastname: user.lastname,
+                  email: user.email,
+                  phone: user.phone,
                   gst: 18,
-                  checkin: startDate._d.toLocaleDateString(),
-                  checkout: endDate._d.toLocaleDateString(),
+                  checkin: startDate._d
+                    .toLocaleDateString()
+                    .split("/")
+                    .reverse()
+                    .join("-"),
+                  checkout: endDate._d
+                    .toLocaleDateString()
+                    .split("/")
+                    .reverse()
+                    .join("-"),
                   property_id: data[0].data.data[0].property_id,
                 });
               }
@@ -103,8 +127,7 @@ class PriceDetails extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { data, searchedData } = this.props;
-    console.log(data, searchedData);
+    const { data } = this.props;
     if (prevState.home.length === 0) {
       data.map((item) =>
         this.setState({ home: item.data.data[0] }, () => {
@@ -119,6 +142,7 @@ class PriceDetails extends Component {
 
   render() {
     const { home, showWarning, noOfDays } = this.state;
+    const { totalPrice } = this.props;
     return (
       <div>
         <Card className={styles.pricedetailsCard}>
@@ -183,27 +207,15 @@ class PriceDetails extends Component {
             </Card>
             <Row>
               <Col>
-                {showWarning ? (
-                  <span style={{ color: "red", fontSize: 15 }}>
-                    <svg
-                      style={{ width: 20 }}
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>{" "}
-                    <span className="mr-2">
-                      Please Enter required fields !!
-                    </span>
-                  </span>
-                ) : null}{" "}
+                {showWarning ? "Sorry !! These dates are not available" : null}{" "}
               </Col>
             </Row>
-            <Button className="mt-2" size="lg" block>
+            <Button
+              className="mt-2"
+              size="lg"
+              block
+              onClick={this.handleReserve}
+            >
               {!showWarning ? (
                 <Link
                   to="/entity/entity_page/billing"
@@ -256,7 +268,6 @@ class PriceDetails extends Component {
 
 const mapStateToProps = (state) => ({
   data: state.entityReducer.data,
-  searchedData: state.userReducer.data,
   bookedDates: state.entityReducer.bookedDates,
   totalPrice: state.entityReducer.totalPrice,
   user: state.authReducer.user,
