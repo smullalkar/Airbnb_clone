@@ -26,6 +26,7 @@ import {
   getFacilities,
   getPropertyType,
 } from "../../../Redux/user/actions";
+import MapContainer from "../GoogleMap/MapContainer"
 
 class Lisiting extends Component {
   constructor(props) {
@@ -70,10 +71,6 @@ class Lisiting extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log(" listing ", this.props.data);
-    // if (this.state.data.length === 0 && this.props.data.length !== 0) {
-    //   this.setState({ data: this.props.data });
-    // }
     if (this.props.data && this.props.data.length !== 0) {
       var query = new URLSearchParams(window.location.href);
       let param = decodeURIComponent(query)
@@ -82,7 +79,7 @@ class Lisiting extends Component {
       var obj = {};
       param.forEach((item) => {
         let parameter = item.split("=");
-          if (parameter[1] !== "") {
+        if (parameter[1] !== "") {
           if (!obj[parameter[0]]) {
             obj[parameter[0]] = parameter[1];
           }
@@ -97,13 +94,8 @@ class Lisiting extends Component {
   };
 
   render() {
-    const {
-      isLoading,
-      showCancellationFlexibility,
-      data,
-      showCancellation,
-    } = this.props;
-    console.log(isLoading);
+    const { isLoading, data } = this.props;
+    console.log(data)
     return (
       <div>
         {!isLoading ? (
@@ -222,6 +214,9 @@ class Lisiting extends Component {
             </Modal>
           </>
         )}
+        <div style={{width:200, height:200}}>
+        {/* <MapContainer/> */}
+        </div>
       </div>
     );
   }

@@ -11,7 +11,7 @@ import {
   getSimilarProperties,
   getReview,
 } from "../../../Redux/entity/actions";
-
+import { v4 as uuidv4 } from "uuid";
 import Amenities from "./Amenities/Amenities";
 import HostDetails from "./HostDeatis/HostDetails";
 import MorePlaceToStay from "./MorePlaceToShow/MorePlaceToShow";
@@ -51,8 +51,8 @@ class Entity extends Component {
     newQuery = newQuery[newQuery.length - 1].split("_")[1];
     this.setState({ id: newQuery });
     getData({ property_id: Number(newQuery) });
-    getBookedDates({ property_id: Number(newQuery) });
-    getReview({ peroperty_id: Number(newQuery) });
+    getBookedDates({ propertyId: Number(newQuery) });
+    getReview({ property_id: Number(newQuery) });
     getHostInfo({ owner_id: Number(newQuery) });
     this.setState({ id: newQuery });
   }
@@ -67,12 +67,11 @@ class Entity extends Component {
       data,
       bookedDates,
       getRecommendation,
-      hostInfo,
       getSimilarProperties,
     } = this.props;
-    const { home, images, id } = this.state;
-    var obj = {},
-      similarity = {};
+    console.log(bookedDates);
+    const { home, id } = this.state;
+    var obj = {};
     if (prevState.home.length === 0) {
       if (data.length !== 0) {
         this.setState({ home: data.data[0] }, () => {});
@@ -83,39 +82,23 @@ class Entity extends Component {
         }
       }
       let query = window.location.href.split("&");
+      obj.location = query[1].split("=")[1]
+      let url = new URLSearchParams(`location=${query[1].split("=")[1]}`);
       query = query[query.length - 1].split("/entity");
-      query.forEach((item) => {
-        let param = item.split("=");
-        if (param[0] === "location") {
-          obj.location = param[1];
-          similarity.location = param[1];
-        }
-      });
       obj.property_id = Number(id);
+      console.log("object I'm senidng", obj)
       getRecommendation(obj);
-      similarity.peroperty_id = Number(id);
-      similarity.amenities = home.amenities;
-      getSimilarProperties(similarity);
+      url.append("id", Number(id));
+      home &&
+        home.amenity &&
+        home.amenity.split(",").forEach((item) => url.append("amenity", item));
+      getSimilarProperties(url.toString());
     }
-
-    // }
-    // if (prevState.bookedDateRange.length === 0) {
-    //   let arr = [];
-    //   console.log(bookedDates);
-    //   if (bookedDates[0] !== undefined) {
-    //     bookedDates[0] &&
-    //       bookedDates[0].data.map((item) => {
-    //         arr.push(item.bookingDate.split(" ")[0].split("-").map(Number));
-    //       });
-    //     this.setState({ bookedDateRange: arr }, () => {});
-    //   }
-    // }
   }
 
   render() {
-    const { home, images, bookedDateRange } = this.state;
-    const { hostInfo, bookingDetails } = this.props;
-
+    const { home, images } = this.state;
+    const { hostInfo} = this.props;
     return (
       <div className={styles.entityContainer}>
         <h2>{home.propertyName}</h2>
@@ -183,9 +166,9 @@ class Entity extends Component {
             <div className="d-flex flex-row justify-content-between">
               <div>
                 <h3 className={styles.listingName}>
-                  {hostInfo.data &&
+                  {hostInfo && hostInfo.data &&
                     hostInfo.data.map((item) => (
-                      <span>
+                      <span key={uuidv4()}>
                         Hosted by {item.firstname + " " + item.lastname}
                       </span>
                     ))}
@@ -231,7 +214,7 @@ class Entity extends Component {
                   <img src={home} alt="" className="m-2" />
                 </div>
                 <div>
-                  <h6 className={styles.detailHeading}>Entire home</h6>
+                    <h6 className={styles.detailHeading}>{home.category}</h6>
                   <p className={styles.detailDescription}>
                     You’ll have the cabin to yourself.
                   </p>
@@ -257,10 +240,10 @@ class Entity extends Component {
                   <h6 className={styles.detailHeading}>
                     {hostInfo.data &&
                       hostInfo.data.map((item) => (
-                        <span>
-                          Hosted by {item.firstname + " " + item.lastname}
+                        <span key={uuidv4()}>
+                          {item.firstname + " " + item.lastname+" " }
                         </span>
-                      ))}{" "}
+                      ))}
                     is a Superhost
                   </h6>
                   <p className={styles.detailDescription}>
@@ -286,72 +269,8 @@ class Entity extends Component {
             <hr />
             <div className="p-4">
               <div className={styles.entityDetailPara}>{home.description}</div>
-              <div>
-                {" "}
-                <h4>
-                  <a className={styles.alertLink}>Contact Host</a>
-                </h4>
-              </div>
             </div>
-            <hr />
-            <div className="p-4">
-              <h3 className={styles.entityTitle}>2 nights in Coimbatore</h3>
-              <div className={`${styles.listingBasicDetails} d-flex flex-row `}>
-                <div>
-                  <span>21</span>
-                  <span className="mx-1">June 2020</span>
-                </div>
-                <span className="mx-1">&#x2D;</span>
-                <div>
-                  <span></span>
-                  <span className="mx-1">2 Aug 2020</span>
-                </div>
-              </div>
-              {/*
-                            <DateRangePicker
-                                startDate={this.state.startDate}
-                                startDateId="your_unique_start_date_id"
-                                endDate={this.state.endDate}
-                                endDateId="your_unique_end_date_id"
-                                onDatesChange={({ startDate, endDate }) =>
-                                    this.setState({ startDate, endDate })
-                                }
-                                focusedInput={this.state.focusedInput}
-                                onFocusChange={(focusedInput) => this.setState({ focusedInput })}
-                                startDatePlaceholderText="startDate"
-                                endDatePlaceholderText="endDate"
-                            ></DateRangePicker> */}
-              {/* <DayPickerSingleDateController
-                date={this.state.startDate}
-                numberOfMonths={2}
-                noBorder={true}
-                daySize={40}
-              /> */}
-              {bookingDetails && bookingDetails.checkin && (
-                <DayPicker
-                  numberOfMonths={2}
-                  initialMonth={new Date()}
-                  disabledDays={[
-                    {
-                      after: new Date(
-                        bookingDetails.checkin.split("/").map(Number)[0],
-                        bookingDetails.checkin.split("/").map(Number)[1],
-                        bookingDetails.checkin.split("/").map(Number)[2]
-                      ),
-                      before: new Date(
-                        bookingDetails.checkout.split("/").map(Number)[0],
-                        bookingDetails.checkout.split("/").map(Number)[1],
-                        bookingDetails.checkout.split("/").map(Number)[2]
-                      ),
-                    },
-                  ]}
-                  // initialMonth={new Date(2020, 6)}
-                  // disabledDays={
-                  //  bookedDateRange.map(item=> new Date(Number(item[0]), Number(item[1]),Number(item[2])))
-                  // }
-                />
-              )}
-            </div>
+
             <hr />
             <SleepingArrangement />
             <hr />
@@ -370,7 +289,6 @@ class Entity extends Component {
         <hr />
         <MorePlaceToStay />
         <hr />
-        <ExploreMore />
         <hr />
       </div>
     );

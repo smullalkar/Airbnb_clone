@@ -2,40 +2,66 @@ import React, { Component } from "react";
 import { Card, Pagination } from "react-bootstrap";
 import styles from "./MorePlaceToShow.module.css";
 import { connect } from "react-redux";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import { Recommendation } from "../../../../Redux/user/actions";
 
 class MorePlaceToShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      similarity: [],
-      recommendation: [],
+      similarCount: 1,
+      recommendationCount: 1,
     };
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.data === 0 && this.props.data.length !== 0) {
-  //     this.setState({ data: this.props.data });
-  //   }
-  // }
-
+  handleDecreaseSimilar = () => {
+    this.setState({ similarCount: this.state.similarCount - 1 || 1 });
+  };
+  handleIncreaseSimilar = () => {
+    this.setState({ similarCount: this.state.similarCount + 1 || 1 });
+  };
+  handleDecreaseRec = () => {
+    this.setState({
+      recommendationCount: this.state.recommendationCount - 1 || 1,
+    });
+  };
+  handleIncreaseRec = () => {
+    this.setState({
+      recommendationCount: this.state.recommendationCount + 1 || 1,
+    });
+  };
   render() {
-    // const { data } = this.state;
+    const { similarCount, recommendationCount } = this.state;
     const { recommendation, similarProperty } = this.props;
-    console.log(similarProperty);
+    if (similarProperty && similarProperty.data) {
+      let count = similarProperty.data.length;
+      let offset = ((similarCount || 1) - 1) * 4;
+      var doneSimilarArr = similarProperty.data.filter(
+        (item, index) => index >= offset && index < offset + 4
+      );
+      var doneSimilar = Math.ceil(count / 4);
+    }
+    if (recommendation && recommendation.data) {
+      let count = recommendation.data.length;
+      let offset = ((recommendationCount || 1) - 1) * 4;
+      var doneRecArr = recommendation.data.filter(
+        (item, index) => index >= offset && index < offset + 4
+      );
+      var doneRec = Math.ceil(count / 4);
+    }
     return (
       <>
         <div className="p-4">
           <div className="d-flex flex-row justify-content-between">
             <div>
               <h4 className="text-left font-weight-bold my-3">
-                Nearby Populars{" "}
+                Similar Properties{" "}
               </h4>
             </div>
             <div className="d-flex align-items-center">
               <p className={`m-0 mx-2 ${styles.pagerNumber}`}>
-                <span>3</span>
+                <span onClick={this.handleDecreaseSimilar}>{similarCount}</span>
                 <span>/</span>
-                <span>3</span>
+                <span onClick={this.handleIncreaseSimilar}>{doneSimilar}</span>
               </p>
               <Pagination className="m-0">
                 <Pagination.Prev className="prevPage mx-1" />
@@ -45,9 +71,8 @@ class MorePlaceToShow extends Component {
             </div>
           </div>
           <div className="d-flex flex-row justify-content-between">
-            {recommendation &&
-              recommendation.data &&
-              recommendation.data.map((item) => (
+            {doneSimilarArr &&
+              doneSimilarArr.map((item) => (
                 <>
                   <Card key={uuidv4()} className={styles.card}>
                     <span className={styles.heart}>&#9829;</span>
@@ -67,7 +92,9 @@ class MorePlaceToShow extends Component {
                         <div>
                           {" "}
                           <span className={styles.ratingStar}>&#9733;</span>
-                          <span className={styles.rating}>{item.rating}</span>
+                          <span className={styles.rating}>
+                            {Number(item.rating).toFixed(2)}
+                          </span>
                           <span className={styles.numrated}>
                             ({item.ratingcount})
                           </span>{" "}
@@ -93,14 +120,16 @@ class MorePlaceToShow extends Component {
           <div className="d-flex flex-row justify-content-between">
             <div>
               <h4 className="text-left font-weight-bold my-3">
-                Similar Peroeprties{" "}
+                Populars in your city{" "}
               </h4>
             </div>
             <div className="d-flex align-items-center">
               <p className={`m-0 mx-2 ${styles.pagerNumber}`}>
-                <span>3</span>
+                <span onClick={this.handleDecreaseRec}>
+                  {recommendationCount}
+                </span>
                 <span>/</span>
-                <span>3</span>
+                <span onClick={this.handleIncreaseRec}>{doneRec}</span>
               </p>
               <Pagination className="m-0">
                 <Pagination.Prev className="prevPage mx-1" />
@@ -110,9 +139,8 @@ class MorePlaceToShow extends Component {
             </div>
           </div>
           <div className="d-flex flex-row justify-content-between">
-            {similarProperty &&
-              similarProperty.data &&
-              similarProperty.data.map((item) => (
+            {doneRecArr &&
+              doneRecArr.map((item) => (
                 <>
                   <Card key={uuidv4()} className={styles.card}>
                     <span className={styles.heart}>&#9829;</span>
@@ -132,7 +160,7 @@ class MorePlaceToShow extends Component {
                         <div>
                           {" "}
                           <span className={styles.ratingStar}>&#9733;</span>
-                          <span className={styles.rating}>{item.rating}</span>
+                          <span className={styles.rating}>{Number(item.rating).toFixed(2)}</span>
                           <span className={styles.numrated}>
                             ({item.ratingcount})
                           </span>{" "}

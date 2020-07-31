@@ -69,11 +69,11 @@ export const getBookedDatesFailure = () => ({
 });
 
 export const getBookedDates = payload => {
-    console.log(payload)
+    console.log("payload booked dates", payload)
     return dispatch => {
         dispatch(getBookedDatesRequest());
-        return axios
-            .get("https://run.mocky.io/v3/1b380005-0dfb-4232-b498-b13da07ffcf6", payload) // post /user/sendbooking
+        return axios // post /user/sendbooking
+            .post("/user/sendbooking", payload)
             .then(res => dispatch(getBookedDatesSuccess(res.data)))
             .catch(() => dispatch(getBookedDatesFailure()));
     };
@@ -99,8 +99,8 @@ export const getRecommendation = payload => {
     console.log(payload)
     return dispatch => {
         dispatch(getRecommendationRequest());
-        return axios
-            .post("https://run.mocky.io/v3/4822554f-821a-4d2e-bf51-e6a2fbb4ab2f", {
+        return axios //user/recommendation
+            .get("user/recommendation_popularity", {
                 params: payload
             })
             .then(res => dispatch(getRecommendationSuccess(res.data)))
@@ -109,7 +109,7 @@ export const getRecommendation = payload => {
 }
 //Actions to get the recommendation to the user End
 
-
+//Actions to get the Host information
 export const getHostInfoRequest = () => ({
     type: GET_HOST_INFO_REQUEST
 });
@@ -124,7 +124,6 @@ export const getHostInfoFailure = () => ({
 });
 
 export const getHostInfo = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getHostInfoRequest());
         return axios
@@ -134,6 +133,8 @@ export const getHostInfo = payload => {
     };
 }
 
+
+// Action to get similar properties which user is looking
 export const getSimilarPropertiesRequest = () => ({
     type: GET_SIMILAR_PROPERTIES_REQUEST
 });
@@ -148,17 +149,16 @@ export const getSimilarPropertiesFailure = () => ({
 });
 
 export const getSimilarProperties = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getSimilarPropertiesRequest());
-        return axios
-            .get("https://run.mocky.io/v3/4822554f-821a-4d2e-bf51-e6a2fbb4ab2f", payload)
+        return axios // /user/recommendation POST
+            .get(`user/recommendation?&${payload}`)
             .then(res => dispatch(getSimilarPropertiesSuccess(res.data)))
             .catch(() => dispatch(getSimilarPropertiesFailure()));
     };
 }
 
-
+// Action to get user reviews on which the property that currnetly user is watching
 export const getReviewRequest = () => ({
     type: GET_REVEIW_REQUEST
 });
@@ -173,11 +173,10 @@ export const getReviewFailure = () => ({
 });
 
 export const getReview = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getReviewRequest());
-        return axios
-            .get("https://run.mocky.io/v3/1fb8ce5d-3229-4bc1-b910-ae06b461edfa", payload)
+        return axios // user/reviews POST
+            .post("user/reviews", payload)
             .then(res => dispatch(getReviewSuccess(res.data)))
             .catch(() => dispatch(getReviewFailure()));
     };

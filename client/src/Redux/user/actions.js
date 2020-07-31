@@ -27,7 +27,7 @@ import {
 } from "./actionTypes";
 import axios from "../../Utils/axiosInterceptor"
 
-// Actions to get Data from home page search start
+// Actions to get Data from home page search
 export const getDataRequest = () => ({
     type: GET_DATA_REQUEST
 });
@@ -42,7 +42,6 @@ export const getDataFailure = () => ({
 });
 
 export const getData = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getDataRequest());
         return axios //user/searchresults GET
@@ -54,6 +53,7 @@ export const getData = payload => {
     };
 }
 
+//Action to get the types of places available
 export const getTypeOfPlaceRequest = () => ({
     type: GET_TYPE_OF_PLACE_REQUEST
 });
@@ -77,6 +77,8 @@ export const getTypeOfPlace = payload => {
     };
 }
 
+
+// To get the list of amenities
 export const getAmenitiesRequest = () => ({
     type: GET_AMENITIES_REQUEST
 });
@@ -100,6 +102,7 @@ export const getAmenities = payload => {
     };
 }
 
+// To get the list of facilities
 export const getFacilitiesRequest = () => ({
     type: GET_FACILITIES_REQUEST
 });
@@ -123,6 +126,7 @@ export const getFacilities = payload => {
     };
 }
 
+// To get the property types
 export const getPropertyTypeRequest = () => ({
     type: GET_PROPERTY_TYPE_REQUEST
 });
@@ -146,7 +150,7 @@ export const getPropertyType = payload => {
     };
 }
 
-
+// To get the already booked dates
 export const getBookedDatesRequest = () => ({
     type: GET_BOOKED_DATES_REQUEST
 });
@@ -161,7 +165,6 @@ export const getBookedDatesFailure = () => ({
 });
 
 export const getBookedDates = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(getBookedDatesRequest());
         return axios ///user/addbooking POST
@@ -172,6 +175,8 @@ export const getBookedDates = payload => {
             .catch(() => dispatch(getBookedDatesFailure()));
     };
 }
+
+
 
 export const bookDateRequest = () => ({
     type: BOOK_DATE_REQUEST
@@ -199,7 +204,7 @@ export const bookDate = payload => {
     };
 }
 
-
+// To get recommendations
 export const getRecommendationRequest = payload => ({
     type: GET_RECOMENDDATION_REQUEST,
     payload

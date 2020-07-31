@@ -65,7 +65,7 @@ class TypeOfPlace extends Component {
         <Card className={styles.placeCard}>
           <Card.Body>
             <div>
-              {typeOfPlaces.data &&
+              { typeOfPlaces && typeOfPlaces.data &&
                 typeOfPlaces.data.map((categories) => (
                   <Form.Check
                     onChange={this.handleChange}

@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import Login from "../../Auth/Login/Login";
 import { Navbar, DropdownButton, Dropdown } from "react-bootstrap";
 import Signup from "../../Auth/SignUp/SignUp";
+import ForgetPassword from "../../Auth/Login/ForgetPassword"
 import {
   closeLoginModal,
   closeRegisterModal,
+  logoutUser,
 } from "../../../Redux/authentication/actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -36,8 +38,13 @@ class NavBar extends Component {
     });
     closeRegisterModal();
   };
+  handleLogout =()=>{
+    const { logoutUser } = this.props
+    logoutUser()
+  }
 
   render() {
+    const { isAuth} = this.props;
     return (
       <div>
         <Navbar
@@ -46,12 +53,11 @@ class NavBar extends Component {
           variant="light"
           className="d-flex justify-content-between"
         >
-           <Link to="/">
-          <Navbar.Brand className="pl-4">
-              
+          <Link to="/">
+            <Navbar.Brand className="pl-4">
               <img src="/main-logo.svg" className="App-logo" alt="Airbnb" />
-          </Navbar.Brand>
-            </Link>
+            </Navbar.Brand>
+          </Link>
 
           <div className="d-flex">
             <i
@@ -65,14 +71,24 @@ class NavBar extends Component {
               id="dropdown-menu-align-right"
               className="nav-dropdown-main"
             >
-              <Dropdown.Item onClick={this.handleLoginModal}>
-                Login
-              </Dropdown.Item>
+              {!isAuth ? (
+                <>
+                  <Dropdown.Item onClick={this.handleLoginModal}>
+                    Login
+                  </Dropdown.Item>
 
-              <Dropdown.Item onClick={this.handleRegisterModal}>
-                Sign Up
-              </Dropdown.Item>
-
+                  <Dropdown.Item onClick={this.handleRegisterModal}>
+                    Sign Up
+                  </Dropdown.Item>
+                </>
+              ) : (
+                <>
+                  <Dropdown.Item>Name of user</Dropdown.Item>
+                  <Dropdown.Item onClick={this.handleLogout}>
+                    Logout
+                  </Dropdown.Item>
+                </>
+              )}
               <Dropdown.Divider />
               <Dropdown.Item>Host Your Home</Dropdown.Item>
               <Dropdown.Item>Host an Experience</Dropdown.Item>
@@ -88,13 +104,21 @@ class NavBar extends Component {
           show={this.state.showFinishSignUpModal}
           handleFinishSignUpClose={this.handleFinishSignUpClose}
         />
+        <ForgetPassword />
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  isAuth: state.authReducer.isAuth,
+  payload: state.authReducer.payload,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   closeLoginModal: () => dispatch(closeLoginModal()),
   closeRegisterModal: () => dispatch(closeRegisterModal()),
+  logoutUser: () => dispatch(logoutUser()),
 });
 
-export default connect(null, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

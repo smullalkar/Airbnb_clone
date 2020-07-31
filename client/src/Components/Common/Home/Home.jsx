@@ -18,9 +18,9 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { tokenValidateUser } = this.props
+    const { tokenValidateUser } = this.props;
     let token = localStorage.getItem("token");
-    tokenValidateUser(token)
+    tokenValidateUser(token);
   }
 
   render() {
@@ -101,7 +101,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 San Francisco
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -110,7 +110,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 New York
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -119,7 +119,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 Seattle
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -130,7 +130,7 @@ class Home extends Component {
                 {" "}
                 Los Angeles
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -142,7 +142,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 Denver
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -151,7 +151,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 Washington Dc
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -160,7 +160,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 Phoenix
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -169,7 +169,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 Austin
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -181,7 +181,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 Houston
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -190,7 +190,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 New orieans
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -199,7 +199,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 Boston
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -208,7 +208,7 @@ class Home extends Component {
               <a className={styles.aTag} href="#">
                 Miami
               </a>
-              <div >
+              <div>
                 {" "}
                 <hr />{" "}
               </div>
@@ -221,10 +221,8 @@ class Home extends Component {
   }
 }
 
-const mapDispatchToProps=dispatch=>({
-  tokenValidateUser : payload=>dispatch(tokenValidateUser(payload))
-})
+const mapDispatchToProps = (dispatch) => ({
+  tokenValidateUser: (payload) => dispatch(tokenValidateUser(payload)),
+});
 
-export default connect(null, mapDispatchToProps)(Home)
-
-// export default Home;
+export default connect(null, mapDispatchToProps)(Home);

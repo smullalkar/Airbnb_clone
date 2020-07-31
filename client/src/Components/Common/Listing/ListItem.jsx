@@ -21,9 +21,13 @@ class ListItem extends Component {
   render() {
     const { url } = this.state;
     const { item } = this.props;
+    console.log(item)
     return (
       <div>
         <Row className="text-center">
+          {item && item.length === 0 ? (
+            <h2>Sorry !!! No Properties Available</h2>
+          ) : null}
           {item &&
             item.map((home) => (
               <Col key={uuidv4()} lg={2} className="m-3">
@@ -60,9 +64,18 @@ class ListItem extends Component {
                     <Card.Text className={styles.cardDesc}>
                       {home.decription}
                     </Card.Text>
+                    <Card.Text className={styles.cardDesc}>
+                      {home.amenity}
+                    </Card.Text>
                     <Card.Text className={styles.priceCont}>
                       <span className={styles.amountSpan}>{home.price} </span> /
                       night
+                    </Card.Text>
+                    <Card.Text className={styles.priceCont}>
+                      <span className={styles.amountSpan}>
+                        ₹{Math.floor(((home.price * 18) / 100)+home.price)}{" "}
+                      </span>{" "}
+                      / night
                     </Card.Text>
                   </Card.Body>
                 </Card>

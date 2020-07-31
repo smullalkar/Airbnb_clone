@@ -15,9 +15,6 @@ import {
     GET_PROPERTY_TYPE_REQUEST,
     GET_PROPERTY_TYPE_SUCCESS,
     GET_PROPERTY_TYPE_FAILURE,
-    GET_RECOMENDDATION_REQUEST,
-    GET_RECOMENDDATION_SUCCESS,
-    GET_RECOMENDDATION_FAILURE,
 } from "./actionTypes";
 
 const initState = {
@@ -33,19 +30,20 @@ const initState = {
 const userReducer = (state = initState, { type, payload }) => {
     switch (type) {
         case GET_DATA_REQUEST:
+            console.log(payload)
             return {
                 ...state,
                 isLodaing: true
             }
         case GET_DATA_SUCCESS:
-            console.log("payload " , payload.data)
+            console.log("payload ", payload.data)
             return {
                 ...state,
                 data: payload.data,
                 isLoading: false
             }
         case GET_DATA_FAILURE:
-            console.log( "failure ",  payload)
+            console.log("failure ", payload)
             return {
                 ...state,
                 isLodaing: false
