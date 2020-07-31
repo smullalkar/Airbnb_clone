@@ -23,8 +23,8 @@ def entityPageDetails(payload):
 
     query = ''' SELECT p.id,p.propertyName,p.description,p.address,
                 p.countryId,cm.countryName,p.stateId,st.stateName,
-                ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
-                p.refundType,p.price,p.accomodatesCount,
+                ppt.propertyType,ct.categoryName,c.cityName,p.istantBook,p.isCancel,
+                p.refundType,p.price,p.accomodatesCount,p.lat,p.lng,
                 p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
                 p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                 GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
