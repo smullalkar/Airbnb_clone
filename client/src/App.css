@@ -5,7 +5,13 @@
 .nav-dropdown-main .btn.btn-primary {
   background: none;
   color: black;
-  border-radius: 30px;
+  border-radius: 22px;
+}
+
+.customerIcon {
+  height: 48px;
+  width: 48px;
+  padding: 4px;
 }
 
 html, body {

@@ -8,6 +8,7 @@ import {
 } from "../../../Redux/authentication/actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import customer from "../../../assets/images/customer.png"
 
 class NavBar extends Component {
   constructor(props) {
@@ -46,25 +47,24 @@ class NavBar extends Component {
           variant="light"
           className="d-flex justify-content-between"
         >
-           <Link to="/">
-          <Navbar.Brand className="pl-4">
+          <Link to="/">
+            <Navbar.Brand className="pl-4">
 
               <img src="/main-logo.svg" className="App-logo" alt="Airbnb" />
-          </Navbar.Brand>
-            </Link>
+            </Navbar.Brand>
+          </Link>
 
           <div className="d-flex">
-            <i
-              className="fa fa-bars mt-3 px-2 fa-lg"
-              style={{ cursor: "pointer" }}
-              aria-hidden="true"
-            ></i>
+            <div> <img src={customer} className="customerIcon" /> </div>
+
             <DropdownButton
               alignRight
               title=""
               id="dropdown-menu-align-right"
               className="nav-dropdown-main"
+
             >
+
               <Dropdown.Item onClick={this.handleLoginModal}>
                 Login
               </Dropdown.Item>
