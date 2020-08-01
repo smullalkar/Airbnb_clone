@@ -26,7 +26,7 @@ class Search extends Component {
       query: "",
       showGuests: false,
       guestCount: 0,
-      obj:{}
+      obj: {},
     };
   }
   handleChange = (e) => {
@@ -56,15 +56,7 @@ class Search extends Component {
   }
   handleQuery = () => {
     let string = new URLSearchParams("/location/?");
-    const {
-      startDate,
-      endDate,
-      location,
-      children,
-      adults,
-      infants,
-      page_no,
-    } = this.state;
+    const { startDate, endDate, location, page_no, obj } = this.state;
     if (location !== "") {
       string.append("location", location);
     }
@@ -90,14 +82,11 @@ class Search extends Component {
           .join("-")
       );
     }
-    if (children !== 0) {
-      string.append("children", children);
-    }
-    if (adults !== 0) {
-      string.append("adults", adults);
-    }
-    if (infants !== 0) {
-      string.append("infants", infants);
+    let key;
+    for (key in obj) {
+      if (key !== "infants" && key !== "guestCount") {
+        string.append(key, obj[key]);
+      }
     }
     if (page_no > 1) {
       string.append("page_no", page_no);
@@ -113,17 +102,16 @@ class Search extends Component {
   };
 
   updateGuestCount = (key) => {
-    const { obj } = this.state
+    const { obj } = this.state;
     obj[key] = Number(this.state[key]) + 1;
     obj.guestCount = this.state.guestCount + 1;
     this.setState({ obj: obj }, () => {
-      console.log(this.state)
       this.handleQuery();
     });
   };
 
   removeGuest = (key) => {
-    const { obj } = this.state
+    const { obj } = this.state;
     obj[key] = Number(this.state[key]) - 1;
     obj.guestCount = this.state.guestCount - 1;
     if (obj.guestCount < 0) {
@@ -197,11 +185,8 @@ class Search extends Component {
               type="text"
               name="adults"
               onChange={this.handleChange}
-              placeholder={
-                this.state.guestCount === 0
-                  ? "add guest"
-                  : this.state.guestCount
-              }
+              placeholder="add guest"
+              value={this.state.obj.guestCount}
             />
 
             <AddGuests

@@ -66,34 +66,34 @@ class Lisiting extends Component {
     getAmenities();
     getFacilities();
     getPropertyType();
-    this.setState({ data: data },()=>{});
+    this.setState({ data: data }, () => {});
   }
+  componentWillReceiveProps() {
+    if (this.state.data.length === 0) {
+      this.setState({ data: this.props.data }, () => {});
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const { getData } = this.props;
+    if (this.state.data.length === 0 && this.props.data.length !== 0) {
+      this.setState({ data: this.props.data });
+    }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { getData, data } = this.props
-  //   if( this.state.data !== data){
-  //     if (this.props.data && this.props.data.length !== 0) {
-  //       if(this.state.data.length === 0 || this.state.data === undefined){
-  //         this.setState({data : this.props.data},()=>{})
-  //       }
-  //       var query = new URLSearchParams(window.location.href);
-  //       let param = decodeURIComponent(query)
-  //         .split("&")
-  //         .filter((item, index) => index > 0);
-  //       var obj = {};
-  //       param.forEach((item) => {
-  //         let parameter = item.split("=");
-  //         if (parameter[1] !== "") {
-  //           if (!obj[parameter[0]]) {
-  //             obj[parameter[0]] = parameter[1];
-  //           }
-  //         }
-  //       });
-  //       console.log("hello   ",obj)
-  //       getData(obj);
-  //     }
-  //   }
-  // }
+    if (this.state.data !== this.props.data && this.props.data.length !== 0) {
+      var query = new URLSearchParams(window.location.href);
+      let param = decodeURIComponent(query)
+        .split("&")
+        .filter((item, index) => index > 0);
+      var obj = {};
+      param.forEach((item) => {
+        let parameter = item.split("=");
+        if (!obj[parameter[0]]) {
+          obj[parameter[0]] = parameter[1];
+        }
+      });
+    }
+    getData(obj);
+  }
 
   handleMoreFiltersClose = () => {
     this.setState({ showMoreFilters: false });

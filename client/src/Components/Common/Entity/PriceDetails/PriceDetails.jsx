@@ -16,7 +16,10 @@ import "react-dates/lib/css/_datepicker.css";
 
 import { calculateTotalPrice } from "../../../../Redux/entity/actions";
 import { getDetailsOfBooking } from "../../../../Redux/payment/actions";
-import { tokenValidateUser } from "../../../../Redux/authentication/actions";
+import {
+  tokenValidateUser,
+  closeLoginModal,
+} from "../../../../Redux/authentication/actions";
 import { Link } from "react-router-dom";
 
 class PriceDetails extends Component {
@@ -42,8 +45,7 @@ class PriceDetails extends Component {
     this.setState({ showWarning: false });
   }
 
-  handleReserve = () => {
-  };
+  handleReserve = () => {};
 
   handleChange = ({ startDate, endDate }) => {
     this.setState({
@@ -51,8 +53,13 @@ class PriceDetails extends Component {
       endDate,
       showWarning: false,
     });
-    const { bookedDates, getDetailsOfBooking, user } = this.props;
+    const { bookedDates, user, isAuth, closeLoginModal } = this.props;
     const { data } = this.props;
+    let token = localStorage.getItem("token")
+    if (!isAuth || token === "" || token === undefined) {
+      closeLoginModal();
+    }
+
     if (startDate && endDate) {
       if (bookedDates.length !== 0 && bookedDates[0].data[0] !== undefined) {
         if (
@@ -271,12 +278,14 @@ const mapStateToProps = (state) => ({
   bookedDates: state.entityReducer.bookedDates,
   totalPrice: state.entityReducer.totalPrice,
   user: state.authReducer.user,
+  isAuth: state.authReducer.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   calculateTotalPrice: (payload) => dispatch(calculateTotalPrice(payload)),
   getDetailsOfBooking: (payload) => dispatch(getDetailsOfBooking(payload)),
   tokenValidateUser: (payload) => dispatch(tokenValidateUser(payload)),
+  closeLoginModal: () => dispatch(closeLoginModal()),
 });
 // export default PriceDetails;
 export default connect(mapStateToProps, mapDispatchToProps)(PriceDetails);

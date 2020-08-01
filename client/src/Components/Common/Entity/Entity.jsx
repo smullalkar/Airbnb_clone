@@ -82,11 +82,11 @@ class Entity extends Component {
         }
       }
       let query = window.location.href.split("&");
-      obj.location = query[1].split("=")[1]
+      obj.location = query[1].split("=")[1];
       let url = new URLSearchParams(`location=${query[1].split("=")[1]}`);
       query = query[query.length - 1].split("/entity");
       obj.property_id = Number(id);
-      console.log("object I'm senidng", obj)
+      console.log("object I'm senidng", obj);
       getRecommendation(obj);
       url.append("id", Number(id));
       home &&
@@ -98,10 +98,10 @@ class Entity extends Component {
 
   render() {
     const { home, images } = this.state;
-    const { hostInfo} = this.props;
-    console.log(home)
+    const { hostInfo } = this.props;
+    console.log(home);
     var staticMap = `https://maps.googleapis.com/maps/api/staticmap?center=${home.cityName}+${home.countryName}&zoom=13&size=600x300&maptype=roadmap
-    &markers=color:blue%7Clabel:S%7C${home.lat},${home.lng}&key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M`
+    &markers=color:blue%7Clabel:S%7C${home.lat},${home.lng}&key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M`;
     return (
       <div className={styles.entityContainer}>
         <h2>{home.propertyName}</h2>
@@ -169,7 +169,8 @@ class Entity extends Component {
             <div className="d-flex flex-row justify-content-between">
               <div>
                 <h3 className={styles.listingName}>
-                  {hostInfo && hostInfo.data &&
+                  {hostInfo &&
+                    hostInfo.data &&
                     hostInfo.data.map((item) => (
                       <span key={uuidv4()}>
                         Hosted by {item.firstname + " " + item.lastname}
@@ -217,7 +218,7 @@ class Entity extends Component {
                   <img src={home} alt="" className="m-2" />
                 </div>
                 <div>
-                    <h6 className={styles.detailHeading}>{home.category}</h6>
+                  <h6 className={styles.detailHeading}>{home.category}</h6>
                   <p className={styles.detailDescription}>
                     You’ll have the cabin to yourself.
                   </p>
@@ -244,7 +245,7 @@ class Entity extends Component {
                     {hostInfo.data &&
                       hostInfo.data.map((item) => (
                         <span key={uuidv4()}>
-                          {item.firstname + " " + item.lastname+" " }
+                          {item.firstname + " " + item.lastname + " "}
                         </span>
                       ))}
                     is a Superhost
@@ -288,11 +289,9 @@ class Entity extends Component {
           <Review rates={home.rating} rateCount={home.ratingcount} />
         </div>
         <hr />
-        <hr/>
+        <hr />
         <div>
-          {/* <iframe >
-
-          </iframe> */}
+          <iframe src={staticMap}></iframe>
         </div>
         <HostDetails />
         <hr />

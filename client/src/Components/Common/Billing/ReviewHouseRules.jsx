@@ -107,11 +107,6 @@ class ReviewHouseRules extends Component {
                 </span>
               </Col>
             </Row>
-            <Button className="mt-5">
-              {/* <Link to="/billing/house_rules" style={{textDecoration:"none", color:"white"}}> */}
-                Agree and Continue
-                {/* </Link>{" "} */}
-            </Button>
           </Col>
           <Col md={4}>
             <PriceCard />
