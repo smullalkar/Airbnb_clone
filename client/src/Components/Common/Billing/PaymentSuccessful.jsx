@@ -9,23 +9,13 @@ import tick from "../../../assets/images/tickPink.png"
 class PaymentSuccessful extends Component {
     constructor(props) {
         super(props)
-        this.state = { showPaymentSuccessful: true }
+        this.state = { }
     }
-
-    handleClose = () => {
-        this.setState({ showPaymentSuccessful: false });
-    }
-
-
 
     render() {
-
-
-
         return (
-
             <div>
-                <Modal size="md" show={this.state.showPaymentSuccessful} onHide={this.handleClose}>
+                <Modal size="md" show={this.props.isShowModal} onHide={this.props.handleClose}>
                     <Modal.Header closeButton>
                         <span><Image className={styles.tick} src={tick} alt="" /></span>  <span><h4 className={styles.paymentText}>Payment Successful</h4></span>
                     </Modal.Header>
