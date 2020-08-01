@@ -10,14 +10,15 @@ def add_booking(payload):
     '''
     adding booking done by user
     '''
+    print('booking payload...',payload)
     try:
-        propertyId = payload["propertyId"]
-        userId = payload["userId"]
-        checkInDate = payload["checkInDate"]
-        checkOutDate = payload["checkOutDate"]
+        propertyId = payload["property_id"]
+        userId = payload["user_id"]
+        checkInDate = str(payload["checkin"])+' 00:00:00'
+        checkOutDate = str(payload["checkout"])+' 00:00:00'
         amountPaid = payload["total_bill"]
         gst = payload["gst"]
-        totalPerDay = payload["total_per_day"]
+        totalPD = payload["total_per_day"]
         totalBill = payload["total_bill"]
         createdAt = time.strftime('%Y-%m-%d %H:%M:%S')
     except KeyError as err:
@@ -40,8 +41,8 @@ def add_booking(payload):
         createdAt = createdAt,
         bookingDate = checkInDate,
         gst = gst,
-        totalPerDay = total_per_day,
-        totalBill = total_bill,
+        totalPerDay = totalPD,
+        totalBill = totalBill,
         status = True
     )
     
@@ -49,7 +50,7 @@ def add_booking(payload):
     db.session.commit()
     
     if int(totalstay) > 1:
-        date_time_obj = datetime.datetime.strptime(checkInDate, '%Y-%m-%d')
+        date_time_obj = datetime.datetime.strptime(checkInDate, '%Y-%m-%d %H:%M:%S')
         for i in range(int(totalstay)-1):
             book = BookingModel(
                 propertyId = propertyId,
@@ -85,7 +86,7 @@ def send_booking(payload):
     results = db.session.execute(''' 
                                     SELECT propertyId, bookingDate FROM booking 
                                     WHERE propertyId = %d AND DATE(bookingDate) > CURDATE();
-                                '''%(propertyId))
+                                '''%(int(propertyId)))
     data = []
     for result in results:
         temp_dict = {}

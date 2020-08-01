@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import { v4 as uuidv4} from "uuid";
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export class MapContainer extends Component {
             zoom={11}
           >
             {location.map((item) => (
-              <Marker position={item} />
+              <Marker key={uuidv4()} position={item} />
             ))}
             <Marker />
           </Map>

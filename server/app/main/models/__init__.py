@@ -25,3 +25,4 @@ from .FacilityModel import FacilityModel
 from .FacilityPropertyModel import FacilityPropertyModel
 from .CategoryPropertyModel import CategoryPropertyModel
 from .ReviewModel import ReviewModel
+from .ForgetPasswordModel import ForgetPassWordModel

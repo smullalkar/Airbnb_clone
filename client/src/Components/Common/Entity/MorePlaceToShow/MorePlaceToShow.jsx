@@ -81,7 +81,7 @@ class MorePlaceToShow extends Component {
                 </Pagination>
               </div>
             </div>
-            <div className="d-flex flex-row justify-content-between">
+            <div className="d-flex flex-row">
               {doneSimilarArr &&
                 doneSimilarArr.map((item) => (
                   <>
@@ -158,7 +158,7 @@ class MorePlaceToShow extends Component {
                 </Pagination>
               </div>
             </div>
-            <div className="d-flex flex-row justify-content-between">
+            <div className="d-flex flex-row">
               {doneRecArr &&
                 doneRecArr.map((item) => (
                   <>

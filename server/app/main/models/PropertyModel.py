@@ -37,4 +37,6 @@ class PropertyModel(db.Model):
     istantBook = db.Column(db.Boolean)
     createdAt = db.Column(db.DateTime(timezone=True))
     modifiedAt = db.Column(db.DateTime(timezone=True))
+    lat = db.Column(db.String(100))
+    lng = db.Column(db.String(100))
     status = db.Column(db.Boolean)

@@ -8,20 +8,20 @@ from ..util.auth_token import checkAuthToken
 from .searchs import sendData
 
 
-def recommendation(params, payload):
+def recommendation(params):
     """
     send recommendation based on property viewed by user
     """
     try:
         location = params.get('location')
-        cityId = params.get('city_id', default=1)
-        stateId = params.get('state_id', default=1)
-        countryId = params.get('country_id', default=1)
+        cityId = params.get('city_id', default=0)
+        stateId = params.get('state_id', default=0)
+        countryId = params.get('country_id', default=0)
         checkin = params.get('checkin',datetime.date.today() + datetime.timedelta(days=1))
         checkout = params.get('checkout',datetime.date.today() + datetime.timedelta(days=2))
         children = params.get('children', default=0)
         infants = params.get('infants', default=0)
-        adults = params.get('adults', default=1)
+        adults = params.get('adults', default=0)
         perPage = params.get('per_page', default=20)
         totalguests = int(adults)+int(children)
         print('................',location)
@@ -40,7 +40,7 @@ def recommendation(params, payload):
         print('................',amenities)
         print('................f',facility)
 
-        propertyId = payload["property_id"]
+        propertyId = params.get('property_id',default=0)
         
         if maxPrice <= 1000:
             minPrice = 0
@@ -73,8 +73,8 @@ def recommendation(params, payload):
 
     query = ''' SELECT p.id,p.propertyName,p.description,p.address,
                 p.countryId,cm.countryName,p.stateId,st.stateName,
-                ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
-                p.refundType,p.price,p.accomodatesCount,
+                ppt.propertyType,ct.categoryName,c.cityName,p.istantBook,p.isCancel,
+                p.refundType,p.price,p.accomodatesCount,p.lat,p.lng,
                 p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
                 p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                 GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
@@ -128,8 +128,15 @@ def recommendation(params, payload):
 
     if amenities is not None and len(amenities) != 0:
         if len(amenities) > 1:
-            for i in amenities:
-                query = query + ' amenities.aminityName = "%s" OR '%(i)
+            if len(amenities) <= 3: 
+                for i in range (len(amenities)-1):
+                    query = query + ' amenities.aminityName = "%s" OR '%(amenites[i])
+            elif len(amenities) > 3 and len(amenities) <=6:
+                for i in range(3):
+                    query = query + ' amenities.aminityName = "%s" OR '%(amenites[i])
+            elif len(amenities) > 6:
+                for i in range(5):
+                    query = query + ' amenities.aminityName = "%s" OR '%(amenites[i])
         else:
             query = query + ' amenities.aminityName = "%s" AND '%(amenities[0])
 
@@ -161,13 +168,13 @@ def recommendation(params, payload):
     }, default=str)
 
 
-def recommendation_popularity(params, payload):
+def recommendation_popularity(params):
     """
     send recommendation based on popularity
     """
     try:
         location = params.get('location')
-        propertyId = payload["property_id"]
+        propertyId = params.get("property_id")
         print('body ............',propertyId, location)
             
     except KeyError as err:
@@ -181,8 +188,8 @@ def recommendation_popularity(params, payload):
 
     query = ''' SELECT p.id,p.propertyName,p.description,p.address,
                 p.countryId,cm.countryName,p.stateId,st.stateName,
-                ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
-                p.refundType,p.price,p.accomodatesCount,
+                ppt.propertyType,ct.categoryName,c.cityName,p.istantBook,p.isCancel,
+                p.refundType,p.price,p.accomodatesCount,p.lat,p.lng,
                 p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
                 p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                 GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
@@ -206,7 +213,7 @@ def recommendation_popularity(params, payload):
     if location is not None:
         query = query + ' c.cityName = "%s" '%(location)
 
-        query = query + ' AND p.id != %d GROUP BY p.id HAVING rating >= 3 ;'%(int(propertyId))
+        query = query + ' AND p.id != %d GROUP BY p.id HAVING rating >= 3.5 ;'%(int(propertyId))
         results = db.session.execute(query)
 
         d = sendData(results)

@@ -16,21 +16,27 @@ class PriceCard extends Component {
   componentDidMount() {
     const { data, bookingDetails } = this.props;
     console.log(data && data[0] && data[0].data.data && data[0].data.data[0]);
-    console.log(bookingDetails)
+    console.log(bookingDetails);
     let start = new Date(bookingDetails.checkin);
     let end = new Date(bookingDetails.checkout);
     let diffTime = Math.abs(end - start);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    console.log(diffDays)
+    console.log(diffDays);
   }
 
   render() {
-    const { data, bookingDetails } = this.props;
+    const {
+      data,
+      bookingDetails,
+      otherDetails,
+      childrens,
+      adults,
+    } = this.props;
+    console.log(data && data[0] && data[0].data.data && data[0].data.data[0].ratingcount)
     let start = new Date(bookingDetails.checkin);
     let end = new Date(bookingDetails.checkout);
     let diffTime = Math.abs(end - start);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
     return (
       <div>
         <Card>
@@ -62,7 +68,7 @@ class PriceCard extends Component {
                 <Card.Text className="d-flex align-items-center">
                   <span className={styles.ratingStar}>&#9733;</span>
                   <span>
-                    {data && data[0] && data[0].data.data.ratingcount}
+                    {data && data[0] && data[0].data.data && data[0].data.data[0].ratingcount}
                   </span>{" "}
                   <span>Reviews</span>
                 </Card.Text>
@@ -88,7 +94,7 @@ class PriceCard extends Component {
               <span>
                 <img src={cal} alt="" />{" "}
               </span>{" "}
-              <span> 2 guests</span>{" "}
+              <span> {Number(childrens) + Number(adults) || 1} &nbsp; guests</span>{" "}
             </Card.Text>
             <Card.Text className={`d-flex flex-row  ${styles.priceListText}`}>
               {" "}
@@ -96,7 +102,9 @@ class PriceCard extends Component {
                 {" "}
                 <img src={profile} alt="" />{" "}
               </span>{" "}
-              <span>Jul 31, 2020 &rarr; Aug 2, 2020</span>{" "}
+              <span>
+                {bookingDetails.checkin} &rarr; {bookingDetails.checkout}
+              </span>{" "}
             </Card.Text>
 
             <hr />
@@ -104,13 +112,25 @@ class PriceCard extends Component {
               className={`d-flex flex-row justify-content-between ${styles.priceListText}`}
             >
               {" "}
-              <span> ₹1,650 x {diffDays && diffDays} nights</span> <span>₹3,300</span>{" "}
+              <span>
+                {" "}
+                ₹{otherDetails && otherDetails.price} x{" "}
+                {(diffDays && diffDays) || 1} nights
+              </span>{" "}
+              <span>
+                ₹{(otherDetails && otherDetails.price) * (diffDays && diffDays)}
+              </span>{" "}
             </Card.Text>
             <Card.Text
               className={`d-flex flex-row justify-content-between ${styles.priceListText}`}
             >
               {" "}
-              <span> Service Fees</span> <span>₹3,300</span>{" "}
+              <span> Service Fees</span>{" "}
+              <span>
+                ₹{" "}
+                {((otherDetails && otherDetails.price * 18) / 100) * diffDays ||
+                  1}{" "}
+              </span>{" "}
             </Card.Text>
 
             <hr />
@@ -118,7 +138,7 @@ class PriceCard extends Component {
               {" "}
               <span className="font-weight-bold"> Total </span>{" "}
               <span className="font-weight-bold">
-                ₹{bookingDetails.total_bill}
+                ₹{bookingDetails.total_bill || 1}
               </span>{" "}
             </Card.Text>
           </Card.Body>
@@ -129,7 +149,11 @@ class PriceCard extends Component {
 }
 const mapStateToProps = (state) => ({
   bookingDetails: state.paymentReducer.bookingDetails,
+  otherDetails: state.paymentReducer.otherDetails,
   data: state.entityReducer.data,
+  adults: state.entityReducer.adults,
+  infants: state.entityReducer.infants,
+  childrens: state.entityReducer.childrens,
 });
 
 export default connect(mapStateToProps, null)(PriceCard);

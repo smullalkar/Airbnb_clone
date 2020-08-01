@@ -184,17 +184,19 @@ class Lisiting extends Component {
                 <a className={styles.alertLink}>Learn more</a>
               </h6>
             </div>
-
-            <div className="mx-5 d-flex justify-content-around">
-              <Col key={uuidv4()} className="m-1">
-                <ListItem item={this.props.data} />
+            <Row>
+              <Col md={8}>
+                <div className="mx-5 d-flex justify-content-around">
+                  <Col key={uuidv4()} className="m-1">
+                    <ListItem item={this.props.data} />
+                  </Col>
+                </div>
               </Col>
-            </div>
-            <div style={{ width: 200, height: 200 }}>
-              <MapContainer location={co_ordinates} />
-            </div>
-            <div className="mt-3 d-flex justify-content-center">
-            </div>
+              <Col md={4} style={{marginLeft:"-200px" , marginTop:10}}>
+                <MapContainer location={co_ordinates} />
+              </Col>
+            </Row>
+            <div className="mt-3 d-flex justify-content-center"></div>
           </>
         ) : (
           <>

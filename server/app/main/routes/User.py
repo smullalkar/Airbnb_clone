@@ -1,6 +1,7 @@
 from . import user
 from flask import request
 from ..services.user import register, login, oauth_login, insert_data, sendUserDetails
+from ..services.forgetpassword import forgetPass
 import datetime
 # from ..util.auth_token import checkAuthToken
 
@@ -45,6 +46,14 @@ def user_details():
     sending user details after logging in
     """
     response = sendUserDetails(request.json)
+    return response
+
+@user.route("/forgetpassword", methods=["POST"])
+def user_forgetpass():
+    """
+    forget password system
+    """
+    response = forgetPass(request.json)
     return response
 
 

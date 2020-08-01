@@ -91,20 +91,12 @@ class PriceDetails extends Component {
                   (this.state.home.price * 18) / 100 + this.state.home.price,
                 user_id: user.user_id,
                 gst: 18,
-                checkin: startDate._d
-                  .toLocaleDateString()
-                  .split("/")
-                  .reverse()
-                  .join("-"),
-                checkout: endDate._d
-                  .toLocaleDateString()
-                  .split("/")
-                  .reverse()
-                  .join("-"),
+                checkin: startDate._d.getFullYear() + '-' + (startDate._d.getMonth()+1) + '-' + startDate._d.getDate(),
+                checkout: endDate._d.getFullYear() + '-' + (endDate._d.getMonth()+1) + '-' + endDate._d.getDate()
               },
               () => {
                 console.log(this.state);
-                this.props.getDetailsOfBooking({
+                this.props.getDetailsOfBooking([{
                   total_bill: this.state.total_bill || 1,
                   total_per_day: this.state.total_per_day,
                   user_id: user.user_id,
@@ -113,18 +105,10 @@ class PriceDetails extends Component {
                   email: user.email,
                   phone: user.phone,
                   gst: 18,
-                  checkin: startDate._d
-                    .toLocaleDateString()
-                    .split("/")
-                    .reverse()
-                    .join("-"),
-                  checkout: endDate._d
-                    .toLocaleDateString()
-                    .split("/")
-                    .reverse()
-                    .join("-"),
+                  checkin: startDate._d.getFullYear() + '-' + (startDate._d.getMonth()+1) + '-' + startDate._d.getDate(),
+                  checkout: endDate._d.getFullYear() + '-' + (endDate._d.getMonth()+1) + '-' + endDate._d.getDate(),
                   property_id: data[0].data.data[0].property_id,
-                });
+                },{price : this.state.home.price, noOfDays : this.state.noOfDays }]);
               }
             );
           });
@@ -262,8 +246,8 @@ class PriceDetails extends Component {
               <span className="font-weight-bold">
                 ₹
                 {Math.floor(
-                  (this.state.home.price * 18) / 100 + this.state.home.price
-                ) * noOfDays}
+                (this.state.home.price * 18) / 100 + this.state.home.price
+              ) * noOfDays}
               </span>{" "}
             </Card.Text>
           </Card.Body>

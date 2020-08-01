@@ -82,7 +82,7 @@ class NavBar extends Component {
                 </>
               ) : (
                   <>
-                    <Dropdown.Item>Name of user</Dropdown.Item>
+                    {/* <Dropdown.Item>Name of user</Dropdown.Item> */}
                     <Dropdown.Item onClick={this.handleLogout}>
                       Logout
                   </Dropdown.Item>
