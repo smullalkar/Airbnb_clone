@@ -15,7 +15,7 @@ export class MapContainer extends Component {
           lat: 13.028259,
           lng: 77.543052,
         }}
-        zoom={12}
+        zoom={11}
       >
         {location.map((item) => (
           <Marker position={item} />

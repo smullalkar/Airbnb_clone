@@ -74,6 +74,7 @@ class Lisiting extends Component {
     link.shift();
     console.log("link it is", link.join(""));
   }
+  
   componentDidUpdate(prevProps, prevState) {
     const { getData } = this.props;
     if (prevProps.location.pathname !== this.props.location.pathname) {

@@ -52,7 +52,7 @@ class Entity extends Component {
     this.setState({ id: newQuery });
     getData({ property_id: Number(newQuery) });
     getBookedDates({ propertyId: Number(newQuery) });
-    getReview({ property_id: Number(newQuery) });
+    getReview({ propertyId: Number(newQuery) });
     getHostInfo({ owner_id: Number(newQuery) });
     this.setState({ id: newQuery });
   }
