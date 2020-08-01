@@ -73,7 +73,7 @@ class ListItem extends Component {
                     </Card.Text>
                     <Card.Text className={styles.priceCont}>
                       <span className={styles.amountSpan}>
-                        ₹{Math.floor(((home.price * 18) / 100)+home.price)}{" "}
+                        ₹{Math.floor(((home.price * 18) / 100) + home.price)}{" "}
                       </span>{" "}
                       / night
                     </Card.Text>

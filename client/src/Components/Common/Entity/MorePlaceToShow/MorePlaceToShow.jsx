@@ -50,7 +50,7 @@ class MorePlaceToShow extends Component {
     }
     return (
       <>
-        { doneSimilarArr && doneSimilarArr.length > 0 ? (
+        {doneSimilarArr && doneSimilarArr.length > 0 ? (
           <div className="p-4">
             <div className="d-flex flex-row justify-content-between">
               <div>
@@ -73,15 +73,15 @@ class MorePlaceToShow extends Component {
                   {similarCount >= doneSimilar ? (
                     <Pagination.Next className="nextPage mx-1" />
                   ) : (
-                    <Pagination.Next
-                      onClick={this.handleIncreaseSimilar}
-                      className="nextPage mx-1"
-                    />
-                  )}
+                      <Pagination.Next
+                        onClick={this.handleIncreaseSimilar}
+                        className="nextPage mx-1"
+                      />
+                    )}
                 </Pagination>
               </div>
             </div>
-            <div className="d-flex flex-row">
+            <div className="d-flex flex-row justify-content-between overflow-auto">
               {doneSimilarArr &&
                 doneSimilarArr.map((item) => (
                   <>
@@ -150,11 +150,11 @@ class MorePlaceToShow extends Component {
                   {recommendationCount >= doneRec ? (
                     <Pagination.Next className="nextPage mx-1" />
                   ) : (
-                    <Pagination.Next
-                      onClick={this.handleIncreaseRec}
-                      className="nextPage mx-1"
-                    />
-                  )}
+                      <Pagination.Next
+                        onClick={this.handleIncreaseRec}
+                        className="nextPage mx-1"
+                      />
+                    )}
                 </Pagination>
               </div>
             </div>

@@ -66,7 +66,7 @@ class Lisiting extends Component {
     getAmenities();
     getFacilities();
     getPropertyType();
-    this.setState({ data: data }, () => {});
+    this.setState({ data: data }, () => { });
   }
   componentWillReceiveProps() {
     console.log(this.props.location);
@@ -199,25 +199,25 @@ class Lisiting extends Component {
             <div className="mt-3 d-flex justify-content-center"></div>
           </>
         ) : (
-          <>
-            <Modal
-              size="lg"
-              aria-labelledby="contained-modal-title-vcenter"
-              centered={true}
-              show={true}
-            >
-              <Modal.Body>
-                <Row className="text-center">
-                  <Col>
-                    <Spinner animation="border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </Spinner>
-                  </Col>
-                </Row>
-              </Modal.Body>
-            </Modal>
-          </>
-        )}
+            <>
+              <Modal
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered={true}
+                show={true}
+              >
+                <Modal.Body>
+                  <Row className="text-center">
+                    <Col>
+                      <Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </Spinner>
+                    </Col>
+                  </Row>
+                </Modal.Body>
+              </Modal>
+            </>
+          )}
       </div>
     );
   }
