@@ -10,6 +10,7 @@ import {
 } from "../../../Redux/authentication/actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import customer from "../../../assets/images/customer.png"
 
 class NavBar extends Component {
   constructor(props) {
@@ -38,13 +39,13 @@ class NavBar extends Component {
     });
     closeRegisterModal();
   };
-  handleLogout =()=>{
+  handleLogout = () => {
     const { logoutUser } = this.props
     logoutUser()
   }
 
   render() {
-    const { isAuth} = this.props;
+    const { isAuth } = this.props;
     return (
       <div>
         <Navbar
@@ -60,16 +61,14 @@ class NavBar extends Component {
           </Link>
 
           <div className="d-flex">
-            <i
-              className="fa fa-bars mt-3 px-2 fa-lg"
-              style={{ cursor: "pointer" }}
-              aria-hidden="true"
-            ></i>
+            <div> <img src={customer} className="customerIcon" /> </div>
+
             <DropdownButton
               alignRight
               title=""
               id="dropdown-menu-align-right"
               className="nav-dropdown-main"
+
             >
               {!isAuth ? (
                 <>
@@ -82,13 +81,13 @@ class NavBar extends Component {
                   </Dropdown.Item>
                 </>
               ) : (
-                <>
-                  <Dropdown.Item>Name of user</Dropdown.Item>
-                  <Dropdown.Item onClick={this.handleLogout}>
-                    Logout
+                  <>
+                    <Dropdown.Item>Name of user</Dropdown.Item>
+                    <Dropdown.Item onClick={this.handleLogout}>
+                      Logout
                   </Dropdown.Item>
-                </>
-              )}
+                  </>
+                )}
               <Dropdown.Divider />
               <Dropdown.Item>Host Your Home</Dropdown.Item>
               <Dropdown.Item>Host an Experience</Dropdown.Item>

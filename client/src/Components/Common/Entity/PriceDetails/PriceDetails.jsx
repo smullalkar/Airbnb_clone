@@ -45,7 +45,7 @@ class PriceDetails extends Component {
     this.setState({ showWarning: false });
   }
 
-  handleReserve = () => {};
+  handleReserve = () => { };
 
   handleChange = ({ startDate, endDate }) => {
     this.setState({
@@ -64,15 +64,15 @@ class PriceDetails extends Component {
       if (bookedDates.length !== 0 && bookedDates[0].data[0] !== undefined) {
         if (
           bookedDates[0].data[0].bookingDate.split(" ")[0] <=
-            startDate._d.toLocaleDateString().split("/").join("-") &&
+          startDate._d.toLocaleDateString().split("/").join("-") &&
           bookedDates[0].data[0].bookingDate.split(" ")[0] >=
-            endDate._d.toLocaleDateString().split("/").join("-")
+          endDate._d.toLocaleDateString().split("/").join("-")
         ) {
           let start = new Date(startDate._d);
           let end = new Date(endDate._d);
           let diffTime = Math.abs(end - start);
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-          this.setState({ showWarning: true, noOfDays: diffDays }, () => {});
+          this.setState({ showWarning: true, noOfDays: diffDays }, () => { });
         } else {
           let start = new Date(startDate._d);
           let end = new Date(endDate._d);
@@ -152,14 +152,14 @@ class PriceDetails extends Component {
     const { totalPrice } = this.props;
     return (
       <div>
-        <Card className={styles.pricedetailsCard}>
+        <Card className={styles.priceDetailsCard}>
           <Card.Body>
             <div className="d-flex flex-row justify-content-between">
               <Card.Text className={styles.priceCont}>
                 <span className={styles.amountSpan}>₹{home.price} </span> /
                 night
               </Card.Text>
-              <Card.Text>
+              <Card.Text >
                 <div className="d-flex align-items-center">
                   <span className={styles.ratingStar}>&#9733;</span>
                   <span className={styles.rating}>{home.rating}</span>
@@ -167,7 +167,7 @@ class PriceDetails extends Component {
                 </div>
               </Card.Text>
             </div>
-            <Card>
+            <Card className={styles.addDateCard} >
               <Card.Body>
                 <div>
                   <Form.Group className={styles.formGroup}>
@@ -218,8 +218,8 @@ class PriceDetails extends Component {
               </Col>
             </Row>
             <Button
-              className="mt-2"
-              size="lg"
+              className="my-3"
+              size="md"
               block
               onClick={this.handleReserve}
             >
@@ -231,8 +231,8 @@ class PriceDetails extends Component {
                   Reserve
                 </Link>
               ) : (
-                <span>Reserve</span>
-              )}
+                  <span>Reserve</span>
+                )}
             </Button>
             <Card.Text className={styles.helperText}>
               You won't be charged yet{" "}

@@ -24,103 +24,113 @@ class ExploreMore extends Component {
                         <p className="text-muted">Flats <span className="mx-2">&bull;</span>  Bed and breakfasts <span className="mx-2">&bull;</span> Lofts <span className="mx-2">&bull;</span> Villas <span className="mx-2">&bull;</span> Apartments</p>
                     </div>
                     <div className="row">
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                San Francisco
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Chennai
       </a>
-                        </div>
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                New York
-      </a>
-                        </div>
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Seattle
-      </a>
-                        </div>
-                        <div className="col-3 text-left">
-                            {" "}
-                            <a className={styles.aTag} href="#">
+                            <div className="col-md-3 col-12 text-left">
                                 {" "}
-                                Los Angeles
+                                <hr />{" "}
+                            </div>
+                        </div>
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Mumbai
       </a>
+                            <div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
+                        </div>
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Kolkata
+      </a>
+                            <div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
+                        </div>
+                        <div className="col-md-3 col-12 text-left">
+                            {" "}
+                            <a className={styles.aTag} href="www.google.com">
+                                {" "}
+                                New Delhi
+      </a>
+                            <div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
                         </div>
                     </div>
+
                     <div className="row">
-                        <div className="col-3 text-left">
-                            {" "}
-                            <hr />{" "}
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Kochi
+      </a><div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
                         </div>
-                        <div className="col-3 text-left">
-                            {" "}
-                            <hr />
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Lucknow
+      </a><div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
                         </div>
-                        <div className="col-3 text-left">
-                            <hr />
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Jaipur
+      </a><div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
                         </div>
-                        <div className="col-3 text-left">
-                            <hr />
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Goa
+      </a><div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
                         </div>
                     </div>
+
                     <div className="row">
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Denver
-      </a>
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Amritsar
+      </a><div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
                         </div>
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Washington Dc
-      </a>
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Hyderabad
+      </a><div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
                         </div>
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Phoenix
-      </a>
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Andamans
+      </a><div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
                         </div>
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Austin
-      </a>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-3 text-left">
-                            {" "}
-                            <hr />{" "}
-                        </div>
-                        <div className="col-3 text-left">
-                            {" "}
-                            <hr />
-                        </div>
-                        <div className="col-3 text-left">
-                            <hr />
-                        </div>
-                        <div className="col-3 text-left">
-                            <hr />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Houston
-      </a>
-                        </div>
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                New orieans
-      </a>
-                        </div>
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Boston
-      </a>
-                        </div>
-                        <div className="col-3 text-left">
-                            <a className={styles.aTag} href="#">
-                                Miami
-      </a>
+                        <div className="col-md-3 col-12 text-left">
+                            <a className={styles.aTag} href="www.google.com">
+                                Assam
+      </a><div className="col-md-3 col-12 text-left">
+                                {" "}
+                                <hr />{" "}
+                            </div>
                         </div>
                     </div>
                 </div>

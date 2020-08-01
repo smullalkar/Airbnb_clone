@@ -121,8 +121,6 @@ class AddGuestsEntity extends Component {
                 </div>
               </div>
             </div>
-            <hr />
-            <span className={styles.close}>close</span>
           </Card.Body>
         </Card>
       </div>

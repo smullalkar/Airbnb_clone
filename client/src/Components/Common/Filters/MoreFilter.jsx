@@ -451,3 +451,4 @@ const mapStateToProps = (state) => ({
   propertyTypes: state.userReducer.propertyTypes,
 });
 export default connect(mapStateToProps, null)(MoreFilter);
+// export default MoreFilter;

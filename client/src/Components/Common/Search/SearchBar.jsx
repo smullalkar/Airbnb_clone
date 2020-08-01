@@ -19,9 +19,9 @@ class Search extends Component {
       endDate: null,
       focusedInput: "",
       location: "",
-      children: "",
-      adults: "",
-      infants: "",
+      children: 0,
+      adults: 0,
+      infants: 0,
       page_no: 1,
       query: "",
       showGuests: false,
@@ -91,24 +91,29 @@ class Search extends Component {
     if (page_no > 1) {
       string.append("page_no", page_no);
     }
-    this.setState({ query: string.toString() }, () => {});
+    this.setState({ query: string.toString() }, () => { });
   };
-
-  onFormGroupClick = (e) => {
+  openGuest = (e) => {
     e.preventDefault();
     this.setState({
-      showGuests: !this.state.showGuests,
-    });
-  };
+      showGuests: true
+    })
+  }
+
+  saveGuests = (e) => {
+    e.preventDefault();
+    this.setState({
+      showGuests: false
+    })
+  }
 
   updateGuestCount = (key) => {
     const { obj } = this.state;
     obj[key] = Number(this.state[key]) + 1;
     obj.guestCount = this.state.guestCount + 1;
-    this.setState({ obj: obj }, () => {
-      this.handleQuery();
-    });
-  };
+    this.setState(obj)
+    this.handleQuery();
+  }
 
   removeGuest = (key) => {
     const { obj } = this.state;
@@ -117,10 +122,26 @@ class Search extends Component {
     if (obj.guestCount < 0) {
       obj.guestCount = 0;
     }
-    this.setState({ obj: obj }, () => {
-      this.handleQuery();
-    });
-  };
+    this.setState(obj)
+    this.handleQuery();
+
+  }
+
+  getGuestPlaceholder = () => {
+    let result = '';
+    if (this.state.adults > 0) {
+      result = `Adults ${this.state.adults}`;
+    }
+    if (this.state.children > 0) {
+      result += ` Children ${this.state.children}`;
+    }
+    if (this.state.infants > 0) {
+      result += ` Infants ${this.state.infants}`;
+    }
+    return result
+  }
+
+
 
   render() {
     let { query, location } = this.state;
@@ -174,29 +195,20 @@ class Search extends Component {
             ></DateRangePicker>
           </Form.Group>
 
-          <Form.Group
-            className={`${styles.formGroup} d-none d-md-block`}
-            onClick={this.onFormGroupClick}
-          >
+          <Form.Group className={`${styles.formGroup} d-none d-md-block`} onClick={(e) => e.preventDefault()}>
             <Form.Label className={styles.formLabel}>GUESTS</Form.Label>
 
             <Form.Control
               className={styles.formControl}
               type="text"
               name="adults"
+              onFocus={this.openGuest}
               onChange={this.handleChange}
-              placeholder="add guest"
-              value={this.state.obj.guestCount}
+              placeholder={this.state.guestCount === 0 ? 'add guest' : this.getGuestPlaceholder()}
             />
 
-            <AddGuests
-              adults={this.state.adults}
-              children={this.state.children}
-              infants={this.state.infants}
-              showGuests={this.state.showGuests}
-              addGuest={this.updateGuestCount}
-              removeGuest={this.removeGuest}
-            />
+            <AddGuests adults={this.state.adults} children={this.state.children} infants={this.state.infants} showGuests={this.state.showGuests} addGuest={this.updateGuestCount} removeGuest={this.removeGuest}
+              saveGuests={this.saveGuests} />
           </Form.Group>
 
           <Form.Group className={styles.formGroup}>

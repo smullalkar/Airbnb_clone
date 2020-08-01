@@ -19,12 +19,13 @@ class Review extends Component {
             <span className="mx-1">{rates && Number(rates).toFixed(2)}</span>
             <span className="mx-1">({rateCount} reviews)</span>
           </h2>
-          <Row xs={2} className="my-2">
-            <Col>
-              {reviews &&
-                reviews.data &&
-                reviews.data.map((item) => (
-                  <>
+          <Row xs={1} md={2} className="my-3">
+
+            {reviews &&
+              reviews.data &&
+              reviews.data.map((item) => (
+                <Col>
+                  <div>
                     <div
                       kye={uuidv4()}
                       className="d-flex flex-row justify-content-start align-items-center"
@@ -36,21 +37,16 @@ class Review extends Component {
                           alt="reviewer"
                         />
                       </div>
-                      <div className="ml-1">
-                        <div>
-                          <h6 className={styles.reviewerName}>
-                            {item.firstname} {item.lastname}
-                          </h6>
-                        </div>
-                        <div className={styles.reviewedDate}>
-                          {item.createdAt.split(" ")[0]}
-                        </div>
+                      <div className={styles.reviewedDate}>
+                        {item.createdAt.split(" ")[0]}
                       </div>
                     </div>
-                    <p className={styles.reviewText}>{item["review "]}</p>
-                  </>
-                ))}
-            </Col>
+                  </div>
+
+                  <p className={styles.reviewText}>{item["review "]}</p>
+                </Col>
+              ))}
+
           </Row>
         </div>
       </div>
@@ -64,4 +60,3 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, null)(Review);
 
-// export default Review;
