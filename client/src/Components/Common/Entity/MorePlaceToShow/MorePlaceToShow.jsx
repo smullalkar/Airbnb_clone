@@ -158,7 +158,7 @@ class MorePlaceToShow extends Component {
                 </Pagination>
               </div>
             </div>
-            <div className="d-flex flex-row justify-content-between overflow-auto">
+            <div className="d-flex flex-row">
               {doneRecArr &&
                 doneRecArr.map((item) => (
                   <>

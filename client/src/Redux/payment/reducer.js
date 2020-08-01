@@ -1,7 +1,8 @@
 import { GET_DETAILS_OF_BOOKING } from "./actionTypes"
 
 const initState = {
-    bookingDetails: []
+    bookingDetails: [],
+    otherDetails : []
 }
 
 const paymentReducer = (state = initState, { type, payload }) => {
@@ -10,7 +11,9 @@ const paymentReducer = (state = initState, { type, payload }) => {
             console.log(payload)
             return {
                 ...state,
-                bookingDetails : payload
+                bookingDetails : payload[0],
+                otherDetails : payload[1]
+
             }
         default:
             return {

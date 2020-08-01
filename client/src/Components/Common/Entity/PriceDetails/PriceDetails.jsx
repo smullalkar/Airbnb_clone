@@ -96,7 +96,7 @@ class PriceDetails extends Component {
               },
               () => {
                 console.log(this.state);
-                this.props.getDetailsOfBooking({
+                this.props.getDetailsOfBooking([{
                   total_bill: this.state.total_bill || 1,
                   total_per_day: this.state.total_per_day,
                   user_id: user.user_id,
@@ -108,7 +108,7 @@ class PriceDetails extends Component {
                   checkin: startDate._d.getFullYear() + '-' + (startDate._d.getMonth()+1) + '-' + startDate._d.getDate(),
                   checkout: endDate._d.getFullYear() + '-' + (endDate._d.getMonth()+1) + '-' + endDate._d.getDate(),
                   property_id: data[0].data.data[0].property_id,
-                });
+                },{price : this.state.home.price, noOfDays : this.state.noOfDays }]);
               }
             );
           });
