@@ -86,13 +86,13 @@ class PriceFilter extends Component {
               >
                 {" "}
                 <Dropdown.Item>
-                  <div
+                  <Link
                     to={query.toString()}
                     style={{ color: "white", textDecoration: "none" }}
                   >
                     {" "}
                     Save
-                  </div>{" "}
+                  </Link>{" "}
                 </Dropdown.Item>
               </button>
             </div>

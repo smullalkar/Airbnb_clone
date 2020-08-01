@@ -16,7 +16,10 @@ import "react-dates/lib/css/_datepicker.css";
 
 import { calculateTotalPrice } from "../../../../Redux/entity/actions";
 import { getDetailsOfBooking } from "../../../../Redux/payment/actions";
-import { tokenValidateUser } from "../../../../Redux/authentication/actions";
+import {
+  tokenValidateUser,
+  closeLoginModal,
+} from "../../../../Redux/authentication/actions";
 import { Link } from "react-router-dom";
 
 class PriceDetails extends Component {
@@ -42,8 +45,7 @@ class PriceDetails extends Component {
     this.setState({ showWarning: false });
   }
 
-  handleReserve = () => {
-  };
+  handleReserve = () => { };
 
   handleChange = ({ startDate, endDate }) => {
     this.setState({
@@ -51,8 +53,13 @@ class PriceDetails extends Component {
       endDate,
       showWarning: false,
     });
-    const { bookedDates, getDetailsOfBooking, user } = this.props;
+    const { bookedDates, user, isAuth, closeLoginModal } = this.props;
     const { data } = this.props;
+    let token = localStorage.getItem("token")
+    if (!isAuth || token === "" || token === undefined) {
+      closeLoginModal();
+    }
+
     if (startDate && endDate) {
       if (bookedDates.length !== 0 && bookedDates[0].data[0] !== undefined) {
         if (
@@ -84,8 +91,8 @@ class PriceDetails extends Component {
                   (this.state.home.price * 18) / 100 + this.state.home.price,
                 user_id: user.user_id,
                 gst: 18,
-                checkin: startDate._d.getFullYear() + '/' + (startDate._d.getMonth()+1) + '/' + startDate._d.getDate(),
-                checkout: endDate._d.getFullYear() + '/' + (endDate._d.getMonth()+1) + '/' + endDate._d.getDate()
+                checkin: startDate._d.getFullYear() + '-' + (startDate._d.getMonth()+1) + '-' + startDate._d.getDate(),
+                checkout: endDate._d.getFullYear() + '-' + (endDate._d.getMonth()+1) + '-' + endDate._d.getDate()
               },
               () => {
                 console.log(this.state);
@@ -98,8 +105,8 @@ class PriceDetails extends Component {
                   email: user.email,
                   phone: user.phone,
                   gst: 18,
-                  checkin: startDate._d.getFullYear() + '/' + (startDate._d.getMonth()+1) + '/' + startDate._d.getDate(),
-                  checkout: endDate._d.getFullYear() + '/' + (endDate._d.getMonth()+1) + '/' + endDate._d.getDate(),
+                  checkin: startDate._d.getFullYear() + '-' + (startDate._d.getMonth()+1) + '-' + startDate._d.getDate(),
+                  checkout: endDate._d.getFullYear() + '-' + (endDate._d.getMonth()+1) + '-' + endDate._d.getDate(),
                   property_id: data[0].data.data[0].property_id,
                 });
               }
@@ -129,14 +136,14 @@ class PriceDetails extends Component {
     const { totalPrice } = this.props;
     return (
       <div>
-        <Card className={styles.pricedetailsCard}>
+        <Card className={styles.priceDetailsCard}>
           <Card.Body>
             <div className="d-flex flex-row justify-content-between">
               <Card.Text className={styles.priceCont}>
                 <span className={styles.amountSpan}>₹{home.price} </span> /
                 night
               </Card.Text>
-              <Card.Text>
+              <Card.Text >
                 <div className="d-flex align-items-center">
                   <span className={styles.ratingStar}>&#9733;</span>
                   <span className={styles.rating}>{home.rating}</span>
@@ -144,7 +151,7 @@ class PriceDetails extends Component {
                 </div>
               </Card.Text>
             </div>
-            <Card>
+            <Card className={styles.addDateCard} >
               <Card.Body>
                 <div>
                   <Form.Group className={styles.formGroup}>
@@ -195,8 +202,8 @@ class PriceDetails extends Component {
               </Col>
             </Row>
             <Button
-              className="mt-2"
-              size="lg"
+              className="my-3"
+              size="md"
               block
               onClick={this.handleReserve}
             >
@@ -255,12 +262,14 @@ const mapStateToProps = (state) => ({
   bookedDates: state.entityReducer.bookedDates,
   totalPrice: state.entityReducer.totalPrice,
   user: state.authReducer.user,
+  isAuth: state.authReducer.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   calculateTotalPrice: (payload) => dispatch(calculateTotalPrice(payload)),
   getDetailsOfBooking: (payload) => dispatch(getDetailsOfBooking(payload)),
   tokenValidateUser: (payload) => dispatch(tokenValidateUser(payload)),
+  closeLoginModal: () => dispatch(closeLoginModal()),
 });
 // export default PriceDetails;
 export default connect(mapStateToProps, mapDispatchToProps)(PriceDetails);

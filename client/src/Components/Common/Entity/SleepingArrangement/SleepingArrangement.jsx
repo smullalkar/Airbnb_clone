@@ -24,7 +24,7 @@ class SleepingArrangement extends Component {
     return (
       <div className="p-4">
         <h4 className="font-weight-bold">Sleeping arrangements</h4>
-        <div className="d-flex flex-row">
+        <div className="d-flex flex-row" sm={12} md={6}>
           <Card className={styles.bedArrangement}>
             <Card.Body>
               <div className="d-flex flex-row justify-content-between">
@@ -40,21 +40,7 @@ class SleepingArrangement extends Component {
               </div>
             </Card.Body>
           </Card>
-          {/* <Card className={styles.bedArrangement}>
-            <Card.Body>
-              <div className="d-flex flex-row justify-content-between">
-                <div>
-                  <img src={singlebed} alt="" className="m-2" />
-                </div>
-              </div>
-              <div>
-                <span>Beedroom</span> <span>2</span>
-              </div>
-              <div>
-                <span>1</span> <span>single bed</span>
-              </div>
-            </Card.Body>
-          </Card> */}
+
         </div>
       </div>
     );

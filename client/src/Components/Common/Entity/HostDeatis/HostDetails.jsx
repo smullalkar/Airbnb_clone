@@ -14,16 +14,16 @@ class HostDetails extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { data } = this.props;
     if (prevState.data.length === 0) {
-      data.map((item) => this.setState({ data: item.data.data[0] }, () => {}));
+      data.map((item) => this.setState({ data: item.data.data[0] }, () => { }));
     }
   }
   render() {
-    const { data, hostInfo } = this.state;
-    // console.log("data",data);
+    const { data } = this.state;
+    const { hostInfo } = this.props;
     return (
       <div className="p-4">
         <div className="row">
-          <div className="col-8">
+          <div className="col-12 col-md-8">
             <div className="d-flex flex-row justify-content-start align-items-center">
               <div className={styles.hostAvatarContainer}>
                 <img
@@ -64,15 +64,7 @@ class HostDetails extends Component {
               </div>
             </div>
 
-            <div className={styles.entityDetailPara}>
-              {data.description}
-              <div>
-                <h6 className="mx-1">
-                  <a className={styles.alertLink}>Read More</a>
-                </h6>
-              </div>
-            </div>
-
+            <div className={styles.entityDetailPara}>{data.description}</div>
             <div>
               <h6 className="font-weight-bold">During your stay</h6>
               <p className="text-muted">
@@ -80,16 +72,12 @@ class HostDetails extends Component {
                 stay.
               </p>
             </div>
-
             <div>
               <h6 className="font-weight-bold">
-                {hostInfo &&
-                  hostInfo.data &&
+                {hostInfo && hostInfo.data &&
                   hostInfo.data.map((item) => (
-                    <>
-                      <span>{item.firstname + " " + item.lastname}</span>
-                    </>
-                  ))}{" "}
+                    <span>{item.firstname + " " + item.lastname} </span>
+                  ))}
                 is a Superhost
               </h6>
               <p className="text-muted">
@@ -99,7 +87,7 @@ class HostDetails extends Component {
             </div>
           </div>
 
-          <div className="col-4">
+          <div className="col-12 col-md-4">
             <div>
               <span>Response rate </span> <span> &#58; </span> <span>100%</span>
             </div>
@@ -113,8 +101,12 @@ class HostDetails extends Component {
                 hostInfo.data &&
                 hostInfo.data.map((item) => (
                   <>
-                    <div> {item.firstname + " " + item.lastname}</div>
-                    <div> {item.email}</div>
+                    <div className="pt-2">
+                      {" "}
+                      {item.firstname + " " + item.lastname}
+                    </div>
+                    <div className="pt-2"> {item.email}</div>
+                    <div className="pt-2 pb-2"> {item.phone}</div>
                   </>
                 ))}{" "}
             </div>

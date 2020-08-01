@@ -19,7 +19,7 @@
 }
 
 .btn.btn-primary {
-  background: #dd0f62;
+  background: #FF5A5F;
   font-size: 14px;
   font-weight: 700;
   border-color: black;
@@ -142,13 +142,11 @@
   opacity: 0.5;
 }
 
-.nav-tabs .nav-link:focus,
-.nav-tabs .nav-link:hover {
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
   border: none;
 }
 
-.nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
   color: white;
   border-bottom: 2px solid white;
   border-top: none;
@@ -226,21 +224,18 @@
   border: none;
 }
 
-.prevPage .page-link,
-.nextPage .page-link {
+.prevPage .page-link, .nextPage .page-link {
   border-radius: 50%;
   padding: 4px 12px;
   color: black;
   background-color: #fff;
   border: none;
-  box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
-    0px 2px 4px rgba(0, 0, 0, 0.18) !important;
+  box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent, 0px 2px 4px rgba(0, 0, 0, 0.18) !important;
   border-top-right-radius: 12px !important;
   border-bottom-right-radius: 12px !important;
 }
 
-.nextPage span,
-.prevPage span {
+.nextPage span, .prevPage span {
   font-size: 22px;
 }
 
@@ -289,8 +284,7 @@ input[type="checkbox"] {
   border-bottom-right-radius: 12px;
 }
 
-.btn-group-lg > .btn,
-.btn-lg {
+.btn-group-lg>.btn, .btn-lg {
   border-radius: 22px;
   padding: 20px 30px 20px 30px;
 }
@@ -307,6 +301,7 @@ button:focus {
   font-weight: 300;
   font-size: 13px;
 }
+
 .breadcrumb-item a {
   color: #222;
 }
@@ -315,7 +310,8 @@ button:focus {
   font-weight: 700;
   color: #222;
 }
-.breadcrumb-item + .breadcrumb-item::before {
+
+.breadcrumb-item+.breadcrumb-item::before {
   content: " \203A";
   font-size: 14px;
   font-weight: 500;

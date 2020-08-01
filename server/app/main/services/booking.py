@@ -14,8 +14,8 @@ def add_booking(payload):
     try:
         propertyId = payload["property_id"]
         userId = payload["user_id"]
-        checkInDate = payload["checkin"]
-        checkOutDate = payload["checkout"]
+        checkInDate = str(payload["checkin"])+' 00:00:00'
+        checkOutDate = str(payload["checkout"])+' 00:00:00'
         amountPaid = payload["total_bill"]
         gst = payload["gst"]
         totalPD = payload["total_per_day"]
@@ -50,14 +50,14 @@ def add_booking(payload):
     db.session.commit()
     
     if int(totalstay) > 1:
-        date_time_obj = datetime.datetime.strptime(str(checkInDate), '%Y-%m-%d %H:%M:%S')
+        date_time_obj = datetime.datetime.strptime(checkInDate, '%Y-%m-%d %H:%M:%S')
         for i in range(int(totalstay)-1):
             book = BookingModel(
                 propertyId = propertyId,
                 userId = userId,
                 amountPaid = amountPaid,
                 createdAt = createdAt,
-                bookingDate = checkInDate + datetime.timedelta(days=i+1),
+                bookingDate = date_time_obj + datetime.timedelta(days=i+1),
                 status = True
             )
             

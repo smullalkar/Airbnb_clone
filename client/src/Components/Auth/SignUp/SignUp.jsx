@@ -33,6 +33,7 @@ class SignUp extends Component {
       isErrorPassword: false,
       isErrorPhone: false,
       isAgreeTerms: false,
+      isWarn: false,
     };
   }
   responseFacebook = (response) => {
@@ -117,14 +118,14 @@ class SignUp extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isSignup === this.state.isSignup) {
-      console.log(prevState.isSignup, this.state.isSignup);
       if (this.props.payload) {
-        console.log(this.props.payload);
         const { error, token } = this.props.payload;
-        const { closeLoginModal, closeRegisterModal } = this.props;
+        if (error === true) {
+          this.setState({ isWarn: true });
+        }
         if (error === false && this.state.isSignup === false) {
+          localStorage.setItem("token", token);
           this.setState({ isSignup: true });
-          // closeRegisterModal()
         }
       }
     }
@@ -132,12 +133,11 @@ class SignUp extends Component {
 
   handleClose = () => {
     const { closeRegisterModal } = this.props;
-    // closeRegisterModal();
+    closeRegisterModal();
   };
 
   render() {
     const { handleFinishSignUpClose, isShowRegisterModal } = this.props;
-    console.log(isShowRegisterModal);
     const {
       isErrorName,
       isErrorEmail,
@@ -145,6 +145,7 @@ class SignUp extends Component {
       isErrorPassword,
       isErrorPhone,
       isAgreeTerms,
+      isWarn
     } = this.state;
     return (
       <div>
@@ -240,9 +241,7 @@ class SignUp extends Component {
                 </span>
               )}
             </Form.Text>
-
             <hr />
-
             <Form.Group>
               <div className="border mt-1" style={{ borderRadius: 5 }}>
                 <Form.Control
@@ -455,6 +454,24 @@ class SignUp extends Component {
                 cookiePolicy={"single_host_origin"}
               />
             </div>
+            {isWarn ? (
+              <div style={{ color: "red", fontSize: 15, paddingTop: 5 }}>
+                <svg
+                  style={{ width: 20 }}
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>{" "}
+                <span className="mr-2">
+                  Something went Wrong. Please Try Again !!
+                </span>
+              </div>
+            ) : null}
           </Modal.Body>
         </Modal>
       </div>

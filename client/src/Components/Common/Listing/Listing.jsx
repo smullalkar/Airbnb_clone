@@ -26,6 +26,7 @@ import {
   getFacilities,
   getPropertyType,
 } from "../../../Redux/user/actions";
+import MapContainer from "../GoogleMap/MapContainer";
 
 class Lisiting extends Component {
   constructor(props) {
@@ -46,7 +47,6 @@ class Lisiting extends Component {
       getFacilities,
       getPropertyType,
     } = this.props;
-    console.log(data);
     var query = new URLSearchParams(window.location.href);
     let param = decodeURIComponent(query)
       .split("&")
@@ -66,15 +66,18 @@ class Lisiting extends Component {
     getAmenities();
     getFacilities();
     getPropertyType();
-    this.setState({ data: data });
+    this.setState({ data: data }, () => {});
   }
-
+  componentWillReceiveProps() {
+    console.log(this.props.location);
+    let link = window.location.href.split("%2F");
+    link.shift();
+    console.log("link it is", link.join(""));
+  }
+  
   componentDidUpdate(prevProps, prevState) {
-    // console.log(" listing ", this.props.data);
-    // if (this.state.data.length === 0 && this.props.data.length !== 0) {
-    //   this.setState({ data: this.props.data });
-    // }
-    if (this.props.data && this.props.data.length !== 0) {
+    const { getData } = this.props;
+    if (prevProps.location.pathname !== this.props.location.pathname) {
       var query = new URLSearchParams(window.location.href);
       let param = decodeURIComponent(query)
         .split("&")
@@ -82,14 +85,12 @@ class Lisiting extends Component {
       var obj = {};
       param.forEach((item) => {
         let parameter = item.split("=");
-          if (parameter[1] !== "") {
-          if (!obj[parameter[0]]) {
-            obj[parameter[0]] = parameter[1];
-          }
+        if (!obj[parameter[0]]) {
+          obj[parameter[0]] = parameter[1];
         }
       });
+      getData(obj);
     }
-    getData(obj);
   }
 
   handleMoreFiltersClose = () => {
@@ -97,13 +98,13 @@ class Lisiting extends Component {
   };
 
   render() {
-    const {
-      isLoading,
-      showCancellationFlexibility,
-      data,
-      showCancellation,
-    } = this.props;
-    console.log(isLoading);
+    var co_ordinates = [];
+    const { isLoading, data } = this.props;
+    if (data && data.length != 0) {
+      data.map((item) =>
+        co_ordinates.push({ lat: Number(item.lat), lng: Number(item.lng) })
+      );
+    }
     return (
       <div>
         {!isLoading ? (
@@ -189,7 +190,9 @@ class Lisiting extends Component {
                 <ListItem item={this.props.data} />
               </Col>
             </div>
-
+            <div style={{ width: 200, height: 200 }}>
+              <MapContainer location={co_ordinates} />
+            </div>
             <div className="mt-3 d-flex justify-content-center">
               {/* <Pagination>
                 <Pagination.Prev className="prevPage" />

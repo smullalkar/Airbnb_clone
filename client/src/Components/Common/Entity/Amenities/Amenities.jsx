@@ -71,8 +71,8 @@ class Amenities extends Component {
         <div>
           <h4 className="font-weight-bold">Amenities</h4>
           <div className="d-flex flex-column col-6 justify-content-start">
-            <Row xs={2}>
-              <Col className={styles.amneityItem}>
+            <Row xs={1} md={2}>
+              <Col className={styles.amneityItem} sm={12} md={12} lg={6} >
                 {" "}
                 <span>
                   {" "}
@@ -81,7 +81,7 @@ class Amenities extends Component {
                 {/* {console.log(kitchen)} */}
                 <span style={kitchenA}>Kitchen</span>
               </Col>
-              <Col className={styles.amneityItem}>
+              <Col className={styles.amneityItem} sm={12} md={12} lg={6}  >
                 {" "}
                 <span>
                   {" "}
@@ -89,7 +89,7 @@ class Amenities extends Component {
                 </span>{" "}
                 <span style={wifiA}>Wifi</span>
               </Col>
-              <Col className={styles.amneityItem}>
+              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
                 {" "}
                 <span>
                   {" "}
@@ -97,7 +97,7 @@ class Amenities extends Component {
                 </span>{" "}
                 <span style={washingA}>Washing machine</span>{" "}
               </Col>
-              <Col className={styles.amneityItem}>
+              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
                 {" "}
                 <span>
                   {" "}
@@ -105,7 +105,7 @@ class Amenities extends Component {
                 </span>{" "}
                 <span style={ironingA}>Ironing</span>{" "}
               </Col>
-              <Col className={styles.amneityItem}>
+              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
                 {" "}
                 <span>
                   {" "}
@@ -117,7 +117,7 @@ class Amenities extends Component {
                 </span>
                 <span style={workSpaceA}> Workspace </span>
               </Col>
-              <Col className={styles.amneityItem}>
+              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
                 {" "}
                 <span>
                   {" "}
@@ -125,7 +125,7 @@ class Amenities extends Component {
                 </span>{" "}
                 <span style={breakfastA}>Breakfast</span>
               </Col>
-              <Col className={styles.amneityItem}>
+              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
                 {" "}
                 <span>
                   {" "}
@@ -133,7 +133,7 @@ class Amenities extends Component {
                 </span>{" "}
                 <span style={TvA}>Tv</span>
               </Col>
-              <Col className={styles.amneityItem}>
+              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
                 {" "}
                 <span>
                   {" "}
@@ -142,14 +142,16 @@ class Amenities extends Component {
                 <span style={indoorFirePlaceA}>Indoor Fire Place</span>
               </Col>
             </Row>
-            <Button
+            {/* <Button
               variant="outline-secondary"
               className={styles.showAllBtn}
               size="lg"
               onClick={() => this.setState({ showMoreAmenities: true })}
+
+
             >
               Show all amenitis
-            </Button>
+            </Button> */}
             <MoreAmeneties
               show={this.state.showMoreAmenities}
               handleMoreAmenitiesClose={this.handleMoreAmenitiesClose}

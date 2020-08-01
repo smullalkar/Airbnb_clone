@@ -46,7 +46,7 @@ def getPaymentValidation(details):
         add_booking(bookingDetails)
         if bookingDetails["phone"] != "":
             account_sid = 'ACb658045f6bab9c686ec24ce8d449990f'
-            auth_token = '7b077f26f64197d8edbfc6a805565e8f'
+            auth_token = '647033ee099edc58939dc45b93005b6e'
             client = Client(account_sid, auth_token)
 
             message = client.messages \

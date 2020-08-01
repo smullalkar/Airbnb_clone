@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import { Form, Button, Dropdown, ButtonGroup } from "react-bootstrap";
+import React, { Component, version } from "react";
+import { Form, Button } from "react-bootstrap";
 import styles from "./SearchBar.module.css";
 import { DateRangePicker } from "react-dates";
 import { Link } from "react-router-dom";
 import { getData } from "../../../Redux/user/actions";
 import { connect } from "react-redux";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import "react-dates/lib/css/_datepicker.css";
 import "react-dates/initialize";
 import "react-google-places-autocomplete/dist/index.min.css";
-import AddGuests from "./AddGuests"
+import AddGuests from "./AddGuests";
+import Autocomplete from "react-google-autocomplete";
 
 class Search extends Component {
   constructor(props) {
@@ -19,21 +19,28 @@ class Search extends Component {
       endDate: null,
       focusedInput: "",
       location: "",
-      children: "",
-      adults: "",
-      infants: "",
+      children: 0,
+      adults: 0,
+      infants: 0,
       page_no: 1,
       query: "",
       showGuests: false,
-      guestCount: 0
+      guestCount: 0,
+      obj: {},
     };
   }
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value }, () => {
       this.handleQuery();
     });
-
   };
+
+  handleCity = (e) => {
+    this.setState({ location: e.target.value }, () => {
+      this.handleQuery();
+    });
+  };
+
   componentDidMount() {
     let query = window.location.href.split("&");
     var queryString = new URLSearchParams("/location?");
@@ -49,15 +56,7 @@ class Search extends Component {
   }
   handleQuery = () => {
     let string = new URLSearchParams("/location/?");
-    const {
-      startDate,
-      endDate,
-      location,
-      children,
-      adults,
-      infants,
-      page_no,
-    } = this.state;
+    const { startDate, endDate, location, page_no, obj } = this.state;
     if (location !== "") {
       string.append("location", location);
     }
@@ -83,75 +82,91 @@ class Search extends Component {
           .join("-")
       );
     }
-    if (children !== 0) {
-      string.append("children", children);
-    }
-    if (adults !== 0) {
-      string.append("adults", adults);
-    }
-    if (infants !== 0) {
-      string.append("infants", infants);
+    let key;
+    for (key in obj) {
+      if (key !== "infants" && key !== "guestCount") {
+        string.append(key, obj[key]);
+      }
     }
     if (page_no > 1) {
       string.append("page_no", page_no);
     }
     this.setState({ query: string.toString() }, () => { });
   };
-
-  handleSearch = () => {
-    const { getData } = this.props;
-    localStorage.setItem('searchParams', JSON.stringify(this.state))
-  };
-
-  onFormGroupClick = (e) => {
+  openGuest = (e) => {
     e.preventDefault();
     this.setState({
-      showGuests: !this.state.showGuests
+      showGuests: true
+    })
+  }
+
+  saveGuests = (e) => {
+    e.preventDefault();
+    this.setState({
+      showGuests: false
     })
   }
 
   updateGuestCount = (key) => {
-    let obj = {};
-    obj[key] = Number(this.state[key]) + 1
+    const { obj } = this.state;
+    obj[key] = Number(this.state[key]) + 1;
     obj.guestCount = this.state.guestCount + 1;
     this.setState(obj)
+    this.handleQuery();
   }
 
   removeGuest = (key) => {
-    let obj = {};
-    obj[key] = Number(this.state[key]) - 1
+    const { obj } = this.state;
+    obj[key] = Number(this.state[key]) - 1;
     obj.guestCount = this.state.guestCount - 1;
     if (obj.guestCount < 0) {
-      obj.guestCount = 0
+      obj.guestCount = 0;
     }
     this.setState(obj)
+    this.handleQuery();
 
+  }
 
+  getGuestPlaceholder = () => {
+    let result = '';
+    if (this.state.adults > 0) {
+      result = `Adults ${this.state.adults}`;
+    }
+    if (this.state.children > 0) {
+      result += ` Children ${this.state.children}`;
+    }
+    if (this.state.infants > 0) {
+      result += ` Infants ${this.state.infants}`;
+    }
+    return result
   }
 
 
 
   render() {
-    let { query } = this.state;
+    let { query, location } = this.state;
     return (
       <div className="d-flex justify-content-center">
         <Form className={styles.searchContainer}>
           <Form.Group className={styles.formGroup}>
             <Form.Label className={styles.formLabel}>LOCATION</Form.Label>
-            <Form.Control
-              className={styles.formControl}
-              type="text"
-              name="location"
-              onChange={this.handleChange}
-              value={this.state.location}
-              placeholder="where you are going?"
+            <Autocomplete
+              className="form-control"
+              value={location}
+              onChange={this.handleCity}
+              placeholder="where are you going?"
+              style={{ width: "90%", height: "47px", fontSize: 12 }}
+              onPlaceSelected={(place) => {
+                this.setState(
+                  { location: place.formatted_address.split(",")[0] },
+                  () => {
+                    this.handleQuery();
+                  }
+                );
+              }}
+              types={["(regions)"]}
+              componentRestrictions={{ country: "in" }}
             />
-
-            {/* <div>
-              <GooglePlacesAutocomplete
-                onSelect={(suggestions) => console.log(suggestions)}
-              />
-            </div> */}
           </Form.Group>
           <Form.Group className={`${styles.formGroup} d-none d-md-block`}>
             <div>
@@ -180,23 +195,21 @@ class Search extends Component {
             ></DateRangePicker>
           </Form.Group>
 
-          <Form.Group className={`${styles.formGroup} d-none d-md-block`} onClick={this.onFormGroupClick} >
+          <Form.Group className={`${styles.formGroup} d-none d-md-block`} onClick={(e) => e.preventDefault()}>
             <Form.Label className={styles.formLabel}>GUESTS</Form.Label>
 
             <Form.Control
               className={styles.formControl}
               type="text"
               name="adults"
-
+              onFocus={this.openGuest}
               onChange={this.handleChange}
-              placeholder={this.state.guestCount === 0 ? 'add guest' : this.state.guestCount}
+              placeholder={this.state.guestCount === 0 ? 'add guest' : this.getGuestPlaceholder()}
             />
 
-            <AddGuests adults={this.state.adults} children={this.state.children} infants={this.state.infants} showGuests={this.state.showGuests} addGuest={this.updateGuestCount} removeGuest={this.removeGuest} />
+            <AddGuests adults={this.state.adults} children={this.state.children} infants={this.state.infants} showGuests={this.state.showGuests} addGuest={this.updateGuestCount} removeGuest={this.removeGuest}
+              saveGuests={this.saveGuests} />
           </Form.Group>
-
-
-
 
           <Form.Group className={styles.formGroup}>
             <Button className={styles.btn} onClick={this.handleSearch}>
@@ -214,7 +227,6 @@ class Search extends Component {
   }
 }
 
-// export default Search;
 const mapStateToProps = (dispatch) => ({
   getData: (payload) => dispatch(getData(payload)),
 });
