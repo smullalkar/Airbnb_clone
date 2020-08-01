@@ -69,30 +69,36 @@ class Lisiting extends Component {
     this.setState({ data: data }, () => {});
   }
   componentWillReceiveProps() {
-    if (this.state.data.length === 0) {
-      this.setState({ data: this.props.data }, () => {});
-    }
+    console.log(this.props.location);
+    let link = window.location.href.split("%2F");
+    link.shift();
+    console.log("link it is", link.join(""));
   }
   componentDidUpdate(prevProps, prevState) {
     const { getData } = this.props;
-    if (this.state.data.length === 0 && this.props.data.length !== 0) {
-      this.setState({ data: this.props.data });
-    }
+    console.log(prevState)
+    if(prevProps.location.pathname !== this.props.location.pathname){
+      console.log(this.props.location.pathname);
+      let link = window.location.href.split("%2F");
+      link.shift();
+      link = "%2F" + link.join("");
+      console.log(link)
+      // if (this.props.location.pathname !== link) {
+        var query = new URLSearchParams(window.location.href);
+        let param = decodeURIComponent(query)
+          .split("&")
+          .filter((item, index) => index > 0);
+        var obj = {};
+        param.forEach((item) => {
+          let parameter = item.split("=");
+          if (!obj[parameter[0]]) {
+            obj[parameter[0]] = parameter[1];
+          }
+        });
+        getData(obj);
+      // }
 
-    if (this.state.data !== this.props.data && this.props.data.length !== 0) {
-      var query = new URLSearchParams(window.location.href);
-      let param = decodeURIComponent(query)
-        .split("&")
-        .filter((item, index) => index > 0);
-      var obj = {};
-      param.forEach((item) => {
-        let parameter = item.split("=");
-        if (!obj[parameter[0]]) {
-          obj[parameter[0]] = parameter[1];
-        }
-      });
     }
-    getData(obj);
   }
 
   handleMoreFiltersClose = () => {

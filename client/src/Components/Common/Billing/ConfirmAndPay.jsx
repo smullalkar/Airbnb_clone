@@ -29,7 +29,7 @@ class ConfirmAndPay extends Component {
     console.log(details);
     try {
       let order_res = await axios.post(
-        "http://a5c0fa9cd169.ngrok.io/payment/getOrderId",
+        "http://50d2257d226f.ngrok.io/payment/getOrderId",
         {
           amount: Number(details["total_bill"]) * 100,
           currency: "INR",
@@ -61,7 +61,7 @@ class ConfirmAndPay extends Component {
         handler: async (response) => {
           console.log(response);
           let final_res = await axios.post(
-            "http://a5c0fa9cd169.ngrok.io/payment/getValidation",
+            "http://50d2257d226f.ngrok.io/payment/getValidation",
             {
               ...response,
             }
