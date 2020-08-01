@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Form, Button, Col, Row } from "react-bootstrap";
+import { Modal, Form, Button, Col, Row, Spinner } from "react-bootstrap";
 import styles from "./Login.module.css";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
@@ -11,6 +11,7 @@ import {
   loginUser,
   closeLoginModal,
   closeRegisterModal,
+  closeForgetPassword
 } from "../../../Redux/authentication/actions";
 
 class Login extends Component {
@@ -21,6 +22,7 @@ class Login extends Component {
       password: "",
       isSignup: false,
       isError: false,
+      isWarn: false,
     };
   }
   responseFacebook = (response) => {
@@ -56,25 +58,26 @@ class Login extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { closeLoginModal } = this.props
-    console.log(prevState);
+    const { closeLoginModal } = this.props;
     if (prevState.isSignup === this.state.isSignup) {
       if (this.props.payload) {
         const { error } = this.props.payload;
-        // let error = this.props.payload.error
-        // console.log(error)
+        if (error === true) {
+          this.setState({ isWarn: true });
+        }
         const { isSignup } = this.state;
-        console.log(isSignup, error);
-        // error === false &&
         if (isSignup === false) {
-          console.log("isSignup : ", isSignup)
           this.setState({ isSignup: true });
           closeLoginModal();
         }
       }
     }
   }
-
+  handleForgetPassword=()=>{
+    const { closeLoginModal , closeForgetPassword } = this.props
+    closeLoginModal();
+    closeForgetPassword();
+  }
 
   handleClose = () => {
     const { closeLoginModal } = this.props;
@@ -84,13 +87,12 @@ class Login extends Component {
   handleSignup = () => {
     const { closeLoginModal, closeRegisterModal } = this.props;
     closeLoginModal();
-    // closeRegisterModal();
+    closeRegisterModal();
   };
   render() {
-    const { handleLoginClose, isShowLoginModal } = this.props;
+    const { handleLoginClose, isShowLoginModal, showSpinner, forgetPassword } = this.props;
     const { isError } = this.state;
-    console.log(isShowLoginModal);
-
+    console.log(forgetPassword)
     return (
       <>
         <div>
@@ -225,6 +227,7 @@ class Login extends Component {
                       cookiePolicy={"single_host_origin"}
                     />
                   </div>
+                  { showSpinner ? <img src="/803-1.gif" alt=""/> : null}
                   <div className="d-flex mt-4">
                     <Form.Text muted className="mx-2">
                       Don’t have an account?
@@ -242,6 +245,7 @@ class Login extends Component {
                       Sign up
                     </Link>
                   </div>
+                      <div onClick={this.handleForgetPassword}> Forget password</div>
                 </div>
               </Form.Group>
             </Modal.Body>
@@ -259,6 +263,8 @@ const mapStateToProps = (state) => ({
   error: state.authReducer.error,
   errorMessage: state.authReducer.errorMessage,
   isShowLoginModal: state.authReducer.isShowLoginModal,
+  showSpinner:state.authReducer.showSpinner,
+  forgetPassword:state.authReducer.forgetPassword
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -267,5 +273,6 @@ const mapDispatchToProps = (dispatch) => ({
   loginUser: (payload) => dispatch(loginUser(payload)),
   closeLoginModal: () => dispatch(closeLoginModal()),
   closeRegisterModal: () => dispatch(closeRegisterModal()),
+  closeForgetPassword: ()=> dispatch(closeForgetPassword())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

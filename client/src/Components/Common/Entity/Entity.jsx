@@ -8,7 +8,7 @@ import {
   getSimilarProperties,
   getReview,
 } from "../../../Redux/entity/actions";
-
+import { v4 as uuidv4 } from "uuid";
 import Amenities from "./Amenities/Amenities";
 import HostDetails from "./HostDeatis/HostDetails";
 import MorePlaceToStay from "./MorePlaceToShow/MorePlaceToShow";
@@ -18,15 +18,18 @@ import SleepingArrangement from "./SleepingArrangement/SleepingArrangement";
 
 // import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
-import styles from "./Entity.module.css";
 import { Col, Row, Container } from "react-bootstrap";
+import DayPicker from "react-day-picker";
+import "react-day-picker/lib/style.css";
+
+import styles from "./Entity.module.css";
 
 import clean from "../../../assets/images/clean.png";
 import map from "../../../assets/images/map.svg";
 import medal from "../../../assets/images/superhost.png";
 import homeImage from "../../../assets/images/home.png";
 import Review from "./Review/Review";
-
+import { closeCancellationFlexibility } from "../../../Redux/user/actions";
 
 class Entity extends Component {
   constructor(props) {
@@ -46,13 +49,12 @@ class Entity extends Component {
   componentDidMount() {
     const { getData, getBookedDates, getHostInfo, getReview } = this.props;
     let query = window.location.href.split("&");
-    console.log(query);
     let newQuery = query[query.length - 1].split("/entity/");
     newQuery = newQuery[newQuery.length - 1].split("_")[1];
     this.setState({ id: newQuery });
     getData({ property_id: Number(newQuery) });
-    getBookedDates({ property_id: Number(newQuery) });
-    getReview({ peroperty_id: Number(newQuery) });
+    getBookedDates({ propertyId: Number(newQuery) });
+    getReview({ property_id: Number(newQuery) });
     getHostInfo({ owner_id: Number(newQuery) });
     this.setState({ id: newQuery });
   }
@@ -67,60 +69,41 @@ class Entity extends Component {
       data,
       bookedDates,
       getRecommendation,
-      hostInfo,
       getSimilarProperties,
     } = this.props;
-    const { home, images, id } = this.state;
-    var obj = {},
-      similarity = {};
-    console.log(this.props.data);
+    console.log(bookedDates);
+    const { home, id } = this.state;
+    var obj = {};
     if (prevState.home.length === 0) {
-      data.map((item) => this.setState({ home: item.data.data[0] }, () => { }));
-      if (home.images) {
-        let img = home.images.split(",");
-        img = img.map((item) => item.split(" ").join(""));
-        this.setState({ images: img });
+      if (data.length !== 0) {
+        this.setState({ home: data.data[0] }, () => { });
+        if (home.images) {
+          let img = home.images.split(",");
+          img = img.map((item) => item.split(" ").join(""));
+          this.setState({ images: img });
+        }
       }
       let query = window.location.href.split("&");
+      obj.location = query[1].split("=")[1];
+      let url = new URLSearchParams(`location=${query[1].split("=")[1]}`);
       query = query[query.length - 1].split("/entity");
-      query.forEach((item) => {
-        let param = item.split("=");
-        if (param[0] === "location") {
-          obj.location = param[1];
-          similarity.location = param[1];
-        }
-      });
-      // obj.price = home.price;
       obj.property_id = Number(id);
+      console.log("object I'm senidng", obj);
       getRecommendation(obj);
-      similarity.peroperty_id = Number(id);
-      similarity.amenities = home.amenities;
-      getSimilarProperties(similarity);
+      url.append("id", Number(id));
+      home &&
+        home.amenity &&
+        home.amenity.split(",").forEach((item) => url.append("amenity", item));
+      getSimilarProperties(url.toString());
     }
-
-    // }
-    // if (prevState.bookedDateRange.length === 0) {
-    //   let arr = [];
-    //   console.log(bookedDates);
-    //   if (bookedDates[0] !== undefined) {
-    //     bookedDates[0] &&
-    //       bookedDates[0].data.map((item) => {
-    //         arr.push(item.bookingDate.split(" ")[0].split("-").map(Number));
-    //       });
-    //     this.setState({ bookedDateRange: arr }, () => {});
-    //   }
-    // }
   }
 
   render() {
-    const { home, images, bookedDateRange, disbaleDates } = this.state;
-    console.log(bookedDateRange);
+    const { home, images } = this.state;
     const { hostInfo } = this.props;
-    console.log(hostInfo.data);
-    var tempDate = new Date();
-    var date = tempDate.getFullYear();
-    var month = tempDate.getMonth();
-    console.log(this.props.data);
+    console.log(home);
+    var staticMap = `https://maps.googleapis.com/maps/api/staticmap?center=${home.cityName}+${home.countryName}&zoom=13&size=600x300&maptype=roadmap
+    &markers=color:blue%7Clabel:S%7C${home.lat},${home.lng}&key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M`;
     return (
       <Container className={styles.entityContainer}>
         <h2>{home.propertyName}</h2>
@@ -197,9 +180,10 @@ class Entity extends Component {
             <div className="d-flex flex-row justify-content-between">
               <div>
                 <h3 className={styles.listingName}>
-                  {hostInfo.data &&
+                  {hostInfo &&
+                    hostInfo.data &&
                     hostInfo.data.map((item) => (
-                      <span>
+                      <span key={uuidv4()}>
                         Hosted by {item.firstname + " " + item.lastname}
                       </span>
                     ))}
@@ -245,7 +229,7 @@ class Entity extends Component {
                   <img src={homeImage} alt="" className="m-2" />
                 </div>
                 <div>
-                  <h6 className={styles.detailHeading}>Entire home</h6>
+                  <h6 className={styles.detailHeading}>{home.category}</h6>
                   <p className={styles.detailDescription}>
                     You’ll have the cabin to yourself.
                   </p>
@@ -271,10 +255,10 @@ class Entity extends Component {
                   <h6 className={styles.detailHeading}>
                     {hostInfo.data &&
                       hostInfo.data.map((item) => (
-                        <span>
-                          Hosted by {item.firstname + " " + item.lastname}
+                        <span key={uuidv4()}>
+                          {item.firstname + " " + item.lastname + " "}
                         </span>
-                      ))}{" "}
+                      ))}
                     is a Superhost
                   </h6>
                   <p className={styles.detailDescription}>
@@ -298,57 +282,10 @@ class Entity extends Component {
               </div>
             </div>
             <hr />
-
             <div className="p-4">
-              <h3 className={styles.entityTitle}>2 nights in Coimbatore</h3>
-              <div className={`${styles.listingBasicDetails} d-flex flex-row `}>
-                <div>
-                  <span>21</span>
-                  <span className="mx-1">June 2020</span>
-                </div>
-                <span className="mx-1">&#x2D;</span>
-                <div>
-                  <span></span>
-                  <span className="mx-1">2 Aug 2020</span>
-                </div>
-              </div>
-              {/*
-                            <DateRangePicker
-                                startDate={this.state.startDate}
-                                startDateId="your_unique_start_date_id"
-                                endDate={this.state.endDate}
-                                endDateId="your_unique_end_date_id"
-                                onDatesChange={({ startDate, endDate }) =>
-                                    this.setState({ startDate, endDate })
-                                }
-                                focusedInput={this.state.focusedInput}
-                                onFocusChange={(focusedInput) => this.setState({ focusedInput })}
-                                startDatePlaceholderText="startDate"
-                                endDatePlaceholderText="endDate"
-                            ></DateRangePicker> */}
-              {/* <DayPickerSingleDateController
-                date={this.state.startDate}
-                numberOfMonths={2}
-                noBorder={true}
-                daySize={40}
-              /> */}
-              {/* <DayPicker
-                numberOfMonths={2}
-                initialMonth={new Date(date, month)}
-                // disabledDays={[
-                //   new Date(2020, 7, 29),
-                //   new Date(2017, 3, 2),
-                //   {
-                //     after: new Date(2017, 3, 20),
-                //     before: new Date(2017, 3, 25),
-                //   },
-                // ]}
-                // initialMonth={new Date(2020, 6)}
-                disabledDays={
-                 bookedDateRange.map(item=> new Date(Number(item[0]), Number(item[1]),Number(item[2])))
-                }
-              /> */}
+              <div className={styles.entityDetailPara}>{home.description}</div>
             </div>
+
             <hr />
             <SleepingArrangement />
             <hr />
@@ -363,11 +300,14 @@ class Entity extends Component {
           <Review rates={home.rating} rateCount={home.ratingcount} />
         </div>
         <hr />
+        <hr />
+        <div>
+          <iframe src={staticMap}></iframe>
+        </div>
         <HostDetails />
         <hr />
         <MorePlaceToStay />
         <hr />
-        <ExploreMore />
         <hr />
       </Container>
     );
@@ -381,6 +321,7 @@ const mapStateToProps = (state) => ({
   facilities: state.userReducer.facilities,
   bookedDates: state.entityReducer.bookedDates,
   hostInfo: state.entityReducer.hostInfo,
+  bookingDetails: state.paymentReducer.bookingDetails,
 });
 
 const mapDispatchToProps = (dispatch) => ({

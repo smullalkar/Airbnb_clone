@@ -17,4 +17,7 @@ class BookingModel(db.Model):
     isRefund = db.Column(db.Boolean)
     refundDate = db.Column(db.DateTime(timezone=True))
     bookingDate = db.Column(db.DateTime(timezone=True))
+    gst = db.Column(db.Integer)
+    totalPerDay = db.Column(db.Integer)
+    totalBill = db.Column(db.Integer)
     status = db.Column(db.Boolean)

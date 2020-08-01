@@ -142,16 +142,16 @@ class Amenities extends Component {
                 <span style={indoorFirePlaceA}>Indoor Fire Place</span>
               </Col>
             </Row>
-            <Button
-              variant="outline-secondary visible-sm-block"
-              className={`${styles.showAllBtn} col-6 d-none d-lg-block`}
-              size="md"
+            {/* <Button
+              variant="outline-secondary"
+              className={styles.showAllBtn}
+              size="lg"
               onClick={() => this.setState({ showMoreAmenities: true })}
 
 
             >
               Show all amenitis
-            </Button>
+            </Button> */}
             <MoreAmeneties
               show={this.state.showMoreAmenities}
               handleMoreAmenitiesClose={this.handleMoreAmenitiesClose}

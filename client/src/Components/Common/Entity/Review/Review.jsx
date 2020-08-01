@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import styles from "./Review.module.css";
 import { connect } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 class Review extends Component {
   constructor(props) {
@@ -15,144 +16,33 @@ class Review extends Component {
         <div className={styles.reviewContainer}>
           <h2 className={styles.entityTitle}>
             <span className={styles.ratingStar}>&#9733;</span>
-            <span className="mx-1">{rates}</span>
+            <span className="mx-1">{rates && Number(rates).toFixed(2)}</span>
             <span className="mx-1">({rateCount} reviews)</span>
           </h2>
-          <Row xs={2}>
-            <Col className="d-flex">
-              <Row className="w-100 my-2">
-                <Col xs={8}>Cleanliness</Col>
-                <Col>
-                  <div className="d-flex align-items-center ">
-                    <div className={styles.progressDiv}>
-                      <span
-                        style={{ width: "90%" }}
-                        className={styles.progressPercentage}
-                      ></span>
-                    </div>
-
-                    <span className={styles.progressRatingNumber}>{rates}</span>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-            <Col>
-              <Row className="w-100 my-2">
-                <Col xs={8}>Communication</Col>
-                <Col>
-                  <div className="d-flex align-items-center ">
-                    <div className={styles.progressDiv}>
-                      <span
-                        style={{ width: "90%" }}
-                        className={styles.progressPercentage}
-                      ></span>
-                    </div>
-
-                    <span className={styles.progressRatingNumber}>{rates}</span>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-
-          <Row xs={2}>
-            <Col className="d-flex">
-              <Row className="w-100 my-2">
-                <Col xs={8}>Check-in</Col>
-                <Col>
-                  <div className="d-flex align-items-center ">
-                    <div className={styles.progressDiv}>
-                      <span
-                        style={{ width: "90%" }}
-                        className={styles.progressPercentage}
-                      ></span>
-                    </div>
-
-                    <span className={styles.progressRatingNumber}>{rates}</span>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-            <Col>
-              <Row className="w-100 my-2">
-                <Col xs={8}>
-                  Accuracy</Col>
-                <Col>
-                  <div className="d-flex align-items-center ">
-                    <div className={styles.progressDiv}>
-                      <span
-                        style={{ width: "90%" }}
-                        className={styles.progressPercentage}
-                      ></span>
-                    </div>
-
-                    <span className={styles.progressRatingNumber}>{rates}</span>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          <Row xs={2}>
-            <Col className="d-flex">
-              <Row className="w-100 my-2">
-                <Col xs={8}>Location</Col>
-                <Col>
-                  <div className="d-flex align-items-center ">
-                    <div className={styles.progressDiv}>
-                      <span
-                        style={{ width: "90%" }}
-                        className={styles.progressPercentage}
-                      ></span>
-                    </div>
-
-                    <span className={styles.progressRatingNumber}>{rates}</span>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-            <Col>
-              <Row className="w-100 my-2">
-                <Col xs={8}>Value</Col>
-                <Col>
-                  <div className="d-flex align-items-center ">
-                    <div className={styles.progressDiv}>
-                      <span
-                        style={{ width: "90%" }}
-                        className={styles.progressPercentage}
-                      ></span>
-                    </div>
-
-                    <span className={styles.progressRatingNumber}>{rates}</span>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
           <Row xs={1} md={2} className="my-3">
 
             {reviews &&
               reviews.data &&
               reviews.data.map((item) => (
                 <Col>
-                  <div className="d-flex flex-row justify-content-start align-items-center">
-                    <div className={styles.reviewerAvatarContainer}>
-                      <img
-                        className={styles.reviewerAvatarImage}
-                        src="https://via.placeholder.com/150"
-                        alt="reviewer"
-                      />
-                    </div>
-                    <div className="ml-1">
-                      <div>
-                        <h6 className={styles.reviewerName}>
-                          {item.firstname} {item.lastname}
-                        </h6>
+                  <div>
+                    <div
+                      kye={uuidv4()}
+                      className="d-flex flex-row justify-content-start align-items-center"
+                    >
+                      <div className={styles.reviewerAvatarContainer}>
+                        <img
+                          className={styles.reviewerAvatarImage}
+                          src="https://via.placeholder.com/150"
+                          alt="reviewer"
+                        />
                       </div>
                       <div className={styles.reviewedDate}>
                         {item.createdAt.split(" ")[0]}
                       </div>
                     </div>
                   </div>
+
                   <p className={styles.reviewText}>{item["review "]}</p>
                 </Col>
               ))}

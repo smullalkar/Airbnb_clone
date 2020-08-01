@@ -18,8 +18,8 @@ class HostDetails extends Component {
     }
   }
   render() {
-    const { data, hostInfo } = this.state;
-    // console.log("data",data);
+    const { data } = this.state;
+    const { hostInfo } = this.props;
     return (
       <div className="p-4">
         <div className="row">
@@ -64,15 +64,7 @@ class HostDetails extends Component {
               </div>
             </div>
 
-            <div className={styles.entityDetailPara}>
-              {data.description}
-              <div>
-                <h6 className="mx-1">
-                  <a className={styles.alertLink}>Read More</a>
-                </h6>
-              </div>
-            </div>
-
+            <div className={styles.entityDetailPara}>{data.description}</div>
             <div>
               <h6 className="font-weight-bold">During your stay</h6>
               <p className="text-muted">
@@ -80,9 +72,14 @@ class HostDetails extends Component {
                 stay.
               </p>
             </div>
-
             <div>
-              <h6 className="font-weight-bold">Suresh is a Superhost</h6>
+              <h6 className="font-weight-bold">
+                {hostInfo && hostInfo.data &&
+                  hostInfo.data.map((item) => (
+                    <span>{item.firstname + " " + item.lastname} </span>
+                  ))}
+                is a Superhost
+              </h6>
               <p className="text-muted">
                 Superhosts are experienced, highly rated hosts who are committed
                 to providing great stays for guests.
@@ -104,8 +101,12 @@ class HostDetails extends Component {
                 hostInfo.data &&
                 hostInfo.data.map((item) => (
                   <>
-                    <div> {item.firstname + " " + item.lastname}</div>
-                    <div> {item.email}</div>
+                    <div className="pt-2">
+                      {" "}
+                      {item.firstname + " " + item.lastname}
+                    </div>
+                    <div className="pt-2"> {item.email}</div>
+                    <div className="pt-2 pb-2"> {item.phone}</div>
                   </>
                 ))}{" "}
             </div>

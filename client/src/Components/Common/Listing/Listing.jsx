@@ -26,6 +26,7 @@ import {
   getFacilities,
   getPropertyType,
 } from "../../../Redux/user/actions";
+import MapContainer from "../GoogleMap/MapContainer";
 
 class Lisiting extends Component {
   constructor(props) {
@@ -46,16 +47,18 @@ class Lisiting extends Component {
       getFacilities,
       getPropertyType,
     } = this.props;
-    console.log(data)
     var query = new URLSearchParams(window.location.href);
     let param = decodeURIComponent(query)
       .split("&")
       .filter((item, index) => index > 0);
     var obj = {};
+
     param.forEach((item) => {
       let parameter = item.split("=");
-      if (!obj[parameter[0]]) {
-        obj[parameter[0]] = parameter[1];
+      if (parameter[1] !== "") {
+        if (!obj[parameter[0]]) {
+          obj[parameter[0]] = parameter[1];
+        }
       }
     });
     getData(obj);
@@ -63,35 +66,39 @@ class Lisiting extends Component {
     getAmenities();
     getFacilities();
     getPropertyType();
-    this.setState({ data: data });
+    this.setState({ data: data }, () => {});
   }
-
   componentWillReceiveProps() {
-    if (this.state.data.length === 0) {
-      this.setState({ data: this.props.data }, () => { });
-    }
+    console.log(this.props.location);
+    let link = window.location.href.split("%2F");
+    link.shift();
+    console.log("link it is", link.join(""));
   }
-
   componentDidUpdate(prevProps, prevState) {
-    console.log(" listing ", this.props.data)
-    if (this.state.data.length === 0 && this.props.data.length !== 0) {
-      this.setState({ data: this.props.data });
-    }
+    const { getData } = this.props;
+    console.log(prevState)
+    if(prevProps.location.pathname !== this.props.location.pathname){
+      console.log(this.props.location.pathname);
+      let link = window.location.href.split("%2F");
+      link.shift();
+      link = "%2F" + link.join("");
+      console.log(link)
+      // if (this.props.location.pathname !== link) {
+        var query = new URLSearchParams(window.location.href);
+        let param = decodeURIComponent(query)
+          .split("&")
+          .filter((item, index) => index > 0);
+        var obj = {};
+        param.forEach((item) => {
+          let parameter = item.split("=");
+          if (!obj[parameter[0]]) {
+            obj[parameter[0]] = parameter[1];
+          }
+        });
+        getData(obj);
+      // }
 
-    if (this.state.data !== this.props.data && this.props.data.length !== 0) {
-      var query = new URLSearchParams(window.location.href);
-      let param = decodeURIComponent(query)
-        .split("&")
-        .filter((item, index) => index > 0);
-      var obj = {};
-      param.forEach((item) => {
-        let parameter = item.split("=");
-        if (!obj[parameter[0]]) {
-          obj[parameter[0]] = parameter[1];
-        }
-      });
     }
-    getData(obj);
   }
 
   handleMoreFiltersClose = () => {
@@ -99,12 +106,16 @@ class Lisiting extends Component {
   };
 
   render() {
-    const { isLoading, showCancellationFlexibility, data } = this.props;
-    const { showCancellation } = this.props;
-    console.log(data)
+    var co_ordinates = [];
+    const { isLoading, data } = this.props;
+    if (data && data.length != 0) {
+      data.map((item) =>
+        co_ordinates.push({ lat: Number(item.lat), lng: Number(item.lng) })
+      );
+    }
     return (
       <div>
-        {isLoading ? (
+        {!isLoading ? (
           <>
             <div className="flex-row mx-2 d-none d-md-flex">
               <Dropdown as={ButtonGroup} className="m-2">
@@ -183,14 +194,13 @@ class Lisiting extends Component {
             </div>
 
             <div className="mx-5 d-flex justify-content-around">
-              {data &&
-                data.map((item) => (
-                  <Col key={uuidv4()} className="m-1">
-                    <ListItem item={item} />
-                  </Col>
-                ))}
+              <Col key={uuidv4()} className="m-1">
+                <ListItem item={this.props.data} />
+              </Col>
             </div>
-
+            <div style={{ width: 200, height: 200 }}>
+              <MapContainer location={co_ordinates} />
+            </div>
             <div className="mt-3 d-flex justify-content-center">
               {/* <Pagination>
                 <Pagination.Prev className="prevPage" />
@@ -204,25 +214,25 @@ class Lisiting extends Component {
             </div>
           </>
         ) : (
-            <>
-              <Modal
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered={true}
-                show={true}
-              >
-                <Modal.Body>
-                  <Row className="text-center">
-                    <Col>
-                      <Spinner animation="border" role="status">
-                        <span className="sr-only">Loading...</span>
-                      </Spinner>
-                    </Col>
-                  </Row>
-                </Modal.Body>
-              </Modal>
-            </>
-          )}
+          <>
+            <Modal
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered={true}
+              show={true}
+            >
+              <Modal.Body>
+                <Row className="text-center">
+                  <Col>
+                    <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                  </Col>
+                </Row>
+              </Modal.Body>
+            </Modal>
+          </>
+        )}
       </div>
     );
   }

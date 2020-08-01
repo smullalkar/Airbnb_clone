@@ -402,10 +402,10 @@ class MoreFilter extends Component {
 
               <hr />
               <div>
-                <h3 className="font-weight-bold">Property type</h3>
+                {/* <h3 className="font-weight-bold">Property type</h3>
                 <div className="d-flex justify-content-between">
-                  <div className="d-flex flex-column col-6 justify-content-start">
-                    {/* {propertyTypes &&
+                  <div className="d-flex flex-column col-6 justify-content-start"> */}
+                {/* {propertyTypes &&
                       propertyTypes.map((item, index) =>
                         index > 2 ? (
                           <Form.Check
@@ -422,9 +422,9 @@ class MoreFilter extends Component {
                           ""
                         )
                       )} */}
-                  </div>
-                  {/* <div className="d-flex flex-column col-6 "> */}
-                  {/* {propertyTypes &&
+                {/* </div>
+                  <div className="d-flex flex-column col-6 "> */}
+                {/* {propertyTypes &&
                       propertyTypes.map((item, index) =>
                         index > 2 ? (
                           <Form.Check
@@ -441,7 +441,8 @@ class MoreFilter extends Component {
                           ""
                         )
                       )} */}
-                </div>
+                {/* </div> */}
+                {/* </div> */}
               </div>
             </div>
           </Modal.Body>
@@ -463,7 +464,7 @@ class MoreFilter extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-      </div >
+      </div>
     );
   }
 }

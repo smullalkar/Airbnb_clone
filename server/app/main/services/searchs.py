@@ -34,6 +34,8 @@ def sendData(results):
         temp_dict["ownerId"] = result.userId
         temp_dict["amenity"] = result.amenities
         temp_dict["facility"] = result.facilities
+        temp_dict["rating"] = result.rating
+        temp_dict["ratingcount"] = result.ratingcount
         temp_dict["images"] = result.images
         data.append(temp_dict)
     return data
@@ -73,39 +75,7 @@ def search(params):
                                         ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
                                         p.refundType,p.price,p.accomodatesCount,
                                         p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
-                                        p.cityId,p.userId,
-                                        GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
-                                        GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
-                                        GROUP_CONCAT(DISTINCT images.image) AS images
-                                        FROM property AS p 
-                                        JOIN city_model AS c ON p.cityId=c.id 
-                                        JOIN property_type AS pt ON p.propertyTypeId=pt.id 
-                                        JOIN categories AS ct ON p.categoryId=ct.id 
-                                        JOIN state_model as st on c.stateId=st.id 
-                                        JOIN countries_model AS cm ON st.countryId=cm.id 
-                                        JOIN property_type AS ppt on p.propertyTypeId=ppt.id 
-                                        JOIN amenities_property ON p.id=amenities_property.propertyId 
-                                        JOIN amenities ON amenities_property.amenityId=amenities.id
-                                        JOIN facility_property ON p.id=facility_property.propertyId 
-                                        JOIN facility ON facility_property.facilityId=facility.id
-                                        JOIN images ON p.id=images.propertyId
-                                        JOIN categories AS cct ON p.categoryId=cct.id WHERE c.cityName='%s' GROUP BY p.id; 
-                                    '''%(location))
-        d = sendData(results)
-        return json.dumps({
-            "data": d,
-            "message": 'Data recieved',
-            'error': False
-        }, default=str)
-        
-    elif totalguests > 1:
-        results = db.session.execute('''    
-                                        SELECT p.id,p.propertyName,p.description,p.address,
-                                        p.countryId,cm.countryName,p.stateId,st.stateName,
-                                        ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
-                                        p.refundType,p.price,p.accomodatesCount,
-                                        p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
-                                        p.cityId,p.userId,
+                                        p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                                         GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
                                         GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
                                         GROUP_CONCAT(DISTINCT images.image) AS images
@@ -122,6 +92,41 @@ def search(params):
                                         JOIN facility ON facility_property.facilityId=facility.id
                                         JOIN images ON p.id=images.propertyId
                                         JOIN categories AS cct ON p.categoryId=cct.id 
+                                        JOIN review as r ON r.propertyId=p.id
+                                        WHERE c.cityName='%s' GROUP BY p.id; 
+                                    '''%(location))
+        d = sendData(results)
+        return json.dumps({
+            "data": d,
+            "message": 'Data recieved',
+            'error': False
+        }, default=str)
+        
+    elif totalguests > 1:
+        results = db.session.execute('''    
+                                        SELECT p.id,p.propertyName,p.description,p.address,
+                                        p.countryId,cm.countryName,p.stateId,st.stateName,
+                                        ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
+                                        p.refundType,p.price,p.accomodatesCount,
+                                        p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
+                                        p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
+                                        GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
+                                        GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
+                                        GROUP_CONCAT(DISTINCT images.image) AS images
+                                        FROM property AS p 
+                                        JOIN city_model AS c ON p.cityId=c.id 
+                                        JOIN property_type AS pt ON p.propertyTypeId=pt.id 
+                                        JOIN categories AS ct ON p.categoryId=ct.id 
+                                        JOIN state_model as st on c.stateId=st.id 
+                                        JOIN countries_model AS cm ON st.countryId=cm.id 
+                                        JOIN property_type AS ppt on p.propertyTypeId=ppt.id 
+                                        JOIN amenities_property ON p.id=amenities_property.propertyId 
+                                        JOIN amenities ON amenities_property.amenityId=amenities.id
+                                        JOIN facility_property ON p.id=facility_property.propertyId 
+                                        JOIN facility ON facility_property.facilityId=facility.id
+                                        JOIN images ON p.id=images.propertyId
+                                        JOIN categories AS cct ON p.categoryId=cct.id 
+                                        JOIN review as r ON r.propertyId=p.id
                                         WHERE c.cityName='%s' AND p.accomodatesCount > '%d' GROUP BY p.id; 
                                     '''%(location,totalguests-1))
         d = sendData(results)
@@ -138,14 +143,14 @@ def user_search_results(params):
     """
     try:
         location = params.get('location')
-        cityId = params.get('city_id', default=1)
-        stateId = params.get('state_id', default=1)
-        countryId = params.get('country_id', default=1)
+        cityId = params.get('city_id', default=0)
+        stateId = params.get('state_id', default=0)
+        countryId = params.get('country_id', default=0)
         checkin = params.get('checkin',datetime.date.today() + datetime.timedelta(days=1))
         checkout = params.get('checkout',datetime.date.today() + datetime.timedelta(days=2))
         children = params.get('children', default=0)
         infants = params.get('infants', default=0)
-        adults = params.get('adults', default=1)
+        adults = params.get('adults', default=0)
         perPage = params.get('per_page', default=20)
         totalguests = int(adults)+int(children)
         print('................',location)
@@ -179,7 +184,7 @@ def user_search_results(params):
                 ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
                 p.refundType,p.price,p.accomodatesCount,
                 p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
-                p.cityId,p.userId,
+                p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                 GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
                 GROUP_CONCAT(DISTINCT facility.facilityName) AS facilities,
                 GROUP_CONCAT(DISTINCT images.image) AS images
@@ -195,13 +200,14 @@ def user_search_results(params):
                 JOIN facility_property ON p.id=facility_property.propertyId 
                 JOIN facility ON facility_property.facilityId=facility.id
                 JOIN images ON p.id=images.propertyId
-                JOIN categories AS cct ON p.categoryId=cct.id WHERE '''
+                JOIN categories AS cct ON p.categoryId=cct.id 
+                JOIN review as r ON r.propertyId=p.id WHERE '''
 
     if location is not None:
         query = query + ' c.cityName = "%s" AND '%(location)
 
     if totalguests != 0:
-        query = query + ' p.accomodatesCount >= %d AND '%(totalguests)
+        query = query + ' p.accomodatesCount = %d AND '%(totalguests)
 
     if category is not None and len(category) != 0:
         if len(category) > 1:
@@ -255,7 +261,7 @@ def user_search_results(params):
     results = db.session.execute(query)
 
     d = sendData(results)
-    print(d)
+    print('dddddddddddddddd',d)
     return json.dumps({
         "data": d,
         "message": 'Successful',

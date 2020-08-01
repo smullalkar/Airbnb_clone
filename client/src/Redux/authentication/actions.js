@@ -2,9 +2,7 @@ import {
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAILURE,
-    LOGOUT_USER_REQUEST,
-    LOGOUT_USER_SUCCESS,
-    LOGOUT_USER_FAILURE,
+    LOGOUT_USER,
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAILURE,
@@ -18,7 +16,8 @@ import {
     CLOSE_REGISTER_MODAL,
     TOKEN_VALIDATE_REQUEST,
     TOKEN_VALIDATE_SUCCESS,
-    TOKEN_VALIDATE_FAILURE
+    TOKEN_VALIDATE_FAILURE,
+    CLOSE_FORGET_PASSWORD
 } from "../authentication/actionTypes";
 
 import axios from "../../Utils/axiosInterceptor";
@@ -76,9 +75,7 @@ export const googleLoginFailure = () => ({
 })
 
 export const googleLogin = payload => {
-    console.log(payload)
     const [firstname, lastname] = payload.profileObj.name.split(" ")
-    console.log(firstname, "\n" + lastname, "\n" + payload.profileObj.email, "\n" + payload.accessToken + "\n", payload.wc.idpId, payload.googleId)
     return dispatch => {
         dispatch(googleLoginRequest());
         return axios
@@ -114,7 +111,6 @@ export const loginUserFailure = () => ({
 });
 
 export const loginUser = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(loginUserRequest());
         return axios
@@ -146,7 +142,6 @@ export const registerUserFailure = () => ({
 });
 
 export const registerUser = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(registerUserRequest());
         return axios
@@ -168,18 +163,17 @@ export const registerUser = payload => {
 
 
 //Logout user request start
-export const logoutUserRequest = () => ({
-    type: LOGOUT_USER_REQUEST
+// export const logoutUserRequest = () => ({
+//     type: LOGOUT_USER_REQUEST
+// });
+
+export const logoutUser = () => ({
+    type: LOGOUT_USER,
 });
 
-export const logoutUserSuccess = payload => ({
-    type: LOGOUT_USER_SUCCESS,
-    payload
-});
-
-export const logoutUserFailure = () => ({
-    type: LOGOUT_USER_FAILURE
-});
+// export const logoutUserFailure = () => ({
+//     type: LOGOUT_USER_FAILURE
+// });
 //Logout user request end
 
 
@@ -194,6 +188,7 @@ export const closeRegisterModal = () => ({
     type: CLOSE_REGISTER_MODAL
 })
 
+// For the token Validation
 export const tokenValidateRequest = () => ({
     type: TOKEN_VALIDATE_REQUEST
 });
@@ -208,13 +203,17 @@ export const tokenValidateFail = () => ({
 });
 
 export const tokenValidateUser = payload => {
-    console.log({token : payload})
     return dispatch => {
         dispatch(tokenValidateRequest());
         return axios
-            .post("user/userdetails",{ token : payload})
-            .then(res =>dispatch(tokenValidateSuccess(res.data))
+            .post("user/userdetails", { token: payload })
+            .then(res => dispatch(tokenValidateSuccess(res.data))
             )
             .catch(() => dispatch(tokenValidateFail()));
     };
 };
+
+
+export const closeForgetPassword =()=>({
+    type:CLOSE_FORGET_PASSWORD
+})

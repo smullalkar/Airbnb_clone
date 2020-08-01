@@ -93,7 +93,7 @@ def login(userDetails):
     if results is not None:
         if results.password == password:
             if results.email == email:
-                data = {
+                data = [{
                     "firstname": results.firstname,
                     "lastname": results.lastname,
                     "dob": str(results.dob),
@@ -102,7 +102,7 @@ def login(userDetails):
                     "userType": results.userType,
                     "created_at": str(results.createdAt),
                     "user_id": results.id
-                }
+                }]
                 obj = {
                     "data": data,
                     "session_expiry": time.time() + 86400
@@ -150,14 +150,14 @@ def oauth_login(userDetails):
             """
             checking if user already exists or not
             """
-            data = {
+            data = [{
                 "firstname": results.firstname,
                 "lastname": results.lastname,
                 "email": results.email,
                 "userType": results.userType,
                 "created_at": str(results.createdAt),
                 "user_id": results.id
-            }
+            }]
             d = {
                 "data": data,
                 "session_expiry": time.time() + 86400
@@ -198,14 +198,14 @@ def oauth_login(userDetails):
                 db.session.add(u)
                 db.session.commit()
 
-            data_ = {
+            data_ = [{
                 "firstname": res.firstname,
                 "lastname": res.lastname,
                 "email": res.email,
                 "userType": res.userType,
                 "created_at": str(res.createdAt),
                 "user_id": res.id
-            }
+            }]
             obj = {
                 "data": data_,
                 "session_expiry": time.time() + 86400
@@ -220,107 +220,108 @@ def oauth_login(userDetails):
             return {'error': True, 'error_found': format(err)}        
     return json.dumps({"error": True, "message": "Unknown error!"})    
 
-def insert_data():
-    data = [
-        {
-            'name': "Master's Homestay", 
-            'description': "At the heart of Fort Kochi, Our home is very near to all the tourist attractions in the area. Good place for your vacation. The guests are provided with the best of services and the facilities.",
-            'userId': 1,
-            'propertyTypeId': 9,
-            'categoryId': 1,
-            'cityId': 1,
-            'stateId' :1,
-            'countryId': 1,
-            'address': "Bengaluru, Karnataka, India",
-            'bedroomCount': 5,
-            'bedCount': 5,
-            'bathroomCount': 5,
-            'accomodatesCount': 5,
-            'isAvailable': True,
-            'startDate': datetime.date.today() + datetime.timedelta(days=1),
-            'endDate': datetime.date.today() + datetime.timedelta(days=2),
-            'price': 10000,
-            'priceTypeId': 1,
-            'refundType': True,
-            'createdAt': datetime.datetime.utcnow(),
-            'status': True
-        },
-        # insert into user (firstname,lastname,dob,email,password,phone,createdAt,userType,status) values('Shabaz','Mullalkar','1994:04:04','smullalkar@gmail.com','1234','8123332662','2020-07-25','user'',true);
-        {
-            'name': "refurbished ACs Artsy Bandra hamlet", 
-            'description': "A newly renovated, fully equipped unit in Bandra's Waroda Road. Walk to numerous lovely Cafes and boutiques in the neighborhood. Enjoy peace and quiet in a silent location in a cul-de-sac, while still being well connected to the rest of the city.",
-            'userId': 1,
-            'propertyTypeId': 2,
-            'categoryId': 2,
-            'cityId': 2,
-            'stateId' :2,
-            'countryId': 1,
-            'address': "Mumbai, Maharashtra, India",
-            'bedroomCount': 4,
-            'bedCount': 4,
-            'bathroomCount': 4,
-            'accomodatesCount': 4,
-            'isAvailable': True,
-            'startDate': datetime.date.today() + datetime.timedelta(days=1),
-            'endDate': datetime.date.today() + datetime.timedelta(days=2),
-            'price': 4000,
-            'priceTypeId': 1,
-            'refundType': True,
-            'createdAt': datetime.datetime.utcnow(),
-            'status': True
-        },
-        {
-            'name': "Private bedroom. Hidden Gem in the heart of Pune.", 
-            'description': "Spacious private bedroom on the first floor of a heritage. Bedroom is large enough for 2 guests to sleep comfortably,has private seating for 2, flatscreen TV & a large executive table with chair.",
-            'userId': 2,
-            'propertyTypeId': 2,
-            'categoryId': 2,
-            'cityId': 4,
-            'stateId' : 2,
-            'countryId': 1,
-            'address': "Pune, Maharashtra, India",
-            'bedroomCount': 1,
-            'bathroomCount': 1,
-            'accomodatesCount': 2,
-            'isAvailable': True,
-            'startDate': datetime.date.today() + datetime.timedelta(days=1),
-            'endDate': datetime.date.today() + datetime.timedelta(days=5),
-            'price': 1000,
-            'priceTypeId': 1,
-            'refundType': True,
-            'createdAt': datetime.datetime.utcnow(),
-            'status': True
-        }
-    ]
 
-    for i in data:
-        user = PropertyModel(
-            propertyName=i['name'],
-            description=i['description'],
-            userId=i['userId'],
-            propertyTypeId=i['propertyTypeId'],
-            categoryId=i['categoryId'],
-            cityId=i['cityId'],
-            stateId=i['stateId'],
-            countryId=i['countryId'],
-            address=i['address'],
-            bedroomCount=i['bedroomCount'],
-            bedCount=i['bedCount'],
-            bathroomCount=i['bathroomCount'],
-            accomodatesCount=i['accomodatesCount'],
-            isAvailable=i['isAvailable'],
-            startDate=i['startDate'],
-            endDate=i['endDate'],
-            price=i['price'],
-            priceTypeId=i['priceTypeId'],
-            refundType=i['refundType'],
-            isCancel = True,
-            istantBook = True,
-            createdAt=i['createdAt'],
-            status=True
+def sendUserDetails(payload):
+    data= payload["token"]
+    decodedData = jwt.decode(data, SECRET_KEY)
+
+    current_time = time.time()
+
+    if decodedData["session_expiry"] < current_time:
+        return json.dumps({
+            "error": True,
+            "message": "Invalid Token"
+        })
+    else:
+        return json.dumps({
+            "data": decodedData,
+            "message": True
+        }, default=str)
+
+
+def insert_data():
+    # data = [
+    #     {
+    #         'name': "Master's Homestay", 
+    #         'description': "At the heart of Fort Kochi, Our home is very near to all the tourist attractions in the area. Good place for your vacation. The guests are provided with the best of services and the facilities.",
+    #         'userId': 1,
+    #         'propertyTypeId': 9,
+    #         'categoryId': 1,
+    #         'cityId': 1,
+    #         'stateId' :1,
+    #         'countryId': 1,
+    #         'address': "Bengaluru, Karnataka, India",
+    #         'bedroomCount': 5,
+    #         'bedCount': 5,
+    #         'bathroomCount': 5,
+    #         'accomodatesCount': 5,
+    #         'isAvailable': True,
+    #         'startDate': datetime.date.today() + datetime.timedelta(days=1),
+    #         'endDate': datetime.date.today() + datetime.timedelta(days=2),
+    #         'price': 10000,
+    #         'priceTypeId': 1,
+    #         'refundType': True,
+    #         'createdAt': datetime.datetime.utcnow(),
+    #         'status': True
+    #     },
+    #     # insert into user (firstname,lastname,dob,email,password,phone,createdAt,userType,status) values('Shabaz','Mullalkar','1994:04:04','smullalkar@gmail.com','1234','8123332662','2020-07-25','user'',true);
+    #     {
+    #         'name': "refurbished ACs Artsy Bandra hamlet", 
+    #         'description': "A newly renovated, fully equipped unit in Bandra's Waroda Road. Walk to numerous lovely Cafes and boutiques in the neighborhood. Enjoy peace and quiet in a silent location in a cul-de-sac, while still being well connected to the rest of the city.",
+    #         'userId': 1,
+    #         'propertyTypeId': 2,
+    #         'categoryId': 2,
+    #         'cityId': 2,
+    #         'stateId' :2,
+    #         'countryId': 1,
+    #         'address': "Mumbai, Maharashtra, India",
+    #         'bedroomCount': 4,
+    #         'bedCount': 4,
+    #         'bathroomCount': 4,
+    #         'accomodatesCount': 4,
+    #         'isAvailable': True,
+    #         'startDate': datetime.date.today() + datetime.timedelta(days=1),
+    #         'endDate': datetime.date.today() + datetime.timedelta(days=2),
+    #         'price': 4000,
+    #         'priceTypeId': 1,
+    #         'refundType': True,
+    #         'createdAt': datetime.datetime.utcnow(),
+    #         'status': True
+    #     },
+    #     {
+    #         'name': "Private bedroom. Hidden Gem in the heart of Pune.", 
+    #         'description': "Spacious private bedroom on the first floor of a heritage. Bedroom is large enough for 2 guests to sleep comfortably,has private seating for 2, flatscreen TV & a large executive table with chair.",
+    #         'userId': 2,
+    #         'propertyTypeId': 2,
+    #         'categoryId': 2,
+    #         'cityId': 4,
+    #         'stateId' : 2,
+    #         'countryId': 1,
+    #         'address': "Pune, Maharashtra, India",
+    #         'bedroomCount': 1,
+    #         'bathroomCount': 1,
+    #         'accomodatesCount': 2,
+    #         'isAvailable': True,
+    #         'startDate': datetime.date.today() + datetime.timedelta(days=1),
+    #         'endDate': datetime.date.today() + datetime.timedelta(days=5),
+    #         'price': 1000,
+    #         'priceTypeId': 1,
+    #         'refundType': True,
+    #         'createdAt': datetime.datetime.utcnow(),
+    #         'status': True
+    #     }
+    # ]
+    results = db.session.execute(''' select * from images; ''')
+    for i in results:
+        if int(i.propertyId) == 29: 
+            break
+        user = ImageModel(
+            propertyId=int(i.propertyId)+106,
+            image=i.image
         )
         db.session.add(user)
         db.session.commit()
+        
     return json.dumps({
         "error": False,
         "message": "data added successfully"

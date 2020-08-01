@@ -22,23 +22,17 @@ class ListItem extends Component {
     const { url } = this.state;
     const { item } = this.props;
     console.log(item)
-    console.log("Hello")
     return (
       <div>
         <Row className="text-center">
-          {item.data &&
-            item.data.map((home) => (
-              <Col
-                key={uuidv4()}
-                xs={12}
-                md={6}
-                lg={3}
-
-                onClick={() => {
-                  window.open(url + "/entity/id_" + home.property_id);
-                }}
-              >
-                <Card className={`${styles.card} m-3`}>
+          {item && item.length === 0 ? (
+            <h2>Sorry !!! No Properties Available</h2>
+          ) : null}
+          {item &&
+            item.map((home) => (
+              <Col key={uuidv4()} lg={2} className="m-3">
+                <Card className={styles.card}>
+                  <span className={styles.heart}>&#9829;</span>
                   <Card variant="top" className={styles.cardImage}>
                     <Carousel interval={20000}>
                       {home.images.split(",").map((img) => (
@@ -53,12 +47,15 @@ class ListItem extends Component {
                       ))}
                     </Carousel>
                   </Card>
-                  <Card.Body className={styles.cardBody}>
+                  <Card.Body
+                    onClick={() => {
+                      window.open(url + "/entity/id_" + home.property_id);
+                    }}
+                    className={styles.cardBody}
+                  >
                     <div className="d-flex align-items-center">
                       <span className={styles.ratingStar}>&#9733;</span>
-                      <span className={styles.rating}>
-                        {home.rating }{" "}
-                      </span>
+                      <span className={styles.rating}>{home.rating} </span>
                       <span className={styles.numrated}>(72)</span>
                     </div>
                     <Card.Title className={styles.cardTitle}>
@@ -67,9 +64,18 @@ class ListItem extends Component {
                     <Card.Text className={styles.cardDesc}>
                       {home.decription}
                     </Card.Text>
+                    <Card.Text className={styles.cardDesc}>
+                      {home.amenity}
+                    </Card.Text>
                     <Card.Text className={styles.priceCont}>
                       <span className={styles.amountSpan}>{home.price} </span> /
                       night
+                    </Card.Text>
+                    <Card.Text className={styles.priceCont}>
+                      <span className={styles.amountSpan}>
+                        ₹{Math.floor(((home.price * 18) / 100)+home.price)}{" "}
+                      </span>{" "}
+                      / night
                     </Card.Text>
                   </Card.Body>
                 </Card>

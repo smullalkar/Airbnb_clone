@@ -20,9 +20,9 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { tokenValidateUser } = this.props
+    const { tokenValidateUser } = this.props;
     let token = localStorage.getItem("token");
-    tokenValidateUser(token)
+    tokenValidateUser(token);
   }
 
   render() {
@@ -124,10 +124,8 @@ class Home extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  tokenValidateUser: payload => dispatch(tokenValidateUser(payload))
-})
+const mapDispatchToProps = (dispatch) => ({
+  tokenValidateUser: (payload) => dispatch(tokenValidateUser(payload)),
+});
 
-export default connect(null, mapDispatchToProps)(Home)
-
-// export default Home;
+export default connect(null, mapDispatchToProps)(Home);

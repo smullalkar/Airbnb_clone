@@ -15,7 +15,10 @@ def add_booking(payload):
         userId = payload["userId"]
         checkInDate = payload["checkInDate"]
         checkOutDate = payload["checkOutDate"]
-        amountPaid = payload["amountPaid"]
+        amountPaid = payload["total_bill"]
+        gst = payload["gst"]
+        totalPerDay = payload["total_per_day"]
+        totalBill = payload["total_bill"]
         createdAt = time.strftime('%Y-%m-%d %H:%M:%S')
     except KeyError as err:
         return json.dumps({'error': True, 'error_found': format(err)})
@@ -36,6 +39,9 @@ def add_booking(payload):
         amountPaid = amountPaid,
         createdAt = createdAt,
         bookingDate = checkInDate,
+        gst = gst,
+        totalPerDay = total_per_day,
+        totalBill = total_bill,
         status = True
     )
     
