@@ -11,6 +11,7 @@ class Review extends Component {
 
   render() {
     const { rates, rateCount, reviews } = this.props;
+    console.log(reviews)
     return (
       <div>
         <div className={styles.reviewContainer}>
@@ -36,7 +37,9 @@ class Review extends Component {
                           src="https://via.placeholder.com/150"
                           alt="reviewer"
                         />
+
                       </div>
+                      <span className="pl-2 pr-2 font-weight-bold">{ item.firstname +" "+ item.lastname}  </span><br/>
                       <div className={styles.reviewedDate}>
                         {item.createdAt.split(" ")[0]}
                       </div>
