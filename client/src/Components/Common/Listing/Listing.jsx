@@ -74,7 +74,7 @@ class Lisiting extends Component {
     link.shift();
     console.log("link it is", link.join(""));
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
     const { getData } = this.props;
     if (prevProps.location.pathname !== this.props.location.pathname) {
@@ -194,15 +194,6 @@ class Lisiting extends Component {
               <MapContainer location={co_ordinates} />
             </div>
             <div className="mt-3 d-flex justify-content-center">
-              {/* <Pagination>
-                <Pagination.Prev className="prevPage" />
-                <Pagination.Item>{1}</Pagination.Item>
-                <Pagination.Item>2</Pagination.Item>
-                <Pagination.Item active>{12}</Pagination.Item>
-                <Pagination.Ellipsis />
-                <Pagination.Item>{20}</Pagination.Item>
-                <Pagination.Next className="nextPage" />
-              </Pagination> */}
             </div>
           </>
         ) : (

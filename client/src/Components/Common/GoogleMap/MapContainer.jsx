@@ -9,19 +9,23 @@ export class MapContainer extends Component {
     const { location } = this.props;
     console.log(location);
     return (
-      <Map
-        google={this.props.google}
-        initialCenter={{
-          lat: 13.028259,
-          lng: 77.543052,
-        }}
-        zoom={11}
-      >
-        {location.map((item) => (
-          <Marker position={item} />
-        ))}
-        <Marker />
-      </Map>
+      <div>
+        {location.length > 0 ? (
+          <Map
+            google={this.props.google}
+            initialCenter={{
+              lat: 13.028259,
+              lng: 77.543052,
+            }}
+            zoom={11}
+          >
+            {location.map((item) => (
+              <Marker position={item} />
+            ))}
+            <Marker />
+          </Map>
+        ) : null}
+      </div>
     );
   }
 }

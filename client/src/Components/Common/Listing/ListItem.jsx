@@ -26,7 +26,7 @@ class ListItem extends Component {
       <div>
         <Row className="text-center">
           {item && item.length === 0 ? (
-            <h2>Sorry !!! No Properties Available</h2>
+            <h2 className="text-center p-4">Sorry !!! No Properties Available</h2>
           ) : null}
           {item &&
             item.map((home) => (

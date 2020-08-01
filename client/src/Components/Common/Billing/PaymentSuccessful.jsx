@@ -19,9 +19,6 @@ class PaymentSuccessful extends Component {
 
 
     render() {
-
-
-
         return (
 
             <div>

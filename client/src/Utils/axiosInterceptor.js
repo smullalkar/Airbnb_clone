@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const axiosInstance = axios.create({
-  baseURL: "http://50d2257d226f.ngrok.io/"
+  baseURL: "http://36578b8e8111.ngrok.io/"
 });
 
 axiosInstance.interceptors.request.use((request) => {
