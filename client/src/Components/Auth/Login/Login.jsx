@@ -245,7 +245,7 @@ class Login extends Component {
                       Sign up
                     </Link>
                   </div>
-                      <div onClick={this.handleForgetPassword}> Forget password</div>
+                      {/* <div onClick={this.handleForgetPassword}> Forget password</div> */}
                 </div>
               </Form.Group>
             </Modal.Body>

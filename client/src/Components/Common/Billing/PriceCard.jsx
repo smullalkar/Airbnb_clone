@@ -9,21 +9,28 @@ class PriceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        data : []
+      data: [],
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const { data, bookingDetails } = this.props;
-    console.log(data)
-    // let start = new Date(startDate._d);
-    // let end = new Date(endDate._d);
-    // let diffTime = Math.abs(end - start);
-    // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    console.log(data && data[0] && data[0].data.data && data[0].data.data[0]);
+    console.log(bookingDetails)
+    let start = new Date(bookingDetails.checkin);
+    let end = new Date(bookingDetails.checkout);
+    let diffTime = Math.abs(end - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    console.log(diffDays)
   }
 
   render() {
     const { data, bookingDetails } = this.props;
+    let start = new Date(bookingDetails.checkin);
+    let end = new Date(bookingDetails.checkout);
+    let diffTime = Math.abs(end - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
     return (
       <div>
         <Card>
@@ -31,18 +38,47 @@ class PriceCard extends Component {
             <Row>
               <Col>
                 <Card.Text className={styles.title}>
-                  Cozy apartment with AC in Pondicherry
+                  {data &&
+                    data[0] &&
+                    data[0].data.data &&
+                    data[0].data.data[0].propertyName}{" "}
+                  in{" "}
+                  {data &&
+                    data[0] &&
+                    data[0].data.data &&
+                    data[0].data.data[0].cityName}
                 </Card.Text>
-                <Card.Text>Entire flat in Puducherry</Card.Text>
+                <Card.Text>
+                  {data &&
+                    data[0] &&
+                    data[0].data.data &&
+                    data[0].data.data[0].category}{" "}
+                  in{" "}
+                  {data &&
+                    data[0] &&
+                    data[0].data.data &&
+                    data[0].data.data[0].cityName}
+                </Card.Text>
                 <Card.Text className="d-flex align-items-center">
                   <span className={styles.ratingStar}>&#9733;</span>
-                  <span>52</span> <span>Reviews</span>
+                  <span>
+                    {data && data[0] && data[0].data.data.ratingcount}
+                  </span>{" "}
+                  <span>Reviews</span>
                 </Card.Text>
               </Col>
               <Col>
                 <Card.Img
                   variant="top"
-                  src="https://a0.muscache.com/im/pictures/77551937-d300-4162-9f16-920e8c81ae12.jpg?im_w=1200"
+                  src={
+                    data &&
+                    data[0] &&
+                    data[0].data.data &&
+                    data[0].data.data[0].images
+                      .split(",")[0]
+                      .split(" ")
+                      .join("")
+                  }
                 />
               </Col>
             </Row>
@@ -68,7 +104,7 @@ class PriceCard extends Component {
               className={`d-flex flex-row justify-content-between ${styles.priceListText}`}
             >
               {" "}
-              <span> ₹1,650 x 2 nights</span> <span>₹3,300</span>{" "}
+              <span> ₹1,650 x {diffDays && diffDays} nights</span> <span>₹3,300</span>{" "}
             </Card.Text>
             <Card.Text
               className={`d-flex flex-row justify-content-between ${styles.priceListText}`}
@@ -81,7 +117,9 @@ class PriceCard extends Component {
             <Card.Text className="d-flex flex-row justify-content-between">
               {" "}
               <span className="font-weight-bold"> Total </span>{" "}
-              <span className="font-weight-bold">₹{bookingDetails.total_bill}</span>{" "}
+              <span className="font-weight-bold">
+                ₹{bookingDetails.total_bill}
+              </span>{" "}
             </Card.Text>
           </Card.Body>
         </Card>

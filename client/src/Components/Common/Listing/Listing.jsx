@@ -74,30 +74,22 @@ class Lisiting extends Component {
     link.shift();
     console.log("link it is", link.join(""));
   }
+  
   componentDidUpdate(prevProps, prevState) {
     const { getData } = this.props;
-    console.log(prevState)
-    if(prevProps.location.pathname !== this.props.location.pathname){
-      console.log(this.props.location.pathname);
-      let link = window.location.href.split("%2F");
-      link.shift();
-      link = "%2F" + link.join("");
-      console.log(link)
-      // if (this.props.location.pathname !== link) {
-        var query = new URLSearchParams(window.location.href);
-        let param = decodeURIComponent(query)
-          .split("&")
-          .filter((item, index) => index > 0);
-        var obj = {};
-        param.forEach((item) => {
-          let parameter = item.split("=");
-          if (!obj[parameter[0]]) {
-            obj[parameter[0]] = parameter[1];
-          }
-        });
-        getData(obj);
-      // }
-
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      var query = new URLSearchParams(window.location.href);
+      let param = decodeURIComponent(query)
+        .split("&")
+        .filter((item, index) => index > 0);
+      var obj = {};
+      param.forEach((item) => {
+        let parameter = item.split("=");
+        if (!obj[parameter[0]]) {
+          obj[parameter[0]] = parameter[1];
+        }
+      });
+      getData(obj);
     }
   }
 

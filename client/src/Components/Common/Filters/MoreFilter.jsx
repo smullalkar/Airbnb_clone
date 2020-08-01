@@ -71,20 +71,12 @@ class MoreFilter extends Component {
                 queryString.append("facilities", key);
               }
             });
-            // propertyTypes.map((item) => {
-            //   if (
-            //     item.propertyName.split(" ").join("_").split("-").join("") ===
-            //     key
-            //   ) {
-            //     queryString.append("propertyType", key);
-            //   }
-            // });
           }
         }
         queryString.append("beds", this.state.beds);
         queryString.append("bedrooms", this.state.bedrooms);
         queryString.append("bathrooms", this.state.bathrooms);
-        this.setState({ query: queryString }, () => { })
+        this.setState({ query: queryString }, () => {});
       });
     } else {
       this.setState({ [e.target.value]: !this.state[e.target.value] }, () => {
@@ -107,20 +99,12 @@ class MoreFilter extends Component {
                 queryString.append("facilities", key);
               }
             });
-            // propertyTypes.map((item) => {
-            //   if (
-            //     item.propertyName.split(" ").join("_").split("-").join("") ===
-            //     key
-            //   ) {
-            //     queryString.append("propertyType", key);
-            //   }
-            // });
           }
         }
         queryString.append("beds", this.state.beds);
         queryString.append("bedrooms", this.state.bedrooms);
         queryString.append("bathrooms", this.state.bathrooms);
-        this.setState({ query: queryString }, () => { })
+        this.setState({ query: queryString }, () => {});
       });
     }
   };
@@ -134,7 +118,7 @@ class MoreFilter extends Component {
       propertyTypes,
     } = this.props;
     const { beds, bedrooms, bathrooms, filterArray, query } = this.state;
-
+    console.log("query  ", query);
     return (
       <div>
         <Modal
@@ -165,12 +149,9 @@ class MoreFilter extends Component {
                         className={styles.guestButton}
                       >
                         -
-                        </button>
+                      </button>
                     </div>
-                    <div className="  mx-1 bd-highlight">
-                      {" "}
-                      {beds}
-                    </div>
+                    <div className="  mx-1 bd-highlight"> {beds}</div>
                     <div className="  mx-1 bd-highlight">
                       <button
                         onClick={() => {
@@ -179,7 +160,7 @@ class MoreFilter extends Component {
                         className={styles.guestButton}
                       >
                         +
-                        </button>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -202,11 +183,9 @@ class MoreFilter extends Component {
                         className={styles.guestButton}
                       >
                         -
-                        </button>
+                      </button>
                     </div>
-                    <div className="  mx-1 bd-highlight">
-                      {bedrooms}
-                    </div>
+                    <div className="  mx-1 bd-highlight">{bedrooms}</div>
                     <div className="  mx-1 bd-highlight">
                       <button
                         onClick={() => {
@@ -217,7 +196,7 @@ class MoreFilter extends Component {
                         className={styles.guestButton}
                       >
                         +
-                        </button>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -240,11 +219,9 @@ class MoreFilter extends Component {
                         className={styles.guestButton}
                       >
                         -
-                        </button>
+                      </button>
                     </div>
-                    <div className="  mx-1 bd-highlight">
-                      {bathrooms}
-                    </div>
+                    <div className="  mx-1 bd-highlight">{bathrooms}</div>
                     <div className="  mx-1 bd-highlight">
                       <button
                         onClick={() => {
@@ -255,7 +232,7 @@ class MoreFilter extends Component {
                         className={styles.guestButton}
                       >
                         +
-                        </button>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -277,11 +254,11 @@ class MoreFilter extends Component {
                           type="checkbox"
                           checked={
                             this.state[
-                            item.amenityName
-                              .split(" ")
-                              .join("_")
-                              .split("-")
-                              .join("")
+                              item.amenityName
+                                .split(" ")
+                                .join("_")
+                                .split("-")
+                                .join("")
                             ]
                           }
                           value={item.amenityName
@@ -296,8 +273,8 @@ class MoreFilter extends Component {
                             .join("_")}
                         />
                       ) : (
-                          ""
-                        )
+                        ""
+                      )
                     )}
                 </div>
                 <div className="d-flex flex-column col-6 ">
@@ -313,11 +290,11 @@ class MoreFilter extends Component {
                           type="checkbox"
                           checked={
                             this.state[
-                            item.amenityName
-                              .split(" ")
-                              .join("_")
-                              .split("-")
-                              .join("")
+                              item.amenityName
+                                .split(" ")
+                                .join("_")
+                                .split("-")
+                                .join("")
                             ]
                           }
                           value={item.amenityName
@@ -332,8 +309,8 @@ class MoreFilter extends Component {
                             .join("_")}
                         />
                       ) : (
-                          ""
-                        )
+                        ""
+                      )
                     )}
                 </div>
               </div>
@@ -354,19 +331,19 @@ class MoreFilter extends Component {
                             id={item.id}
                             checked={
                               this.state[
-                              item.facilityName
-                                .split(" ")
-                                .join("_")
-                                .split("-")
-                                .join("")
+                                item.facilityName
+                                  .split(" ")
+                                  .join("_")
+                                  .split("-")
+                                  .join("")
                               ]
                             }
                             label={item.facilityName}
                             value={item.facilityName}
                           />
                         ) : (
-                            ""
-                          )
+                          ""
+                        )
                       )}
                   </div>
                   <div className="d-flex flex-column col-6 ">
@@ -382,19 +359,19 @@ class MoreFilter extends Component {
                             id={item.id}
                             checked={
                               this.state[
-                              item.facilityName
-                                .split(" ")
-                                .join("_")
-                                .split("-")
-                                .join("")
+                                item.facilityName
+                                  .split(" ")
+                                  .join("_")
+                                  .split("-")
+                                  .join("")
                               ]
                             }
                             label={item.facilityName}
                             value={item.facilityName}
                           />
                         ) : (
-                            ""
-                          )
+                          ""
+                        )
                       )}
                   </div>
                 </div>
@@ -448,13 +425,12 @@ class MoreFilter extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            {/* <a className={styles.cancellationCardClear} href="">
-              Clear
-            </a> */}
             <Button
+              onClick={this.handleChange}
               className={styles.cancellationCardSave}
-              onClick={this.handleClick}
             >
+              {" "}
+              {console.log(" query it is", query.toString())}
               <Link
                 to={query.toString()}
                 style={{ color: "white", textDecoration: "none" }}

@@ -54,7 +54,7 @@ class Entity extends Component {
     this.setState({ id: newQuery });
     getData({ property_id: Number(newQuery) });
     getBookedDates({ propertyId: Number(newQuery) });
-    getReview({ property_id: Number(newQuery) });
+    getReview({ propertyId: Number(newQuery) });
     getHostInfo({ owner_id: Number(newQuery) });
     this.setState({ id: newQuery });
   }
@@ -84,13 +84,12 @@ class Entity extends Component {
         }
       }
       let query = window.location.href.split("&");
-      obj.location = query[1].split("=")[1];
-      let url = new URLSearchParams(`location=${query[1].split("=")[1]}`);
+      obj.location = query[1].split("=")[1].split("/")[0];
+      let url = new URLSearchParams(`location=${query[1].split("=")[1].split("/")[0]}`);
       query = query[query.length - 1].split("/entity");
       obj.property_id = Number(id);
-      console.log("object I'm senidng", obj);
       getRecommendation(obj);
-      url.append("id", Number(id));
+      url.append("property_id", Number(id));
       home &&
         home.amenity &&
         home.amenity.split(",").forEach((item) => url.append("amenity", item));
@@ -101,9 +100,7 @@ class Entity extends Component {
   render() {
     const { home, images } = this.state;
     const { hostInfo } = this.props;
-    console.log(home);
-    var staticMap = `https://maps.googleapis.com/maps/api/staticmap?center=${home.cityName}+${home.countryName}&zoom=13&size=600x300&maptype=roadmap
-    &markers=color:blue%7Clabel:S%7C${home.lat},${home.lng}&key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M`;
+
     return (
       <Container className={styles.entityContainer}>
         <h2>{home.propertyName}</h2>
@@ -301,9 +298,6 @@ class Entity extends Component {
         </div>
         <hr />
         <hr />
-        <div>
-          <iframe src={staticMap}></iframe>
-        </div>
         <HostDetails />
         <hr />
         <MorePlaceToStay />
