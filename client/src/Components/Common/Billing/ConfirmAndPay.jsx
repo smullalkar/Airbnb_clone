@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import PaymentSuccessful from './PaymentSuccessful'
 
 import {
   Card,
@@ -19,11 +20,14 @@ import styles from "./Billing.module.css";
 class ConfirmAndPay extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+		showPaymentSuccessful: false
+	};
   }
 
-	componentDidMount = () => {
-	}
+	handleClose = () => {
+        this.setState({ showPaymentSuccessful: !this.state.showPaymentSuccessful });
+    }
 
 	razorpay = async () => {
 		const { history, details } = this.props;
@@ -69,7 +73,7 @@ class ConfirmAndPay extends Component {
 						}
 					)
 					if (final_res['data']['status'] == 'success') {
-						alert(final_res['data']['message'])
+						this.setState({showPaymentSuccessful: true})
 					}
 					else {
 						alert(final_res['data']['message'])
@@ -109,6 +113,7 @@ class ConfirmAndPay extends Component {
             <Button onClick={this.razorpay}>Confirm And Pay</Button>
           </Card.Body>
         </Card>
+		<PaymentSuccessful handleClose={this.handleClose} isShowModal={this.state.showPaymentSuccessful}/>
       </div>
     );
   }
