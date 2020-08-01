@@ -141,8 +141,6 @@ class Search extends Component {
     return result
   }
 
-
-
   render() {
     let { query, location } = this.state;
     return (

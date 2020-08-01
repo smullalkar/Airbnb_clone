@@ -31,8 +31,6 @@ class PaymentSuccessful extends Component {
                     </Modal.Footer>
 
                 </Modal>
-
-
             </div>
         );
     }

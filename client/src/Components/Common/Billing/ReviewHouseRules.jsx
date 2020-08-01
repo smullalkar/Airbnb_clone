@@ -16,6 +16,7 @@ import animal from "../../../assets/images/dog.png";
 import children from "../../../assets/images/children.png";
 import PriceCard from "./PriceCard";
 import ConfirmAndPay from "./ConfirmAndPay";
+import { connect } from "react-redux";
 
 import styles from "./ReviewHouseRules.module.css";
 
@@ -25,7 +26,8 @@ class ReviewHouseRules extends Component {
     this.state = {};
   }
   render() {
-    const {} = this.props;
+    const { otherDetails, bookingDetails, data } = this.props;
+
     return (
       <Container>
         <Breadcrumb>
@@ -36,30 +38,41 @@ class ReviewHouseRules extends Component {
           <Col md={8} className="pl-5">
             <h4 className={styles.title}>Review House Rules</h4>
 
-            <h6 className="mt-5">2 nights in Puducherry</h6>
+            <h6 className="mt-5">
+              {otherDetails.noOfDays} nights in{" "}
+              {data &&
+                data[0] &&
+                data[0].data.data &&
+                data[0].data.data[0].cityName}
+            </h6>
             <Row>
               <Col className="d-flex align-items-center">
                 <span className={styles.dayWrapper}>
-                  <span>JUL</span>
-                  <span>31</span>{" "}
+                  <span>
+                    <i
+                      className="fa fa-calendar-check-o"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
                 </span>
 
                 <span className={styles.dateText}>
-                  Friday check-in
-                  <br />
-                  After 12:00 pm
+                  {bookingDetails.checkin}&nbsp; check-in
                 </span>
               </Col>
               <Col className="d-flex align-items-center">
                 <span className={styles.dayWrapper}>
-                  <span>JUL</span>
-                  <span>31</span>{" "}
+                  <span>
+                    <i
+                      className="fa fa-calendar-times-o"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
                 </span>
 
                 <span className={styles.dateText}>
-                  Sunday checkout
+                  {bookingDetails.checkout}&nbsp;checkout
                   <br />
-                  11:00 am
                 </span>
               </Col>
             </Row>
@@ -118,4 +131,10 @@ class ReviewHouseRules extends Component {
   }
 }
 
-export default ReviewHouseRules;
+const mapStateToProps = (state) => ({
+  otherDetails: state.paymentReducer.otherDetails,
+  bookingDetails: state.paymentReducer.bookingDetails,
+  data: state.entityReducer.data,
+});
+
+export default connect(mapStateToProps, null)(ReviewHouseRules);

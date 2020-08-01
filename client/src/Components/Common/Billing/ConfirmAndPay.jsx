@@ -34,7 +34,7 @@ class ConfirmAndPay extends Component {
 		console.log('booking details', details);
 		try {
 			let order_res = await axios.post(
-				"http://127.0.0.1:5000/payment/getOrderId",
+				"http://4b5278c660dc.ngrok.io/payment/getOrderId",
 				{
 					amount: Number(details["total_bill"]) * 100,
 					currency: "INR",
@@ -66,7 +66,7 @@ class ConfirmAndPay extends Component {
 				},
 				handler: async (response) => {
 					console.log(response)
-					let final_res = await axios.post(`http://127.0.0.1:5000/payment/getValidation`,
+					let final_res = await axios.post(`http://4b5278c660dc.ngrok.io/payment/getValidation`,
 						{
 							res: response,
 							bookingDetails: details

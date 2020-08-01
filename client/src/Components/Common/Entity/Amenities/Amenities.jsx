@@ -39,6 +39,7 @@ class Amenities extends Component {
         indoorFirePlaceA = {};
       var amenities = data[0].data.data[0].amenity.split(",");
       for (var i = 0; i < amenities.length; i++) {
+        console.log(amenities[i])
         if (amenities[i] != "Kitchen") {
           kitchenA.textDecoration = "line-through";
 

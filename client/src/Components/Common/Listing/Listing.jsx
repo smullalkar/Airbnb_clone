@@ -66,7 +66,7 @@ class Lisiting extends Component {
     getAmenities();
     getFacilities();
     getPropertyType();
-    this.setState({ data: data }, () => {});
+    this.setState({ data: data }, () => { });
   }
   componentWillReceiveProps() {
     console.log(this.props.location);
@@ -74,7 +74,7 @@ class Lisiting extends Component {
     link.shift();
     console.log("link it is", link.join(""));
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
     const { getData } = this.props;
     if (prevProps.location.pathname !== this.props.location.pathname) {
@@ -184,47 +184,40 @@ class Lisiting extends Component {
                 <a className={styles.alertLink}>Learn more</a>
               </h6>
             </div>
-
-            <div className="mx-5 d-flex justify-content-around">
-              <Col key={uuidv4()} className="m-1">
-                <ListItem item={this.props.data} />
+            <Row>
+              <Col md={8}>
+                <div className="mx-5 d-flex justify-content-around">
+                  <Col key={uuidv4()} className="m-1">
+                    <ListItem item={this.props.data} />
+                  </Col>
+                </div>
               </Col>
-            </div>
-            <div style={{ width: 200, height: 200 }}>
-              <MapContainer location={co_ordinates} />
-            </div>
-            <div className="mt-3 d-flex justify-content-center">
-              {/* <Pagination>
-                <Pagination.Prev className="prevPage" />
-                <Pagination.Item>{1}</Pagination.Item>
-                <Pagination.Item>2</Pagination.Item>
-                <Pagination.Item active>{12}</Pagination.Item>
-                <Pagination.Ellipsis />
-                <Pagination.Item>{20}</Pagination.Item>
-                <Pagination.Next className="nextPage" />
-              </Pagination> */}
-            </div>
+              <Col md={4} style={{marginLeft:"-200px" , marginTop:10}}>
+                <MapContainer location={co_ordinates} />
+              </Col>
+            </Row>
+            <div className="mt-3 d-flex justify-content-center"></div>
           </>
         ) : (
-          <>
-            <Modal
-              size="lg"
-              aria-labelledby="contained-modal-title-vcenter"
-              centered={true}
-              show={true}
-            >
-              <Modal.Body>
-                <Row className="text-center">
-                  <Col>
-                    <Spinner animation="border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </Spinner>
-                  </Col>
-                </Row>
-              </Modal.Body>
-            </Modal>
-          </>
-        )}
+            <>
+              <Modal
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered={true}
+                show={true}
+              >
+                <Modal.Body>
+                  <Row className="text-center">
+                    <Col>
+                      <Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </Spinner>
+                    </Col>
+                  </Row>
+                </Modal.Body>
+              </Modal>
+            </>
+          )}
       </div>
     );
   }

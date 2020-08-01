@@ -26,11 +26,11 @@ class ListItem extends Component {
       <div>
         <Row className="text-center">
           {item && item.length === 0 ? (
-            <h2>Sorry !!! No Properties Available</h2>
+            <h2 className="text-center p-4">Sorry !!! No Properties Available</h2>
           ) : null}
           {item &&
             item.map((home) => (
-              <Col key={uuidv4()} lg={2} className="m-3">
+              <Col key={uuidv4()} lg={4} className="m-3">
                 <Card className={styles.card}>
                   <span className={styles.heart}>&#9829;</span>
                   <Card variant="top" className={styles.cardImage}>
@@ -73,7 +73,7 @@ class ListItem extends Component {
                     </Card.Text>
                     <Card.Text className={styles.priceCont}>
                       <span className={styles.amountSpan}>
-                        ₹{Math.floor(((home.price * 18) / 100)+home.price)}{" "}
+                        ₹{Math.floor(((home.price * 18) / 100) + home.price)}{" "}
                       </span>{" "}
                       / night
                     </Card.Text>
