@@ -37,6 +37,9 @@ def sendData(results):
         temp_dict["rating"] = result.rating
         temp_dict["ratingcount"] = result.ratingcount
         temp_dict["images"] = result.images
+        temp_dict["category"] = result.categoryName
+        temp_dict["lat"] = result.lat
+        temp_dict["lng"] = result.lng
         data.append(temp_dict)
     return data
 
@@ -72,8 +75,8 @@ def search(params):
         results = db.session.execute('''
                                         SELECT p.id,p.propertyName,p.description,p.address,
                                         p.countryId,cm.countryName,p.stateId,st.stateName,
-                                        ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
-                                        p.refundType,p.price,p.accomodatesCount,
+                                        ppt.propertyType,ct.categoryName,c.cityName,p.istantBook,p.isCancel,
+                                        p.refundType,p.price,p.accomodatesCount,p.lat,p.lng,
                                         p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
                                         p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                                         GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
@@ -106,8 +109,8 @@ def search(params):
         results = db.session.execute('''    
                                         SELECT p.id,p.propertyName,p.description,p.address,
                                         p.countryId,cm.countryName,p.stateId,st.stateName,
-                                        ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
-                                        p.refundType,p.price,p.accomodatesCount,
+                                        ppt.propertyType,ct.categoryName,c.cityName,p.istantBook,p.isCancel,
+                                        p.refundType,p.price,p.accomodatesCount,p.lat,p.lng,
                                         p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
                                         p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                                         GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,
@@ -181,8 +184,8 @@ def user_search_results(params):
 
     query = ''' SELECT p.id,p.propertyName,p.description,p.address,
                 p.countryId,cm.countryName,p.stateId,st.stateName,
-                ppt.propertyType,c.cityName,p.istantBook,p.isCancel,
-                p.refundType,p.price,p.accomodatesCount,
+                ppt.propertyType,ct.categoryName,c.cityName,p.istantBook,p.isCancel,
+                p.refundType,p.price,p.accomodatesCount,p.lat,p.lng,
                 p.bathroomCount,p.isAvailable,p.bedCount,p.bedroomCount,
                 p.cityId,p.userId, AVG(r.rating) AS rating, COUNT(r.rating) AS ratingcount,
                 GROUP_CONCAT(DISTINCT amenities.aminityName) AS amenities,

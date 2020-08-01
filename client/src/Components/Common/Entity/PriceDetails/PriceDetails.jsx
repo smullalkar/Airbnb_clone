@@ -91,16 +91,8 @@ class PriceDetails extends Component {
                   (this.state.home.price * 18) / 100 + this.state.home.price,
                 user_id: user.user_id,
                 gst: 18,
-                checkin: startDate._d
-                  .toLocaleDateString()
-                  .split("/")
-                  .reverse()
-                  .join("-"),
-                checkout: endDate._d
-                  .toLocaleDateString()
-                  .split("/")
-                  .reverse()
-                  .join("-"),
+                checkin: startDate._d.getFullYear() + '-' + (startDate._d.getMonth()+1) + '-' + startDate._d.getDate(),
+                checkout: endDate._d.getFullYear() + '-' + (endDate._d.getMonth()+1) + '-' + endDate._d.getDate()
               },
               () => {
                 console.log(this.state);
@@ -113,16 +105,8 @@ class PriceDetails extends Component {
                   email: user.email,
                   phone: user.phone,
                   gst: 18,
-                  checkin: startDate._d
-                    .toLocaleDateString()
-                    .split("/")
-                    .reverse()
-                    .join("-"),
-                  checkout: endDate._d
-                    .toLocaleDateString()
-                    .split("/")
-                    .reverse()
-                    .join("-"),
+                  checkin: startDate._d.getFullYear() + '-' + (startDate._d.getMonth()+1) + '-' + startDate._d.getDate(),
+                  checkout: endDate._d.getFullYear() + '-' + (endDate._d.getMonth()+1) + '-' + endDate._d.getDate(),
                   property_id: data[0].data.data[0].property_id,
                 });
               }
@@ -262,8 +246,8 @@ class PriceDetails extends Component {
               <span className="font-weight-bold">
                 ₹
                 {Math.floor(
-                  (this.state.home.price * 18) / 100 + this.state.home.price
-                ) * noOfDays}
+                (this.state.home.price * 18) / 100 + this.state.home.price
+              ) * noOfDays}
               </span>{" "}
             </Card.Text>
           </Card.Body>
