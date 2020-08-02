@@ -75,8 +75,8 @@ class Login extends Component {
       }
     }
   }
-  handleForgetPassword=()=>{
-    const { closeLoginModal , closeForgetPassword } = this.props
+  handleForgetPassword = () => {
+    const { closeLoginModal, closeForgetPassword } = this.props
     closeLoginModal();
     closeForgetPassword();
   }
@@ -146,12 +146,12 @@ class Login extends Component {
                       </span>
                     </span>
                   ) : (
-                    <span>
-                      {" "}
-                      We’ll call or text you to confirm your number. Standard
-                      message and data rates apply.
-                    </span>
-                  )}
+                      <span>
+                        {" "}
+                        We’ll call or text you to confirm your number. Standard
+                        message and data rates apply.
+                      </span>
+                    )}
                 </Form.Text>
 
                 <Button
@@ -176,7 +176,8 @@ class Login extends Component {
                     fields="name,email,picture"
                     scope="email, public_profile, user_birthday"
                     callback={this.responseFacebook}
-                    cssClass="border mg-1 btn-lg google bg-light"
+                    cssClass="btn bg-light btn-lg facebook-btn"
+                    className="facebook btn bg-light btn-lg"
                     style={{ border: "1px solid black" }}
                     icon={
                       <img
@@ -263,7 +264,7 @@ const mapStateToProps = (state) => ({
   error: state.authReducer.error,
   errorMessage: state.authReducer.errorMessage,
   isShowLoginModal: state.authReducer.isShowLoginModal,
-  forgetPassword:state.authReducer.forgetPassword
+  forgetPassword: state.authReducer.forgetPassword
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -272,6 +273,6 @@ const mapDispatchToProps = (dispatch) => ({
   loginUser: (payload) => dispatch(loginUser(payload)),
   closeLoginModal: () => dispatch(closeLoginModal()),
   closeRegisterModal: () => dispatch(closeRegisterModal()),
-  closeForgetPassword: ()=> dispatch(closeForgetPassword())
+  closeForgetPassword: () => dispatch(closeForgetPassword())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

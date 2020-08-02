@@ -36,6 +36,7 @@ class Lisiting extends Component {
       showMoreFilters: false,
       obj: {},
       data: [],
+      showMap: true
     };
   }
 
@@ -71,7 +72,7 @@ class Lisiting extends Component {
     getAmenities();
     getFacilities();
     getPropertyType();
-    this.setState({ data: data }, () => {});
+    this.setState({ data: data }, () => { });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -90,10 +91,16 @@ class Lisiting extends Component {
           obj[parameter[0]] += "," + parameter[1];
         }
       });
-    console.log(obj)
+      console.log(obj)
 
       getData(obj);
     }
+  }
+  closeMap = () => {
+    this.setState({ showMap: false })
+  }
+  openMap = () => {
+    this.setState({ showMap: true })
   }
 
   render() {
@@ -188,32 +195,33 @@ class Lisiting extends Component {
                   </Col>
                 </div>
               </Col>
-              <Col md={4} style={{ marginLeft: "-200px", marginTop: 10 }}>
-                <MapContainer location={co_ordinates} />
-              </Col>
+              {this.state.showMap === true ? <Col md={4} style={{ marginLeft: "-200px", marginTop: 10 }}>
+                <MapContainer location={co_ordinates} closeMap={this.closeMap} />
+              </Col> : ''}
+
             </Row>
             <div className="mt-3 d-flex justify-content-center"></div>
           </>
         ) : (
-          <>
-            <Modal
-              size="lg"
-              aria-labelledby="contained-modal-title-vcenter"
-              centered={true}
-              show={true}
-            >
-              <Modal.Body>
-                <Row className="text-center">
-                  <Col>
-                    <Spinner animation="border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </Spinner>
-                  </Col>
-                </Row>
-              </Modal.Body>
-            </Modal>
-          </>
-        )}
+            <>
+              <Modal
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered={true}
+                show={true}
+              >
+                <Modal.Body>
+                  <Row className="text-center">
+                    <Col>
+                      <Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </Spinner>
+                    </Col>
+                  </Row>
+                </Modal.Body>
+              </Modal>
+            </>
+          )}
       </div>
     );
   }
