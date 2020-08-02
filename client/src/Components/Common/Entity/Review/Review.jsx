@@ -35,14 +35,13 @@ class Review extends Component {
                           className={styles.reviewerAvatarImage}
                           src="https://via.placeholder.com/150"
                           alt="reviewer"
-                        />
-                      </div>
+                        />                      </div>
+                      <span className="pl-2 pr-2 font-weight-bold">{item.firstname + " " + item.lastname}  </span><br />
                       <div className={styles.reviewedDate}>
                         {item.createdAt.split(" ")[0]}
                       </div>
                     </div>
                   </div>
-
                   <p className={styles.reviewText}>{item["review "]}</p>
                 </Col>
               ))}
