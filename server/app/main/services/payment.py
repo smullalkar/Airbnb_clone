@@ -44,42 +44,15 @@ def getPaymentValidation(details):
     generated_signature = dig.hexdigest()
     if generated_signature == payment['razorpay_signature']:
         add_booking(bookingDetails)
-        if bookingDetails["phone"] != "":
-            account_sid = 'ACb658045f6bab9c686ec24ce8d449990f'
-            auth_token = '647033ee099edc58939dc45b93005b6e'
-            client = Client(account_sid, auth_token)
+        subject = "Booking from @airbnb 2020"
+        msg = 'Thank you "%s" "%s" for booking @Airbnb, your booking is confirmed'%(bookingDetails["firstname"],bookingDetails["lastname"])
+        user_email = bookingDetails["email"]
+        send_email(subject, msg, user_email)
 
-            message = client.messages \
-                            .create(
-                                body="Payment successful you booking is confirmed.",
-                                from_='+15157050607',
-                                to="+91%s"%bookingDetails["phone"]
-                            )
-
-            print(message.sid)
-            
-            
-            subject = "Booking from @airbnb 2020"
-            msg = 'Thank you %s %s for booking @Airbnb, your booking is confirmed'%(bookingDetails["firstname"],bookingDetails["lastname"])
-            user_email = bookingDetails["email"]
-
-            send_email(subject, msg, user_email)
-    
-            return{
-                "status":"success",
-                "message":"payment successfull"
-            }
-        else:
-            subject = "Booking from @airbnb 2020"
-            msg = 'Thank you "%s" "%s" for booking @Airbnb, your booking is confirmed'%(bookingDetails["firstname"],bookingDetails["lastname"])
-            user_email = bookingDetails["email"]
-
-            send_email(subject, msg, user_email)
-    
-            return{
-                "status":"success",
-                "message":"payment successfull"
-            }
+        return{
+            "status":"success",
+            "message":"payment successfull"
+        }
         
     else:
         return {
