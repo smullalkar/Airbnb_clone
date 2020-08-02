@@ -8,7 +8,6 @@ const initState = {
 const paymentReducer = (state = initState, { type, payload }) => {
     switch (type) {
         case GET_DETAILS_OF_BOOKING:
-            console.log(payload)
             return {
                 ...state,
                 bookingDetails : payload[0],

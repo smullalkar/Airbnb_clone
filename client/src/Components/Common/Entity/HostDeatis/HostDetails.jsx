@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
 import sheild from "../../../../assets/images/shield.png";
 import styles from "./HostDetails.module.css";
 import { connect } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 class HostDetails extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class HostDetails extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { data } = this.props;
     if (prevState.data.length === 0) {
-      data.map((item) => this.setState({ data: item.data.data[0] }, () => { }));
+      data.map((item) => this.setState({ data: item.data.data[0] }, () => {}));
     }
   }
   render() {
@@ -39,7 +39,7 @@ class HostDetails extends Component {
                     {hostInfo &&
                       hostInfo.data &&
                       hostInfo.data.map((item) => (
-                        <span>
+                        <span key={uuidv4()}>
                           Hosted by {item.firstname + " " + item.lastname}
                         </span>
                       ))}
@@ -74,9 +74,12 @@ class HostDetails extends Component {
             </div>
             <div>
               <h6 className="font-weight-bold">
-                {hostInfo && hostInfo.data &&
+                {hostInfo &&
+                  hostInfo.data &&
                   hostInfo.data.map((item) => (
-                    <span>{item.firstname + " " + item.lastname} </span>
+                    <span key={uuidv4()}>
+                      {item.firstname + " " + item.lastname}{" "}
+                    </span>
                   ))}
                 is a Superhost
               </h6>
@@ -100,14 +103,20 @@ class HostDetails extends Component {
               {hostInfo &&
                 hostInfo.data &&
                 hostInfo.data.map((item) => (
-                  <>
-                    <div className="pt-2">
+                  <span key={uuidv4()}>
+                    <div key={uuidv4()} className="pt-2">
                       {" "}
                       {item.firstname + " " + item.lastname}
                     </div>
-                    <div className="pt-2"> {item.email}</div>
-                    <div className="pt-2 pb-2"> {item.phone}</div>
-                  </>
+                    <div key={uuidv4()} className="pt-2">
+                      {" "}
+                      {item.email}
+                    </div>
+                    <div key={uuidv4()} className="pt-2 pb-2">
+                      {" "}
+                      {item.phone}
+                    </div>
+                  </span>
                 ))}{" "}
             </div>
 
@@ -138,5 +147,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, null)(HostDetails);
-
-// export default HostDetails;

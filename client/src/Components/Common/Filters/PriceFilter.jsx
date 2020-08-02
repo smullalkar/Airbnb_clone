@@ -39,13 +39,12 @@ class PriceFilter extends Component {
 
     queryString.append("minPrice", this.state.minPrice);
     queryString.append("maxPrice", this.state.maxPrice);
-    this.setState({ query: queryString }, () => { });
+    this.setState({ query: queryString }, () => {});
   };
 
   render() {
     let { query, minPrice, maxPrice } = this.state;
     let avg = Math.floor((Number(minPrice) + Number(maxPrice)) / 2);
-    console.log(query.toString)
     return (
       <div>
         <Card className={styles.priceCard}>
@@ -81,7 +80,7 @@ class PriceFilter extends Component {
           <Card.Footer>
             <div>
               <button
-                onClick={() => { }}
+                onClick={() => {}}
                 className={styles.cancellationCardSave}
               >
                 {" "}
