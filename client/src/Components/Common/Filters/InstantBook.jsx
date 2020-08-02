@@ -37,7 +37,6 @@ class InstantBook extends Component {
 
   render() {
     let { query, checked } = this.state;
-    console.log(query.toString());
     return (
       <div>
         <Card className={styles.cancellationCard}>
@@ -65,12 +64,12 @@ class InstantBook extends Component {
               </span>
               <button className={styles.cancellationCardSave}>
                 <Dropdown.Item>
-                  <span
+                  <Link
                     to={query.toString()}
                     style={{ textDecoration: "none", color: "white" }}
                   >
                     Save
-                  </span>
+                  </Link>
                 </Dropdown.Item>
               </button>
             </div>

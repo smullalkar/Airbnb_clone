@@ -21,12 +21,13 @@ class ListItem extends Component {
   render() {
     const { url } = this.state;
     const { item } = this.props;
-    console.log(item)
     return (
       <div>
         <Row className="text-center">
           {item && item.length === 0 ? (
-            <h2 className="text-center p-4">Sorry !!! No Properties Available</h2>
+            <h2 className="text-center p-4">
+              Sorry !!! No Properties Available
+            </h2>
           ) : null}
           {item &&
             item.map((home) => (
@@ -73,7 +74,7 @@ class ListItem extends Component {
                     </Card.Text>
                     <Card.Text className={styles.priceCont}>
                       <span className={styles.amountSpan}>
-                        ₹{Math.floor(((home.price * 18) / 100) + home.price)}{" "}
+                        ₹{Math.floor((home.price * 18) / 100 + home.price)}{" "}
                       </span>{" "}
                       / night
                     </Card.Text>

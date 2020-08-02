@@ -17,7 +17,8 @@ import {
     TOKEN_VALIDATE_REQUEST,
     TOKEN_VALIDATE_SUCCESS,
     TOKEN_VALIDATE_FAILURE,
-    CLOSE_FORGET_PASSWORD
+    CLOSE_FORGET_PASSWORD,
+    GET_USER_NAME
 } from "./actionTypes";
 
 
@@ -38,7 +39,6 @@ const initState = {
     provider: "",
     id: "",
     error: false,
-    errorMessage: "",
     isLoading: true,
     isAuth: false,
     payload: "",
@@ -46,15 +46,18 @@ const initState = {
     isShowLoginModal: false,
     isShowRegisterModal: false,
     showSpinner: false,
-    userName:"",
-    forgetPassword:false
+    userName: "",
+    forgetPassword: false
 }
 
 const reducer = (state = initState, { type, payload }) => {
     switch (type) {
+        case GET_USER_NAME:
+            return {
+                userName: payload
+            }
         case CLOSE_FORGET_PASSWORD:
-            console.log("invoke")
-            return{
+            return {
                 ...state,
                 forgetPassword: !state.forgetPassword
             }
@@ -63,12 +66,12 @@ const reducer = (state = initState, { type, payload }) => {
                 ...state,
                 error: false,
                 errorMessage: "",
-                isLoading: true
+                isLoading: true,
+                isAuth: false
             }
 
         case FACEBOOK_LOGIN_SUCCESS:
             localStorage.setItem("token", payload.token);
-            console.log(payload)
             return {
                 ...state,
                 isAuth: true,
@@ -85,13 +88,12 @@ const reducer = (state = initState, { type, payload }) => {
                 payload: payload,
                 isLoading: false,
                 error: true,
-                errorMessage: "something went wrong"
             }
         case GOOGLE_LOGIN_REQUEST:
             return {
                 ...state,
                 error: false,
-                errorMessage: "",
+                isAuth: false,
                 isLoading: true
             }
 
@@ -113,11 +115,11 @@ const reducer = (state = initState, { type, payload }) => {
                 payload: payload,
                 isLoading: false,
                 error: true,
-                errorMessage: "something went wrong"
             }
         case LOGIN_USER_REQUEST:
             return {
                 ...state,
+                isAuth: false,
                 error: false,
                 errorMessage: "",
                 isLoading: true
@@ -139,7 +141,6 @@ const reducer = (state = initState, { type, payload }) => {
                 payload: payload,
                 isLoading: false,
                 error: true,
-                errorMessage: "something went wrong"
             }
         case REGISTER_USER_REQUEST:
             return {
@@ -147,8 +148,8 @@ const reducer = (state = initState, { type, payload }) => {
                 error: false,
                 errorMessage: "",
                 isLoading: true,
-                showSpinner: true
-
+                showSpinner: true,
+                isAuth: false
             }
         case REGISTER_USER_SUCCESS:
             return {
@@ -165,17 +166,15 @@ const reducer = (state = initState, { type, payload }) => {
                 payload: payload,
                 isLoading: false,
                 error: true,
-                errorMessage: "something went wrong"
             }
 
         case LOGOUT_USER:
-            console.log("hello")
             localStorage.setItem("token", "");
             return {
                 ...state,
                 isAuth: false,
                 token: "",
-                userType: "",
+                userName: ""
             };
         case CLOSE_LOGIN_MODAL:
             return {

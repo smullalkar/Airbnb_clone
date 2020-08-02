@@ -27,9 +27,11 @@ class Login extends Component {
   }
   responseFacebook = (response) => {
     const { facebookLogin } = this.props;
+    console.log("response", response)
     facebookLogin(response);
   };
   responseGoogle = (response) => {
+    console.log("response", response)
     const { googleLogin } = this.props;
     googleLogin(response);
   };
@@ -90,7 +92,7 @@ class Login extends Component {
     closeRegisterModal();
   };
   render() {
-    const { handleLoginClose, isShowLoginModal, showSpinner, forgetPassword } = this.props;
+    const { handleLoginClose, isShowLoginModal, forgetPassword } = this.props;
     const { isError } = this.state;
     console.log(forgetPassword)
     return (
@@ -227,7 +229,6 @@ class Login extends Component {
                       cookiePolicy={"single_host_origin"}
                     />
                   </div>
-                  { showSpinner ? <img src="/803-1.gif" alt=""/> : null}
                   <div className="d-flex mt-4">
                     <Form.Text muted className="mx-2">
                       Don’t have an account?
@@ -245,7 +246,6 @@ class Login extends Component {
                       Sign up
                     </Link>
                   </div>
-                      {/* <div onClick={this.handleForgetPassword}> Forget password</div> */}
                 </div>
               </Form.Group>
             </Modal.Body>
@@ -263,7 +263,6 @@ const mapStateToProps = (state) => ({
   error: state.authReducer.error,
   errorMessage: state.authReducer.errorMessage,
   isShowLoginModal: state.authReducer.isShowLoginModal,
-  showSpinner:state.authReducer.showSpinner,
   forgetPassword:state.authReducer.forgetPassword
 });
 

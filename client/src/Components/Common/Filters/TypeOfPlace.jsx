@@ -10,7 +10,7 @@ class TypeOfPlace extends Component {
     this.state = {
       type_of_place: "",
       place_array: [],
-      query: ""
+      query: "",
     };
   }
 
@@ -35,7 +35,7 @@ class TypeOfPlace extends Component {
           this.state.place_array.map((item) => {
             queryString.append("type_of_place", item.split(" ").join("_"));
           });
-          this.setState({ query: queryString }, () => { });
+          this.setState({ query: queryString }, () => {});
         }
       );
     } else {
@@ -49,7 +49,7 @@ class TypeOfPlace extends Component {
           this.state.place_array.map((item) => {
             queryString.append("type_of_place", item.split(" ").join("_"));
           });
-          this.setState({ query: queryString }, () => { });
+          this.setState({ query: queryString }, () => {});
         }
       );
     }
@@ -57,15 +57,14 @@ class TypeOfPlace extends Component {
 
   render() {
     const { typeOfPlaces } = this.props;
-    console.log(typeOfPlaces)
     const { query } = this.state;
-    console.log("query : ", query.toString());
     return (
       <div>
         <Card className={styles.placeCard}>
           <Card.Body>
             <div>
-              { typeOfPlaces && typeOfPlaces.data &&
+              {typeOfPlaces &&
+                typeOfPlaces.data &&
                 typeOfPlaces.data.map((categories) => (
                   <Form.Check
                     onChange={this.handleChange}
@@ -80,22 +79,17 @@ class TypeOfPlace extends Component {
           </Card.Body>
           <Card.Footer>
             <div>
-              {/* <span className={styles.cancellationCardClear} onClick={() => {}}>
-                Clear
-              </span> */}
-              {/* <Dropdown.Item> */}
-                <Link
-                  to={query.toString()}
-                  style={{ textDecoration: "none", color: "white" }}
+              <Link
+                to={query.toString()}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <button
+                  className={styles.cancellationCardSave}
+                  onClick={this.handleClick}
                 >
-                  <button
-                    className={styles.cancellationCardSave}
-                    onClick={this.handleClick}
-                  >
-                    Save
-                  </button>
-                </Link>
-              {/* </Dropdown.Item> */}
+                  Save
+                </button>
+              </Link>
             </div>
           </Card.Footer>
         </Card>

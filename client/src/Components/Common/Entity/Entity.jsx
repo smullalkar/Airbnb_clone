@@ -16,7 +16,6 @@ import ExploreMore from "./ExploreMore/ExploreMore";
 import PriceDetails from "./PriceDetails/PriceDetails";
 import SleepingArrangement from "./SleepingArrangement/SleepingArrangement";
 
-// import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import { Col, Row, Container } from "react-bootstrap";
 import DayPicker from "react-day-picker";
@@ -29,7 +28,6 @@ import map from "../../../assets/images/map.svg";
 import medal from "../../../assets/images/superhost.png";
 import homeImage from "../../../assets/images/home.png";
 import Review from "./Review/Review";
-import { closeCancellationFlexibility } from "../../../Redux/user/actions";
 
 class Entity extends Component {
   constructor(props) {
@@ -71,36 +69,37 @@ class Entity extends Component {
       getRecommendation,
       getSimilarProperties,
     } = this.props;
-    console.log(bookedDates);
     const { home, id } = this.state;
-    var obj = {};
+    var obj = {},
+      similiar = {};
     if (prevState.home.length === 0) {
-      if (data.length !== 0) {
-        this.setState({ home: data.data[0] }, () => { });
-        if (home.images) {
-          let img = home.images.split(",");
-          img = img.map((item) => item.split(" ").join(""));
-          this.setState({ images: img });
+      if (data !== undefined) {
+        if (data.length !== 0) {
+          this.setState({ home: data.data[0] }, () => {});
+          if (home.images) {
+            let img = home.images.split(",");
+            img = img.map((item) => item.split(" ").join(""));
+            this.setState({ images: img });
+          }
         }
       }
       let query = window.location.href.split("&");
       obj.location = query[1].split("=")[1].split("/")[0];
-      let url = new URLSearchParams(`location=${query[1].split("=")[1].split("/")[0]}`);
+      similiar.location = query[1].split("=")[1].split("/")[0]
       query = query[query.length - 1].split("/entity");
       obj.property_id = Number(id);
       getRecommendation(obj);
-      url.append("property_id", Number(id));
-      home &&
-        home.amenity &&
-        home.amenity.split(",").forEach((item) => url.append("amenity", item));
-      getSimilarProperties(url.toString());
+      similiar.property_id = Number(id);
+      similiar.amenities = home && home.amenity && home.amenity.split(" ").join("_");
+      console.log(similiar)
+      getSimilarProperties(similiar);
     }
   }
 
   render() {
     const { home, images } = this.state;
     const { hostInfo } = this.props;
-
+    console.log("home ", home)
     return (
       <Container className={styles.entityContainer}>
         <h2>{home.propertyName}</h2>
@@ -125,12 +124,7 @@ class Entity extends Component {
 
         <Row className="my-5">
           <div className="col-12 col-md-6 pb-0">
-            <img
-              className={styles.cardMainImage}
-              src={images[0]}
-              alt="image"
-            />
-
+            <img className={styles.cardMainImage} src={images[0]} alt="image" />
           </div>
           <Col className="col-6 d-none d-lg-block">
             <Row>
@@ -142,7 +136,6 @@ class Entity extends Component {
                 />
               </Col>
               <Col className="col-6 pb-1 px-1">
-
                 <img
                   className={`${styles.cardChildImage} top-right-curve`}
                   src={images[2]}
@@ -152,7 +145,6 @@ class Entity extends Component {
             </Row>
             <Row>
               <Col className="col-6 pt-1 px-1">
-
                 <img
                   className={styles.cardChildImage}
                   src={images[3]}
@@ -167,7 +159,6 @@ class Entity extends Component {
                 />
               </Col>
             </Row>
-
           </Col>
         </Row>
 

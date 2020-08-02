@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 
 import { Card, Row, Col, Button } from "react-bootstrap";
-import { connnect, connect } from "react-redux";
+import { connect } from "react-redux";
 import styles from "./Amenities.module.css";
-import MoreAmeneties from "./MoreAmeneties";
-
+import { v4 as uuidv4 } from "uuid";
 import wifi from "../../../../assets/images/wifi.svg";
 import kitchen from "../../../../assets/images/kitchen.png";
 import wash from "../../../../assets/images/wash.png";
@@ -29,41 +28,44 @@ class Amenities extends Component {
   render() {
     const { data } = this.props;
     if (data.length !== 0) {
-      var kitchenA = {},
-        wifiA = {},
-        washingA = {},
-        workSpaceA = {},
-        TvA = {},
-        ironingA = {},
-        breakfastA = {},
-        indoorFirePlaceA = {};
       var amenities = data[0].data.data[0].amenity.split(",");
-      for (var i = 0; i < amenities.length; i++) {
-        console.log(amenities[i])
-        if (amenities[i] != "Kitchen") {
-          kitchenA.textDecoration = "line-through";
-
+      let amenityArr = [
+        "Kitchen",
+        "Wifi",
+        "Washer",
+        "TV",
+        "Laptop-friendly workspace",
+        "Breakfast",
+        "Indoor fireplace",
+        "Shampoo",
+        "Heating",
+        "Air conditioning",
+        "Dryer",
+        "Hangers",
+        "Iron",
+        "Hair dryer",
+        "Crib",
+        "High chair",
+        "Self check-in",
+        "Smoke alarm",
+        "Carbon monoxide alarm",
+        "Private bathroom",
+        "Pets allowed",
+        "Smoking allowed",
+      ];
+      var available = [];
+      var notAvaiable = [];
+      for (var j = 0; j < amenityArr.length; j++) {
+        var flag = false;
+        for (var i = 0; i < amenities.length; i++) {
+          if (amenities[i] === amenityArr[j]) {
+            flag = true;
+            available.push(amenityArr[j]);
+            break;
+          }
         }
-        if (amenities[i] != "Wifi") {
-          wifiA.textDecoration = "line-through";
-        }
-        if (amenities[i] != "Washing machine") {
-          washingA.textDecoration = "line-through";
-        }
-        if (amenities[i] != "Tv") {
-          TvA.textDecoration = "line-through";
-        }
-        if (amenities[i] != "Workspace") {
-          workSpaceA.textDecoration = "line-through";
-        }
-        if (amenities[i] != "Breakfast") {
-          breakfastA.textDecoration = "line-through";
-        }
-        if (amenities[i] != "Indoor Fire Place") {
-          indoorFirePlaceA.textDecoration = "line-through";
-        }
-        if (amenities[i] != "Ironing") {
-          ironingA.textDecoration = "line-through";
+        if (!flag) {
+          notAvaiable.push(amenityArr[j]);
         }
       }
     }
@@ -71,92 +73,37 @@ class Amenities extends Component {
       <div className="p-4">
         <div>
           <h4 className="font-weight-bold">Amenities</h4>
-          <div className="d-flex flex-column col-6 justify-content-start">
-            <Row xs={1} md={2}>
-              <Col className={styles.amneityItem} sm={12} md={12} lg={6} >
-                {" "}
-                <span>
-                  {" "}
-                  <img className="mx-2" src={kitchen} alt="kitchen" />{" "}
-                </span>{" "}
-                {/* {console.log(kitchen)} */}
-                <span style={kitchenA}>Kitchen</span>
-              </Col>
-              <Col className={styles.amneityItem} sm={12} md={12} lg={6}  >
-                {" "}
-                <span>
-                  {" "}
-                  <img className="mx-2" src={wifi} alt="wifi" />{" "}
-                </span>{" "}
-                <span style={wifiA}>Wifi</span>
-              </Col>
-              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
-                {" "}
-                <span>
-                  {" "}
-                  <img className="mx-2" src={wash} alt="washing" />{" "}
-                </span>{" "}
-                <span style={washingA}>Washing machine</span>{" "}
-              </Col>
-              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
-                {" "}
-                <span>
-                  {" "}
-                  <img className="mx-2" src={ironing} alt="essential" />{" "}
-                </span>{" "}
-                <span style={ironingA}>Ironing</span>{" "}
-              </Col>
-              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
-                {" "}
-                <span>
-                  {" "}
-                  <img
-                    className="mx-2"
-                    src={workspace}
-                    alt="Laptop-riendly workspace"
-                  />{" "}
-                </span>
-                <span style={workSpaceA}> Workspace </span>
-              </Col>
-              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
-                {" "}
-                <span>
-                  {" "}
-                  <img className="mx-2" src={breakfast} alt="Breakfast" />{" "}
-                </span>{" "}
-                <span style={breakfastA}>Breakfast</span>
-              </Col>
-              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
-                {" "}
-                <span>
-                  {" "}
-                  <img className="mx-2" src={Tv} alt="Tv" />{" "}
-                </span>{" "}
-                <span style={TvA}>Tv</span>
-              </Col>
-              <Col className={styles.amneityItem} sm={12} md={12} lg={6}>
-                {" "}
-                <span>
-                  {" "}
-                  <img className="mx-2" src={fire} alt="Fire" />{" "}
-                </span>{" "}
-                <span style={indoorFirePlaceA}>Indoor Fire Place</span>
-              </Col>
+          <div className="d-flex flex-column">
+            <Row>
+              {available &&
+                available.map((item) => (
+                  <Col
+                    key={uuidv4()}
+                    className={styles.amneityItem}
+                    sm={12}
+                    md={6}
+                    lg={4}
+                  >
+                    {" "}
+                    <i className="fa fa-check pr-1" aria-hidden="true"></i>{" "}
+                    <span>{item}</span>
+                  </Col>
+                ))}
+              {notAvaiable &&
+                notAvaiable.map((item) => (
+                  <Col
+                    key={uuidv4()}
+                    className={styles.amneityItem}
+                    sm={12}
+                    md={6}
+                    lg={4}
+                  >
+                    {" "}
+                    <i className="fa fa-times" aria-hidden="true"></i>{" "}
+                    <span>{item}</span>
+                  </Col>
+                ))}
             </Row>
-            {/* <Button
-              variant="outline-secondary"
-              className={styles.showAllBtn}
-              size="lg"
-              onClick={() => this.setState({ showMoreAmenities: true })}
-
-
-            >
-              Show all amenitis
-            </Button> */}
-            <MoreAmeneties
-              show={this.state.showMoreAmenities}
-              handleMoreAmenitiesClose={this.handleMoreAmenitiesClose}
-            />
           </div>
         </div>
       </div>
@@ -169,5 +116,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, null)(Amenities);
-
-// export default Amenities;

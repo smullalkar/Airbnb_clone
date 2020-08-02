@@ -152,7 +152,9 @@ export const getSimilarProperties = payload => {
     return dispatch => {
         dispatch(getSimilarPropertiesRequest());
         return axios // /user/recommendation POST
-            .get(`user/recommendation?&${payload}`)
+            .get("user/recommendation", {
+                params : payload
+            })
             .then(res => dispatch(getSimilarPropertiesSuccess(res.data)))
             .catch(() => dispatch(getSimilarPropertiesFailure()));
     };

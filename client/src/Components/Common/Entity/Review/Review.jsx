@@ -25,7 +25,7 @@ class Review extends Component {
             {reviews &&
               reviews.data &&
               reviews.data.map((item) => (
-                <Col>
+                <Col key={uuidv4()}>
                   <div>
                     <div
                       kye={uuidv4()}
