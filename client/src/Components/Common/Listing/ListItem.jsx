@@ -3,12 +3,14 @@ import { Card, Row, Col, Carousel, CarouselItem } from "react-bootstrap";
 import styles from "./Listing.module.css";
 import star from "../../../assets/images/star.svg";
 import { v4 as uuidv4 } from "uuid";
+import Pagination from "@material-ui/lab/Pagination";
 
 class ListItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
       url: "",
+      pageNo: 1,
     };
   }
   componentDidMount() {
@@ -18,19 +20,45 @@ class ListItem extends Component {
     });
   }
 
+  handleShow = (page) => {
+    this.setState({ pageNo: page }, () => {});
+  };
+
   render() {
-    const { url } = this.state;
+    const { url, pageNo } = this.state;
     const { item } = this.props;
+    var count = item && item.length;
+
+    let offset = ((pageNo || 1) - 1) * 8;
+    var show = item.filter(
+      (item, index) => index >= offset && index < offset + 8
+    );
+    var donePages = Math.ceil(count / 8);
     return (
       <div>
         <Row className="text-center">
           {item && item.length === 0 ? (
-            <h2 className="text-center p-4">
-              Sorry !!! No Properties Available
-            </h2>
+            <Row className="text-center p-4">
+              <Col>
+                <span style={{ color: "red", fontSize: 17 }}>
+                  <svg
+                    style={{ width: 30 }}
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>{" "}
+                  <span className="mr-2">Sorry !! No Properties Available</span>
+                </span>
+              </Col>
+            </Row>
           ) : null}
-          {item &&
-            item.map((home) => (
+          {show &&
+            show.map((home) => (
               <Col key={uuidv4()} lg={4} className="m-3">
                 <Card className={styles.card}>
                   <span className={styles.heart}>&#9829;</span>
@@ -82,6 +110,16 @@ class ListItem extends Component {
                 </Card>
               </Col>
             ))}
+        </Row>
+        <Row>
+          {count > 8 ? (
+            <Pagination
+              count={donePages}
+              color="secondary"
+              style={{ marginTop: 10 }}
+              onChange={(event: null, page: number) => this.handleShow(page)}
+            />
+          ) : null}
         </Row>
       </div>
     );

@@ -65,7 +65,6 @@ class Entity extends Component {
   componentDidUpdate(prevProps, prevState) {
     const {
       data,
-      bookedDates,
       getRecommendation,
       getSimilarProperties,
     } = this.props;
@@ -90,16 +89,16 @@ class Entity extends Component {
       obj.property_id = Number(id);
       getRecommendation(obj);
       similiar.property_id = Number(id);
-      similiar.amenities = home && home.amenity && home.amenity.split(" ").join("_");
-      console.log(similiar)
-      getSimilarProperties(similiar);
+      if(home && home.amenity && home.amenity.split(" ").join("_") !== undefined){
+        similiar.amenities = home && home.amenity && home.amenity.split(" ").join("_");
+        getSimilarProperties(similiar);
+      }
     }
   }
 
   render() {
     const { home, images } = this.state;
     const { hostInfo } = this.props;
-    console.log("home ", home)
     return (
       <Container className={styles.entityContainer}>
         <h2>{home.propertyName}</h2>
