@@ -3,9 +3,6 @@ import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import { v4 as uuidv4} from "uuid";
 
 export class MapContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { location } = this.props;
     console.log(location);
@@ -32,5 +29,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M",
+  apiKey: process.env.REACT_APP_API_KEY
 })(MapContainer);

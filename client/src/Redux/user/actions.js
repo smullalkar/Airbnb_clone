@@ -23,9 +23,14 @@ import {
     BOOK_DATE_REQUEST,
     BOOK_DATE_SUCCESS,
     BOOK_DATE_FAILURE,
-    CLOSE_CANCELLATION_FLEXIBILITY
+    CLOSE_CANCELLATION_FLEXIBILITY,
+    SHOW_MORE_FILTERS
 } from "./actionTypes";
 import axios from "../../Utils/axiosInterceptor"
+
+export const showMoreFilters = () => ({
+    type: SHOW_MORE_FILTERS
+})
 
 // Actions to get Data from home page search
 export const getDataRequest = () => ({

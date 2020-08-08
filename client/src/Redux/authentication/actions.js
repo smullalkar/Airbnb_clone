@@ -17,11 +17,17 @@ import {
     TOKEN_VALIDATE_REQUEST,
     TOKEN_VALIDATE_SUCCESS,
     TOKEN_VALIDATE_FAILURE,
-    CLOSE_FORGET_PASSWORD
+    CLOSE_FORGET_PASSWORD,
+    GET_USER_NAME
 } from "../authentication/actionTypes";
 
 import axios from "../../Utils/axiosInterceptor";
 
+
+export const getUserName = payload => ({
+    type: GET_USER_NAME,
+    payload
+})
 
 //Facebook login Request start
 export const facebookLoginRequest = () => ({
@@ -53,6 +59,7 @@ export const facebookLogin = payload => {
             .then(res => {
                 dispatch(facebookLoginSuccess(res.data));
             })
+            .then(() => dispatch(getUserName(payload.name)))
             .catch(() => dispatch(facebookLoginFailure()));
     };
 }
@@ -89,7 +96,7 @@ export const googleLogin = payload => {
             })
             .then(res => {
                 dispatch(googleLoginSuccess(res.data));
-            })
+            }).then(() => dispatch(getUserName(payload.profileObj.name)))
             .catch(() => dispatch(googleLoginFailure()));
     };
 }
@@ -214,6 +221,6 @@ export const tokenValidateUser = payload => {
 };
 
 
-export const closeForgetPassword =()=>({
-    type:CLOSE_FORGET_PASSWORD
+export const closeForgetPassword = () => ({
+    type: CLOSE_FORGET_PASSWORD
 })

@@ -1,4 +1,4 @@
-import React, { Component, version } from "react";
+import React, { Component} from "react";
 import { Form, Button } from "react-bootstrap";
 import styles from "./SearchBar.module.css";
 import { DateRangePicker } from "react-dates";

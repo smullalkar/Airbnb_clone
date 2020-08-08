@@ -15,6 +15,7 @@ import {
     GET_PROPERTY_TYPE_REQUEST,
     GET_PROPERTY_TYPE_SUCCESS,
     GET_PROPERTY_TYPE_FAILURE,
+    SHOW_MORE_FILTERS
 } from "./actionTypes";
 
 const initState = {
@@ -24,7 +25,8 @@ const initState = {
     typeOfPlaces: [],
     amenities: [],
     facilities: [],
-    propertyTypes: []
+    propertyTypes: [],
+    showMoreFilter: false
 }
 
 const userReducer = (state = initState, { type, payload }) => {
@@ -105,6 +107,11 @@ const userReducer = (state = initState, { type, payload }) => {
                 ...state,
                 showCancellationFlexibility: !state.showCancellationFlexibility
 
+            }
+        case SHOW_MORE_FILTERS:
+            return {
+                ...state,
+                showMoreFilter: !state.showMoreFilter
             }
         default:
             return { ...state }

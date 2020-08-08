@@ -45,73 +45,113 @@ class PriceDetails extends Component {
     this.setState({ showWarning: false });
   }
 
-  handleReserve = () => { };
+  handleReserve = () => {};
 
   handleChange = ({ startDate, endDate }) => {
     this.setState({
       startDate,
       endDate,
-      showWarning: false,
     });
+    console.log("This is state ",this.state)
     const { bookedDates, user, isAuth, closeLoginModal } = this.props;
     const { data } = this.props;
-    let token = localStorage.getItem("token")
+    let token = localStorage.getItem("token");
     if (!isAuth || token === "" || token === undefined) {
       closeLoginModal();
     }
 
     if (startDate && endDate) {
-      if (bookedDates.length !== 0 && bookedDates[0].data[0] !== undefined) {
-        if (
-          bookedDates[0].data[0].bookingDate.split(" ")[0] <=
-          startDate._d.toLocaleDateString().split("/").join("-") &&
-          bookedDates[0].data[0].bookingDate.split(" ")[0] >=
-          endDate._d.toLocaleDateString().split("/").join("-")
-        ) {
-          let start = new Date(startDate._d);
-          let end = new Date(endDate._d);
-          let diffTime = Math.abs(end - start);
-          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-          this.setState({ showWarning: true, noOfDays: diffDays }, () => { });
-        } else {
-          let start = new Date(startDate._d);
-          let end = new Date(endDate._d);
-          let diffTime = Math.abs(end - start);
-          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-          this.setState({ showWarning: false, noOfDays: diffDays || 1 }, () => {
-            var total =
-              Math.floor(
-                (this.state.home.price * 18) / 100 + this.state.home.price
-              ) * this.state.noOfDays;
-
+      let start = new Date(startDate._d);
+      let end = new Date(endDate._d);
+      let diffTime = Math.abs(end - start);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      let startD = startDate._d
+        .toLocaleDateString()
+        .split("/")
+        .reverse()
+        .map(Number);
+      let endD = endDate._d
+        .toLocaleDateString()
+        .split("/")
+        .reverse()
+        .map(Number);
+      if (bookedDates && bookedDates[0] && bookedDates[0].data) {
+        for (let i = 0; i < bookedDates[0].data.length; i++) {
+          let range = bookedDates[0].data[i].bookingDate
+            .split(" ")[0]
+            .split("-")
+            .map(Number);
+          let booked = new Date(range[0], range[1], range[2]);
+          let start = new Date(startD[0], startD[1], startD[2]);
+          let end = new Date(endD[0], endD[1], endD[2]);
+          if (start <= booked && booked <= end) {
+            this.setState({ showWarning: true, noOfDays: diffDays }, () => {});
+            break;
+          } else {
             this.setState(
-              {
-                total_bill: total,
-                total_per_day:
-                  (this.state.home.price * 18) / 100 + this.state.home.price,
-                user_id: user.user_id,
-                gst: 18,
-                checkin: startDate._d.getFullYear() + '-' + (startDate._d.getMonth()+1) + '-' + startDate._d.getDate(),
-                checkout: endDate._d.getFullYear() + '-' + (endDate._d.getMonth()+1) + '-' + endDate._d.getDate()
-              },
+              { showWarning: false, noOfDays: diffDays || 1 },
               () => {
-                console.log(this.state);
-                this.props.getDetailsOfBooking([{
-                  total_bill: this.state.total_bill || 1,
-                  total_per_day: this.state.total_per_day,
-                  user_id: user.user_id,
-                  firstname: user.firstname,
-                  lastname: user.lastname,
-                  email: user.email,
-                  phone: user.phone,
-                  gst: 18,
-                  checkin: startDate._d.getFullYear() + '-' + (startDate._d.getMonth()+1) + '-' + startDate._d.getDate(),
-                  checkout: endDate._d.getFullYear() + '-' + (endDate._d.getMonth()+1) + '-' + endDate._d.getDate(),
-                  property_id: data[0].data.data[0].property_id,
-                },{price : this.state.home.price, noOfDays : this.state.noOfDays }]);
+                var total =
+                  Math.floor(
+                    (this.state.home.price * 18) / 100 + this.state.home.price
+                  ) * this.state.noOfDays;
+
+                this.setState(
+                  {
+                    total_bill: total,
+                    total_per_day:
+                      (this.state.home.price * 18) / 100 +
+                      this.state.home.price,
+                    user_id: user.user_id,
+                    gst: 18,
+                    checkin:
+                      startDate._d.getFullYear() +
+                      "-" +
+                      (startDate._d.getMonth() + 1) +
+                      "-" +
+                      startDate._d.getDate(),
+                    checkout:
+                      endDate._d.getFullYear() +
+                      "-" +
+                      (endDate._d.getMonth() + 1) +
+                      "-" +
+                      endDate._d.getDate(),
+                  },
+                  () => {
+                    this.props.getDetailsOfBooking([
+                      {
+                        total_bill: this.state.total_bill || 1,
+                        total_per_day: this.state.total_per_day,
+                        user_id: user.user_id,
+                        firstname: user.firstname,
+                        lastname: user.lastname,
+                        email: user.email,
+                        phone: user.phone,
+                        gst: 18,
+                        checkin:
+                          startDate._d.getFullYear() +
+                          "-" +
+                          (startDate._d.getMonth() + 1) +
+                          "-" +
+                          startDate._d.getDate(),
+                        checkout:
+                          endDate._d.getFullYear() +
+                          "-" +
+                          (endDate._d.getMonth() + 1) +
+                          "-" +
+                          endDate._d.getDate(),
+                        property_id: data[0].data.data[0].property_id,
+                      },
+                      {
+                        price: this.state.home.price,
+                        noOfDays: this.state.noOfDays,
+                      },
+                    ]);
+                  }
+                );
               }
             );
-          });
+          }
         }
       }
     }
@@ -133,7 +173,6 @@ class PriceDetails extends Component {
 
   render() {
     const { home, showWarning, noOfDays } = this.state;
-    const { totalPrice } = this.props;
     return (
       <div>
         <Card className={styles.priceDetailsCard}>
@@ -143,7 +182,7 @@ class PriceDetails extends Component {
                 <span className={styles.amountSpan}>₹{home.price} </span> /
                 night
               </Card.Text>
-              <Card.Text >
+              <Card.Text>
                 <div className="d-flex align-items-center">
                   <span className={styles.ratingStar}>&#9733;</span>
                   <span className={styles.rating}>{home.rating}</span>
@@ -151,7 +190,7 @@ class PriceDetails extends Component {
                 </div>
               </Card.Text>
             </div>
-            <Card className={styles.addDateCard} >
+            <Card className={styles.addDateCard}>
               <Card.Body>
                 <div>
                   <Form.Group className={styles.formGroup}>
@@ -215,8 +254,8 @@ class PriceDetails extends Component {
                   Reserve
                 </Link>
               ) : (
-                  <span>Reserve</span>
-                )}
+                <span>Reserve</span>
+              )}
             </Button>
             <Card.Text className={styles.helperText}>
               You won't be charged yet{" "}
@@ -246,8 +285,8 @@ class PriceDetails extends Component {
               <span className="font-weight-bold">
                 ₹
                 {Math.floor(
-                (this.state.home.price * 18) / 100 + this.state.home.price
-              ) * noOfDays}
+                  (this.state.home.price * 18) / 100 + this.state.home.price
+                ) * noOfDays}
               </span>{" "}
             </Card.Text>
           </Card.Body>
@@ -271,5 +310,4 @@ const mapDispatchToProps = (dispatch) => ({
   tokenValidateUser: (payload) => dispatch(tokenValidateUser(payload)),
   closeLoginModal: () => dispatch(closeLoginModal()),
 });
-// export default PriceDetails;
 export default connect(mapStateToProps, mapDispatchToProps)(PriceDetails);
