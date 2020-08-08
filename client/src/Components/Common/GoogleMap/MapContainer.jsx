@@ -3,9 +3,6 @@ import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import { v4 as uuidv4} from "uuid";
 
 export class MapContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { location } = this.props;
     console.log(location);

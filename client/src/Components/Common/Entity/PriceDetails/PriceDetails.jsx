@@ -52,6 +52,7 @@ class PriceDetails extends Component {
       startDate,
       endDate,
     });
+    console.log("This is state ",this.state)
     const { bookedDates, user, isAuth, closeLoginModal } = this.props;
     const { data } = this.props;
     let token = localStorage.getItem("token");
@@ -172,7 +173,6 @@ class PriceDetails extends Component {
 
   render() {
     const { home, showWarning, noOfDays } = this.state;
-    console.log(showWarning);
     return (
       <div>
         <Card className={styles.priceDetailsCard}>
@@ -325,5 +325,4 @@ const mapDispatchToProps = (dispatch) => ({
   tokenValidateUser: (payload) => dispatch(tokenValidateUser(payload)),
   closeLoginModal: () => dispatch(closeLoginModal()),
 });
-// export default PriceDetails;
 export default connect(mapStateToProps, mapDispatchToProps)(PriceDetails);

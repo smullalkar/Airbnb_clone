@@ -6,6 +6,7 @@ const initState = {
 }
 
 const paymentReducer = (state = initState, { type, payload }) => {
+    console.log("it is payload : ",payload)
     switch (type) {
         case GET_DETAILS_OF_BOOKING:
             return {

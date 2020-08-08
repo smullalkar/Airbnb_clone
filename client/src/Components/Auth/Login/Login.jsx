@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Form, Button, Col, Row, Spinner } from "react-bootstrap";
+import { Modal, Form, Button, Col, Row } from "react-bootstrap";
 import styles from "./Login.module.css";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";

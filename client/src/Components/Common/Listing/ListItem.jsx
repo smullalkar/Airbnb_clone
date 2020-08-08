@@ -117,7 +117,7 @@ class ListItem extends Component {
               count={donePages}
               color="secondary"
               style={{ marginTop: 10 }}
-              onChange={(event: null, page: number) => this.handleShow(page)}
+              onChange={(event: object, page: number) => this.handleShow(page)}
             />
           ) : null}
         </Row>

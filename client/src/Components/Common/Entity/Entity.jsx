@@ -14,7 +14,6 @@ import HostDetails from "./HostDeatis/HostDetails";
 import MorePlaceToStay from "./MorePlaceToShow/MorePlaceToShow";
 import ExploreMore from "./ExploreMore/ExploreMore";
 import PriceDetails from "./PriceDetails/PriceDetails";
-import SleepingArrangement from "./SleepingArrangement/SleepingArrangement";
 
 import "react-day-picker/lib/style.css";
 import { Col, Row, Container } from "react-bootstrap";
@@ -274,8 +273,6 @@ class Entity extends Component {
             </div>
 
             <hr />
-            <SleepingArrangement />
-            <hr />
             <Amenities />
           </div>
           <div className="col-12 col-md-4">
@@ -287,11 +284,9 @@ class Entity extends Component {
           <Review rates={home.rating} rateCount={home.ratingcount} />
         </div>
         <hr />
-        <hr />
         <HostDetails />
         <hr />
         <MorePlaceToStay />
-        <hr />
         <hr />
       </Container>
     );
@@ -305,7 +300,6 @@ const mapStateToProps = (state) => ({
   facilities: state.userReducer.facilities,
   bookedDates: state.entityReducer.bookedDates,
   hostInfo: state.entityReducer.hostInfo,
-  bookingDetails: state.paymentReducer.bookingDetails,
 });
 
 const mapDispatchToProps = (dispatch) => ({
