@@ -1,6 +1,6 @@
 from . import user
 from flask import request
-from ..services.user import register, login, oauth_login, insert_data, sendUserDetails
+from ..services.user import register, login, oauth_login, sendUserDetails, updateUserPhone
 from ..services.forgetpassword import forgetPass
 import datetime
 # from ..util.auth_token import checkAuthToken
@@ -54,6 +54,14 @@ def user_forgetpass():
     forget password system
     """
     response = forgetPass(request.json)
+    return response
+
+@user.route("/updateuserphone", methods=["POST"])
+def user_number_update():
+    """
+    update user number to complete the booking
+    """
+    response = updateUserPhone(request.json)
     return response
 
 
