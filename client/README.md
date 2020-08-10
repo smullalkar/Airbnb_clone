@@ -1,4 +1,4 @@
-#Airbnb
+# Airbnb
 Anywhere . Stays . Airbnb
 
 ## Getting started
@@ -50,3 +50,5 @@ and
 Run command
 
 `npm start`
+
+The app will open a new tab running on http://localhost:3000
