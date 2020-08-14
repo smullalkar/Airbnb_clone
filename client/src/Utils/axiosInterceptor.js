@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const axiosInstance = axios.create({
-  baseURL: "http://aa3d56b72fd2.ngrok.io/"
+  baseURL: "https://airbnbbackend.smullalkar.tech/"
 });
 
 axiosInstance.interceptors.request.use((request) => {
