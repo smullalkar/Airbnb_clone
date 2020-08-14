@@ -17,7 +17,7 @@ def send_email(subject, msg, reciever):
     server = smtplib.SMTP('smtp.gmail.com:587')
     server.ehlo()
     server.starttls()
-    server.login('smullalkar@gmail.com', 'prisha101')
+    server.login('gmail', 'Password')
     message = 'Subject: {}\n\n{}'.format(subject, msg)
     server.sendmail('smullalkar@gmail.com', reciever, message)
     server.quit()
@@ -26,7 +26,7 @@ def send_email(subject, msg, reciever):
 
 def getOrderId(booking_info):
     print('booking_info........',booking_info)
-    client = razorpay.Client(auth=("rzp_test_3S2Ud4WlsY59BD", "gbaIvPnANiYCREUicQe0fzVE"))
+    client = razorpay.Client(auth=("rzp_test_3S2Ud4WlsY59BD", "KEY"))
     response = client.order.create(data=booking_info)
     return json.dumps(response)
 
@@ -37,7 +37,7 @@ def getPaymentValidation(details):
     bookingDetails = details["bookingDetails"]
     print('booking details.......',bookingDetails)
     
-    secret = "gbaIvPnANiYCREUicQe0fzVE"
+    secret = "KEY"
     key = bytes(secret, 'utf-8')
     msg = bytes(payment['razorpay_order_id'] + "|" + payment['razorpay_payment_id'], 'utf-8')
     dig = hmac.new(key=key,msg=msg,digestmod=hashlib.sha256)
@@ -77,7 +77,7 @@ def getPaymentValidation(details):
 #         add_booking(bookingDetails)
 #         if bookingDetails["phone"] != "":
 #             account_sid = 'ACb658045f6bab9c686ec24ce8d449990f'
-#             auth_token = '647033ee099edc58939dc45b93005b6e'
+#             auth_token = 'TWILLIO KEY'
 #             client = Client(account_sid, auth_token)
 
 #             message = client.messages \
