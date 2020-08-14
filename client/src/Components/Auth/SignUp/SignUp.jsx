@@ -201,10 +201,10 @@ class SignUp extends Component {
                   <span className="mr-2">Name Can't be Empty !!</span>
                 </span>
               ) : (
-                <span>
-                  Make sure it matches the name on your government ID.
+                  <span>
+                    Make sure it matches the name on your government ID.
                 </span>
-              )}
+                )}
             </Form.Text>
             <Form.Group>
               <div className="border mt-1" style={{ borderRadius: 5 }}>
@@ -234,12 +234,12 @@ class SignUp extends Component {
                   <span className="mr-2">Date of birth Can't be Empty !!</span>
                 </span>
               ) : (
-                <span>
-                  Fill your date of birth here. To sign up, you need to be at
-                  least 18. Your birthday won't be shared with other people who
-                  use Airbnb.
+                  <span>
+                    Fill your date of birth here. To sign up, you need to be at
+                    least 18. Your birthday won't be shared with other people who
+                    use Airbnb.
                 </span>
-              )}
+                )}
             </Form.Text>
             <hr />
             <Form.Group>
@@ -270,8 +270,8 @@ class SignUp extends Component {
                   <span className="mr-2">Email Can't be Empty !!</span>
                 </span>
               ) : (
-                <span>We'll email you trip confirmations and receipts.</span>
-              )}
+                  <span>We'll email you trip confirmations and receipts.</span>
+                )}
             </Form.Text>
             <Form.Group>
               <div className="border mt-1" style={{ borderRadius: 5 }}>
@@ -328,18 +328,18 @@ class SignUp extends Component {
                   <span className="mr-2">Enter valid phone number !!</span>
                 </span>
               ) : (
-                <span>
-                  We’ll send you marketing promotions, special offers,
-                  inspiration and policy updates via email.
+                  <span>
+                    We’ll send you marketing promotions, special offers,
+                    inspiration and policy updates via email.
                 </span>
-              )}
+                )}
             </Form.Text>
 
             <Form.Check
               type="checkbox"
               muted
               onChange={(e) => this.setState({ isChecked: e.target.checked })}
-              className="my-3"
+              className="ml-4 my-3"
               style={{ fontSize: 15 }}
               label=" I don’t want to receive marketing messages from Airbnb. I can also opt out of receiving these at any time in my account settings or via the link in the message."
             />
@@ -401,7 +401,8 @@ class SignUp extends Component {
                 fields="name,email,picture"
                 scope="email, public_profile, user_birthday"
                 callback={this.responseFacebook}
-                cssClass="border mg-1 btn-lg google bg-light"
+                cssClass="btn bg-light  facebook-btn"
+                className="facebook btn bg-light btn-lg"
                 style={{ border: "1px solid black" }}
                 icon={
                   <img
@@ -417,7 +418,7 @@ class SignUp extends Component {
                 }
               />
             </div>
-            <div variant="outline-secondary" size="lg">
+            <div variant="outline-secondary">
               <GoogleLogin
                 clientId="491118482543-i2uipslim2cgt2e0ivpn94qom9tkppop.apps.googleusercontent.com"
                 render={(renderProps) => (
