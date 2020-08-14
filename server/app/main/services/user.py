@@ -252,91 +252,35 @@ def sendUserDetails(payload):
             "message": True
         }, default=str)
 
+def updateUserPhone(payload):
+    try:
+        phone = payload["phone"]
+        userId = payload["user_id"]
+    except KeyError as err:
+        return json.dumps({'error': True, 'error_found': format(err)})
+    except TypeError as err:
+        return json.dumps({'error': True, 'error_found': format(err)})
+    except Exception as err:
+        return json.dumps({'error': True, 'error_found': format(err)})
 
-def insert_data():
-    # data = [
-    #     {
-    #         'name': "Master's Homestay", 
-    #         'description': "At the heart of Fort Kochi, Our home is very near to all the tourist attractions in the area. Good place for your vacation. The guests are provided with the best of services and the facilities.",
-    #         'userId': 1,
-    #         'propertyTypeId': 9,
-    #         'categoryId': 1,
-    #         'cityId': 1,
-    #         'stateId' :1,
-    #         'countryId': 1,
-    #         'address': "Bengaluru, Karnataka, India",
-    #         'bedroomCount': 5,
-    #         'bedCount': 5,
-    #         'bathroomCount': 5,
-    #         'accomodatesCount': 5,
-    #         'isAvailable': True,
-    #         'startDate': datetime.date.today() + datetime.timedelta(days=1),
-    #         'endDate': datetime.date.today() + datetime.timedelta(days=2),
-    #         'price': 10000,
-    #         'priceTypeId': 1,
-    #         'refundType': True,
-    #         'createdAt': datetime.datetime.utcnow(),
-    #         'status': True
-    #     },
-    #     # insert into user (firstname,lastname,dob,email,password,phone,createdAt,userType,status) values('Shabaz','Mullalkar','1994:04:04','smullalkar@gmail.com','1234','8123332662','2020-07-25','user'',true);
-    #     {
-    #         'name': "refurbished ACs Artsy Bandra hamlet", 
-    #         'description': "A newly renovated, fully equipped unit in Bandra's Waroda Road. Walk to numerous lovely Cafes and boutiques in the neighborhood. Enjoy peace and quiet in a silent location in a cul-de-sac, while still being well connected to the rest of the city.",
-    #         'userId': 1,
-    #         'propertyTypeId': 2,
-    #         'categoryId': 2,
-    #         'cityId': 2,
-    #         'stateId' :2,
-    #         'countryId': 1,
-    #         'address': "Mumbai, Maharashtra, India",
-    #         'bedroomCount': 4,
-    #         'bedCount': 4,
-    #         'bathroomCount': 4,
-    #         'accomodatesCount': 4,
-    #         'isAvailable': True,
-    #         'startDate': datetime.date.today() + datetime.timedelta(days=1),
-    #         'endDate': datetime.date.today() + datetime.timedelta(days=2),
-    #         'price': 4000,
-    #         'priceTypeId': 1,
-    #         'refundType': True,
-    #         'createdAt': datetime.datetime.utcnow(),
-    #         'status': True
-    #     },
-    #     {
-    #         'name': "Private bedroom. Hidden Gem in the heart of Pune.", 
-    #         'description': "Spacious private bedroom on the first floor of a heritage. Bedroom is large enough for 2 guests to sleep comfortably,has private seating for 2, flatscreen TV & a large executive table with chair.",
-    #         'userId': 2,
-    #         'propertyTypeId': 2,
-    #         'categoryId': 2,
-    #         'cityId': 4,
-    #         'stateId' : 2,
-    #         'countryId': 1,
-    #         'address': "Pune, Maharashtra, India",
-    #         'bedroomCount': 1,
-    #         'bathroomCount': 1,
-    #         'accomodatesCount': 2,
-    #         'isAvailable': True,
-    #         'startDate': datetime.date.today() + datetime.timedelta(days=1),
-    #         'endDate': datetime.date.today() + datetime.timedelta(days=5),
-    #         'price': 1000,
-    #         'priceTypeId': 1,
-    #         'refundType': True,
-    #         'createdAt': datetime.datetime.utcnow(),
-    #         'status': True
-    #     }
-    # ]
-    results = db.session.execute(''' select * from images; ''')
-    for i in results:
-        if int(i.propertyId) == 29: 
-            break
-        user = ImageModel(
-            propertyId=int(i.propertyId)+106,
-            image=i.image
+    if payload is None:
+        return json.dumps({'error': True, 'error_found': 'data is empty'})
+    elif phone == '' :
+        return json.dumps(
+            {'error': True, 'error_found': 'field is empty'}
         )
-        db.session.add(user)
-        db.session.commit()
-        
-    return json.dumps({
-        "error": False,
-        "message": "data added successfully"
-    })
+
+    user = UserModel.query.filter_by(id=userId).first()
+
+    if user is not None:
+        try:
+            user.phone = phone
+            db.session.commit()
+            return json.dumps({
+                "error": False,
+                "message": "User phone number updated successfully"
+            })
+        except Exception as err:
+            return {'error': True, 'error_found': format(err)}
+
+    return {"error": True, "message": "Updated failed, no user exists with this user id"}

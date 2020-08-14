@@ -1,7 +1,7 @@
 from . import user
 from flask import request
 from ..services.filters import sendAmenities, sendFacility, sendPropertyType, sendCategories
-from ..services.searchs import user_search_results, search
+from ..services.searchs import user_search_results
 from ..services.review import sendReviews
 from ..services.booking import add_booking, send_booking
 from ..services.recommendation import recommendation, recommendation_popularity
