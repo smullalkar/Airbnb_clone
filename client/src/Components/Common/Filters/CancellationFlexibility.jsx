@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Card, Dropdown } from "react-bootstrap";
 import Switch from "react-switch";
 import styles from "./Filters.module.css";
-import { connect } from "react-redux";
-import { closeCancellationFlexibility, getData } from "../../../Redux/user/actions";
 import { Link } from "react-router-dom";
 
 class CancellationFlexibility extends Component {
@@ -29,11 +27,9 @@ class CancellationFlexibility extends Component {
     this.setState({ isShow: true });
   }
   handleSave = () => {
-    const { closeCancellationFlexibility } = this.props;
     this.setState({ isShow: false }, () => {
       this.handleQuery();
     });
-    closeCancellationFlexibility();
   };
 
   handleQuery = () => {
@@ -55,7 +51,6 @@ class CancellationFlexibility extends Component {
 
   render() {
     const { query } = this.state;
-    const { showCancellationFlexibility } = this.props;
     let url = query.toString();
     return (
       <div>
@@ -101,15 +96,4 @@ class CancellationFlexibility extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  showCancellationFlexibility: state.userReducer.showCancellationFlexibility,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  closeCancellationFlexibility: () => dispatch(closeCancellationFlexibility()),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CancellationFlexibility);
+export default CancellationFlexibility;

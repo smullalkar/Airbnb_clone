@@ -4,6 +4,7 @@ import styles from "./Filters.module.css";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
+import { showMoreFilters } from "../../../Redux/user/actions";
 
 class MoreFilter extends Component {
   constructor(props) {
@@ -22,11 +23,11 @@ class MoreFilter extends Component {
       Hangers: false,
       Iron: false,
       Hair_dryer: false,
-      Laptop_friendly_workspace: false,
+      Laptopfriendly_workspace: false,
       TV: false,
       Crib: false,
       High_chair: false,
-      Self_check_in: false,
+      Self_checkin: false,
       Smoke_alarm: false,
       Carbon_monoxide_alarm: false,
       Private_bathroom: false,
@@ -41,12 +42,17 @@ class MoreFilter extends Component {
   }
 
   handleChange = (e) => {
-    let { amenities, facilities, propertyTypes } = this.props;
+    let { amenities, facilities } = this.props;
     let query = window.location.href.split("&");
     var queryString = new URLSearchParams("/location?");
     for (let i = 1; i < query.length; i++) {
       let str = query[i].split("=");
-      if (str[1] !== "null" && str[1] !== "") {
+      if (
+        str[1] !== "null" &&
+        str[1] !== "" &&
+        str[0] !== "amenities" &&
+        str[0] !== "facilities"
+      ) {
         queryString.append(str[0], str[1]);
       }
     }
@@ -73,9 +79,11 @@ class MoreFilter extends Component {
             });
           }
         }
-        queryString.append("beds", this.state.beds);
-        queryString.append("bedrooms", this.state.bedrooms);
-        queryString.append("bathrooms", this.state.bathrooms);
+        if (this.state.beds > 0) queryString.append("beds", this.state.beds);
+        if (this.state.bedrooms > 0)
+          queryString.append("bedrooms", this.state.bedrooms);
+        if (this.state.bathrooms > 0)
+          queryString.append("bathrooms", this.state.bathrooms);
         this.setState({ query: queryString }, () => {});
       });
     } else {
@@ -101,12 +109,36 @@ class MoreFilter extends Component {
             });
           }
         }
-        queryString.append("beds", this.state.beds);
-        queryString.append("bedrooms", this.state.bedrooms);
-        queryString.append("bathrooms", this.state.bathrooms);
+        if (this.state.beds > 0) queryString.append("beds", this.state.beds);
+        if (this.state.bedrooms > 0)
+          queryString.append("bedrooms", this.state.bedrooms);
+        if (this.state.bathrooms > 0)
+          queryString.append("bathrooms", this.state.bathrooms);
         this.setState({ query: queryString }, () => {});
       });
     }
+  };
+
+  handleQuery = () => {
+    let query = window.location.href.split("&");
+    var queryString = new URLSearchParams("/location?");
+    for (let i = 1; i < query.length; i++) {
+      let str = query[i].split("=");
+      if (
+        str[1] !== "null" &&
+        str[1] !== "" &&
+        str[0] !== "amenities" &&
+        str[0] !== "facilities"
+      ) {
+        queryString.append(str[0], str[1]);
+      }
+    }
+    if (this.state.beds > 0) queryString.append("beds", this.state.beds);
+    if (this.state.bedrooms > 0)
+      queryString.append("bedrooms", this.state.bedrooms);
+    if (this.state.bathrooms > 0)
+      queryString.append("bathrooms", this.state.bathrooms);
+    this.setState({ query: queryString }, () => {});
   };
 
   render() {
@@ -115,10 +147,10 @@ class MoreFilter extends Component {
       handleMoreFiltersClose,
       amenities,
       facilities,
-      propertyTypes,
+      showMoreFilters,
     } = this.props;
-    const { beds, bedrooms, bathrooms, filterArray, query } = this.state;
-    console.log("query  ", query);
+    const { beds, bedrooms, bathrooms, query } = this.state;
+
     return (
       <div>
         <Modal
@@ -128,7 +160,7 @@ class MoreFilter extends Component {
           className={styles.moreFilterModal}
           onHide={handleMoreFiltersClose}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton onClick={showMoreFilters}>
             <Modal.Title>More Filters</Modal.Title>
           </Modal.Header>
 
@@ -144,7 +176,9 @@ class MoreFilter extends Component {
                       {" "}
                       <button
                         onClick={() => {
-                          this.setState({ beds: Number(beds - 1) || 0 });
+                          this.setState({ beds: Number(beds - 1) || 0 }, () => {
+                            this.handleQuery();
+                          });
                         }}
                         className={styles.guestButton}
                       >
@@ -155,7 +189,9 @@ class MoreFilter extends Component {
                     <div className="  mx-1 bd-highlight">
                       <button
                         onClick={() => {
-                          this.setState({ beds: Number(beds + 1) || 0 });
+                          this.setState({ beds: Number(beds + 1) || 0 }, () => {
+                            this.handleQuery();
+                          });
                         }}
                         className={styles.guestButton}
                       >
@@ -176,9 +212,14 @@ class MoreFilter extends Component {
                       {" "}
                       <button
                         onClick={() => {
-                          this.setState({
-                            bedrooms: Number(bedrooms - 1) || 0,
-                          });
+                          this.setState(
+                            {
+                              bedrooms: Number(bedrooms - 1) || 0,
+                            },
+                            () => {
+                              this.handleQuery();
+                            }
+                          );
                         }}
                         className={styles.guestButton}
                       >
@@ -189,9 +230,14 @@ class MoreFilter extends Component {
                     <div className="  mx-1 bd-highlight">
                       <button
                         onClick={() => {
-                          this.setState({
-                            bedrooms: Number(bedrooms + 1) || 0,
-                          });
+                          this.setState(
+                            {
+                              bedrooms: Number(bedrooms + 1) || 0,
+                            },
+                            () => {
+                              this.handleQuery();
+                            }
+                          );
                         }}
                         className={styles.guestButton}
                       >
@@ -212,9 +258,14 @@ class MoreFilter extends Component {
                       {" "}
                       <button
                         onClick={() => {
-                          this.setState({
-                            bathrooms: Number(bathrooms - 1) || 1,
-                          });
+                          this.setState(
+                            {
+                              bathrooms: Number(bathrooms - 1) || 1,
+                            },
+                            () => {
+                              this.handleQuery();
+                            }
+                          );
                         }}
                         className={styles.guestButton}
                       >
@@ -225,9 +276,14 @@ class MoreFilter extends Component {
                     <div className="  mx-1 bd-highlight">
                       <button
                         onClick={() => {
-                          this.setState({
-                            bathrooms: Number(bathrooms + 1) || 1,
-                          });
+                          this.setState(
+                            {
+                              bathrooms: Number(bathrooms + 1) || 1,
+                            },
+                            () => {
+                              this.handleQuery();
+                            }
+                          );
                         }}
                         className={styles.guestButton}
                       >
@@ -376,51 +432,6 @@ class MoreFilter extends Component {
                   </div>
                 </div>
               </div>
-
-              <hr />
-              <div>
-                {/* <h3 className="font-weight-bold">Property type</h3>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex flex-column col-6 justify-content-start"> */}
-                {/* {propertyTypes &&
-                      propertyTypes.map((item, index) =>
-                        index > 2 ? (
-                          <Form.Check
-                            onChange={this.handleChange}
-                            className={styles.cancellationCardCheckBox}
-                            type="checkbox"
-                            name="propertyType"
-                            checked={this.state[item.propertyName.split(" ").join("_").split("-").join("")]}
-                            label={item.propertyName}
-                            value={item.propertyName}
-                            id={item.id}
-                          />
-                        ) : (
-                          ""
-                        )
-                      )} */}
-                {/* </div>
-                  <div className="d-flex flex-column col-6 "> */}
-                {/* {propertyTypes &&
-                      propertyTypes.map((item, index) =>
-                        index > 2 ? (
-                          <Form.Check
-                            onChange={this.handleChange}
-                            className={styles.cancellationCardCheckBox}
-                            type="checkbox"
-                            name="propertyType"
-                            id={item.id}
-                            checked={this.state[item.propertyName.split(" ").join("_").split("-").join("")]}
-                            label={item.propertyName}
-                            value={item.propertyName}
-                          />
-                        ) : (
-                          ""
-                        )
-                      )} */}
-                {/* </div> */}
-                {/* </div> */}
-              </div>
             </div>
           </Modal.Body>
 
@@ -435,7 +446,7 @@ class MoreFilter extends Component {
                 to={query.toString()}
                 style={{ color: "white", textDecoration: "none" }}
               >
-                Show Stay
+                <span onClick={showMoreFilters}> Show Stay </span>
               </Link>
             </Button>
           </Modal.Footer>
@@ -449,6 +460,11 @@ const mapStateToProps = (state) => ({
   amenities: state.userReducer.amenities,
   facilities: state.userReducer.facilities,
   propertyTypes: state.userReducer.propertyTypes,
+  showMoreFilter: state.userReducer.showMoreFilter,
 });
-export default connect(mapStateToProps, null)(MoreFilter);
-// export default MoreFilter;
+
+const mapDispatchToProps = (dispatch) => ({
+  showMoreFilters: () => dispatch(showMoreFilters()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoreFilter);

@@ -25,6 +25,7 @@ import {
   getAmenities,
   getFacilities,
   getPropertyType,
+  showMoreFilters,
 } from "../../../Redux/user/actions";
 import MapContainer from "../GoogleMap/MapContainer";
 
@@ -35,6 +36,7 @@ class Lisiting extends Component {
       showMoreFilters: false,
       obj: {},
       data: [],
+      showMap: true
     };
   }
 
@@ -59,20 +61,18 @@ class Lisiting extends Component {
         if (!obj[parameter[0]]) {
           obj[parameter[0]] = parameter[1];
         }
+        else {
+          obj[parameter[0]] += "," + parameter[1];
+        }
       }
     });
+    console.log(obj)
     getData(obj);
     getTypeOfPlace();
     getAmenities();
     getFacilities();
     getPropertyType();
     this.setState({ data: data }, () => { });
-  }
-  componentWillReceiveProps() {
-    console.log(this.props.location);
-    let link = window.location.href.split("%2F");
-    link.shift();
-    console.log("link it is", link.join(""));
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -87,19 +87,25 @@ class Lisiting extends Component {
         let parameter = item.split("=");
         if (!obj[parameter[0]]) {
           obj[parameter[0]] = parameter[1];
+        } else {
+          obj[parameter[0]] += "," + parameter[1];
         }
       });
+      console.log(obj)
+
       getData(obj);
     }
   }
-
-  handleMoreFiltersClose = () => {
-    this.setState({ showMoreFilters: false });
-  };
+  closeMap = () => {
+    this.setState({ showMap: false })
+  }
+  openMap = () => {
+    this.setState({ showMap: true })
+  }
 
   render() {
     var co_ordinates = [];
-    const { isLoading, data } = this.props;
+    const { isLoading, data, showMoreFilters, showMoreFilter } = this.props;
     if (data && data.length != 0) {
       data.map((item) =>
         co_ordinates.push({ lat: Number(item.lat), lng: Number(item.lng) })
@@ -162,15 +168,12 @@ class Lisiting extends Component {
                 <Button
                   className={styles.filterButton}
                   variant="outline-secondary"
-                  onClick={() => this.setState({ showMoreFilters: true })}
+                  onClick={showMoreFilters}
                 >
                   More Filters
                 </Button>
               </div>
-              <MoreFilter
-                show={this.state.showMoreFilters}
-                handleMoreFiltersClose={this.handleMoreFiltersClose}
-              />
+              <MoreFilter show={showMoreFilter} />
             </div>
 
             <div className="d-flex flex-column flex-md-row   pl-5 align-items-center">
@@ -192,9 +195,10 @@ class Lisiting extends Component {
                   </Col>
                 </div>
               </Col>
-              <Col md={4} style={{marginLeft:"-200px" , marginTop:10}}>
-                <MapContainer location={co_ordinates} />
-              </Col>
+              {this.state.showMap === true ? <Col md={4} style={{ marginLeft: "-200px", marginTop: 10 }}>
+                <MapContainer location={co_ordinates} closeMap={this.closeMap} />
+              </Col> : ''}
+
             </Row>
             <div className="mt-3 d-flex justify-content-center"></div>
           </>
@@ -226,6 +230,7 @@ class Lisiting extends Component {
 const mapStateToProps = (state) => ({
   data: state.userReducer.data,
   isLoading: state.userReducer.isLoading,
+  showMoreFilter: state.userReducer.showMoreFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -235,5 +240,6 @@ const mapDispatchToProps = (dispatch) => ({
   getAmenities: () => dispatch(getAmenities()),
   getFacilities: () => dispatch(getFacilities()),
   getPropertyType: () => dispatch(getPropertyType()),
+  showMoreFilters: () => dispatch(showMoreFilters()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Lisiting);

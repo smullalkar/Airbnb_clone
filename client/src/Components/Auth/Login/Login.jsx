@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Form, Button, Col, Row, Spinner } from "react-bootstrap";
+import { Modal, Form, Button, Col, Row } from "react-bootstrap";
 import styles from "./Login.module.css";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
@@ -27,9 +27,11 @@ class Login extends Component {
   }
   responseFacebook = (response) => {
     const { facebookLogin } = this.props;
+    console.log("response", response)
     facebookLogin(response);
   };
   responseGoogle = (response) => {
+    console.log("response", response)
     const { googleLogin } = this.props;
     googleLogin(response);
   };
@@ -73,8 +75,8 @@ class Login extends Component {
       }
     }
   }
-  handleForgetPassword=()=>{
-    const { closeLoginModal , closeForgetPassword } = this.props
+  handleForgetPassword = () => {
+    const { closeLoginModal, closeForgetPassword } = this.props
     closeLoginModal();
     closeForgetPassword();
   }
@@ -90,7 +92,7 @@ class Login extends Component {
     closeRegisterModal();
   };
   render() {
-    const { handleLoginClose, isShowLoginModal, showSpinner, forgetPassword } = this.props;
+    const { handleLoginClose, isShowLoginModal, forgetPassword } = this.props;
     const { isError } = this.state;
     console.log(forgetPassword)
     return (
@@ -144,12 +146,12 @@ class Login extends Component {
                       </span>
                     </span>
                   ) : (
-                    <span>
-                      {" "}
-                      We’ll call or text you to confirm your number. Standard
-                      message and data rates apply.
-                    </span>
-                  )}
+                      <span>
+                        {" "}
+                        We’ll call or text you to confirm your number. Standard
+                        message and data rates apply.
+                      </span>
+                    )}
                 </Form.Text>
 
                 <Button
@@ -174,7 +176,8 @@ class Login extends Component {
                     fields="name,email,picture"
                     scope="email, public_profile, user_birthday"
                     callback={this.responseFacebook}
-                    cssClass="border mg-1 btn-lg google bg-light"
+                    cssClass="btn bg-light btn-lg facebook-btn"
+                    className="facebook btn bg-light btn-lg"
                     style={{ border: "1px solid black" }}
                     icon={
                       <img
@@ -227,7 +230,6 @@ class Login extends Component {
                       cookiePolicy={"single_host_origin"}
                     />
                   </div>
-                  { showSpinner ? <img src="/803-1.gif" alt=""/> : null}
                   <div className="d-flex mt-4">
                     <Form.Text muted className="mx-2">
                       Don’t have an account?
@@ -245,7 +247,6 @@ class Login extends Component {
                       Sign up
                     </Link>
                   </div>
-                      {/* <div onClick={this.handleForgetPassword}> Forget password</div> */}
                 </div>
               </Form.Group>
             </Modal.Body>
@@ -263,8 +264,7 @@ const mapStateToProps = (state) => ({
   error: state.authReducer.error,
   errorMessage: state.authReducer.errorMessage,
   isShowLoginModal: state.authReducer.isShowLoginModal,
-  showSpinner:state.authReducer.showSpinner,
-  forgetPassword:state.authReducer.forgetPassword
+  forgetPassword: state.authReducer.forgetPassword
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -273,6 +273,6 @@ const mapDispatchToProps = (dispatch) => ({
   loginUser: (payload) => dispatch(loginUser(payload)),
   closeLoginModal: () => dispatch(closeLoginModal()),
   closeRegisterModal: () => dispatch(closeRegisterModal()),
-  closeForgetPassword: ()=> dispatch(closeForgetPassword())
+  closeForgetPassword: () => dispatch(closeForgetPassword())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

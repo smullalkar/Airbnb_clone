@@ -11,8 +11,16 @@ class MorePlaceToShow extends Component {
     this.state = {
       similarCount: 1,
       recommendationCount: 1,
+      url: "",
     };
   }
+  componentDidMount() {
+    let query = window.location.href.split("/entity")[0];
+    this.setState({
+      url: query,
+    });
+  }
+
   handleDecreaseSimilar = () => {
     this.setState({ similarCount: this.state.similarCount - 1 || 1 });
   };
@@ -30,7 +38,7 @@ class MorePlaceToShow extends Component {
     });
   };
   render() {
-    const { similarCount, recommendationCount } = this.state;
+    const { similarCount, recommendationCount, url } = this.state;
     const { recommendation, similarProperty } = this.props;
     if (similarProperty && similarProperty.data) {
       let count = similarProperty.data.length;
@@ -73,18 +81,18 @@ class MorePlaceToShow extends Component {
                   {similarCount >= doneSimilar ? (
                     <Pagination.Next className="nextPage mx-1" />
                   ) : (
-                      <Pagination.Next
-                        onClick={this.handleIncreaseSimilar}
-                        className="nextPage mx-1"
-                      />
-                    )}
+                    <Pagination.Next
+                      onClick={this.handleIncreaseSimilar}
+                      className="nextPage mx-1"
+                    />
+                  )}
                 </Pagination>
               </div>
             </div>
             <div className="d-flex flex-row justify-content-between overflow-auto">
               {doneSimilarArr &&
                 doneSimilarArr.map((item) => (
-                  <>
+                  <span key={uuidv4()}>
                     <Card key={uuidv4()} className={styles.card}>
                       <span className={styles.heart}>&#9829;</span>
                       <Card.Img
@@ -93,7 +101,12 @@ class MorePlaceToShow extends Component {
                         src={item.images.split(",")[0].split(" ").join("")}
                       />
 
-                      <Card.Body className={styles.cardBody}>
+                      <Card.Body
+                        className={styles.cardBody}
+                        onClick={() => {
+                          window.open(url + "/entity/id_" + item.property_id);
+                        }}
+                      >
                         <div className="d-flex justify-content-between">
                           <div>
                             <Card.Title className={styles.cardTitle}>
@@ -115,7 +128,12 @@ class MorePlaceToShow extends Component {
                         <Card.Text className={styles.cardDesc}>
                           {item.cityName} . {item.stateName}
                         </Card.Text>
-                        <Card.Text className={styles.priceCont}>
+                        <Card.Text
+                          className={styles.priceCont}
+                          onClick={() => {
+                            window.open(url + "/entity/id_" + item.property_id);
+                          }}
+                        >
                           <span className={styles.amountSpan}>
                             ₹{item.price}{" "}
                           </span>{" "}
@@ -123,7 +141,7 @@ class MorePlaceToShow extends Component {
                         </Card.Text>
                       </Card.Body>
                     </Card>
-                  </>
+                  </span>
                 ))}
             </div>
           </div>
@@ -150,18 +168,18 @@ class MorePlaceToShow extends Component {
                   {recommendationCount >= doneRec ? (
                     <Pagination.Next className="nextPage mx-1" />
                   ) : (
-                      <Pagination.Next
-                        onClick={this.handleIncreaseRec}
-                        className="nextPage mx-1"
-                      />
-                    )}
+                    <Pagination.Next
+                      onClick={this.handleIncreaseRec}
+                      className="nextPage mx-1"
+                    />
+                  )}
                 </Pagination>
               </div>
             </div>
             <div className="d-flex flex-row">
               {doneRecArr &&
                 doneRecArr.map((item) => (
-                  <>
+                  <span key={uuidv4()}>
                     <Card key={uuidv4()} className={styles.card}>
                       <span className={styles.heart}>&#9829;</span>
                       <Card.Img
@@ -170,7 +188,10 @@ class MorePlaceToShow extends Component {
                         src={item.images.split(",")[0].split(" ").join("")}
                       />
 
-                      <Card.Body className={styles.cardBody}>
+                      <Card.Body className={styles.cardBody}
+                          onClick={() => {
+                            window.open(url + "/entity/id_" + item.property_id);
+                          }}>
                         <div className="d-flex justify-content-between">
                           <div>
                             <Card.Title className={styles.cardTitle}>
@@ -200,7 +221,7 @@ class MorePlaceToShow extends Component {
                         </Card.Text>
                       </Card.Body>
                     </Card>
-                  </>
+                  </span>
                 ))}
             </div>
           </div>
@@ -216,7 +237,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, null)(MorePlaceToShow);
-
-// export default MorePlaceToShow;
-
-

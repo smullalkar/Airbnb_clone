@@ -23,18 +23,27 @@ import styles from "./ReviewHouseRules.module.css";
 class ReviewHouseRules extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { showConfirmPay: false };
   }
+  closeConfirmPay = () => {
+    this.setState({ showConfirmPay: false });
+  }
+
+  openConfirmPay = () => {
+    this.setState({ showConfirmPay: true });
+  }
+
   render() {
     const { otherDetails, bookingDetails, data } = this.props;
 
     return (
       <Container>
         <Breadcrumb>
-          <Breadcrumb.Item active>1. Review house rules</Breadcrumb.Item>
-          <Breadcrumb.Item>2. Confirm and pay</Breadcrumb.Item>
+          <Breadcrumb.Item onClick={this.closeConfirmPay} active>1. Review house rules</Breadcrumb.Item>
+          <Breadcrumb.Item onClick={this.openConfirmPay}>2. Confirm and pay</Breadcrumb.Item>
         </Breadcrumb>
-        <Row>
+
+        {this.state.showConfirmPay === false ? <Row>
           <Col md={8} className="pl-5">
             <h4 className={styles.title}>Review House Rules</h4>
 
@@ -123,9 +132,12 @@ class ReviewHouseRules extends Component {
           </Col>
           <Col md={4}>
             <PriceCard />
-            <ConfirmAndPay />
+
+
+
           </Col>
-        </Row>
+        </Row> : <ConfirmAndPay />}
+
       </Container>
     );
   }

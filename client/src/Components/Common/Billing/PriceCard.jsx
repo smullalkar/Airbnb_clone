@@ -21,7 +21,6 @@ class PriceCard extends Component {
     let end = new Date(bookingDetails.checkout);
     let diffTime = Math.abs(end - start);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    console.log(diffDays);
   }
 
   render() {
@@ -155,5 +154,6 @@ const mapStateToProps = (state) => ({
   infants: state.entityReducer.infants,
   childrens: state.entityReducer.childrens,
 });
+
 
 export default connect(mapStateToProps, null)(PriceCard);

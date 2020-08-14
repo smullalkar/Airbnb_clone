@@ -96,7 +96,7 @@ export const getRecommendationFailure = () => ({
 });
 
 export const getRecommendation = payload => {
-    console.log(payload)
+    console.log("normal recommendation : ", payload)
     return dispatch => {
         dispatch(getRecommendationRequest());
         return axios //user/recommendation
@@ -149,10 +149,13 @@ export const getSimilarPropertiesFailure = () => ({
 });
 
 export const getSimilarProperties = payload => {
+    console.log("This is for similar", payload)
     return dispatch => {
         dispatch(getSimilarPropertiesRequest());
         return axios // /user/recommendation POST
-            .get(`user/recommendation?&${payload}`)
+            .get("user/recommendation", {
+                params : payload
+            })
             .then(res => dispatch(getSimilarPropertiesSuccess(res.data)))
             .catch(() => dispatch(getSimilarPropertiesFailure()));
     };
