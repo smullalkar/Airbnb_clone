@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import styles from "./AddPhoneNumber.module.css";
 import { Button, Form, Col, Dropdown, ButtonGroup, InputGroup, FormControl } from "react-bootstrap";
-import { LoadingBar } from "react-redux-loading-bar";
+// import { LoadingBar } from "react-redux-loading-bar";
 
 
 class AddPhoneNumber extends Component {
@@ -14,7 +14,7 @@ class AddPhoneNumber extends Component {
     render() {
         return (
             <div className={styles.container}>
-                <LoadingBar />
+                {/* <LoadingBar /> */}
                 <Form className={styles.form}>
                     <h4>Add Your Phone Number</h4>
                     <p className="text-muted my-2">This is so your host and Airbnb can reach you</p>
