@@ -1,23 +1,6 @@
 #Airbnb
 Anywhere . Stays . Airbnb
 
-![Airbnb](https://i.imgur.com/EPDFY0f.png)
-
-## Clone of Airbnb
-To view  Airbnb [click here](https://www.airbnb.co.in/).
-
-To view  demo [click here](https://markdownlivepreview.com/).
-
-To view  source code [click here](https://markdownlivepreview.com/).
-
-## Features
-
-* User can login through Google or Facebook from ease.
-* Autocomplete location.
-* User can view the property locations on Google Maps.
-* Search properties by Filters
-* User will get recommendations based on his interest.
-
 ## Getting started
 ### To run that demo on your own computer:
 * `Clone this repository`
@@ -42,5 +25,28 @@ Install dependencies :
 * `redux-thunk`
 * `uuid`
 
+Go to
+```
+├── public
+    ├── index.html
 
-Run command `npm start`
+
+<script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=PLEASE_PUT_YOUR_GOOGLE_MAPS_API_KEY_HERE&libraries=places"></script>
+
+    Please put your google api key here.
+```
+
+and
+```
+├── public
+├── src
+├── README.md
+├── create a .env file and put your api key as shown. (REACT_APP_API_KEY = PUT_YOUR_GOOGLE_MAPS_API_KEY_HERE)
+├──package-lock.json
+└── .gitignore
+```
+
+Run command
+
+`npm start`
