@@ -1,0 +1,124 @@
+.priceDetailsCard {
+  max-width: 600px;
+  border-radius: 22px;
+  margin-top: 80px;
+}
+
+.ratingStar {
+  color: #FF5A5F;
+}
+
+.rating {
+  font-weight: 300;
+  font-size: 12px;
+  margin: 0px 2px;
+}
+
+.numrated {
+  font-weight: 300;
+  color: #222;
+  font-size: 12px;
+  margin: 0px 2px;
+}
+
+.formLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.dateLabel {
+  z-index: 10;
+}
+
+.checkoutLabel {
+  position: absolute;
+  right: 0;
+  right: -37px;
+  text-align: center;
+}
+
+.addButton {
+  cursor: pointer;
+  display: block;
+  position: relative;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+  border-radius: 22px;
+  padding: 8px 8px;
+  font-weight: 300 !important;
+  height: 42px;
+}
+
+.guestCard {
+  max-width: 600px;
+  border-radius: 28px;
+  height: 400px;
+}
+
+.guestButton {
+  width: 32px;
+  height: 32px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: inline-flex;
+  text-align: center;
+  color: rgb(113, 113, 113);
+  font-family: inherit;
+  touch-action: manipulation;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(176, 176, 176);
+  outline: none;
+  background: rgb(255, 255, 255);
+  border-radius: 50%;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  box-sizing: border-box;
+  flex: 0 1 auto;
+}
+
+.close {
+  text-align: right;
+}
+
+.amountSpan {
+  font-weight: 700;
+}
+
+.priceCont {
+  font-size: 14px;
+}
+
+.discountAmount {
+  text-decoration: line-through;
+}
+
+.priceListText {
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.guestDropdown {
+  min-width: 350px;
+  border: none;
+}
+
+.helperText {
+  font-weight: 300;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.addDateCard {
+  border-radius: 12px;
+}

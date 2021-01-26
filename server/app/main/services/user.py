@@ -1,4 +1,4 @@
-from ..models import db, UserModel, UserOAuthModel
+from ..models import db, UserModel, UserOAuthModel, ImageModel
 import json
 import jwt
 from instance.config import SECRET_KEY
@@ -32,7 +32,6 @@ def register(userDetails):
             lastname == '' or \
             email == '' or \
             dob == '' or \
-            email == '' or \
             phone == '' or \
             password == '':
         return json.dumps(
@@ -66,7 +65,7 @@ def register(userDetails):
         except Exception as err:
             return {'error': True, 'error_found': format(err)}
 
-    return {"error": True, "message": "Email already exists"}
+    return {"error": True, "message": "Registration failed, user already exists"}
 
 
 def login(userDetails):
@@ -94,34 +93,33 @@ def login(userDetails):
     if results is not None:
         if results.password == password:
             if results.email == email:
-                data = {
+                data = [{
                     "firstname": results.firstname,
                     "lastname": results.lastname,
                     "dob": str(results.dob),
                     "email": results.email,
                     "phone": results.phone,
                     "userType": results.userType,
-                    "created_at": results.createdAt,
-                    "user_id": res.id
-                }
+                    "created_at": str(results.createdAt),
+                    "user_id": results.id
+                }]
                 obj = {
                     "data": data,
                     "session_expiry": time.time() + 86400
                 }
 
-                encode_jwt = jwt.encode(obj, SECRET_KEY)
+                encodeJwt = jwt.encode(obj, SECRET_KEY)
 
                 return json.dumps({
                     "error": False,
-                    "token": encode_jwt.decode(),
+                    "token": encodeJwt.decode(),
                     "message": "Logged in successfully!"
                 })
 
         else:
             return json.dumps({
                 "error": True,
-                "message":
-                "You have entered the wrong password!"
+                "message": "Invalid login creadentials"
             })
 
     return json.dumps({"error": True, "message": "Unknown error!"})
@@ -136,8 +134,7 @@ def oauth_login(userDetails):
         lastname = userDetails["lastname"]
         email = userDetails["email"]
         provider = userDetails["provider"]
-        provider_id = userDetails["provider_id"]
-        access_token = userDetails["access_token"]
+        providerId = userDetails["provider_id"]
         createdAt = time.strftime('%Y-%m-%d %H:%M:%S')
     except KeyError as err:
         return json.dumps({'error': True, 'error_found': format(err)})
@@ -150,70 +147,140 @@ def oauth_login(userDetails):
 
     if results is not None:
         if results.email == email:
-            data = {
-                "firstname": results.firstname,
-                "lastname": results.lastname,
-                "email": results.email,
-                "userType": results.userType,
-                "created_at": results.createdAt,
-                "user_id": res.id
-            }
+            """
+            checking if user already exists or not
+            """
+            if results.phone is not None:
+                data = [{
+                    "firstname": results.firstname,
+                    "lastname": results.lastname,
+                    "dob": str(results.dob),
+                    "email": results.email,
+                    "phone": results.phone,
+                    "userType": results.userType,
+                    "created_at": str(results.createdAt),
+                    "user_id": results.id
+                }]
+            else:
+                data = [{
+                    "firstname": results.firstname,
+                    "lastname": results.lastname,
+                    "email": results.email,
+                    "userType": results.userType,
+                    "created_at": str(results.createdAt),
+                    "user_id": results.id,
+                    "phone": '',
+                    "dob": '',
+                }]
             d = {
                 "data": data,
                 "session_expiry": time.time() + 86400
             }
-            encode_jwt = jwt.encode(d, SECRET_KEY)
+            encodeJwt = jwt.encode(d, SECRET_KEY)
             return json.dumps({
                 "error": False,
-                "token": encode_jwt.decode(),
+                "token": encodeJwt.decode(),
                 "message": "Logged in successfully!"
             })
-        else:
-            try:
-                userType = "user"
+    else:
+        try:
+            """
+            registering as new user
+            """
+            userType = "user"
+            user = UserModel(
+                firstname=firstname,
+                lastname=lastname,
+                email=email,
+                userType=userType,
+                createdAt=createdAt
+            )
+            db.session.add(user)
+            db.session.commit()
 
-                user = UserModel(
-                    firstname=firstname,
-                    lastname=lastname,
-                    email=email,
-                    userType=userType,
-                    createdAt=createdAt
+            res = UserModel.query.filter(UserModel.email == email).first()
+            relation = UserOAuthModel.query.filter(UserOAuthModel.userId == res.id).first()
+            if relation is None:
+                """
+                saving data of OAuth
+                """
+                u = UserOAuthModel(
+                    userId=res.id,
+                    provider=provider,
+                    providerId=providerId,
                 )
-
-                db.session.add(user)
+                db.session.add(u)
                 db.session.commit()
 
-                res = UserModel.query.filter(UserModel.email == email).first()
+            data_ = [{
+                "firstname": res.firstname,
+                "lastname": res.lastname,
+                "email": res.email,
+                "userType": res.userType,
+                "created_at": str(res.createdAt),
+                "user_id": res.id
+            }]
+            obj = {
+                "data": data_,
+                "session_expiry": time.time() + 86400
+            }
+            encodeJwt = jwt.encode(obj, SECRET_KEY)
+            return json.dumps({
+                "error": False,
+                "token": encodeJwt.decode(),
+                "message": "Logged in successfully!"
+            })
+        except Exception as err:
+            return {'error': True, 'error_found': format(err)}        
+    return json.dumps({"error": True, "message": "Unknown error!"})    
 
-                relation = UserOAuthModel.query.filter(UserModel.user_id == res.id).first()
-                if relation is None:
-                    u = UserOAuthModel(
-                        user_id=res.id,
-                        provider=provider,
-                        provider_id=provider_id,
-                        access_token=access_token
-                    )
-                    db.session.add(u)
-                    db.session.commit()
 
-                data_ = {
-                    "firstname": res.firstname,
-                    "lastname": res.lastname,
-                    "email": res.email,
-                    "userType": res.userType,
-                    "created_at": res.createdAt,
-                    "user_id": res.id
-                }
-                obj = {
-                    "data": data_,
-                    "session_expiry": time.time() + 86400
-                }
-                encode_jwt = jwt.encode(obj, SECRET_KEY)
-                return json.dumps({
-                    "error": False,
-                    "token": encode_jwt.decode(),
-                    "message": "Logged in successfully!"
-                })
-            except Exception as err:
-                return {'error': True, 'error_found': format(err)}
-    return json.dumps({"error": True, "message": "Unknown error!"})
+def sendUserDetails(payload):
+    data= payload["token"]
+    decodedData = jwt.decode(data, SECRET_KEY)
+
+    current_time = time.time()
+
+    if decodedData["session_expiry"] < current_time:
+        return json.dumps({
+            "error": True,
+            "message": "Invalid Token"
+        })
+    else:
+        return json.dumps({
+            "data": decodedData,
+            "message": True
+        }, default=str)
+
+def updateUserPhone(payload):
+    try:
+        phone = payload["phone"]
+        userId = payload["user_id"]
+    except KeyError as err:
+        return json.dumps({'error': True, 'error_found': format(err)})
+    except TypeError as err:
+        return json.dumps({'error': True, 'error_found': format(err)})
+    except Exception as err:
+        return json.dumps({'error': True, 'error_found': format(err)})
+
+    if payload is None:
+        return json.dumps({'error': True, 'error_found': 'data is empty'})
+    elif phone == '' :
+        return json.dumps(
+            {'error': True, 'error_found': 'field is empty'}
+        )
+
+    user = UserModel.query.filter_by(id=userId).first()
+
+    if user is not None:
+        try:
+            user.phone = phone
+            db.session.commit()
+            return json.dumps({
+                "error": False,
+                "message": "User phone number updated successfully"
+            })
+        except Exception as err:
+            return {'error': True, 'error_found': format(err)}
+
+    return {"error": True, "message": "Updated failed, no user exists with this user id"}

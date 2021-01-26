@@ -2,15 +2,10 @@ import {
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAILURE,
-    LOGOUT_USER_REQUEST,
-    LOGOUT_USER_SUCCESS,
-    LOGOUT_USER_FAILURE,
+    LOGOUT_USER,
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAILURE,
-    TOKEN_VALIDATE_REQUEST,
-    TOKEN_VALIDATE_SUCCESS,
-    TOKEN_VALIDATE_FAILURE,
     FACEBOOK_LOGIN_REQUEST,
     FACEBOOK_LOGIN_SUCCESS,
     FACEBOOK_LOGIN_FAILURE,
@@ -18,11 +13,21 @@ import {
     GOOGLE_LOGIN_SUCCESS,
     GOOGLE_LOGIN_FAILURE,
     CLOSE_LOGIN_MODAL,
-    CLOSE_REGISTER_MODAL
+    CLOSE_REGISTER_MODAL,
+    TOKEN_VALIDATE_REQUEST,
+    TOKEN_VALIDATE_SUCCESS,
+    TOKEN_VALIDATE_FAILURE,
+    CLOSE_FORGET_PASSWORD,
+    GET_USER_NAME
 } from "../authentication/actionTypes";
 
 import axios from "../../Utils/axiosInterceptor";
 
+
+export const getUserName = payload => ({
+    type: GET_USER_NAME,
+    payload
+})
 
 //Facebook login Request start
 export const facebookLoginRequest = () => ({
@@ -30,7 +35,7 @@ export const facebookLoginRequest = () => ({
 })
 
 export const facebookLoginSuccess = payload => ({
-    type: FACEBOOK_LOGIN_FAILURE,
+    type: FACEBOOK_LOGIN_SUCCESS,
     payload
 })
 
@@ -40,7 +45,6 @@ export const facebookLoginFailure = () => ({
 
 export const facebookLogin = payload => {
     const [firstname, lastname] = payload.name.split(" ")
-    console.log(firstname, "\n" + lastname, "\n" + payload.email, "\n" + payload.accessToken, "\n" + payload.graphDomain, "\n" + payload.id)
     return dispatch => {
         dispatch(facebookLoginRequest());
         return axios
@@ -55,6 +59,7 @@ export const facebookLogin = payload => {
             .then(res => {
                 dispatch(facebookLoginSuccess(res.data));
             })
+            .then(() => dispatch(getUserName(payload.name)))
             .catch(() => dispatch(facebookLoginFailure()));
     };
 }
@@ -77,9 +82,7 @@ export const googleLoginFailure = () => ({
 })
 
 export const googleLogin = payload => {
-    console.log(payload)
     const [firstname, lastname] = payload.profileObj.name.split(" ")
-    console.log(firstname, "\n" + lastname, "\n" + payload.profileObj.email, "\n" + payload.accessToken + "\n", payload.wc.idpId, payload.googleId)
     return dispatch => {
         dispatch(googleLoginRequest());
         return axios
@@ -93,7 +96,7 @@ export const googleLogin = payload => {
             })
             .then(res => {
                 dispatch(googleLoginSuccess(res.data));
-            })
+            }).then(() => dispatch(getUserName(payload.profileObj.name)))
             .catch(() => dispatch(googleLoginFailure()));
     };
 }
@@ -115,7 +118,6 @@ export const loginUserFailure = () => ({
 });
 
 export const loginUser = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(loginUserRequest());
         return axios
@@ -147,7 +149,6 @@ export const registerUserFailure = () => ({
 });
 
 export const registerUser = payload => {
-    console.log(payload)
     return dispatch => {
         dispatch(registerUserRequest());
         return axios
@@ -169,18 +170,17 @@ export const registerUser = payload => {
 
 
 //Logout user request start
-export const logoutUserRequest = () => ({
-    type: LOGOUT_USER_REQUEST
+// export const logoutUserRequest = () => ({
+//     type: LOGOUT_USER_REQUEST
+// });
+
+export const logoutUser = () => ({
+    type: LOGOUT_USER,
 });
 
-export const logoutUserSuccess = payload => ({
-    type: LOGOUT_USER_SUCCESS,
-    payload
-});
-
-export const logoutUserFailure = () => ({
-    type: LOGOUT_USER_FAILURE
-});
+// export const logoutUserFailure = () => ({
+//     type: LOGOUT_USER_FAILURE
+// });
 //Logout user request end
 
 
@@ -189,7 +189,38 @@ export const closeLoginModal = () => ({
     type: CLOSE_LOGIN_MODAL
 })
 
+
 //close registration modal
 export const closeRegisterModal = () => ({
     type: CLOSE_REGISTER_MODAL
+})
+
+// For the token Validation
+export const tokenValidateRequest = () => ({
+    type: TOKEN_VALIDATE_REQUEST
+});
+
+export const tokenValidateSuccess = payload => ({
+    type: TOKEN_VALIDATE_SUCCESS,
+    payload
+});
+
+export const tokenValidateFail = () => ({
+    type: TOKEN_VALIDATE_FAILURE
+});
+
+export const tokenValidateUser = payload => {
+    return dispatch => {
+        dispatch(tokenValidateRequest());
+        return axios
+            .post("user/userdetails", { token: payload })
+            .then(res => dispatch(tokenValidateSuccess(res.data))
+            )
+            .catch(() => dispatch(tokenValidateFail()));
+    };
+};
+
+
+export const closeForgetPassword = () => ({
+    type: CLOSE_FORGET_PASSWORD
 })
